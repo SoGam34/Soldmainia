@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Close | sf::Style::Titlebar);
+	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
 	window->setFramerateLimit(25);
 
 	myData = new Data();
@@ -38,7 +38,6 @@ void Game::SpielLauft()
 	while (window->isOpen())
 	{
 		update();
-		myData->getAnimationen().Aktualisieren(window);
 		mahlen();
 
 		if (cKeyboard.isKeyPressed(cKeyboard.Escape))
@@ -135,8 +134,6 @@ void Game::update()
 		{
 		case 1: 
 		{
-
-			myData->getAnimationen().startBenarichtigung(false);
 			cBAZ->startAusbildung();	//starten Gedrükt
 		}break;
 		case 11: 
@@ -147,23 +144,16 @@ void Game::update()
 		{
 			cBAZ->AnzahlReduzieren();	//Anzahl der Mitglieder wird gesengt
 		}break;
-
 		case 2: 
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(2);
 			cBAZ->UpgradeGeschwindikeit();	//Upgrade Geschwindikeit
 		}break;
 		case 3:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(3);
 			cBAZ->UpgradeGrundstarke();	 //Upgrade Grundstärke
 		}break;
 		case 4: 
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(4);
 			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
 		}break;
 		}
@@ -175,37 +165,28 @@ void Game::update()
 		{
 		case 1:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
 			cScoutbüro->startSuche();				// Suche Starten
 		}break;
 		case 2:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(2);
-			cScoutbüro->UpgradeGeschwindikeit();
+			cScoutbüro->UpgradeGeschwindikeit();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(3);
-			cScoutbüro->UpgradeRang();				//Upgrade Starten
+			cScoutbüro->UpgradeRang();				// Erhöht den mindest Rang
 		}break;
 		case 4:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			myData->getAnimationen().startUpgradeAnimation(4);
-			cScoutbüro->UpgradeKosten();			//Upgrade Starten
+			cScoutbüro->UpgradeKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
-			myData->getAnimationen().startBenarichtigung(true);
-			cScoutbüro->Annehmen();					//Annehmen 
+			cScoutbüro->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
-			myData->getAnimationen().startBenarichtigung(false);
-			cScoutbüro->Ablehnen();					//Ablehnen 
-		}break;
+			cScoutbüro->Ablehnen();					// Ablehnen 
+		}break; 
 		}
 	}break;
 	default:
@@ -220,6 +201,8 @@ void Game::update()
 		neuerTag();
 		clTagesTimer.restart();
 	}
+	
+	myData->getAnimationen().Aktualisieren();
 
 }
 
@@ -262,6 +245,8 @@ void Game::neuerTag()
 
 void Game::mahlen()
 {
+	myData->getAnimationen().clearWindow(window);
+
 	switch (eAktuellesMenu)
 	{
 	case Hauptmenu: {           

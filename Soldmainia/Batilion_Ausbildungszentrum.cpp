@@ -46,9 +46,9 @@ std::stringstream Batilion_Ausbildungszentrum::AusbildungsText()
 
 void Batilion_Ausbildungszentrum::startAusbildung()
 {
-	if (cData->getiKontostand() > cData->getKostenProKopf() * iVoraussichtlicheZeit) // überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getKostenProKopf() * (iVoraussichtlicheZeit+iZeitversatz)) // überprüfen ob die Ausbildung bezahlt werden kann
 	{
-		
+		cData->getAnimationen().startBenarichtigung(false);
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
 		cData->setiKontostand(cData->getiKontostand() - cData->getKostenProKopf() * iVoraussichtlicheZeit);	// Abziehn der gesamten Ausbildungskosten
 		bAusbildungAktiv = true;																			// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird 
@@ -114,6 +114,9 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 0));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(0, 0, cData->getfUpgradeKosten(0, 0) * 1.2);								// Speichern der neuen Verbesserungskosten
+		
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(2);
 
 		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
@@ -148,6 +151,9 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 1));			// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * 1.6);						// Speichern der neuen Verbesserungskosten
 
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(3);
+		
 		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
 			aktstd();
@@ -180,6 +186,9 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 2));			// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(0, 2, cData->getfUpgradeKosten(0, 2) * 1.4);						// Speichern der neuen Verbesserungskosten
+		
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(4);
 
 		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{

@@ -77,6 +77,7 @@ void Scoutbüro::startSuche()
 	}
 	cData->getKacheln(12).neuesBild(SucheText().str(), 160, 1, 1, 1);
 	bSucheAktiv = true;
+	cData->getAnimationen().startBenarichtigung(false);
 }
 
 void Scoutbüro::aktSuche()
@@ -105,6 +106,7 @@ void Scoutbüro::Annehmen()
 	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 1, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getAnimationen().startBenarichtigung(true);
 }
 
 void Scoutbüro::Ablehnen()
@@ -113,6 +115,7 @@ void Scoutbüro::Ablehnen()
 	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 1, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getAnimationen().startBenarichtigung(false);
 }
 
 void Scoutbüro::upgrade()
@@ -127,6 +130,9 @@ void Scoutbüro::UpgradeGeschwindikeit()
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * 1.2);								// Speichern der neuen Verbesserungskosten
+		
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(2);
 
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
@@ -160,6 +166,9 @@ void Scoutbüro::UpgradeRang()
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 0) * 1.2);								// Speichern der neuen Verbesserungskosten
+		
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(3);
 
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
@@ -192,7 +201,10 @@ void Scoutbüro::UpgradeKosten()
 		iKostenmitarbeiter -= 10;																	// Durchfüren der Verbesserung 
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * 1.4);						// Speichern der neuen Verbesserungskosten		
+		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * 1.4);						// Speichern der neuen Verbesserungskosten	
+
+		cData->getAnimationen().startBenarichtigung(false);
+		cData->getAnimationen().startUpgradeAnimation(4);
 
 		if (!bSucheAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
