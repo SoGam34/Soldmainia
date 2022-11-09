@@ -21,7 +21,11 @@ public:
 
 	void changeText(std::string Text, int PosTextY);
 
+	void drawFenster(sf::RenderTarget& target);
+
 	void draw(sf::RenderTarget& target);
+	
+	void drawText(sf::RenderTarget& target);
 	//Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
 	int checkButtenishover(sf::Vector2i mouspos);
@@ -41,6 +45,11 @@ public:
 	void setNormalColor();
 
 	int getID();
+	
+	int getTextureID();
+	
+	sf::Vector2i getTexturePosition();
+	
 private:
 	//Kachel
 	sf::RectangleShape kachel;
@@ -50,7 +59,8 @@ private:
 	int iID;
 	void newText(std::string Text, int PosTextY);
 	//Texture
-	int iIDTexture, iPosTextureX, iPosTextureY;
+	int iIDTexture;
+	sf::Vector2i TexturePos;
 	//Butten
 	std::vector <Butten*> vButten;
 	int iButtenZähler;

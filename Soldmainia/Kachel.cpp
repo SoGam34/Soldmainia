@@ -13,8 +13,8 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 {
 	// Texture
 	iIDTexture = IDTexture;
-	iPosTextureX = PosTextureX;
-	iPosTextureY = PosTextureY;
+	TexturePos.x = PosTextureX;
+	TexturePos.y = PosTextureY;
 	//Kachel
 	iID = ID;
 	kachel.setPosition(PosKachelX, PosKachelY);
@@ -64,8 +64,8 @@ void Kachel::neuesBild(std::string Text,  int PosTextY,
 	newText(Text, PosTextY);
 	// Texture
 	iIDTexture = IDTexture;
-	iPosTextureX = PosTextureX;
-	iPosTextureY = PosTextureY;
+	TexturePos.x = PosTextureX;
+	TexturePos.y = PosTextureY;
 }
 
 void Kachel::changeText(std::string Text, int PosTextY)
@@ -73,7 +73,23 @@ void Kachel::changeText(std::string Text, int PosTextY)
 	newText(Text, PosTextY);
 }
 
+void Kachel::drawFenster(sf::RenderTarget& target)
+{
+	target.draw(kachel);
+	target.draw(tText);
+	for (auto e : vButten)
+		e->draw(target);
+}
+
 void Kachel::draw(sf::RenderTarget& target)
+{
+	target.draw(kachel);
+	target.draw(tText);
+	for (auto e : vButten)
+		e->draw(target);
+}
+
+void Kachel::drawText(sf::RenderTarget& target)
 {
 	target.draw(kachel);
 	target.draw(tText);

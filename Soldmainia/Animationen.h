@@ -7,13 +7,15 @@ public:
 	Animationen();
 	~Animationen();
 
-	void Aktualisieren(sf::RenderTarget* window);
+	void Aktualisieren();
 
-	void draw(sf::RenderWindow* window);
+	void draw(sf::RenderTarget* window);
 
 	void startUpgradeAnimation(int Spalte);
 
 	void startBenarichtigung(bool gut);
+	
+	void clearWindow(sf::RenderTarget* window);
 
 private:
 	sf::Texture UpgradePfeil;

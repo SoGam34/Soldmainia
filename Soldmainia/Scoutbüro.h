@@ -30,12 +30,19 @@ public:
 	void updateTimer();
 
 private:
-	Data* cData;				// Data zeiger 
-	bool bSucheAktiv;			// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei
-	int iVoraussichtlicheZeit;	// Gibt an wie lange die Ausbildung vorausichtlich dauert 
-	int iZeitversatz;			// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
+	// Data zeiger
+	Data* cData;				 
+	// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei
+	bool bSucheAktiv;			
+	// Gibt an wie lange die Ausbildung vorausichtlich dauert 
+	int iVoraussichtlicheZeit;	
+	// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
+	int iZeitversatz;		
+	// Der mindest Rang den ein EM haben kann
 	int iRangmin;
+	// Die Mitarbeiterkosten der Suche 
 	int iKostenmitarbeiter;
+	// Für eine einfachere Verfaltung des der Suche und Erzeugung
 	enum Rang { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
 	Rang eRang;
 };

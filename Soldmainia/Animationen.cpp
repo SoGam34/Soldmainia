@@ -20,7 +20,7 @@ Animationen::~Animationen()
 
 }
 
-void Animationen::Aktualisieren(sf::RenderTarget* window)
+void Animationen::Aktualisieren()
 {
 	if (sUpgradeAnimation > 0)
 	{
@@ -74,12 +74,9 @@ void Animationen::Aktualisieren(sf::RenderTarget* window)
 		r = g = 60;
 		b = 180;
 	}
-
-	window->clear(sf::Color(r, g, b, 200));
-
 }
 
-void Animationen::draw(sf::RenderWindow* window)
+void Animationen::draw(sf::RenderTarget* window)
 {
 	if (sUpgradeAnimation>0)
 	{
@@ -97,6 +94,7 @@ void Animationen::startUpgradeAnimation(int Spalte)
 	{
 		tempx = rand() % 130+30;
 		tempy = rand() % 150 + 160;
+		tempx += (Spalte>3) ? 20 : 0;
 		Pfeile[i].setPosition(((Spalte - 1) * 230) + tempx, tempy);
 	}
 }
@@ -107,4 +105,9 @@ void Animationen::startBenarichtigung(bool gut)
 	b = 180;
 	sBenarichtigung = 60;
 	bBenarichtigungsArt = gut;
+}
+
+void Animationen::clearWindow(sf::RenderTarget* window)
+{
+	window->clear(sf::Color(r, g, b, 200));
 }
