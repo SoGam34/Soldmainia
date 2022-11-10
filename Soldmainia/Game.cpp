@@ -2,9 +2,6 @@
 
 Game::Game()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
-	window->setFramerateLimit(25);
-
 	myData = new Data();
 
 	//Gebaude
@@ -17,11 +14,8 @@ Game::Game()
 	cAuswahl = new Auswahl();
 	cAuswahl->setData(myData);
 
+	cView = new View(myData);
 	iTag = 0;
-
-	sfText.setPosition(20, 10);
-	sfText.setCharacterSize(20);
-	sfText.setFont(*myData->getFont());
 }
 
 Game::~Game()
@@ -29,19 +23,19 @@ Game::~Game()
 	delete cBAZ;
 	delete cScoutbüro;
 	delete cAuswahl;
+	delete cView;
 	delete myData;
-	delete window;
 }
 
 void Game::SpielLauft()
 {
-	while (window->isOpen())
+	while (cView->windowOpen())
 	{
 		update();
 		mahlen();
 
 		if (cKeyboard.isKeyPressed(cKeyboard.Escape))
-			window->close();
+			cView->Close();
 
 		if (cKeyboard.isKeyPressed(cKeyboard.H))
 			eAktuellesMenu = Hauptmenu;
@@ -59,7 +53,7 @@ void Game::SpielLauft()
 
 void Game::update()
 {
-	vMauspos = cMouse.getPosition(*window);
+	vMauspos = cView->getMousPos();
 
 	switch (eAktuellesMenu)
 	{
@@ -245,55 +239,22 @@ void Game::neuerTag()
 
 void Game::mahlen()
 {
-	myData->getAnimationen().clearWindow(window);
-
 	switch (eAktuellesMenu)
 	{
-	case Hauptmenu: {           
-		mahlenText("Hauptmenu");
-		window->draw(sfText);
-
-		for (int i = 0; i < 8; i++)
-		{
-			myData->getHauptmenu(i).draw(*window);
-		}
+	case Hauptmenu: 
+	{           
+		cView->DrawHauptmenu(iTag);
 	}break;
 	case Batilionsausbildungsstate:
 	{
-		mahlenText("Batilionsausbildungszentrum");
-		window->draw(sfText);
-
-		for (int i = 8; i < 12 ; i++)
-		{
-			myData->getKacheln(i).draw(*window);
-		}
-
-		myData->getAnimationen().draw(window);
+		cView->DrawBAZ(iTag);
 	}break;
 	case scoutbüro:
 	{
-		mahlenText("Scout Büro");
-		window->draw(sfText);
-
-		for (int i = 12; i < 16; i++)
-		{
-			myData->getKacheln(i).draw(*window);
-		}
-
-		myData->getAnimationen().draw(window);
-
+		cView->DrawScoutbuero(iTag);
 	}break;
 	default: {
 
 	}break;
 	}
-
-	window->display();
-}
-
-void Game::mahlenText(std::string titel)
-{
-	std::stringstream ssTitel;
-	ssTitel << "Kontostand: " << myData->getiKontostand() << "                         " << titel <<"                      Tag: " << iTag;
-	sfText.setString(ssTitel.str());
 }

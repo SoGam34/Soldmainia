@@ -161,6 +161,7 @@
     </ClInclude>
     <ClInclude Include="Scoutbüro.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="View.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animationen.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Scoutbüro.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="View.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

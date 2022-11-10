@@ -86,9 +86,7 @@ void Kachel::drawText(sf::RenderTarget& target)
 {
 	target.draw(tText);
 	for (auto e : vButten)
-	{
-		e.drawText(target);
-	}
+		e->drawText(target);
 }
 //Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
@@ -171,7 +169,7 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
  {
 	 return iIDTexture;
  }
- sf::Vector2i Kachel::getTexturePosition()
+ sf::Vector2f Kachel::getTexturePosition()
  {
 	 return TexturePos;
  }

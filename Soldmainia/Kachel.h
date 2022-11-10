@@ -46,7 +46,7 @@ public:
 	
 	int getTextureID();
 	
-	sf::Vector2i getTexturePosition();
+	sf::Vector2f getTexturePosition();
 	
 private:
 	//Kachel
@@ -58,7 +58,7 @@ private:
 	void newText(std::string Text, int PosTextY);
 	//Texture
 	int iIDTexture;
-	sf::Vector2i TexturePos;
+	sf::Vector2f TexturePos;
 	//Butten
 	std::vector <Butten*> vButten;
 	int iButtenZähler;
