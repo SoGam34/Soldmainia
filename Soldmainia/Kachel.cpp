@@ -4,6 +4,8 @@
 Kachel::Kachel()
 {
 	bdruken = false;
+	//Butten
+	vButten.clear();
 }
 
 Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
@@ -76,25 +78,17 @@ void Kachel::changeText(std::string Text, int PosTextY)
 void Kachel::drawFenster(sf::RenderTarget& target)
 {
 	target.draw(kachel);
-	target.draw(tText);
 	for (auto e : vButten)
-		e->draw(target);
-}
-
-void Kachel::draw(sf::RenderTarget& target)
-{
-	target.draw(kachel);
-	target.draw(tText);
-	for (auto e : vButten)
-		e->draw(target);
+		e->drawFenster(target);
 }
 
 void Kachel::drawText(sf::RenderTarget& target)
 {
-	target.draw(kachel);
 	target.draw(tText);
 	for (auto e : vButten)
-		e->draw(target);
+	{
+		e.drawText(target);
+	}
 }
 //Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
@@ -172,6 +166,14 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
  int Kachel::getID()
  {
 	 return iID;
+ }
+ int Kachel::getTextureID()
+ {
+	 return iIDTexture;
+ }
+ sf::Vector2i Kachel::getTexturePosition()
+ {
+	 return TexturePos;
  }
 //Privat Functions
 void Kachel::newText(std::string Text, int PosTextY)

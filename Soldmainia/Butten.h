@@ -21,7 +21,8 @@ public:
 	//Get/Set Funktion
 	 int getID();
 
-	void draw(sf::RenderTarget& target);
+	void drawFenster(sf::RenderTarget& target);
+	void drawText(sf::RenderTarget& target);
 
 private:
 	sf::RectangleShape butten;

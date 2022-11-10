@@ -22,8 +22,6 @@ public:
 	void changeText(std::string Text, int PosTextY);
 
 	void drawFenster(sf::RenderTarget& target);
-
-	void draw(sf::RenderTarget& target);
 	
 	void drawText(sf::RenderTarget& target);
 	//Funktionen zum Überpüfen der Maus und ändern der Farbe
