@@ -7,7 +7,7 @@ View::View()
 	
 	cData = nullptr;
 	
-	tTexture.loadFromFile("Texturen/Pfeil.png");
+	tTexture.loadFromFile(Addressen[0]);
 	sSprite.setTexture(tTexture);
 
 	sfText.setPosition(20, 10);
@@ -22,7 +22,7 @@ View::View(Data* data)
 	
 	cData = data;
 	
-	tTexture.loadFromFile("Texturen/Pfeil.png");
+	tTexture.loadFromFile(Addressen[0]);
 	sSprite.setTexture(tTexture);
 
 	sfText.setPosition(20, 10);
@@ -48,6 +48,7 @@ void View::DrawBAZ(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(8, 4);
+	drawSprite(8, 4);
 	cData->getAnimationen().draw(window);
 	drawText(8, 4, "BAZ", iTage);
 	window->display();
@@ -57,6 +58,7 @@ void View::DrawScoutbuero(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(12, 4);
+	drawSprite(8, 4);
 	cData->getAnimationen().draw(window);
 	drawText(12, 4, "Scoutbüro", iTage);
 	window->display();
@@ -89,10 +91,13 @@ void View::drawSprite(int start, int range)
 {
 	for (int i = start; i < start + range; i++)
 	{
-		tTexture.loadFromFile(Addressen[cData->getKacheln(i).getTextureID()]);
-		sSprite.setTexture(tTexture);
-		sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
-		window->draw(sSprite);
+		if (cData->getKacheln(i).getTextureID() != 99)
+		{
+			tTexture.loadFromFile(Addressen[cData->getKacheln(i).getTextureID()]);
+			sSprite.setTexture(tTexture);
+			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
+			window->draw(sSprite);
+		}
 	}
 }
 

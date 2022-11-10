@@ -31,6 +31,10 @@ private:
 	sf::Texture tTexture;
 	sf::Sprite sSprite;
 	
-	std::string Addressen[15];
+	std::string Addressen[15]
+	{
+		"Texturen/Pfeil.png",
+		"Texturen/Haken.png"
+	};
 	sf::Text sfText;
 };
