@@ -52,13 +52,13 @@ void Batilion_Ausbildungszentrum::startAusbildung()
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
 		cData->setiKontostand(cData->getiKontostand() - cData->getKostenProKopf() * iVoraussichtlicheZeit);	// Abziehn der gesamten Ausbildungskosten
 		bAusbildungAktiv = true;																			// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird 
-		cData->getKacheln(8).neuesBild(AusbildungsText().str(), 110, 1, 1, 1);	//neues Kachel Bild	
+		cData->getKacheln(8).neuesBild(AusbildungsText().str(), 300, 99, 1, 1);	//neues Kachel Bild	
 	}
 }
 
 void Batilion_Ausbildungszentrum::aktAusbildung()
 {
-	cData->getKacheln(8).changeText(AusbildungsText().str(), 110);	//neues Kachel Bild
+	cData->getKacheln(8).changeText(AusbildungsText().str(), 300);	//neues Kachel Bild
 }
 
 void Batilion_Ausbildungszentrum::EndeAusbildung()
@@ -71,7 +71,7 @@ void Batilion_Ausbildungszentrum::EndeAusbildung()
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
 	 ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10 * cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 	
-	 cData->getKacheln(8).neuesBild(ssText.str(), 70 + 90, 1, 1, 1);	// Akktualiesieren des Textes 
+	 cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	 // Hinzufügen aller Notiger Buttens 
 	 cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	 cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
@@ -87,7 +87,7 @@ void Batilion_Ausbildungszentrum::aktstd()
 	//Aktualieseiren der Anzeige wie das nächste Batilion ausehen wird 
 	std::stringstream ssText;
 	ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10* cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
-	cData->getKacheln(8).changeText(ssText.str(), 70 + 90);
+	cData->getKacheln(8).changeText(ssText.str(), 200);
 }
 
 void Batilion_Ausbildungszentrum::AnzahlErhohen()
@@ -129,7 +129,7 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(9).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(9).neuesBild(ss.str(), 350, 1, 285, 95);
 		}
 
 		else
@@ -165,7 +165,7 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(10).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(10).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
@@ -201,7 +201,7 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(11).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(11).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
 		else

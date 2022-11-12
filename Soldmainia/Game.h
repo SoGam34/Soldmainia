@@ -45,8 +45,10 @@ private:
 	Scoutbüro* cScoutbüro;
 
 	//Funktionen
+	void TextAnzeigeinitzaliesieren();
 	void update();
 	int updateButtons(int iOffset, int iAnzahlKacheln);
+	void checkSortcuts();
 	void neuerTag();
 	void mahlen();
 };

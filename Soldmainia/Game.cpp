@@ -16,6 +16,8 @@ Game::Game()
 
 	cView = new View(myData);
 	iTag = 0;
+
+	TextAnzeigeinitzaliesieren();
 }
 
 Game::~Game()
@@ -33,22 +35,31 @@ void Game::SpielLauft()
 	{
 		update();
 		mahlen();
-
-		if (cKeyboard.isKeyPressed(cKeyboard.Escape))
-			cView->Close();
-
-		if (cKeyboard.isKeyPressed(cKeyboard.H))
-			eAktuellesMenu = Hauptmenu;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.Z))
-			eAktuellesMenu = Zentrale;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.A))
-			eAktuellesMenu = Batilionsausbildungsstate;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.S))
-			eAktuellesMenu = scoutbüro;
+		checkSortcuts();
 	}
+}
+
+void Game::TextAnzeigeinitzaliesieren()
+{
+	//Hauptmenu erste Zeile
+	myData->getKacheln(0).changeText("Zentrale", 160);
+	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
+	myData->getKacheln(2).changeText("Träningszentrum", 160);
+	myData->getKacheln(3).changeText("Scout Büro", 160);
+	//Hauptmenu zweite Zeile
+	myData->getKacheln(4).changeText("Aufträge", 160 + 220);
+	myData->getKacheln(5).changeText("Aktive Aufträge", 160 + 220);
+	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
+	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
+	//BAZ
+	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
+	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
+	myData->getKacheln(11).changeText("Reduzierung der Kosten\nKosten 100", 350);
+	//Scoutbüro
+	myData->getKacheln(12).changeText("Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
+	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
+	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
+	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
 }
 
 void Game::update()
@@ -224,6 +235,24 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			myData->getKacheln(i).setNormalColor();
 	}
 	return bButtenGedrückt ? iButtenID : 99;
+}
+
+void Game::checkSortcuts()
+{
+	if (cKeyboard.isKeyPressed(cKeyboard.Escape))
+		cView->Close();
+
+	if (cKeyboard.isKeyPressed(cKeyboard.H))
+		eAktuellesMenu = Hauptmenu;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.Z))
+		eAktuellesMenu = Zentrale;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.A))
+		eAktuellesMenu = Batilionsausbildungsstate;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.S))
+		eAktuellesMenu = scoutbüro;
 }
 
 void Game::neuerTag()

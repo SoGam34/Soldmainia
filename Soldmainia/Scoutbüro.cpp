@@ -75,21 +75,21 @@ void Scoutbüro::startSuche()
 		BerrechnungVoraussichtlicheZeit();
 	}break;
 	}
-	cData->getKacheln(12).neuesBild(SucheText().str(), 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild(SucheText().str(), 300, 99, 1, 1);
 	bSucheAktiv = true;
 	cData->getAnimationen().startBenarichtigung(false);
 }
 
 void Scoutbüro::aktSuche()
 {
-	cData->getKacheln(12).changeText(SucheText().str(), 160);
+	cData->getKacheln(12).changeText(SucheText().str(), 300);
 }
 
 void Scoutbüro::EndeSuche()
 {
 	std::stringstream ssText;
 	ssText << "Starke:Test\nAffinität: Test\nProzentualer Anteil: Test";
-	cData->getKacheln(12).neuesBild(ssText.str(), 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 
@@ -103,7 +103,7 @@ void Scoutbüro::EndeSuche()
 void Scoutbüro::Annehmen()
 {
 	// EM dauerhaft in Data speichern
-	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(true);
@@ -112,7 +112,7 @@ void Scoutbüro::Annehmen()
 void Scoutbüro::Ablehnen()
 {
 	//EM = nullptr
-	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(false);
@@ -145,7 +145,7 @@ void Scoutbüro::UpgradeGeschwindikeit()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(13).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(13).neuesBild(ss.str(), 350, 1, 285 , 95);
 		}
 
 		else
@@ -181,7 +181,7 @@ void Scoutbüro::UpgradeRang()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
@@ -217,7 +217,7 @@ void Scoutbüro::UpgradeKosten()
 			// Ausgabe des neuen Textes
 			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(15).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(15).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
 		else
@@ -233,7 +233,7 @@ void Scoutbüro::aktstd()
 {
 	std::stringstream ssText;
 	ssText << "Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
-	cData->getKacheln(12).changeText(ssText.str(), 160);
+	cData->getKacheln(12).changeText(ssText.str(), 200);
 }
 
 void Scoutbüro::BerrechnungVoraussichtlicheZeit()
