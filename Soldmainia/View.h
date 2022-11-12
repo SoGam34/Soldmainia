@@ -34,7 +34,9 @@ private:
 	std::string Addressen[15]
 	{
 		"Texturen/Pfeil.png",
-		"Texturen/Haken.png"
+		"Texturen/Haken.png",
+		"Texturen/AktiveAuftrage2.png",
+		"Texturen/Auftrage.png"
 	};
 	sf::Text sfText;
 };

@@ -39,7 +39,7 @@ void View::DrawHauptmenu(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(0, 8);
-	cData->getAnimationen().draw(window);
+	drawSprite(0, 8);
 	drawText(0, 8, "Hauptmenu", iTage);
 	window->display();
 }
@@ -58,7 +58,7 @@ void View::DrawScoutbuero(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(12, 4);
-	drawSprite(8, 4);
+	drawSprite(12, 4);
 	cData->getAnimationen().draw(window);
 	drawText(12, 4, "Scoutbüro", iTage);
 	window->display();
@@ -96,6 +96,7 @@ void View::drawSprite(int start, int range)
 			tTexture.loadFromFile(Addressen[cData->getKacheln(i).getTextureID()]);
 			sSprite.setTexture(tTexture);
 			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
+			sSprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
 			window->draw(sSprite);
 		}
 	}
