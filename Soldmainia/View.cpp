@@ -41,6 +41,7 @@ void View::DrawHauptmenu(int iTage)
 	drawFenster(0, 8);
 	drawSprite(0, 8);
 	drawText(0, 8, "Hauptmenu", iTage);
+	cData->getAnimationen().draw(window);
 	window->display();
 }
 
