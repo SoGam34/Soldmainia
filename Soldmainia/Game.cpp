@@ -2,9 +2,6 @@
 
 Game::Game()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
-	window->setFramerateLimit(25);
-
 	myData = new Data();
 
 	//Gebaude
@@ -17,11 +14,10 @@ Game::Game()
 	cAuswahl = new Auswahl();
 	cAuswahl->setData(myData);
 
+	cView = new View(myData);
 	iTag = 0;
 
-	sfText.setPosition(20, 10);
-	sfText.setCharacterSize(20);
-	sfText.setFont(*myData->getFont());
+	TextAnzeigeinitzaliesieren();
 }
 
 Game::~Game()
@@ -29,37 +25,46 @@ Game::~Game()
 	delete cBAZ;
 	delete cScoutbüro;
 	delete cAuswahl;
+	delete cView;
 	delete myData;
-	delete window;
 }
 
 void Game::SpielLauft()
 {
-	while (window->isOpen())
+	while (cView->windowOpen())
 	{
 		update();
 		mahlen();
-
-		if (cKeyboard.isKeyPressed(cKeyboard.Escape))
-			window->close();
-
-		if (cKeyboard.isKeyPressed(cKeyboard.H))
-			eAktuellesMenu = Hauptmenu;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.Z))
-			eAktuellesMenu = Zentrale;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.A))
-			eAktuellesMenu = Batilionsausbildungsstate;
-
-		if (cKeyboard.isKeyPressed(cKeyboard.S))
-			eAktuellesMenu = scoutbüro;
+		checkSortcuts();
 	}
+}
+
+void Game::TextAnzeigeinitzaliesieren()
+{
+	//Hauptmenu erste Zeile
+	myData->getKacheln(0).changeText("Zentrale", 160);
+	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
+	myData->getKacheln(2).changeText("Traningszentrum", 160);
+	myData->getKacheln(3).changeText("Scout Büro", 160);
+	//Hauptmenu zweite Zeile
+	myData->getKacheln(4).changeText("Aufträge", 160 + 220);
+	myData->getKacheln(5).changeText("Aktive Aufträge", 160 + 220);
+	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
+	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
+	//BAZ
+	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
+	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
+	myData->getKacheln(11).changeText("Reduzierung der Kosten\nKosten 100", 350);
+	//Scoutbüro
+	myData->getKacheln(12).changeText("Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
+	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
+	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
+	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
 }
 
 void Game::update()
 {
-	vMauspos = cMouse.getPosition(*window);
+	vMauspos = cView->getMousPos();
 
 	switch (eAktuellesMenu)
 	{
@@ -232,6 +237,24 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 	return bButtenGedrückt ? iButtenID : 99;
 }
 
+void Game::checkSortcuts()
+{
+	if (cKeyboard.isKeyPressed(cKeyboard.Escape))
+		cView->Close();
+
+	if (cKeyboard.isKeyPressed(cKeyboard.H))
+		eAktuellesMenu = Hauptmenu;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.Z))
+		eAktuellesMenu = Zentrale;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.A))
+		eAktuellesMenu = Batilionsausbildungsstate;
+
+	if (cKeyboard.isKeyPressed(cKeyboard.S))
+		eAktuellesMenu = scoutbüro;
+}
+
 void Game::neuerTag()
 {
 	iTag++;
@@ -245,55 +268,22 @@ void Game::neuerTag()
 
 void Game::mahlen()
 {
-	myData->getAnimationen().clearWindow(window);
-
 	switch (eAktuellesMenu)
 	{
-	case Hauptmenu: {           
-		mahlenText("Hauptmenu");
-		window->draw(sfText);
-
-		for (int i = 0; i < 8; i++)
-		{
-			myData->getHauptmenu(i).draw(*window);
-		}
+	case Hauptmenu: 
+	{           
+		cView->DrawHauptmenu(iTag);
 	}break;
 	case Batilionsausbildungsstate:
 	{
-		mahlenText("Batilionsausbildungszentrum");
-		window->draw(sfText);
-
-		for (int i = 8; i < 12 ; i++)
-		{
-			myData->getKacheln(i).draw(*window);
-		}
-
-		myData->getAnimationen().draw(window);
+		cView->DrawBAZ(iTag);
 	}break;
 	case scoutbüro:
 	{
-		mahlenText("Scout Büro");
-		window->draw(sfText);
-
-		for (int i = 12; i < 16; i++)
-		{
-			myData->getKacheln(i).draw(*window);
-		}
-
-		myData->getAnimationen().draw(window);
-
+		cView->DrawScoutbuero(iTag);
 	}break;
 	default: {
 
 	}break;
 	}
-
-	window->display();
-}
-
-void Game::mahlenText(std::string titel)
-{
-	std::stringstream ssTitel;
-	ssTitel << "Kontostand: " << myData->getiKontostand() << "                         " << titel <<"                      Tag: " << iTag;
-	sfText.setString(ssTitel.str());
 }

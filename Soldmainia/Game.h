@@ -3,6 +3,7 @@
 #include "Batilion_Ausbildungszentrum.h"
 #include "Scoutbüro.h"
 #include "Auswahl.h"
+#include "View.h"
 
 class Game
 {
@@ -14,9 +15,6 @@ public:
 	void SpielLauft();
 
 private:
-	//window
-	sf::RenderWindow* window;
-
 	//Allgemein
 	enum AktuellesMenu
 	{
@@ -30,25 +28,27 @@ private:
 	sf::Vector2i vMauspos;
 	sf::Mouse cMouse;
 	sf::Keyboard cKeyboard;
-	sf::Text sfText;
 
 	sf::Clock clTagesTimer;
 	int iTag;
 
 	Data* myData;
 	Auswahl* cAuswahl;
-	Scoutbüro* cScoutbüro;
+
+	View* cView;
 
 	//Gebaude
 	//BAZ
 	Batilion_Ausbildungszentrum* cBAZ;
 
+	//Scoutbüro
+	Scoutbüro* cScoutbüro;
+
 	//Funktionen
+	void TextAnzeigeinitzaliesieren();
 	void update();
 	int updateButtons(int iOffset, int iAnzahlKacheln);
+	void checkSortcuts();
 	void neuerTag();
 	void mahlen();
-	void mahlenText(std::string titel);
-
 };
-

@@ -75,47 +75,52 @@ void Scoutbüro::startSuche()
 		BerrechnungVoraussichtlicheZeit();
 	}break;
 	}
-	cData->getKacheln(12).neuesBild(SucheText().str(), 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild(SucheText().str(), 300, 99, 1, 1);
 	bSucheAktiv = true;
-	cData->getAnimationen().startBenarichtigung(false);
+
+	cData->setiKontostand(cData->getiKontostand() - (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz)));
+	std::stringstream ssText;
+	ssText << -(cData->getiKontostand() - (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz))) << " Suchkosten";
+	cData->getAnimationen().startBenarichtigung(false, ssText.str());
+	ssText.clear();
 }
 
 void Scoutbüro::aktSuche()
 {
-	cData->getKacheln(12).changeText(SucheText().str(), 160);
+	cData->getKacheln(12).changeText(SucheText().str(), 300);
 }
 
 void Scoutbüro::EndeSuche()
 {
 	std::stringstream ssText;
 	ssText << "Starke:Test\nAffinität: Test\nProzentualer Anteil: Test";
-	cData->getKacheln(12).neuesBild(ssText.str(), 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 
-	cData->setiKontostand(cData->getiKontostand() - (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz)));
-
+	
 	bSucheAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
-
-	cData->getAnimationen().startBenarichtigung(true);
+	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich Abgeschlossen");
+	ssText.clear();
 }
 
 void Scoutbüro::Annehmen()
 {
 	// EM dauerhaft in Data speichern
-	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getAnimationen().startBenarichtigung(true);
+	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
 }
 
 void Scoutbüro::Ablehnen()
 {
 	//EM = nullptr
-	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 1, 1, 1);
+	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
 	aktstd();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getAnimationen().startBenarichtigung(false);
+	cData->getAnimationen().startBenarichtigung(false, "EM Abgelehnt");
+	bSucheAktiv = false;
 }
 
 void Scoutbüro::upgrade()
@@ -128,12 +133,17 @@ void Scoutbüro::UpgradeGeschwindikeit()
 	{
 		cData->setScoutbüroGeschwindikeitsFaktor(cData->getScoutbüroGeschwindikeitsfaktor() - 0.05);		// Durchfüren der Verbesserung 
 
+		std::stringstream ssk;
+		ssk << -(cData->getfUpgradeKosten(1, 0));
+		cData->getAnimationen().startBenarichtigung(false, ssk.str());
+		ssk.clear();
+		
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * 1.2);								// Speichern der neuen Verbesserungskosten
 		
-		cData->getAnimationen().startBenarichtigung(false);
 		cData->getAnimationen().startUpgradeAnimation(2);
 
+		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
 			BerrechnungVoraussichtlicheZeit();
@@ -143,18 +153,18 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		if (cData->getScoutbüroGeschwindikeitsfaktor() < 0.10)
 		{
 			// Ausgabe des neuen Textes
-			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(13).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(13).neuesBild(ss.str(), 350, 1, 285 , 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			std::stringstream ss;
 			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten:" << cData->getfUpgradeKosten(1, 0);
 			cData->getKacheln(13).changeText(ss.str(), 350);
 		}
+
+		ss.clear();
 	}
 }
 
@@ -164,12 +174,17 @@ void Scoutbüro::UpgradeRang()
 	{
 		iRangmin++;																							// Durchfüren der Verbesserung 
 
+		std::stringstream ssk;
+		ssk << -(cData->getfUpgradeKosten(1, 1));
+		cData->getAnimationen().startBenarichtigung(false, ssk.str());
+		ssk.clear();
+
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 0) * 1.2);								// Speichern der neuen Verbesserungskosten
-		
-		cData->getAnimationen().startBenarichtigung(false);
+		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * 1.6);								// Speichern der neuen Verbesserungskosten
+
 		cData->getAnimationen().startUpgradeAnimation(3);
 
+		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
 			BerrechnungVoraussichtlicheZeit();
@@ -179,18 +194,18 @@ void Scoutbüro::UpgradeRang()
 		if (iRangmin == 6)
 		{
 			// Ausgabe des neuen Textes
-			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			std::stringstream ss;
-			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 0);
+			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1);
 			cData->getKacheln(14).changeText(ss.str(), 320);
 		}
+
+		ss.clear();
 	}	
 }
 
@@ -200,12 +215,17 @@ void Scoutbüro::UpgradeKosten()
 	{
 		iKostenmitarbeiter -= 10;																	// Durchfüren der Verbesserung 
 
+		std::stringstream ssk;
+		ssk << -(cData->getfUpgradeKosten(1, 2));
+		cData->getAnimationen().startBenarichtigung(false, ssk.str());
+		ssk.clear();
+
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * 1.4);						// Speichern der neuen Verbesserungskosten	
 
-		cData->getAnimationen().startBenarichtigung(false);
 		cData->getAnimationen().startUpgradeAnimation(4);
 
+		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
 			BerrechnungVoraussichtlicheZeit();
@@ -215,17 +235,17 @@ void Scoutbüro::UpgradeKosten()
 		if (iKostenmitarbeiter == 10)
 		{
 			// Ausgabe des neuen Textes
-			std::stringstream ss;
 			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(15).neuesBild(ss.str(), 350, 1, 1, 1);
+			cData->getKacheln(15).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
 		else
 		{
-			std::stringstream ss;
 			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(1, 2);
 			cData->getKacheln(15).changeText(ss.str(), 350);
 		}
+
+		ss.clear();
 	}
 }
 
@@ -233,7 +253,8 @@ void Scoutbüro::aktstd()
 {
 	std::stringstream ssText;
 	ssText << "Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
-	cData->getKacheln(12).changeText(ssText.str(), 160);
+	cData->getKacheln(12).changeText(ssText.str(), 200);
+	ssText.clear();
 }
 
 void Scoutbüro::BerrechnungVoraussichtlicheZeit()

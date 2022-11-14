@@ -76,8 +76,12 @@ int Butten::getID()
 	return iID;
 }
 
-void Butten::draw(sf::RenderTarget& target)
+void Butten::drawFenster(sf::RenderTarget& target)
 {
 	target.draw(butten);
+}
+
+void Butten::drawText(sf::RenderTarget& target)
+{
 	target.draw(tText);
 }

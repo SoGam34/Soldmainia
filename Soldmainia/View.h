@@ -9,21 +9,46 @@ public:
 	View(Data* data);
 	~View();
 	
-	void DrawHauptmenu();
-	void DrawBAZ();
-	void DrawScoutbÃ¼ro();
+	void DrawHauptmenu(int iTage);
+	void DrawBAZ(int iTage);
+	void DrawScoutbuero(int iTage);
+
+	sf::Vector2i getMousPos();
+	bool windowOpen();
+	void Close();
 
 private:
 	void drawFenster(int start, int range);
 	void drawSprite(int start, int range);
-	void drawAnimation(int start, int range);
-	void drawText(int start, int range);
+	void drawText(int start, int range, std::string titel, int iTag);
 	
+	//window
+	sf::RenderWindow* window;
+
 	// Data zeiger
 	Data* cData;				 
 	
 	sf::Texture tTexture;
 	sf::Sprite sSprite;
 	
-	std::string Addressen[15];
+	std::string Addressen[16]
+	{
+		"Texturen/Pfeil.png",
+		"Texturen/Haken.png",
+		"Texturen/AktiveAuftrage2.png",
+		"Texturen/Auftrage.png",
+		"Texturen/ArbeitBeschleunigen.png",
+		"Texturen/BessereRang.png",
+		"Texturen/ErhohungGrundstarke.png",
+		"Texturen/Erholungsresort.png",
+		"Texturen/Kaserne.png",
+		"Texturen/Logistik System.png",
+		"Texturen/Scoutbüro.png",
+		"Texturen/Tranigszentrum.png",
+		"Texturen/WarteAusbildung.png",
+		"Texturen/WarteScoutbüro.png",
+		"Texturen/WenigerKosten.png",
+		"Texturen/Zentrale.png"
+	};
+	sf::Text sfText;
 };

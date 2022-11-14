@@ -4,7 +4,9 @@
 class Animationen
 {
 public:
+
 	Animationen();
+	Animationen(sf::Font font);
 	~Animationen();
 
 	void Aktualisieren();
@@ -13,13 +15,17 @@ public:
 
 	void startUpgradeAnimation(int Spalte);
 
-	void startBenarichtigung(bool gut);
+	void startBenarichtigung(bool gut, std::string Text);
 	
 	void clearWindow(sf::RenderTarget* window);
+
+	void setFont(sf::Font* font);
 
 private:
 	sf::Texture UpgradePfeil;
 	std::vector<sf::Sprite> Pfeile;
+
+	sf::Text sfBenarichtigungsText;
 
 	int sBenarichtigung, sUpgradeAnimation;
 	bool bBenarichtigungsArt;
