@@ -119,10 +119,10 @@ void Animationen::startUpgradeAnimation(int Spalte)
 	int tempy;
 	for (int i = 0; i < Pfeile.size(); i++)
 	{
-		tempx = rand() % 130+30;
+		tempx = rand() % 130 + 30;
 		tempy = rand() % 120 + 190;
 		tempx += (Spalte>3) ? 20 : 0;
-		Pfeile[i].setPosition(((Spalte - 1) * 230) + tempx, tempy);
+		Pfeile[i].setPosition(((Spalte - 1) * 230) +(Spalte*20) + tempx, tempy);
 	}
 }
 

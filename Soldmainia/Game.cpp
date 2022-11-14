@@ -44,7 +44,7 @@ void Game::TextAnzeigeinitzaliesieren()
 	//Hauptmenu erste Zeile
 	myData->getKacheln(0).changeText("Zentrale", 160);
 	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
-	myData->getKacheln(2).changeText("Träningszentrum", 160);
+	myData->getKacheln(2).changeText("Traningszentrum", 160);
 	myData->getKacheln(3).changeText("Scout Büro", 160);
 	//Hauptmenu zweite Zeile
 	myData->getKacheln(4).changeText("Aufträge", 160 + 220);

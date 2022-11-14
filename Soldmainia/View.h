@@ -31,12 +31,24 @@ private:
 	sf::Texture tTexture;
 	sf::Sprite sSprite;
 	
-	std::string Addressen[15]
+	std::string Addressen[16]
 	{
 		"Texturen/Pfeil.png",
 		"Texturen/Haken.png",
 		"Texturen/AktiveAuftrage2.png",
-		"Texturen/Auftrage.png"
+		"Texturen/Auftrage.png",
+		"Texturen/ArbeitBeschleunigen.png",
+		"Texturen/BessereRang.png",
+		"Texturen/ErhohungGrundstarke.png",
+		"Texturen/Erholungsresort.png",
+		"Texturen/Kaserne.png",
+		"Texturen/Logistik System.png",
+		"Texturen/Scoutbüro.png",
+		"Texturen/Tranigszentrum.png",
+		"Texturen/WarteAusbildung.png",
+		"Texturen/WarteScoutbüro.png",
+		"Texturen/WenigerKosten.png",
+		"Texturen/Zentrale.png"
 	};
 	sf::Text sfText;
 };
