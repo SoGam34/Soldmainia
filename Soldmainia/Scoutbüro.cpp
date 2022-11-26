@@ -75,7 +75,7 @@ void Scoutbüro::startSuche()
 		BerrechnungVoraussichtlicheZeit();
 	}break;
 	}
-	cData->getKacheln(12).neuesBild(SucheText().str(), 300, 99, 1, 1);
+	cData->getKacheln(12).neuesBild(SucheText().str(), 300, 13, 30, 95);
 	bSucheAktiv = true;
 
 	cData->setiKontostand(cData->getiKontostand() - (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz)));

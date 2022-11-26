@@ -56,7 +56,7 @@ void Batilion_Ausbildungszentrum::startAusbildung()
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
 		cData->setiKontostand(cData->getiKontostand() - cData->getKostenProKopf() * iVoraussichtlicheZeit);	// Abziehn der gesamten Ausbildungskosten
 		bAusbildungAktiv = true;																			// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird 
-		cData->getKacheln(8).neuesBild(AusbildungsText().str(), 300, 99, 1, 1);	//neues Kachel Bild	
+		cData->getKacheln(8).neuesBild(AusbildungsText().str(), 300, 12, 30, 95);	//neues Kachel Bild	
 		
 	}
 }
