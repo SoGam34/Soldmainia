@@ -4,6 +4,7 @@
 Kachel::Kachel()
 {
 	bdruken = false;
+	PressTimer = 0;
 	//Butten
 	vButten.clear();
 }
@@ -27,6 +28,7 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	sfPressColor = pressColor;
 	kachel.setFillColor(sfBackroundColor);
 	bdruken = false;
+	PressTimer = 0;
 	// Text
 	tText.setFont(*font);
 	tText.setFillColor(TextColor);
@@ -119,12 +121,27 @@ bool Kachel::checkButtenisPressed(int ButtenID, sf::Vector2i mouspos)
 	return false;
 }
 
- void Kachel::setButtenColorToNormal()
+void Kachel::setButtenColorToNormal()
 {
 	for (auto e : vButten)
 		e->setNormalColor();
 }
-//Kachel
+
+ void Kachel::update()
+ {
+	 if(PressTimer>0)
+		 PressTimer--;
+	 
+	 if (PressTimer != 0)
+	 {
+		 kachel.setFillColor(sfPressColor);
+	 }
+
+	 for (auto e : vButten)
+		 e->update();
+ }
+
+ //Kachel
 bool Kachel::ishover(sf::Vector2i mouspos)
 {
 	if (mouspos.x > kachel.getPosition().x && mouspos.x<kachel.getPosition().x + kachel.getGlobalBounds().width &&
@@ -149,17 +166,24 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
 
  void Kachel::sethoverColor()
 {
-	kachel.setFillColor(sfHoverColor);
+	 if (PressTimer == 0)
+	 {
+		 kachel.setFillColor(sfHoverColor);
+	 }
 }
 
  void Kachel::setPressedColor()
 {
+	PressTimer = 30;
 	kachel.setFillColor(sfPressColor);
 }
 
  void Kachel::setNormalColor()
 {
-	kachel.setFillColor(sfBackroundColor);
+	 if (PressTimer == 0)
+	 {
+		 kachel.setFillColor(sfBackroundColor);
+	 }
 }
  int Kachel::getID()
  {

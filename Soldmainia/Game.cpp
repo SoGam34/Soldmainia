@@ -218,6 +218,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
+		myData->getKacheln(i).update();
 		//Kacheln überprüfen
 		if (myData->getKacheln(i).ishover(vMauspos))
 		{

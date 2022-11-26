@@ -27,6 +27,7 @@ Butten::Butten(	float x, float y, float with, float heigth, int ID,
 	sfPressColor = PressColor;
 	iID = ID;
 	bdruken = false;
+	PressTimer = 0;
 }
 
 Butten::~Butten()
@@ -56,19 +57,35 @@ bool Butten::isHover(sf::Vector2i mouspos)
 	return false;
 }
 
+void Butten::update()
+{
+	if (PressTimer > 0)
+		PressTimer--;
+	
+	if (PressTimer != 0)
+		butten.setFillColor(sfPressColor);
+}
+
 void Butten::setPressColor()
 {
+	PressTimer = 30;
 	butten.setFillColor(sfPressColor);
 }
 
 void Butten::setHoverColor()
 {
-	butten.setFillColor(sfHoverColor);
+	if (PressTimer == 0)
+	{
+		butten.setFillColor(sfHoverColor);
+	}
 }
 
 void Butten::setNormalColor()
 {
-	butten.setFillColor(sfBackroundColor);
+	if (PressTimer == 0)
+	{
+		butten.setFillColor(sfBackroundColor);
+	}
 }
 
 int Butten::getID()

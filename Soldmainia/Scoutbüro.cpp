@@ -95,8 +95,8 @@ void Scoutbüro::EndeSuche()
 	std::stringstream ssText;
 	ssText << "Starke:Test\nAffinität: Test\nProzentualer Anteil: Test";
 	cData->getKacheln(12).neuesBild(ssText.str(), 160, 99, 1, 1);
-	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,165,0), sf::Color::White);
+	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,165,0), sf::Color::White);
 
 	
 	bSucheAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
@@ -109,7 +109,7 @@ void Scoutbüro::Annehmen()
 	// EM dauerhaft in Data speichern
 	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
 	aktstd();
-	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 165, 0), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
 }
 
@@ -118,7 +118,7 @@ void Scoutbüro::Ablehnen()
 	//EM = nullptr
 	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
 	aktstd();
-	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 165, 0), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(false, "EM Abgelehnt");
 	bSucheAktiv = false;
 }

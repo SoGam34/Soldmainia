@@ -14,6 +14,7 @@ public:
 	//Überprufen ob die Maus sich über dem Butten befindet und dieser gedrückt wird
 	bool isPressed(sf::Vector2i mouspos);
 	bool isHover(sf::Vector2i mouspos);
+	void update();
 	//Ändern die Farbe des Butten
 	 void setPressColor();
 	 void setHoverColor();
@@ -31,5 +32,6 @@ private:
 	//sf::Clock sfTimer;
 	int iID;
 	bool bdruken;
+	int PressTimer;
 };
 

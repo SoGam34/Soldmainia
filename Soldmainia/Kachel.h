@@ -32,6 +32,9 @@ public:
 
 	 void setButtenColorToNormal();
 	//Kachel
+
+	void update();
+
 	bool ishover(sf::Vector2i mouspos);
 
 	bool isPressed(sf::Vector2i mouspos);
@@ -55,10 +58,13 @@ private:
 	sf::Color sfBackroundColor, sfHoverColor, sfPressColor;
 	bool bdruken;
 	int iID;
+	int PressTimer;
 	void newText(std::string Text, int PosTextY);
+
 	//Texture
 	int iIDTexture;
 	sf::Vector2f TexturePos;
+
 	//Butten
 	std::vector <Butten*> vButten;
 	int iButtenZähler;
