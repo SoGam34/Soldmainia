@@ -62,30 +62,30 @@ void Animationen::Aktualisieren()
 		sBenarichtigung--;
 		if (!bBenarichtigungsArt&&sBenarichtigung>30)
 		{
-			r += 5;
-			b -= 5;
-			g -= 1;
+			r += 6;
+			b -= 6;
+			g -= 2;
 		}
 
 		else if (!bBenarichtigungsArt && sBenarichtigung <= 30)
 		{
-			r -= 5;
-			b += 5;
-			g += 1;
+			r -= 6;
+			b += 6;
+			g += 2;
 		}
 
 		else if (bBenarichtigungsArt&&sBenarichtigung>30)
 		{
-			r -= 1;
-			b -= 5;
-			g += 5;
+			r -= 2;
+			b -= 6;
+			g += 6;
 		}
 
 		else
 		{
-			r += 1;
-			b += 5;
-			g -= 5;
+			r += 2;
+			b += 6;
+			g -= 6;
 		}
 			
 		
