@@ -42,6 +42,8 @@ private:
 	int iRangmin;
 	// Die Mitarbeiterkosten der Suche 
 	int iKostenmitarbeiter;
+	// Array zum speichern des aktuellen Levels
+	int iLevel[3];
 	// Für eine einfachere Verfaltung des der Suche und Erzeugung
 	enum Rang { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
 	Rang eRang;

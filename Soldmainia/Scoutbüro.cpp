@@ -9,6 +9,7 @@ Scoutbüro::Scoutbüro()
 	iZeitversatz = rand() % 5 + 3;
 	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand()%2+iRangmin);
+	iLevel[0] = iLevel[1] = iLevel[2] = 0;
 }
 
 Scoutbüro::Scoutbüro(Data* data)
@@ -20,6 +21,7 @@ Scoutbüro::Scoutbüro(Data* data)
 	iZeitversatz = rand() % 5 + 3;
 	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
+	iLevel[0] = iLevel[1] = iLevel[2] = 0;
 }
 
 Scoutbüro::~Scoutbüro()
@@ -133,6 +135,8 @@ void Scoutbüro::UpgradeGeschwindikeit()
 	{
 		cData->setScoutbüroGeschwindikeitsFaktor(cData->getScoutbüroGeschwindikeitsfaktor() - 0.05);		// Durchfüren der Verbesserung 
 
+		iLevel[0]++;
+
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(1, 0));
 		cData->getAnimationen().startBenarichtigung(false, ssk.str());
@@ -173,6 +177,8 @@ void Scoutbüro::UpgradeRang()
 	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 1) && iRangmin<6)								// überprüfen ob die Ausbildung bezahlt werden kann
 	{
 		iRangmin++;																							// Durchfüren der Verbesserung 
+
+		iLevel[1]++;
 
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(1, 1));
@@ -215,6 +221,8 @@ void Scoutbüro::UpgradeKosten()
 	{
 		iKostenmitarbeiter -= 10;																	// Durchfüren der Verbesserung 
 
+		iLevel[2]++;
+
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(1, 2));
 		cData->getAnimationen().startBenarichtigung(false, ssk.str());
@@ -241,7 +249,7 @@ void Scoutbüro::UpgradeKosten()
 
 		else
 		{
-			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(1, 2);
+			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(1, 2) << "\nLevel: " << iLevel[2]<<"/" << 40;
 			cData->getKacheln(15).changeText(ss.str(), 350);
 		}
 
