@@ -34,6 +34,8 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	//Butten
 	vButten.clear();
 
+	TextureScale = 1;
+
 	
 }
 
@@ -161,6 +163,17 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
 {
 	kachel.setFillColor(sfBackroundColor);
 }
+ void Kachel::setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size)
+ {
+	 kachel.setPosition(posKachel);
+	 kachel.setSize(size);
+	 TexturePos.x = posTex.x;
+	 TexturePos.y = posTex.y;
+ }
+ void Kachel::setScale(float sice)
+ {
+	 TextureScale = sice;
+ }
  int Kachel::getID()
  {
 	 return iID;
@@ -169,10 +182,22 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
  {
 	 return iIDTexture;
  }
+
+float Kachel::getScale()
+ {
+	 return TextureScale;
+ }
+
  sf::Vector2f Kachel::getTexturePosition()
  {
 	 return TexturePos;
  }
+
+ void Kachel::setTexturePosition(sf::Vector2f pos)
+ {
+	TexturePos=pos;
+ }
+
 //Privat Functions
 void Kachel::newText(std::string Text, int PosTextY)
 {

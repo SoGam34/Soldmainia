@@ -74,13 +74,20 @@ void Game::update()
 		{
 			//Kacheln überprüfen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
+			{
+				if (myData->getHauptmenu(i).getScale() < 1.2)
+				{
+					myData->getHauptmenu(i).setScale(myData->getKacheln(i).getScale() + 0.01);
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(myData->getKacheln(i).getTexturePosition().x - 2, myData->getKacheln(i).getTexturePosition().y - 2));
+				}
+
 				if (myData->getHauptmenu(i).isPressed(vMauspos))
 				{
 					myData->getHauptmenu(i).setPressedColor();
 					switch (myData->getHauptmenu(i).getID())
 					{
 					case 1: {
-						eAktuellesMenu = Zentrale; 
+						eAktuellesMenu = Zentrale;
 					}break;
 					case 2: {
 						eAktuellesMenu = Batilionsausbildungsstate;
@@ -107,8 +114,17 @@ void Game::update()
 				}
 				else
 					myData->getHauptmenu(i).sethoverColor();
+
+			}
 			else
+			{
 				myData->getHauptmenu(i).setNormalColor();
+				if (i < 5)
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * 230 + (i + 1) * 20, myData->getHauptmenu(i).getTexturePosition().y));
+				else
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f((i - 5) * 230 + ((i - 5) + 1) * 20, myData->getHauptmenu(i).getTexturePosition().y));
+				myData->getHauptmenu(i).setScale(1);
+			}
 		}
 	}break;
 	
@@ -232,7 +248,10 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 				myData->getKacheln(i).setButtenColorToNormal();
 		}
 		else
+		{
 			myData->getKacheln(i).setNormalColor();
+			myData->getKacheln(i).setScale(1);
+		}
 	}
 	return bButtenGedrückt ? iButtenID : 99;
 }

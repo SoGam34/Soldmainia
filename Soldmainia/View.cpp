@@ -97,7 +97,7 @@ void View::drawSprite(int start, int range)
 			tTexture.loadFromFile(Addressen[cData->getKacheln(i).getTextureID()]);
 			sSprite.setTexture(tTexture);
 			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
-			sSprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
+			sSprite.setTextureRect(sf::IntRect(0, 0, 200 * cData->getKacheln(i).getScale(), 200 * cData->getKacheln(i).getScale()));
 			window->draw(sSprite);
 		}
 	}

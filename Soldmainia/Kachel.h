@@ -42,11 +42,19 @@ public:
 
 	void setNormalColor();
 
+	void setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size);
+
+	void setScale(float sice);
+
 	int getID();
 	
 	int getTextureID();
+
+	float getScale();
 	
 	sf::Vector2f getTexturePosition();
+
+	void setTexturePosition(sf::Vector2f pos);
 	
 private:
 	//Kachel
@@ -59,6 +67,7 @@ private:
 	//Texture
 	int iIDTexture;
 	sf::Vector2f TexturePos;
+	float TextureScale;
 	//Butten
 	std::vector <Butten*> vButten;
 	int iButtenZähler;
