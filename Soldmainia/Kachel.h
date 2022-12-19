@@ -14,7 +14,8 @@ public:
 	//Funktionen zum dieseignen und Mahlen der Kachel
 	 void addButten(float x, float y, float with, float heigth, int ID,
 						std::string text, sf::Font* font,
-						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor);
+						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+						float KachelBreite, float KachelHohe);
 
 	void neuesBild(std::string Text, int PosTextY, 
 				int IDTexture, int PosTextureX, int PosTextureY);
@@ -33,6 +34,8 @@ public:
 	 void setButtenColorToNormal();
 	//Kachel
 
+	void updatePos(int PosX, int PosY, int breite, int hohe);
+	
 	void update();
 
 	bool ishover(sf::Vector2i mouspos);
@@ -50,7 +53,10 @@ public:
 	int getTextureID();
 	
 	sf::Vector2f getTexturePosition();
-	
+
+	sf::Vector2f getPos();
+
+	sf::Vector2f getSize();
 private:
 	//Kachel
 	sf::RectangleShape kachel;

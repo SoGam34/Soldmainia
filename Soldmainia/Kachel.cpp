@@ -51,9 +51,10 @@ Kachel::~Kachel()
 //Funktionen zum dieseignen und Mahlen der Kachel
  void Kachel::addButten(float x, float y, float with, float heigth, int ID,
 							std::string text, sf::Font* font,
-							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor)
+							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+							float KachelBreite, float KachelHohe)
 {
-	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor));
+	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
 	}
 
 void Kachel::neuesBild(std::string Text,  int PosTextY,
@@ -127,15 +128,32 @@ void Kachel::setButtenColorToNormal()
 		e->setNormalColor();
 }
 
+ void Kachel::updatePos(int PosX, int PosY, int breite, int hohe)
+ {
+	 kachel.setPosition(PosX, PosY);
+	 kachel.setSize(sf::Vector2f(breite, hohe));
+
+	 for (auto e : vButten)
+	 {
+		 int tempx = e->getPos().x / PosX;
+		 int tempy = e->getPos().y / PosY;
+
+		 e->updatePos(PosX*tempx, PosY*tempy, breite, hohe);
+	 }
+
+	 tText.setPosition(
+		 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
+		 tText.getPosition().y
+	 );
+ }
+
  void Kachel::update()
  {
-	 if(PressTimer>0)
+	 if (PressTimer > 0)
 		 PressTimer--;
-	 
+
 	 if (PressTimer != 0)
-	 {
 		 kachel.setFillColor(sfPressColor);
-	 }
 
 	 for (auto e : vButten)
 		 e->update();
@@ -174,7 +192,7 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
 
  void Kachel::setPressedColor()
 {
-	PressTimer = 30;
+	PressTimer = 15;
 	kachel.setFillColor(sfPressColor);
 }
 
@@ -197,6 +215,15 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
  {
 	 return TexturePos;
  }
+ sf::Vector2f Kachel::getPos()
+ {
+	 return kachel.getPosition();
+ }
+ sf::Vector2f Kachel::getSize()
+ {
+	 return kachel.getSize();
+ }
+
 //Privat Functions
 void Kachel::newText(std::string Text, int PosTextY)
 {

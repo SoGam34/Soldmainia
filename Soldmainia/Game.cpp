@@ -254,6 +254,8 @@ void Game::checkSortcuts()
 
 	if (cKeyboard.isKeyPressed(cKeyboard.S))
 		eAktuellesMenu = scoutbüro;
+
+	cView->CheckWindow();
 }
 
 void Game::neuerTag()
@@ -284,7 +286,7 @@ void Game::mahlen()
 		cView->DrawScoutbuero(iTag);
 	}break;
 	default: {
-
+		cView->DrawNichtVerfügbar();
 	}break;
 	}
 }

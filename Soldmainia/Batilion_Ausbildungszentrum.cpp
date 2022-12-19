@@ -78,9 +78,9 @@ void Batilion_Ausbildungszentrum::EndeAusbildung()
 	
 	 cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	 // Hinzufügen aller Notiger Buttens 
-	 cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten",				 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White);
-	 cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White);
-	 cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White);
+	 cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten",				 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	 cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	 cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
 
 	bAusbildungAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
 	ssText.clear();

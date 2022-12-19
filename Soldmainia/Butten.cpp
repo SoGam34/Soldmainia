@@ -7,7 +7,8 @@ Butten::Butten()
 
 Butten::Butten(	float x, float y, float with, float heigth, int ID,
 				std::string text, sf::Font* font, 
-				sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor)
+				sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+				float KachelBreite, float KachelHohe)
 {
 	butten.setPosition(x, y);
 	butten.setSize(sf::Vector2f(with, heigth));
@@ -28,6 +29,10 @@ Butten::Butten(	float x, float y, float with, float heigth, int ID,
 	iID = ID;
 	bdruken = false;
 	PressTimer = 0;
+
+	factorBreite = with / KachelBreite;
+	factorHohe = heigth / KachelHohe;
+
 }
 
 Butten::~Butten()
@@ -66,6 +71,13 @@ void Butten::update()
 		butten.setFillColor(sfPressColor);
 }
 
+void Butten::updatePos(int PosX, int PosY, int breite, int hohe)
+{
+	butten.setPosition(PosX, PosY);
+
+	butten.setSize(sf::Vector2f(breite * factorBreite, hohe * factorHohe));
+}
+
 void Butten::setPressColor()
 {
 	PressTimer = 30;
@@ -91,6 +103,16 @@ void Butten::setNormalColor()
 int Butten::getID()
 {
 	return iID;
+}
+
+sf::Vector2f Butten::getPos()
+{
+	return butten.getPosition();
+}
+
+sf::Vector2f Butten::getSize()
+{
+	return butten.getSize();
 }
 
 void Butten::drawFenster(sf::RenderTarget& target)

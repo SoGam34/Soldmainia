@@ -2,7 +2,7 @@
 
 View::View()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
+	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
 	window->setFramerateLimit(25);
 	
 	cData = nullptr;
@@ -38,7 +38,7 @@ View::~View()
 void View::DrawHauptmenu(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
-	drawFenster(0, 8);
+	//drawFenster(0, 8);
 	drawSprite(0, 8);
 	drawText(0, 8, "Hauptmenu", iTage);
 	cData->getAnimationen().draw(window);
@@ -65,9 +65,41 @@ void View::DrawScoutbuero(int iTage)
 	window->display();
 }
 
+void View::DrawNichtVerfügbar()
+{
+	cData->getAnimationen().clearWindow(window);
+	sf::Text Warnung;
+	Warnung.setFont(*cData->getFont());
+	Warnung.setPosition(window->getPosition().x / 2 - 20, window->getPosition().y / 2);
+	Warnung.setCharacterSize(30);
+	Warnung.setString("Dieses Menu ist zur Zeit nicht Verfügbar");
+	window->draw(Warnung);
+	window->display();
+}
+
 sf::Vector2i View::getMousPos()
 {
 	return sf::Mouse::getPosition(*window);
+}
+
+void View::CheckWindow()
+{
+	while (window->pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			
+			window->close();
+		}
+
+		else if (event.type == sf::Event::Resized)
+		{
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			window->setView(sf::View(visibleArea));
+
+			ReSize();
+		}
+	}
 }
 
 bool View::windowOpen()
@@ -78,6 +110,33 @@ bool View::windowOpen()
 void View::Close()
 {
 	window->close();
+}
+
+void View::ReSize()
+{
+	cData->setBreite((window->getSize().x -100)/ 4);
+	cData->setHohe((window->getSize().y - 30 - 70) / 2);
+
+	int temp=0;
+	for (int i = 0; i < 16; i++)
+	{
+		if (temp == 4)
+			temp = 0;
+
+			if (i > 7)
+			{
+				cData->getKacheln(i).updatePos((temp * cData->getBreite()+(temp+1)*cData->getiAbstandshalter())-10, 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
+			}
+
+			/*else
+				if(iOffset<4)
+				cData->getKacheln(i).updatePos((i - iOffset) * cData->getBreite() + (i - (iOffset - 1)) * 20 + 15, 95, cData->getBreite(), cData->getHohe());
+				else
+					cData->getKacheln(i).updatePos((i - iOffset) * cData->getBreite() + (i - (iOffset - 1)) * 20 + 15, 95, cData->getBreite(), cData->getHohe());
+		*/
+
+			temp++;
+	}
 }
 
 void View::drawFenster(int start, int range)
