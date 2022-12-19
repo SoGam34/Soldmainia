@@ -66,7 +66,7 @@ private:
 	int iID;
 	int PressTimer;
 	void newText(std::string Text, int PosTextY);
-
+	int NormalPos;
 	//Texture
 	int iIDTexture;
 	sf::Vector2f TexturePos;

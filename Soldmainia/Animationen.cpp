@@ -119,9 +119,14 @@ void Animationen::startUpgradeAnimation(int Spalte, int breite, int hohe)
 	int tempy;
 	for (int i = 0; i < Pfeile.size(); i++)
 	{
-		tempx = rand() % breite + 30;
+		tempx = rand() % ((breite/2)-40) + 30;
 		tempy = rand() % hohe + 190;
-		tempx += (Spalte>3) ? 20 : 0;
+
+		if (breite < 250)
+			tempx += (Spalte > 3) ? 20 : 0;
+
+		else
+			tempx += (Spalte > 3) ? breite+50 : ((Spalte > 2) ? 150 : 60);
 		Pfeile[i].setPosition(((Spalte - 1) * 230) +(Spalte*20) + tempx, tempy);
 	}
 }

@@ -167,32 +167,27 @@ void View::drawSprite(int start, int range)
 void View::drawText(int start, int range, std::string titel, int iTag)
 {
 	std::stringstream ssTitel;
+	std::stringstream ssTitel1;
+	std::stringstream ssTitel2;
 
-	for (int i = 1; i < 4; i++)
-	{
-		switch (i)
-		{
-		case 1:
-		{
-			ssTitel << "Kontostand: " << cData->getiKontostand();
-		}break;
-		case 2:
-		{
-			ssTitel << titel;
-		}break;
-		case 3:
-		{
-			ssTitel  << "Tag: " << iTag;
-		}
-		}
-
-		sfText.setString(ssTitel.str());
-
-		std::cout << sfText.getPosition().x;
-		sfText.setPosition((window->getSize().x * (i / 4)) + 20, sfText.getPosition().y);
-		std::cout << "   " << sfText.getPosition().x << std::endl;
-		window->draw(sfText);
-	}
+	float temp = 20;
+		
+	ssTitel << "Kontostand: " << cData->getiKontostand();
+	sfText.setString(ssTitel.str());
+	sfText.setPosition(temp, sfText.getPosition().y);
+	window->draw(sfText);
+	
+	ssTitel1 << titel;
+	temp = static_cast<float>(window->getSize().x) * 0.45;
+	sfText.setString(ssTitel1.str());
+	sfText.setPosition(temp, sfText.getPosition().y);
+	window->draw(sfText);
+	
+	ssTitel2  << "Tag: " << iTag;
+	temp = static_cast<float>(window->getSize().x) * 0.9;
+	sfText.setString(ssTitel2.str());
+	sfText.setPosition(temp, sfText.getPosition().y);
+	window->draw(sfText);
 
 	for (int i = start; i < start + range; i++)
 	{
