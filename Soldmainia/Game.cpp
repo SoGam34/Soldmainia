@@ -70,15 +70,16 @@ void Game::update()
 	{
 	case Hauptmenu:
 	{
+		int temp = 1;
 		for (int i = 0; i < 8; i++)
 		{
 			//Kacheln überprüfen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
 			{
-				if (myData->getHauptmenu(i).getScale() < 1.2)
+				if (myData->getHauptmenu(i).getScale() < 1.1)
 				{
 					myData->getHauptmenu(i).setScale(myData->getKacheln(i).getScale() + 0.01);
-					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(myData->getKacheln(i).getTexturePosition().x - 2, myData->getKacheln(i).getTexturePosition().y - 2));
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(myData->getKacheln(i).getTexturePosition().x-1, myData->getKacheln(i).getTexturePosition().y - 2));
 				}
 
 				if (myData->getHauptmenu(i).isPressed(vMauspos))
@@ -118,13 +119,22 @@ void Game::update()
 			}
 			else
 			{
-				myData->getHauptmenu(i).setNormalColor();
-				if (i < 5)
-					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * 230 + (i + 1) * 20, myData->getHauptmenu(i).getTexturePosition().y));
-				else
-					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f((i - 5) * 230 + ((i - 5) + 1) * 20, myData->getHauptmenu(i).getTexturePosition().y));
 				myData->getHauptmenu(i).setScale(1);
+				myData->getHauptmenu(i).setNormalColor();
+				
+				if (i < 4)
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * 230 + (i + 1) * 20+15, 70));
+				else
+				{
+					if (temp == 4)
+						temp = 0;
+
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(temp * 230 + (temp + 1) * 20+15, 290));
+					
+				}
 			}
+			if(i>3)
+			temp++;
 		}
 	}break;
 	
