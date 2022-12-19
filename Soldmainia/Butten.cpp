@@ -73,9 +73,14 @@ void Butten::update()
 
 void Butten::updatePos(int PosX, int PosY, int breite, int hohe)
 {
-	butten.setPosition(PosX, PosY);
+	butten.move(PosX, PosY);
 
 	butten.setSize(sf::Vector2f(breite * factorBreite, hohe * factorHohe));
+
+	tText.setPosition(
+		butten.getPosition().x + ((butten.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
+		butten.getPosition().y + ((butten.getGlobalBounds().height / 2) - (tText.getGlobalBounds().height / 2))
+	);
 }
 
 void Butten::setPressColor()

@@ -145,7 +145,7 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 15) ? 2,5 : ((iLevel[0] < 34) ? 1,4 : 1,2)));								// Speichern der neuen Verbesserungskosten
 		
-		cData->getAnimationen().startUpgradeAnimation(2);
+		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getBreite());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
@@ -188,7 +188,7 @@ void Scoutbüro::UpgradeRang()
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * 1.6);								// Speichern der neuen Verbesserungskosten
 
-		cData->getAnimationen().startUpgradeAnimation(3);
+		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getBreite());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
@@ -231,7 +231,7 @@ void Scoutbüro::UpgradeKosten()
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
 		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * 1.4);						// Speichern der neuen Verbesserungskosten	
 
-		cData->getAnimationen().startUpgradeAnimation(4);
+		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getBreite());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt

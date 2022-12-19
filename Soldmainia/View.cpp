@@ -38,7 +38,7 @@ View::~View()
 void View::DrawHauptmenu(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
-	//drawFenster(0, 8);
+	drawFenster(0, 8);
 	drawSprite(0, 8);
 	drawText(0, 8, "Hauptmenu", iTage);
 	cData->getAnimationen().draw(window);
@@ -125,15 +125,16 @@ void View::ReSize()
 
 			if (i > 7)
 			{
-				cData->getKacheln(i).updatePos((temp * cData->getBreite()+(temp+1)*cData->getiAbstandshalter())-10, 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
+				cData->getKacheln(i).updatePos((temp * cData->getBreite()+(temp+1)*cData->getiAbstandshalter()), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
 			}
 
-			/*else
-				if(iOffset<4)
-				cData->getKacheln(i).updatePos((i - iOffset) * cData->getBreite() + (i - (iOffset - 1)) * 20 + 15, 95, cData->getBreite(), cData->getHohe());
-				else
-					cData->getKacheln(i).updatePos((i - iOffset) * cData->getBreite() + (i - (iOffset - 1)) * 20 + 15, 95, cData->getBreite(), cData->getHohe());
-		*/
+			else
+				if(i<4)
+				cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp+1) * 20 + 15, 70, cData->getBreite(), cData->getHohe());
+				
+				else if(i<8)
+					cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp+1) * 20 + 15, 90+cData->getHohe(), cData->getBreite(), cData->getHohe());
+		
 
 			temp++;
 	}
@@ -157,6 +158,7 @@ void View::drawSprite(int start, int range)
 			sSprite.setTexture(tTexture);
 			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
 			sSprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
+			sSprite.setScale((cData->getBreite() / 200), cData->getHohe() / 200);
 			window->draw(sSprite);
 		}
 	}
@@ -165,9 +167,32 @@ void View::drawSprite(int start, int range)
 void View::drawText(int start, int range, std::string titel, int iTag)
 {
 	std::stringstream ssTitel;
-	ssTitel << "Kontostand: " << cData->getiKontostand() << "                         " << titel << "                      Tag: " << iTag;
-	sfText.setString(ssTitel.str());
-	window->draw(sfText);
+
+	for (int i = 1; i < 4; i++)
+	{
+		switch (i)
+		{
+		case 1:
+		{
+			ssTitel << "Kontostand: " << cData->getiKontostand();
+		}break;
+		case 2:
+		{
+			ssTitel << titel;
+		}break;
+		case 3:
+		{
+			ssTitel  << "Tag: " << iTag;
+		}
+		}
+
+		sfText.setString(ssTitel.str());
+
+		std::cout << sfText.getPosition().x;
+		sfText.setPosition((window->getSize().x * (i / 4)) + 20, sfText.getPosition().y);
+		std::cout << "   " << sfText.getPosition().x << std::endl;
+		window->draw(sfText);
+	}
 
 	for (int i = start; i < start + range; i++)
 	{

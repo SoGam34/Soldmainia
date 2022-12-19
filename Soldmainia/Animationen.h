@@ -13,7 +13,7 @@ public:
 
 	void draw(sf::RenderTarget* window);
 
-	void startUpgradeAnimation(int Spalte);
+	void startUpgradeAnimation(int Spalte, int breite, int hohe);
 
 	void startBenarichtigung(bool gut, std::string Text);
 	

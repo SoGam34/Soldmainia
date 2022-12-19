@@ -112,15 +112,15 @@ void Animationen::draw(sf::RenderTarget* window)
 	}
 }
 
-void Animationen::startUpgradeAnimation(int Spalte)
+void Animationen::startUpgradeAnimation(int Spalte, int breite, int hohe)
 {
 	sUpgradeAnimation = 100;
 	int tempx;
 	int tempy;
 	for (int i = 0; i < Pfeile.size(); i++)
 	{
-		tempx = rand() % 130 + 30;
-		tempy = rand() % 120 + 190;
+		tempx = rand() % breite + 30;
+		tempy = rand() % hohe + 190;
 		tempx += (Spalte>3) ? 20 : 0;
 		Pfeile[i].setPosition(((Spalte - 1) * 230) +(Spalte*20) + tempx, tempy);
 	}
