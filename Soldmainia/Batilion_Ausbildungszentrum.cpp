@@ -132,7 +132,7 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 		iLevel[0]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 0));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 0, cData->getfUpgradeKosten(0, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbüro(0, 1) : (iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3)));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 0, cData->getfUpgradeKosten(0, 0) * ((iLevel[0] < 15) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));								// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
@@ -153,7 +153,7 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten: " << cData->getfUpgradeKosten(0, 0)<<"\nLevel: "<<iLevel[1]<<"/"<<58;
+			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten: " << cData->getfUpgradeKosten(0, 0)<<"\nLevel: "<<iLevel[0]<<"/ 58";
 			cData->getKacheln(9).changeText(ss.str(), 350);
 		}
 
@@ -175,7 +175,7 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		iLevel[1]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 1));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbüro(2, 1) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbüro(2, 2) : cData->getUpgradeFaktorScoutbüro(2, 3)));					// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbüro(2, 0) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbüro(2, 1) : cData->getUpgradeFaktorScoutbüro(2, 1)));					// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 		
@@ -196,7 +196,7 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstärke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[2] << "/" << 16;
+			ss << "Erhoung der Grundstärke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[1] << "/ 16";
 			cData->getKacheln(10).changeText(ss.str(), 350);
 		}
 
@@ -218,7 +218,7 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 		iLevel[2]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 9) ? cData->getUpgradeFaktorScoutbüro(0, 1) : (iLevel[2] < 13) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3)));						// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 9) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[2] < 13) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));						// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 
@@ -238,7 +238,7 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 
 		else
 		{
-			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(0, 2) << "\nLevel: " << iLevel[2] << "/" << 14;
+			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(0, 2) << "\nLevel: " << iLevel[2] << "/ 14";
 			cData->getKacheln(11).changeText(ss.str(), 350);
 		}
 

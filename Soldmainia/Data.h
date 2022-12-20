@@ -189,10 +189,10 @@ private:
 	bool bBenarichtigungAktiv = false;
 
 	//Geld
-	int iKontostand = 1000000;
+	int iKontostand = 1000000000;
 	float fUpgradeKosten[2][3]
 	{
-		100,100,100, //BAZ
+		100,100,1000, //BAZ
 		100,1000,100	 //Scoutbüro
 	};
 
