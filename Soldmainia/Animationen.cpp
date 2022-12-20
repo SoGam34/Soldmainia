@@ -102,7 +102,7 @@ void Animationen::draw(sf::RenderTarget* window)
 {
 	if (sUpgradeAnimation>0)
 	{
-		for(auto i:Pfeile)
+		for(auto &i:Pfeile)
 			window->draw(i);
 	}
 

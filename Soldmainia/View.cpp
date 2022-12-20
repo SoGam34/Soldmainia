@@ -125,7 +125,7 @@ void View::ReSize()
 
 			if (i > 7)
 			{
-				cData->getKacheln(i).updatePos((temp * cData->getBreite()+(temp+1)*cData->getiAbstandshalter()), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
+				cData->getKacheln(i).updatePos((temp * cData->getBreite()+(temp+1)*20), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
 			}
 
 			else

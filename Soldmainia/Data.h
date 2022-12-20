@@ -159,14 +159,14 @@ public:
 		iHohe = value;
 	}
 
-	void setAbstand(int value)
+	void getUpgradeFaktorScoutbüro(int Spalte, int Reihe, float value)
 	{
-		iAbstandthalter = value;
+		UpgradeFaktorScoutbüro[Spalte][Reihe] = value;
 	}
 
-	int getiAbstandshalter()
+	float getUpgradeFaktorScoutbüro(int Spalte, int Reihe)
 	{
-		return iAbstandthalter;
+		return UpgradeFaktorScoutbüro[Spalte][Reihe];
 	}
 
 private:
@@ -193,7 +193,17 @@ private:
 	float fUpgradeKosten[2][3]
 	{
 		100,100,100, //BAZ
-		100,100,100	 //Scoutbüro
+		100,1000,100	 //Scoutbüro
+	};
+
+	float UpgradeFaktorScoutbüro[3][3]
+	{
+		//Geschwindikeit, Kosten Reduzieren 
+		2.5, 1.4, 1.2,
+		//Rang Scoutbüro
+		2,   36,  45,
+		//Grundstarke Batilion
+		2.5, 2,
 	};
 	
 	bool bUpgradeAnimation = false;

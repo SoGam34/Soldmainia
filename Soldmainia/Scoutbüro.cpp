@@ -140,12 +140,11 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(1, 0));
 		cData->getAnimationen().startBenarichtigung(false, ssk.str());
-		ssk.clear();
 		
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 15) ? 2,5 : ((iLevel[0] < 34) ? 1,4 : 1,2)));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbüro(0, 1) : ((iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3))));								// Speichern der neuen Verbesserungskosten
 		
-		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getBreite());
+		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
@@ -186,9 +185,9 @@ void Scoutbüro::UpgradeRang()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * 1.6);								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * ((iLevel[1]<3)?cData->getUpgradeFaktorScoutbüro(1, 1): (iLevel[1]<5)? cData->getUpgradeFaktorScoutbüro(1, 2): cData->getUpgradeFaktorScoutbüro(1, 3)));								// Speichern der neuen Verbesserungskosten
 
-		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getBreite());
+		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
@@ -229,9 +228,9 @@ void Scoutbüro::UpgradeKosten()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * 1.4);						// Speichern der neuen Verbesserungskosten	
+		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 12) ? cData->getUpgradeFaktorScoutbüro(0, 1) : (iLevel[2] < 22) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3)));						// Speichern der neuen Verbesserungskosten	
 
-		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getBreite());
+		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
 		if (!bSucheAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
