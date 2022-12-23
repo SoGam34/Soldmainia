@@ -203,7 +203,7 @@ private:
 		//Rang Scoutbüro
 		2,   36,  45,
 		//Grundstarke Batilion
-		2.5, 2,
+		2.5, 2,2
 	};
 	
 	bool bUpgradeAnimation = false;

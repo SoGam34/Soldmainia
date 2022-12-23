@@ -175,7 +175,7 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		iLevel[1]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 1));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbüro(2, 0) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbüro(2, 1) : cData->getUpgradeFaktorScoutbüro(2, 1)));					// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbüro(2, 0) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbüro(2, 1) : cData->getUpgradeFaktorScoutbüro(2, 2)));					// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 		
