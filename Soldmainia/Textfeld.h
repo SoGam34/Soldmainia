@@ -11,12 +11,22 @@ class Textfeld
 {
 public:
 	Textfeld();
-	Textfeld(sf::Color farbe, sf::Font font, sf::Vector2f pos);
+	Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
 
 	void Typing(sf::Event event);
 
 	bool getAusgewahlt();
 	void setAusgewahlt(bool auswahl);
+
+	sf::Vector2f getPos()
+	{
+		return tTextfeld.getPosition();
+	}
+
+	sf::FloatRect getBounds()
+	{
+		return tTextfeld.getGlobalBounds();
+	}
 
 	void drawText(sf::RenderTarget& target);
 private:

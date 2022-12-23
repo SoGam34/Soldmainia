@@ -37,6 +37,9 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	vButten.clear();
 
 	NormalPos = tText.getPosition().y;
+
+	//Textfeld
+	cTextfeld = nullptr;
 }
 
 Kachel::~Kachel()
@@ -57,6 +60,11 @@ Kachel::~Kachel()
 	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
 	}
 
+ void Kachel::addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
+ {
+	 cTextfeld = new Textfeld(farbe, font, pos);
+ }
+
 void Kachel::neuesBild(std::string Text,  int PosTextY,
 					 int IDTexture, int PosTextureX, int PosTextureY)
 {
@@ -65,6 +73,10 @@ void Kachel::neuesBild(std::string Text,  int PosTextY,
 		delete vButten[i];
 		vButten.erase(vButten.begin() + i);
 	}
+
+	if (cTextfeld != nullptr)
+		delete cTextfeld;
+	cTextfeld = nullptr;
 
 	newText(Text, PosTextY);
 	// Texture
@@ -90,6 +102,23 @@ void Kachel::drawText(sf::RenderTarget& target)
 	target.draw(tText);
 	for (auto e : vButten)
 		e->drawText(target);
+
+	if (cTextfeld != nullptr)
+		cTextfeld->drawText(target);
+}
+
+//textfeld
+void Kachel::updateTextfelder(sf::Event event, sf::Vector2i MousPos)
+{
+	if (cTextfeld != nullptr)
+	{
+		if (cTextfeld->getPos().x > MousPos.x && cTextfeld->getPos().x + cTextfeld->getBounds().width < MousPos.x &&
+			cTextfeld->getPos().y >MousPos.y && cTextfeld->getPos().y + cTextfeld->getBounds().height < MousPos.y)
+			cTextfeld->setAusgewahlt(true);
+
+		cTextfeld->Typing(event);
+		
+	}
 }
 //Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens

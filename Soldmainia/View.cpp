@@ -99,6 +99,8 @@ void View::CheckWindow()
 
 			ReSize();
 		}
+			
+		cData->getKacheln(8).updateTextfelder(event, sf::Mouse::getPosition(*window));
 	}
 }
 
@@ -167,9 +169,6 @@ void View::drawSprite(int start, int range)
 void View::drawText(int start, int range, std::string titel, int iTag)
 {
 	std::stringstream ssTitel;
-	std::stringstream ssTitel1;
-	std::stringstream ssTitel2;
-
 	float temp = 20;
 		
 	ssTitel << "Kontostand: " << cData->getiKontostand();
@@ -177,15 +176,17 @@ void View::drawText(int start, int range, std::string titel, int iTag)
 	sfText.setPosition(temp, sfText.getPosition().y);
 	window->draw(sfText);
 	
-	ssTitel1 << titel;
+	ssTitel.str("");
+	ssTitel<< titel;
 	temp = static_cast<float>(window->getSize().x) * 0.45;
-	sfText.setString(ssTitel1.str());
+	sfText.setString(ssTitel.str());
 	sfText.setPosition(temp, sfText.getPosition().y);
 	window->draw(sfText);
 	
-	ssTitel2  << "Tag: " << iTag;
+	ssTitel.str("");
+	ssTitel  << "Tag: " << iTag;
 	temp = static_cast<float>(window->getSize().x) * 0.9;
-	sfText.setString(ssTitel2.str());
+	sfText.setString(ssTitel.str());
 	sfText.setPosition(temp, sfText.getPosition().y);
 	window->draw(sfText);
 

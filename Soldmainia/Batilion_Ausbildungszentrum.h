@@ -14,6 +14,7 @@ public:
 	std::stringstream AusbildungsText();
 	void startAusbildung();
 	void aktAusbildung();
+	void Name();
 	void EndeAusbildung();
 
 	//Sonstige Funktonen

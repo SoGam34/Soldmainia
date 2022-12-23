@@ -5,20 +5,20 @@ Textfeld::Textfeld()
 
 }
 
-Textfeld::Textfeld(sf::Color farbe, sf::Font font, sf::Vector2f pos)
+Textfeld::Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
 {
 	tTextfeld.setFillColor(farbe);
 	tTextfeld.setCharacterSize(15);
-	tTextfeld.setFont(font);
+	tTextfeld.setFont(*font);
 	tTextfeld.setPosition(pos);
 
-	bAusgewalt = false;
+	setAusgewahlt(true);
 }
 
 void Textfeld::Typing(sf::Event event)
 {
 	int Buchstabe = event.text.unicode;
-	if (Buchstabe < 128)
+	if (Buchstabe < 128&&Buchstabe>0)
 	{
 		inputlogic(Buchstabe);
 	}
@@ -75,10 +75,10 @@ void Textfeld::inputlogic(int Buch)
 	}
 
 	else if (Buch == ESCAPE_KEY)
-		bAusgewalt = false;
+		setAusgewahlt(false);
 
 	else if (Buch == ENTER_KEY)
-		bAusgewalt = true;
+		setAusgewahlt(true);
 
 	tTextfeld.setString(oText.str()+"_");
 }
