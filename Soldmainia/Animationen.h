@@ -1,5 +1,6 @@
 #pragma once
-#include "pch.h"
+
+#include <SFML/Graphics.hpp>
 
 class Animationen
 {
