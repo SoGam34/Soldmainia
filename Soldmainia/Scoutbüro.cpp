@@ -142,7 +142,7 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		cData->getAnimationen().startBenarichtigung(false, ssk.str());
 		
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbüro(0, 1) : ((iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3))));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbüro(0, 0) : ((iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2))));								// Speichern der neuen Verbesserungskosten
 		
 		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
@@ -163,7 +163,7 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten:" << cData->getfUpgradeKosten(1, 0) << "\nLevel: " << iLevel[0] << "/" << 58;
+			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten:" << cData->getfUpgradeKosten(1, 0) << "\nLevel: " << iLevel[0] << "/ 58";
 			cData->getKacheln(13).changeText(ss.str(), 350);
 		}
 
@@ -185,7 +185,7 @@ void Scoutbüro::UpgradeRang()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * ((iLevel[1]<3)?cData->getUpgradeFaktorScoutbüro(1, 1): (iLevel[1]<5)? cData->getUpgradeFaktorScoutbüro(1, 2): cData->getUpgradeFaktorScoutbüro(1, 3)));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * ((iLevel[1]<3)?cData->getUpgradeFaktorScoutbüro(1, 0): (iLevel[1]<5)? cData->getUpgradeFaktorScoutbüro(1, 1): cData->getUpgradeFaktorScoutbüro(1, 2)));								// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 
@@ -206,7 +206,7 @@ void Scoutbüro::UpgradeRang()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1) << "\nLevel: " << iLevel[1] << "/" << 6;
+			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1) << "\nLevel: " << iLevel[1] << "/ 6";
 			cData->getKacheln(14).changeText(ss.str(), 320);
 		}
 
@@ -228,7 +228,7 @@ void Scoutbüro::UpgradeKosten()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 12) ? cData->getUpgradeFaktorScoutbüro(0, 1) : (iLevel[2] < 22) ? cData->getUpgradeFaktorScoutbüro(0, 2) : cData->getUpgradeFaktorScoutbüro(0, 3)));						// Speichern der neuen Verbesserungskosten	
+		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * ((iLevel[2] < 12) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[2] < 22) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));						// Speichern der neuen Verbesserungskosten	
 
 		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 
@@ -248,7 +248,7 @@ void Scoutbüro::UpgradeKosten()
 
 		else
 		{
-			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(1, 2) << "\nLevel: " << iLevel[2]<<"/" << 40;
+			ss << "Reduzierung der Kosten\nKosten: " << cData->getfUpgradeKosten(1, 2) << "\nLevel: " << iLevel[2]<<"/ 40";
 			cData->getKacheln(15).changeText(ss.str(), 350);
 		}
 
