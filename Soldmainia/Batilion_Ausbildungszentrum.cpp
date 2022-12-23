@@ -153,7 +153,7 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten: " << cData->getfUpgradeKosten(0, 0)<<"\nLevel: "<<iLevel[1]<<"/"<<58;
+			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten: " << cData->getfUpgradeKosten(0, 0)<<"\nLevel: "<<iLevel[0]<<"/"<<58;
 			cData->getKacheln(9).changeText(ss.str(), 350);
 		}
 
@@ -196,7 +196,7 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstärke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[2] << "/" << 16;
+			ss << "Erhoung der Grundstärke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[1] << "/" << 16;
 			cData->getKacheln(10).changeText(ss.str(), 350);
 		}
 
