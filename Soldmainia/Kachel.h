@@ -1,5 +1,6 @@
 #pragma once
 #include "Butten.h"
+#include "Textfeld.h"
 
 class Kachel
 {
@@ -17,6 +18,8 @@ public:
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
 
+	 void addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
+
 	void neuesBild(std::string Text, int PosTextY, 
 				int IDTexture, int PosTextureX, int PosTextureY);
 
@@ -25,6 +28,13 @@ public:
 	void drawFenster(sf::RenderTarget& target);
 	
 	void drawText(sf::RenderTarget& target);
+
+	//Textfeld
+	void updateTextfelder(sf::Event event, sf::Vector2i MousPos);
+
+	bool EnterPress(sf::Event event);
+	bool getTextfeldAusgewahltZustand();
+
 	//Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
 	int checkButtenishover(sf::Vector2i mouspos);
@@ -74,5 +84,8 @@ private:
 	//Butten
 	std::vector <Butten*> vButten;
 	int iButtenZähler;
+
+	//Textfeld
+	Textfeld* cTextfeld;
 };
 

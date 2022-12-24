@@ -30,7 +30,7 @@ void Batilion_Ausbildungszentrum::updateTimer()
 	aktTimer();									// akktualiesieren der Uhr
 
 	if (getTimerstand() + iZeitversatz == 0&&bAusbildungAktiv)	// überprüfen ob die Zeit abgelaugen ist 
-		EndeAusbildung();						// Beenden der Ausbildung, da die Ausbildung fertig ist 
+		Name();						// Beenden der Ausbildung, da die Ausbildung fertig ist 
 
 	else if (bAusbildungAktiv)					// Aktualiesiern des Angezeigten Ausbildungs Fortschritts
 		aktAusbildung();
@@ -68,6 +68,19 @@ void Batilion_Ausbildungszentrum::aktAusbildung()
 	cData->getKacheln(8).changeText(AusbildungsText().str(), 300);	//neues Kachel Bild
 }
 
+void Batilion_Ausbildungszentrum::Name()
+{
+	cData->getKacheln(8).neuesBild("Die Ausblidung ist\nbeendet, wie wollen\nsie das Batiliion\nnennen?", 100, 99, 1, 1);	// Akktualiesieren des Textes 
+
+	cData->getKacheln(8).addTextfeld(sf::Color::Black, cData->getFont(), sf::Vector2f(40, 200));
+	cData->getKacheln(8).addButten(35, 350, 200, 30, 5, "Namen Bestehtigen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	bAusbildungAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
+
+	std::stringstream ss;
+	ss << "Ausbildung Batilion beendet";
+	cData->getAnimationen().startBenarichtigung(true, ss.str());
+	ss.clear();
+}
 void Batilion_Ausbildungszentrum::EndeAusbildung()
 {
 	//Generierung eines Batilions
@@ -76,21 +89,13 @@ void Batilion_Ausbildungszentrum::EndeAusbildung()
 	BerrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	 ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10 * cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
-	
-	 cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
-	 // Hinzufügen aller Notiger Buttens 
-	 cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten",				 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
-	 cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
-	 cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder",	 cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10 * cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 
-	bAusbildungAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
-	ssText.clear();
-
-	std::stringstream ss;
-	ss << "Ausbildung Batilion beendet";
-	cData->getAnimationen().startBenarichtigung(true, ss.str());
-	ss.clear();
+	cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	// Hinzufügen aller Notiger Buttens 
+	cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
+	cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
 }
 
 void Batilion_Ausbildungszentrum::aktstd()

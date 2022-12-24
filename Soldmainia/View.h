@@ -16,8 +16,7 @@ public:
 
 	sf::Vector2i getMousPos();
 	void CheckWindow();
-	bool windowOpen();
-	void Close();
+	sf::RenderWindow& getWindow();
 	void ReSize();
 
 private:
@@ -27,7 +26,7 @@ private:
 	
 	//window
 	sf::RenderWindow* window;
-	sf::Event event;
+	
 
 	// Data zeiger
 	Data* cData;				 

@@ -31,7 +31,7 @@ Game::~Game()
 
 void Game::SpielLauft()
 {
-	while (cView->windowOpen())
+	while (cView->getWindow().isOpen())
 	{
 		update();
 		mahlen();
@@ -161,6 +161,10 @@ void Game::update()
 		{
 			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
 		}break;
+		case 5:
+		{
+			cBAZ->EndeAusbildung();
+		}
 		}
 	}break;
 
@@ -240,22 +244,46 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 
 void Game::checkSortcuts()
 {
-	if (cKeyboard.isKeyPressed(cKeyboard.Escape))
-		cView->Close();
+	while (cView->getWindow().pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
 
-	if (cKeyboard.isKeyPressed(cKeyboard.H))
-		eAktuellesMenu = Hauptmenu;
+			cView->getWindow().close();
+		}
 
-	if (cKeyboard.isKeyPressed(cKeyboard.Z))
-		eAktuellesMenu = Zentrale;
+		else if (event.type == sf::Event::Resized)
+		{
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			cView->getWindow().setView(sf::View(visibleArea));
 
-	if (cKeyboard.isKeyPressed(cKeyboard.A))
-		eAktuellesMenu = Batilionsausbildungsstate;
+			cView->ReSize();
+		}
 
-	if (cKeyboard.isKeyPressed(cKeyboard.S))
-		eAktuellesMenu = scoutbüro;
+		else if (event.type == sf::Event::TextEntered)
+		{
+			if (myData->getKacheln(8).getTextfeldAusgewahltZustand()||myData->getKacheln(8).EnterPress(event))
+				myData->getKacheln(8).updateTextfelder(event, sf::Mouse::getPosition(cView->getWindow()));
 
-	cView->CheckWindow();
+			else
+			{
+				if (cKeyboard.isKeyPressed(cKeyboard.Escape))
+					cView->getWindow().close();
+
+				if (cKeyboard.isKeyPressed(cKeyboard.H))
+					eAktuellesMenu = Hauptmenu;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.Z))
+					eAktuellesMenu = Zentrale;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.A))
+					eAktuellesMenu = Batilionsausbildungsstate;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.S))
+					eAktuellesMenu = scoutbüro;
+			}
+		}
+	}
 }
 
 void Game::neuerTag()

@@ -30,9 +30,6 @@
     <ClInclude Include="Auswahl.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Batilion_Ausbildungszentrum.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -46,6 +43,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="View.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Textfeld.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,9 +71,6 @@
     <ClCompile Include="Batilion_Ausbildungszentrum.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Scoutbüro.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -81,6 +78,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="View.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Textfeld.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
