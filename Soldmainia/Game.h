@@ -34,7 +34,7 @@ private:
 
 	Data* myData;
 	Auswahl* cAuswahl;
-
+	sf::Event event;
 	View* cView;
 
 	//Gebaude

@@ -120,6 +120,22 @@ void Kachel::updateTextfelder(sf::Event event, sf::Vector2i MousPos)
 		
 	}
 }
+
+bool Kachel::EnterPress(sf::Event event)
+{
+	if (cTextfeld != nullptr)
+		return cTextfeld->checkEnter(event);
+
+	return false;
+}
+bool Kachel::getTextfeldAusgewahltZustand()
+{
+	if (cTextfeld != nullptr)
+		return cTextfeld->getAusgewahlt();
+
+	return false;
+}
+
 //Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
 int Kachel::checkButtenishover(sf::Vector2i mouspos)

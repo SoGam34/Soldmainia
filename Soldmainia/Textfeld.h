@@ -13,20 +13,17 @@ public:
 	Textfeld();
 	Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
 
+	bool checkEnter(sf::Event event);
+
 	void Typing(sf::Event event);
 
 	bool getAusgewahlt();
 	void setAusgewahlt(bool auswahl);
 
-	sf::Vector2f getPos()
-	{
-		return tTextfeld.getPosition();
-	}
+	sf::Vector2f getPos();
+	sf::FloatRect getBounds();
 
-	sf::FloatRect getBounds()
-	{
-		return tTextfeld.getGlobalBounds();
-	}
+	std::string getText();
 
 	void drawText(sf::RenderTarget& target);
 private:

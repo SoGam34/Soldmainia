@@ -82,36 +82,9 @@ sf::Vector2i View::getMousPos()
 	return sf::Mouse::getPosition(*window);
 }
 
-void View::CheckWindow()
+sf::RenderWindow& View::getWindow()
 {
-	while (window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed)
-		{
-			
-			window->close();
-		}
-
-		else if (event.type == sf::Event::Resized)
-		{
-			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
-			window->setView(sf::View(visibleArea));
-
-			ReSize();
-		}
-			
-		cData->getKacheln(8).updateTextfelder(event, sf::Mouse::getPosition(*window));
-	}
-}
-
-bool View::windowOpen()
-{
-	return window->isOpen();
-}
-
-void View::Close()
-{
-	window->close();
+	return *window;
 }
 
 void View::ReSize()

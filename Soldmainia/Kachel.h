@@ -32,6 +32,9 @@ public:
 	//Textfeld
 	void updateTextfelder(sf::Event event, sf::Vector2i MousPos);
 
+	bool EnterPress(sf::Event event);
+	bool getTextfeldAusgewahltZustand();
+
 	//Funktionen zum Überpüfen der Maus und ändern der Farbe
 	//Buttens
 	int checkButtenishover(sf::Vector2i mouspos);

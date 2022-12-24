@@ -72,7 +72,7 @@ void Batilion_Ausbildungszentrum::Name()
 {
 	cData->getKacheln(8).neuesBild("Die Ausblidung ist\nbeendet, wie wollen\nsie das Batiliion\nnennen?", 100, 99, 1, 1);	// Akktualiesieren des Textes 
 
-	cData->getKacheln(8).addTextfeld(sf::Color::White, cData->getFont(), sf::Vector2f(40, 200));
+	cData->getKacheln(8).addTextfeld(sf::Color::Black, cData->getFont(), sf::Vector2f(40, 200));
 	cData->getKacheln(8).addButten(35, 350, 200, 30, 5, "Namen Bestehtigen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
 	bAusbildungAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
 
