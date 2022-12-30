@@ -42,15 +42,15 @@ void Game::SpielLauft()
 void Game::TextAnzeigeinitzaliesieren()
 {
 	//Hauptmenu erste Zeile
-	myData->getKacheln(0).changeText("Zentrale", 160);
-	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
-	myData->getKacheln(2).changeText("Traningszentrum", 160);
-	myData->getKacheln(3).changeText("Scout Büro", 160);
+	myData->getKacheln(0).changeText("Zentrale", 250);
+	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 250);
+	myData->getKacheln(2).changeText("Traningszentrum", 250);
+	myData->getKacheln(3).changeText("Scout Büro", 250);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Aufträge", 160 + 220);
-	myData->getKacheln(5).changeText("Aktive Aufträge", 160 + 220);
-	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
-	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
+	myData->getKacheln(4).changeText("Aufträge", 255 + 220);
+	myData->getKacheln(5).changeText("Aktive Aufträge", 255 + 220);
+	myData->getKacheln(6).changeText("Logistik System", 255 + 220);
+	myData->getKacheln(7).changeText("Erholungsresort", 255 + 220);
 	//BAZ
 	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
 	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
