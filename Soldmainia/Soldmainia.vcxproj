@@ -147,6 +147,7 @@
     <ClInclude Include="Butten.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gebaeude.h" />
     <ClInclude Include="Kachel.h" />
     <ClInclude Include="pch.h">
       <DeploymentContent>true</DeploymentContent>
@@ -169,6 +170,7 @@
     <ClCompile Include="Batilion_Ausbildungszentrum.cpp" />
     <ClCompile Include="Butten.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gebaeude.cpp" />
     <ClCompile Include="Kachel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />

@@ -64,24 +64,14 @@ public:
 		iBatilonsgröße = value;
 	}
 
-	float getBatilionGeschwindikeitsfaktor()
+	float getGeschwindikeitsfaktor(int pos)
 	{
-		return iGeschwindikeitsFaktor[0];
+		return iGeschwindikeitsFaktor[pos];
 	}
 
-	void setBatilionGeschwindikeitsFaktor(float value)
+	void setGeschwindikeitsFaktor(float value, int pos)
 	{
-		iGeschwindikeitsFaktor[0] = value;
-	}
-
-	float getScoutbüroGeschwindikeitsfaktor()
-	{
-		return iGeschwindikeitsFaktor[1];
-	}
-
-	void setScoutbüroGeschwindikeitsFaktor(float value)
-	{
-		iGeschwindikeitsFaktor[1] = value;
+		iGeschwindikeitsFaktor[pos] = value;
 	}
 
 	float getGrundstärke()
@@ -119,11 +109,6 @@ public:
 		iKontostand = kontostand;
 	}
 
-	int getfUpgradeKosten(int Reihe, int Spalte)
-	{
-		return fUpgradeKosten[Reihe][Spalte];
-	}
-
 	void setBenarichtigungAktiv()
 	{
 		bBenarichtigungAktiv = true;
@@ -133,10 +118,35 @@ public:
 	{
 		return bBenarichtigungAktiv;
 	}
+	
+	int getfUpgradeKosten(int Reihe, int Spalte)
+	{
+		return fUpgradeKosten[Reihe][Spalte];
+	}
 
 	void setfUpgradeKosten(int Reihe, int Spalte, float neueKosten)
 	{
 		fUpgradeKosten[Reihe][Spalte] = neueKosten;
+	}
+
+	int getProzessKostenFaktor(int pos)
+	{
+		return iKostenFaktor[pos];
+	}
+
+	int setProzessKostenFaktor(int value, int pos)
+	{
+		iKostenFaktor[pos] = value;
+	}
+
+	int getiZeitFaktor(int pos)
+	{
+		return iZeitFaktor[pos];
+	}
+
+	int setiZeitFaktor(int value, int pos)
+	{
+		iZeitFaktor[pos] = value;
 	}
 
 private:
@@ -151,8 +161,12 @@ private:
 	int iBekanntheit = 1;
 	int iBatilonsgröße = 10;
 	int iKostenproKopf = 70;
-	float iGeschwindikeitsFaktor[2]{ 1,1 };//BaZ, Scout 
 	float fGrundstärke = 10;
+
+	//Gebaeude
+	float iGeschwindikeitsFaktor[2]{ 1, 1 };//BaZ, Scout 
+	int iKostenFaktor[2]{ 70, 400 };//BAZ, Scout
+	int iZeitFaktor[2]{ 10, 1 };//BAZ, Scout
 
 	// Animationen
 	Animationen cAnimationen;

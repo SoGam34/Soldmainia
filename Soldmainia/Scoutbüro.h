@@ -1,43 +1,30 @@
 #pragma once
-#include "Timer.h"
+#include "Gebaeude.h"
 #include "Data.h"
 
-class Scoutbüro : public Timer
+class Scoutbüro : public Gebaeude
 {
 public:
 	//De/Konstrucktor
-	Scoutbüro();
+	Scoutbüro();		
 	Scoutbüro(Data* data);
-	~Scoutbüro();
+	~Scoutbüro();		
 
 	//Ausbildungs F.
-	std::stringstream SucheText();
-	void startSuche();
-	void aktSuche();
-	void EndeSuche();
+	std::stringstream ProzessText() = 0;
+	int ProzessKosten() = 0;
+	void EndeProzess() = 0;
+
 	void Annehmen();
 	void Ablehnen();
 
 	// Upgrade Funktionen
-	void upgrade();
-	void UpgradeGeschwindikeit();
 	void UpgradeRang();
-	void UpgradeKosten();
 
 	//Sonstige Funktonen
 	void aktstd();
-	void BerrechnungVoraussichtlicheZeit();
-	void updateTimer();
 
 private:
-	// Data zeiger
-	Data* cData;				 
-	// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei
-	bool bSucheAktiv;			
-	// Gibt an wie lange die Ausbildung vorausichtlich dauert 
-	int iVoraussichtlicheZeit;	
-	// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
-	int iZeitversatz;		
 	// Der mindest Rang den ein EM haben kann
 	int iRangmin;
 	// Die Mitarbeiterkosten der Suche 
