@@ -4,6 +4,9 @@
 #include "Scoutbüro.h"
 #include "Auswahl.h"
 #include "View.h"
+#include <thread>
+#include <mutex>
+#include <chrono>
 
 class Game
 {
@@ -14,7 +17,7 @@ public:
 	//Update loop
 	void SpielLauft();
 
-private:
+
 	//Allgemein
 	enum AktuellesMenu
 	{
@@ -36,6 +39,8 @@ private:
 	Auswahl* cAuswahl;
 
 	View* cView;
+
+	std::mutex Sicherung;
 
 	//Gebaude
 	//BAZ

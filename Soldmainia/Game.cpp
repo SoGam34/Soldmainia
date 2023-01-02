@@ -3,7 +3,8 @@
 Game::Game()
 {
 	myData = new Data();
-
+	
+	std::thread worker(&Game::TextAnzeigeinitzaliesieren, *this);
 	//Gebaude
 	cBAZ = new Batilion_Ausbildungszentrum(myData);
 	cBAZ->aktstd();
@@ -17,7 +18,7 @@ Game::Game()
 	cView = new View(myData);
 	iTag = 0;
 
-	TextAnzeigeinitzaliesieren();
+	worker.join();
 }
 
 Game::~Game()
@@ -31,11 +32,33 @@ Game::~Game()
 
 void Game::SpielLauft()
 {
+	using namespace std::literals::chrono_literals;
+
+	auto start = std::chrono::high_resolution_clock::now();
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<float> duration;
 	while (cView->windowOpen())
 	{
+		start = std::chrono::high_resolution_clock::now();
+
+		//std::thread updating(&Game::update, *this);
+		
+		if (clTagesTimer.getElapsedTime().asSeconds() >= 1.5)
+		{
+			neuerTag();
+			clTagesTimer.restart();
+		}
+
+		myData->getAnimationen().Aktualisieren();
+
+		//updating.join();
 		update();
-		mahlen();
 		checkSortcuts();
+		mahlen();
+
+		end = std::chrono::high_resolution_clock::now();
+		duration = end - start;
+		std::cout << duration.count() * 1000.f << "ms\n";
 	}
 }
 
@@ -73,6 +96,7 @@ void Game::update()
 		int temp = 1;
 		for (int i = 0; i < 8; i++)
 		{
+			//std::lock_guard<std::mutex> lockguard(Sicherung);
 			//Kacheln überprüfen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
 			{
@@ -133,6 +157,7 @@ void Game::update()
 					
 				}
 			}
+			//lockguard.~lock_guard();
 			if(i>3)
 			temp++;
 		}
@@ -227,13 +252,7 @@ void Game::update()
 
 	}
 
-	if (clTagesTimer.getElapsedTime().asSeconds() >= 1.5)
-	{
-		neuerTag();
-		clTagesTimer.restart();
-	}
 	
-	myData->getAnimationen().Aktualisieren();
 
 }
 
@@ -241,9 +260,10 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
 	int iButtenID = 99;
 	bool bButtenGedrückt = false;
-
+	
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
+		//std::lock_guard<std::mutex> lockguard(Sicherung);
 		//Kacheln überprüfen
 		if (myData->getKacheln(i).ishover(vMauspos))
 		{
@@ -262,6 +282,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			myData->getKacheln(i).setNormalColor();
 			myData->getKacheln(i).setScale(1);
 		}
+		//lockguard.~lock_guard();
 	}
 	return bButtenGedrückt ? iButtenID : 99;
 }
