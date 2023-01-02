@@ -27,6 +27,11 @@ std::stringstream Scoutbüro::ProzessText()
 	 return ssText;
 }
 
+int Scoutbüro::ProzessKosten()
+{
+	return (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz));
+}
+
 void Scoutbüro::EndeProzess()
 {
 	std::stringstream ssText;

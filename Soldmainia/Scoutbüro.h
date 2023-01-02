@@ -11,9 +11,9 @@ public:
 	~Scoutbüro();		
 
 	//Ausbildungs F.
-	std::stringstream ProzessText() = 0;
-	int ProzessKosten() = 0;
-	void EndeProzess() = 0;
+	std::stringstream ProzessText();
+	int ProzessKosten();
+	void EndeProzess();
 
 	void Annehmen();
 	void Ablehnen();

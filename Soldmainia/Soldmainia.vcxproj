@@ -146,6 +146,7 @@
     <ClInclude Include="Batilion_Ausbildungszentrum.h" />
     <ClInclude Include="Butten.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Erholungsresort.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gebaeude.h" />
     <ClInclude Include="Kachel.h" />
@@ -162,13 +163,16 @@
     </ClInclude>
     <ClInclude Include="Scoutbüro.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Traningszentrum.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="Zentale.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animationen.cpp" />
     <ClCompile Include="Auswahl.cpp" />
     <ClCompile Include="Batilion_Ausbildungszentrum.cpp" />
     <ClCompile Include="Butten.cpp" />
+    <ClCompile Include="Erholungsresort.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gebaeude.cpp" />
     <ClCompile Include="Kachel.cpp" />
@@ -176,7 +180,9 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Scoutbüro.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Traningszentrum.cpp" />
     <ClCompile Include="View.cpp" />
+    <ClCompile Include="Zentale.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

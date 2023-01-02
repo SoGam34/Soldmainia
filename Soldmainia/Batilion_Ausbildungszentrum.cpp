@@ -10,7 +10,6 @@ Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data) : Gebaeude(
 
 Batilion_Ausbildungszentrum::~Batilion_Ausbildungszentrum()
 {
-
 }
 
 std::stringstream Batilion_Ausbildungszentrum::ProzessText()
@@ -21,6 +20,11 @@ std::stringstream Batilion_Ausbildungszentrum::ProzessText()
 		<< "Das Batilion wird aus\n" << cData->getBatilionsgröße() << " Mitgliedern bestehen.\n"
 		<< "Die Ausbildung wird in\n" << getTimerstand() << " Tagen vorausichtlich\nfertig sein.";
 	return ssText;
+}
+
+int Batilion_Ausbildungszentrum::ProzessKosten()
+{
+	return cData->getKostenProKopf() * (iVoraussichtlicheZeit + iZeitversatz);
 }
 
 void Batilion_Ausbildungszentrum::Name()

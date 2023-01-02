@@ -2,8 +2,12 @@
 #include "Data.h"
 #include "Batilion_Ausbildungszentrum.h"
 #include "Scoutbüro.h"
+#include "Traningszentrum.h"
+#include "Zentale.h"
+#include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
+#include <chrono>
 
 class Game
 {
@@ -19,9 +23,9 @@ private:
 	enum AktuellesMenu
 	{
 		Hauptmenu, Zentrale, scoutbüro,
-		Batilionsausbildungsstate, Träningszentrum,
+		Batilionsausbildungsstate, traningszentrum,
 		Aufträge, AAufträge, LogistikSystem,
-		Erholungsresort, EinzelMitglieder, Batilione
+		erholungsresort, EinzelMitglieder, Batilione
 	};
 	AktuellesMenu eAktuellesMenu;
 
@@ -43,6 +47,15 @@ private:
 
 	//Scoutbüro
 	Scoutbüro* cScoutbüro;
+
+	//Trainingzentrum 
+	Traningszentrum* cTraingzentrum;
+
+	//Zentrale
+	Zentale* cZentrale;
+
+	//Erholungsresort
+	Erholungsresort* cErholungsresort;
 
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();

@@ -9,6 +9,12 @@ Game::Game()
 	cBAZ->aktstd();
 
 	cScoutbüro = new Scoutbüro(myData);
+
+	cTraingzentrum = new Traningszentrum(myData);
+
+	cZentrale = new Zentale(myData);
+
+	cErholungsresort = new Erholungsresort(myData);
 	
 	//Auswahl
 	cAuswahl = new Auswahl();
@@ -24,6 +30,9 @@ Game::~Game()
 {
 	delete cBAZ;
 	delete cScoutbüro;
+	delete cTraingzentrum;
+	delete cZentrale;
+	delete cErholungsresort;
 	delete cAuswahl;
 	delete cView;
 	delete myData;
@@ -60,6 +69,11 @@ void Game::TextAnzeigeinitzaliesieren()
 	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
 	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
 	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
+	//Traningzentrum
+	myData->getKacheln(12).changeText("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160);
+	myData->getKacheln(12).changeText("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100", 350);
+	myData->getKacheln(12).changeText("Verbessert die Traningsmethoden wodurch die Effektivität ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100", 350);
+	myData->getKacheln(12).changeText("Reduzierung der Traningskosten\nKosten: 100", 350);
 }
 
 void Game::update()
@@ -94,13 +108,13 @@ void Game::update()
 						eAktuellesMenu = Batilionsausbildungsstate;
 					}break;
 					case 3: {
-						eAktuellesMenu = Träningszentrum;
+						eAktuellesMenu = traningszentrum;
 					}break;
 					case 4: {
 						eAktuellesMenu = scoutbüro;
 					}break;
 					case 5: {
-						eAktuellesMenu = Erholungsresort;
+						eAktuellesMenu = erholungsresort;
 					}break;
 					case 6: {
 						eAktuellesMenu = Aufträge;
@@ -165,7 +179,7 @@ void Game::update()
 		{
 		case 1: 
 		{
-			cBAZ->startAusbildung();	//starten Gedrükt
+			cBAZ->StartProzess();	//starten Gedrükt
 		}break;
 		case 11: 
 		{
@@ -196,7 +210,7 @@ void Game::update()
 		{
 		case 1:
 		{
-			cScoutbüro->startSuche();				// Suche Starten
+			cScoutbüro->StartProzess();				// Suche Starten
 		}break;
 		case 2:
 		{
@@ -218,6 +232,40 @@ void Game::update()
 		{
 			cScoutbüro->Ablehnen();					// Ablehnen 
 		}break; 
+		}
+	}break;
+
+	case traningszentrum:
+	{
+		switch (updateButtons(16, 4))
+		{
+		case 1:
+		{
+			cTraingzentrum->AnzeigeVorbereitung();
+		}break;
+		case 2:
+		{
+			cTraingzentrum->UpgradeGeschwindikeit();
+		}break;
+		case 3:
+		{
+			cTraingzentrum->UpgradeEffizens();
+		}break;
+		case 4:
+		{
+			cTraingzentrum->UpgradeKosten();
+		}break;
+		}
+	}break;
+
+	case erholungsresort:
+	{
+		switch (updateButtons(24, 4))
+		{
+		case 1:
+		{
+
+		}break;
 		}
 	}break;
 	default:
