@@ -4,6 +4,9 @@ Auswahl::Auswahl()
 {
 	myData = nullptr;
 
+	vAusgewahlteEinheiten.clear();
+	vKacheln.clear();
+
 	vKacheln.reserve(5);
 	vAusgewahlten.reserve(5);
 }
@@ -11,6 +14,9 @@ Auswahl::Auswahl()
 Auswahl::Auswahl(Data* data)
 {
 	myData = data;
+
+	vAusgewahlteEinheiten.clear();
+	vKacheln.clear();
 
 	vKacheln.reserve(5);
 	vAusgewahlten.reserve(5);
@@ -39,9 +45,9 @@ void Auswahl::AnzeigeVorbereitung()
 {
 	for (int i = 0; i < vAusgewahlteEinheiten.size(); i++)
 	{
-		std::ostringstream osText;
-		osText << "Name: " << vAusgewahlteEinheiten[i] << "\nHP: "<< myData->getEinheite(vAusgewahlteEinheiten[i]).HP<<"\nMoral: "<< myData->getEinheite(vAusgewahlteEinheiten[i]).Moral << "\nKampfkraft: " << myData->getEinheite(vAusgewahlteEinheiten[i]).Starke;
-		vKacheln.emplace_back(new Kachel(osText.str(), 200, sf::Color::Black, myData->getFont(), 99, 1, 1, i+4, 200*i+20*i+15, 70, 230, 2 * 200 + 20, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green));
+		std::stringstream osText;
+		osText << "Name: " << vAusgewahlteEinheiten[i] << "\nHP: "<< myData->getEinheiten()[vAusgewahlteEinheiten[i]].HP << "\nMoral: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Moral << "\nKampfkraft: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Starke;
+		vKacheln.push_back(new Kachel(osText.str(), 200, sf::Color::Black, myData->getFont(), 99, 1, 1, i+4, 200*i+20*i+15, 70, 230, 2 * 200 + 20, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green));
 		vKacheln[i]->addButten(i * 20 + i * 230 + 35, 450, 200, 30, i+4, "Einheit Auswahlen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		osText.str("");
 	}
@@ -52,7 +58,7 @@ std::optional<std::string> Auswahl::updateAuswahl(sf::Vector2i MousPos)
 {
 	for (int i = 0; i < vKacheln.size(); i++)
 	{
-		int temp = vKacheln[i]->checkButtenishover(MousPos);
+		unsigned short int temp = vKacheln[i]->checkButtenishover(MousPos);
 		if (temp != 99)
 		{
 			if (vKacheln[i]->checkButtenisPressed(temp, MousPos))
@@ -103,7 +109,7 @@ void Auswahl::SucheNachEinsetzbarenEinheiten()
 	vAusgewahlteEinheiten.clear();
 	for (int i = 0; i < myData->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheite(myData->getEinheitsnamen()[i]).Einsatzbereit)
+		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].Einsatzbereit)
 		{
 			std::string temp = myData->getEinheitsnamen()[i];
 			vAusgewahlteEinheiten.emplace_back(temp);
@@ -118,7 +124,7 @@ void Auswahl::SucheNachVerletzten()
 	vAusgewahlteEinheiten.clear();
 	for (int i = 0; i < myData->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheite(myData->getEinheitsnamen()[i]).HP!=100)
+		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].HP != 100)
 		{
 			std::string temp = myData->getEinheitsnamen()[i];
 			vAusgewahlteEinheiten.emplace_back(temp);
@@ -133,7 +139,7 @@ void Auswahl::SucheNachTruppenmoral()
 	vAusgewahlteEinheiten.clear();
 	for (int i = 0; i < myData->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheite(myData->getEinheitsnamen()[i]).Moral != 10)
+		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].Moral != 10)
 		{
 			std::string temp = myData->getEinheitsnamen()[i];
 			vAusgewahlteEinheiten.emplace_back(temp);
@@ -148,7 +154,7 @@ void Auswahl::SucheNachStarke(int min)
 	vAusgewahlteEinheiten.clear();
 	for (int i = 0; i < myData->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheite(myData->getEinheitsnamen()[i]).HP >= min)
+		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].HP >= min)
 		{
 			std::string temp = myData->getEinheitsnamen()[i];
 			vAusgewahlteEinheiten.emplace_back(temp);
@@ -163,7 +169,7 @@ void Auswahl::SucheEinsetzbare_UND_GesundeEinheiten()
 	vAusgewahlteEinheiten.clear();
 	for (int i = 0; i < myData->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheite(myData->getEinheitsnamen()[i]).Einsatzbereit && myData->getEinheite(myData->getEinheitsnamen()[i]).HP==100)
+		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].Einsatzbereit && myData->getEinheiten()[myData->getEinheitsnamen()[i]].HP==100)
 		{
 			std::string temp = myData->getEinheitsnamen()[i];
 			vAusgewahlteEinheiten.emplace_back(temp);

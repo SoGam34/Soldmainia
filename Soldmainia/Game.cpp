@@ -380,13 +380,14 @@ void Game::mahlen()
 		if (!bAuswahl)
 			cView->DrawTraningszentrum(iTag);
 		else
-			cTraingzentrum->Mahlen(cView->Window());
+			cView->DrawDiffrent(*cTraingzentrum);
 	}break;
 	case erholungsresort:
 	{
 		if (!bAuswahl)
 			cView->DrawErholungsresort(iTag);
 		else
+			
 			cErholungsresort->Mahlen(cView->Window());
 	}break;
 	default: {

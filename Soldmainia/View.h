@@ -1,5 +1,6 @@
 #pragma once
 #include "Data.h"
+#include "Traningszentrum.h"
 
 class View 
 {
@@ -14,6 +15,9 @@ public:
 	void DrawScoutbuero(int iTage);
 	void DrawTraningszentrum(int iTage);
 	void DrawErholungsresort(int iTage);
+
+	
+	void DrawDiffrent(Traningszentrum& e);
 
 	sf::Vector2i getMousPos();
 	bool windowOpen();

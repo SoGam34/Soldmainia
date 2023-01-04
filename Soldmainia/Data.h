@@ -47,6 +47,9 @@ public:
 		aKacheln[18].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[19].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		
+		umEinheiten.clear();
+		EinheitNamen.clear();
+
 		Einheit e;
 		addEinheit("Kai", e);
 		addEinheit("Laura", e);
@@ -72,11 +75,6 @@ public:
 	Animationen& getAnimationen()
 	{
 		return cAnimationen;
-	}
-
-	Einheit& getEinheite(std::string Name)
-	{
-		return umEinheiten[Name];
 	}
 
 	std::unordered_map<std::string, Einheit>& getEinheiten()
