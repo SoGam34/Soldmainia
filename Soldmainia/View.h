@@ -12,10 +12,16 @@ public:
 	void DrawHauptmenu(int iTage);
 	void DrawBAZ(int iTage);
 	void DrawScoutbuero(int iTage);
+	void DrawTraningszentrum(int iTage);
+	void DrawErholungsresort(int iTage);
 
 	sf::Vector2i getMousPos();
 	bool windowOpen();
 	void Close();
+	sf::RenderWindow& Window()
+	{
+		return *window;
+	}
 
 private:
 	void drawFenster(int start, int range);

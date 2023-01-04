@@ -51,6 +51,15 @@
     <ClInclude Include="Gebaeude.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Erholungsresort.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Traningszentrum.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Zentale.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kachel.cpp">
@@ -87,6 +96,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Gebaeude.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Erholungsresort.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Traningszentrum.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Zentale.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

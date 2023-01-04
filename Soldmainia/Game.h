@@ -37,9 +37,10 @@ private:
 	int iTag;
 
 	Data* myData;
-	Auswahl* cAuswahl;
 
 	View* cView;
+
+	bool bAuswahl;
 
 	//Gebaude
 	//BAZ

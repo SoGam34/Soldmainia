@@ -1,11 +1,28 @@
 #pragma once
 #include "Kachel.h"
 #include "Animationen.h"
+#include <unordered_map>
+
+struct Einheit
+{
+	unsigned short int HP;
+	unsigned short int Moral;
+	unsigned short int Starke;
+	bool Einsatzbereit;
+
+	Einheit( unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true)
+	{
+		HP = hp;
+		Moral = moral;
+		Starke = starke;
+		Einsatzbereit = einsatzbereit;
+	}
+};
 
 class Data
 {
 public:
-	Data() 
+	Data()
 	{
 		sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
 
@@ -13,23 +30,29 @@ public:
 		//BAZ
 		aKacheln[11].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 2 * iHohe + 50, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[10].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 2 * iHohe + 50, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[9].addButten(1 * iAbstandthalter + 1 * iBreite  + 35, 2 * iHohe + 50, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[9].addButten(1 * iAbstandthalter + 1 * iBreite + 35, 2 * iHohe + 50, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[8].addButten(15 + iAbstandthalter, 2 * iHohe + 50, 200, 30, 1, "Starten", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[8].addButten(35, 350, 200, 30, 11, "Mehr Mitglieder", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[8].addButten(35, 400, 200, 30, 12, "Weniger Mitglieder", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 
 		//Scoutbüro
-		aKacheln[12].addButten(									   35, 450 , 200, 30, 1, "Starten", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[13].addButten(1 * iAbstandthalter + 1 * iBreite + 35, 450 , 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[14].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 450 , 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[15].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450 , 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[12].addButten(35, 450, 200, 30, 1, "Starten", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[13].addButten(1 * iAbstandthalter + 1 * iBreite + 35, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[14].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[15].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 
 		//Trainingszentrum 
-		aKacheln[16].addButten(35,									 450, 200, 30, 1, "Einheit Auswahlen", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[16].addButten(35, 450, 200, 30, 1, "Einheit Auswahlen", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[17].addButten(1 * iAbstandthalter + 1 * iBreite + 35, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[18].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		aKacheln[19].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-
+		
+		Einheit e;
+		addEinheit("Kai", e);
+		addEinheit("Laura", e);
+		addEinheit("Phillip", e);
+		addEinheit("Annika", e);
+		addEinheit("Kai2", e);
 	}
 	~Data()
 	{
@@ -49,6 +72,22 @@ public:
 	Animationen& getAnimationen()
 	{
 		return cAnimationen;
+	}
+
+	Einheit& getEinheite(std::string Name)
+	{
+		return umEinheiten[Name];
+	}
+
+	std::unordered_map<std::string, Einheit>& getEinheiten()
+	{
+		return umEinheiten;
+	}
+
+	const void addEinheit(std::string Name, const Einheit& const e)
+	{
+		EinheitNamen.emplace_back(Name);
+		umEinheiten[Name] = e;
 	}
 
 	int getBekanntheit()
@@ -156,6 +195,11 @@ public:
 		iZeitFaktor[pos] = value;
 	}
 
+	std::vector<std::string>& getEinheitsnamen()
+	{
+		return EinheitNamen;
+	}
+
 private:
 
 	//Kachel
@@ -188,6 +232,9 @@ private:
 	};
 	
 	bool bUpgradeAnimation = false;
+
+	std::unordered_map<std::string, Einheit> umEinheiten;
+	std::vector<std::string> EinheitNamen;
 
 	Kachel aKacheln[28]
 	{
@@ -235,5 +282,7 @@ private:
 		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 
 	};
+
+	
 };
 

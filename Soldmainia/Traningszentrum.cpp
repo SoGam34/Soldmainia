@@ -1,10 +1,10 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum() : Gebaeude(16, 2)
+Traningszentrum::Traningszentrum() : Gebaeude(16, 2), Auswahl()
 {
 }
 
-Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16, 2)
+Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16, 2), Auswahl(data)
 {
 }
 
@@ -24,6 +24,11 @@ int Traningszentrum::ProzessKosten()
 
 void Traningszentrum::EndeProzess()
 {
+}
+
+void Traningszentrum::AuswahlZuOrdnen(std::string Name)
+{
+	std::cout << Name << "wurde dem trainigszentrum zugeordnet\n";
 }
 
 void Traningszentrum::aktstd()

@@ -13,6 +13,7 @@ public:
 	std::stringstream ProzessText();
 	int ProzessKosten();
 	void EndeProzess();
+	void AuswahlZuOrdnen(std::string Name);
 
 	//Sonstige Funktonen
 	void aktstd();

@@ -26,6 +26,11 @@ void Erholungsresort::EndeProzess()
 {
 }
 
+void Erholungsresort::AuswahlZuOrdnen(std::string Name)
+{
+	std::cout << Name << "wurde dem trainigszentrum zugeordnet\n";
+}
+
 void Erholungsresort::aktstd()
 {
 }

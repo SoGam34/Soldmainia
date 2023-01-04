@@ -15,14 +15,10 @@ Game::Game()
 	cZentrale = new Zentale(myData);
 
 	cErholungsresort = new Erholungsresort(myData);
-	
-	//Auswahl
-	cAuswahl = new Auswahl();
-	cAuswahl->setData(myData);
 
 	cView = new View(myData);
 	iTag = 0;
-
+	bAuswahl = false;
 	TextAnzeigeinitzaliesieren();
 }
 
@@ -33,7 +29,6 @@ Game::~Game()
 	delete cTraingzentrum;
 	delete cZentrale;
 	delete cErholungsresort;
-	delete cAuswahl;
 	delete cView;
 	delete myData;
 }
@@ -70,10 +65,10 @@ void Game::TextAnzeigeinitzaliesieren()
 	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
 	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
 	//Traningzentrum
-	myData->getKacheln(12).changeText("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160);
-	myData->getKacheln(12).changeText("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100", 350);
-	myData->getKacheln(12).changeText("Verbessert die Traningsmethoden wodurch die Effektivität ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100", 350);
-	myData->getKacheln(12).changeText("Reduzierung der Traningskosten\nKosten: 100", 350);
+	myData->getKacheln(16).changeText("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160);
+	myData->getKacheln(17).changeText("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100", 290);
+	myData->getKacheln(18).changeText("Verbessert die\nTraningsmethoden\nwodurch die Effektivität\nansteigt die Einheit\nwird noch starker\nund erhalt mehr\nerfahrung\nKosten: 100", 300);
+	myData->getKacheln(19).changeText("Reduzierung der\nTraningskosten\nKosten: 100", 300);
 }
 
 void Game::update()
@@ -237,35 +232,56 @@ void Game::update()
 
 	case traningszentrum:
 	{
-		switch (updateButtons(16, 4))
+		if (bAuswahl)
 		{
-		case 1:
+			auto temp = cTraingzentrum->updateAuswahl(vMauspos);
+			if (temp.has_value())
+				cTraingzentrum->AuswahlZuOrdnen(temp.value());
+		}
+
+		else
 		{
-			cTraingzentrum->AnzeigeVorbereitung();
-		}break;
-		case 2:
-		{
-			cTraingzentrum->UpgradeGeschwindikeit();
-		}break;
-		case 3:
-		{
-			cTraingzentrum->UpgradeEffizens();
-		}break;
-		case 4:
-		{
-			cTraingzentrum->UpgradeKosten();
-		}break;
+			switch (updateButtons(16, 4))
+			{
+			case 1:
+			{
+				cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+				bAuswahl = true;
+			}break;
+			case 2:
+			{
+				cTraingzentrum->UpgradeGeschwindikeit();
+			}break;
+			case 3:
+			{
+				cTraingzentrum->UpgradeEffizens();
+			}break;
+			case 4:
+			{
+				cTraingzentrum->UpgradeKosten();
+			}break;
+			}
 		}
 	}break;
 
 	case erholungsresort:
 	{
-		switch (updateButtons(24, 4))
+		if (bAuswahl)
 		{
-		case 1:
-		{
+			auto temp = cErholungsresort->updateAuswahl(vMauspos);
+			if (temp.has_value())
+				cErholungsresort->AuswahlZuOrdnen(temp.value());
+		}
 
-		}break;
+		else
+		{
+			switch (updateButtons(24, 4))
+			{
+			case 1:
+			{
+
+			}break;
+			}
 		}
 	}break;
 	default:
@@ -358,6 +374,20 @@ void Game::mahlen()
 	case scoutbüro:
 	{
 		cView->DrawScoutbuero(iTag);
+	}break;
+	case traningszentrum:
+	{
+		if (!bAuswahl)
+			cView->DrawTraningszentrum(iTag);
+		else
+			cTraingzentrum->Mahlen(cView->Window());
+	}break;
+	case erholungsresort:
+	{
+		if (!bAuswahl)
+			cView->DrawErholungsresort(iTag);
+		else
+			cErholungsresort->Mahlen(cView->Window());
 	}break;
 	default: {
 

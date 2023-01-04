@@ -2,7 +2,7 @@
 #include "Gebaeude.h"
 #include "Auswahl.h"
 
-class Erholungsresort : public Gebaeude
+class Erholungsresort : public Gebaeude, public Auswahl
 {
 public:
 	Erholungsresort();
@@ -12,6 +12,7 @@ public:
 	std::stringstream ProzessText();
 	int ProzessKosten();
 	void EndeProzess();
+	void AuswahlZuOrdnen(std::string Name);
 
 	void aktstd();
 };
