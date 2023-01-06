@@ -248,7 +248,7 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
 
  void Kachel::setPressedColor()
 {
-	PressTimer = 15;
+	PressTimer = 12;
 	kachel.setFillColor(sfPressColor);
 }
 

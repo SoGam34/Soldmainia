@@ -7,6 +7,10 @@ class Data
 public:
 	Data() 
 	{
+
+		WindowSize.x = 1020;
+		WindowSize.y = 500;
+
 		sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
 
 		cAnimationen.setFont(&sfFont);
@@ -169,7 +173,19 @@ public:
 		return UpgradeFaktorScoutbüro[Spalte][Reihe];
 	}
 
+	sf::Vector2f getWindowSize()
+	{
+		return WindowSize;
+	}
+
+	void setWindowSize(sf::Vector2f windowsize)
+	{
+		WindowSize = windowsize;
+	}
+
 private:
+
+	sf::Vector2f WindowSize;
 
 	//Kachel
 	int iBreite = 230;

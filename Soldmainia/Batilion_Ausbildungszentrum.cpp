@@ -61,6 +61,11 @@ void Batilion_Ausbildungszentrum::startAusbildung()
 		cData->getKacheln(8).neuesBild(AusbildungsText().str(), 300, 12, 30, 95);	//neues Kachel Bild	
 		
 	}
+
+	else
+	{
+		cData->getAnimationen().KeinGeld(cData->getWindowSize(), cData->getFont());
+	}
 }
 
 void Batilion_Ausbildungszentrum::aktAusbildung()
@@ -164,6 +169,11 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 
 		ss.clear();
 	}
+
+	else
+	{
+		cData->getAnimationen().KeinGeld(cData->getWindowSize(), cData->getFont());
+	}
 }
 
 void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
@@ -207,6 +217,11 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 
 		ss.clear();
 	}
+
+	else
+	{
+		cData->getAnimationen().KeinGeld(cData->getWindowSize(), cData->getFont());
+	}
 }
 
 void Batilion_Ausbildungszentrum::UpgradeKosten()
@@ -248,6 +263,11 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 		}
 
 		ss.clear();
+	}
+
+	else
+	{
+		cData->getAnimationen().KeinGeld(cData->getWindowSize(), cData->getFont());
 	}
 }
 

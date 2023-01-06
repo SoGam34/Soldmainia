@@ -135,7 +135,7 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
-		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
+		switch ((myData->getAnimationen().getKeineBenarichtigung())?99: updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
 		{
 		case 1: 
 		{
@@ -170,7 +170,7 @@ void Game::update()
 
 	case scoutbüro:
 	{
-		switch (updateButtons(12, 4))
+		switch ((myData->getAnimationen().getKeineBenarichtigung()) ? 99 : updateButtons(12, 4))
 		{
 		case 1:
 		{
@@ -211,7 +211,7 @@ void Game::update()
 		clTagesTimer.restart();
 	}
 	
-	myData->getAnimationen().Aktualisieren();
+	myData->getAnimationen().Aktualisieren(vMauspos);
 
 }
 

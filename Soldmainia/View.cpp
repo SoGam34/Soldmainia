@@ -28,6 +28,8 @@ View::View(Data* data)
 	sfText.setPosition(20, 10);
 	sfText.setCharacterSize(20);
 	sfText.setFont(*cData->getFont());
+
+	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
 }
 
 View::~View()
@@ -49,8 +51,8 @@ void View::DrawBAZ(int iTage)
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(8, 4);
 	drawSprite(8, 4);
-	cData->getAnimationen().draw(window);
 	drawText(8, 4, "BAZ", iTage);
+	cData->getAnimationen().draw(window);
 	window->display();
 }
 
@@ -112,6 +114,8 @@ void View::ReSize()
 
 			temp++;
 	}
+
+	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
 }
 
 void View::drawFenster(int start, int range)
