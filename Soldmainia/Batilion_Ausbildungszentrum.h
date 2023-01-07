@@ -14,6 +14,7 @@ public:
 	std::stringstream AusbildungsText();
 	void startAusbildung();
 	void aktAusbildung();
+	void Name();
 	void EndeAusbildung();
 
 	//Sonstige Funktonen
@@ -32,9 +33,14 @@ public:
 	void UpgradeKosten();
 
 private:
-	Data *cData;				// Data zeiger 
-	bool bAusbildungAktiv;		// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei
-	int iVoraussichtlicheZeit;	// Gibt an wie lange die Ausbildung vorausichtlich dauert 
-	int iZeitversatz;			// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
+	// Data zeiger 
+	Data *cData;	
+	// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei
+	bool bAusbildungAktiv;		
+	// Gibt an wie lange die Ausbildung vorausichtlich dauert
+	int iVoraussichtlicheZeit;	 
+	// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
+	int iZeitversatz;	
+	// Array zum speichern des aktuellen Levels
+	int iLevel[3];
 };
-

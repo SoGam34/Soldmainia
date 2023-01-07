@@ -12,10 +12,12 @@ public:
 	void DrawHauptmenu(int iTage);
 	void DrawBAZ(int iTage);
 	void DrawScoutbuero(int iTage);
+	void DrawNichtVerfügbar();
 
 	sf::Vector2i getMousPos();
-	bool windowOpen();
-	void Close();
+	void CheckWindow();
+	sf::RenderWindow& getWindow();
+	void ReSize();
 
 private:
 	void drawFenster(int start, int range);
@@ -24,6 +26,7 @@ private:
 	
 	//window
 	sf::RenderWindow* window;
+	
 
 	// Data zeiger
 	Data* cData;				 

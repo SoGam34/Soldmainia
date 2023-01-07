@@ -4,6 +4,7 @@
 Kachel::Kachel()
 {
 	bdruken = false;
+	PressTimer = 0;
 	//Butten
 	vButten.clear();  
 }
@@ -27,6 +28,7 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	sfPressColor = pressColor;
 	kachel.setFillColor(sfBackroundColor);
 	bdruken = false;
+	PressTimer = 0;
 	// Text
 	tText.setFont(*font);
 	tText.setFillColor(TextColor);
@@ -37,6 +39,10 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	TextureScale = 1;
 
 	
+	NormalPos = tText.getPosition().y;
+
+	//Textfeld
+	cTextfeld = nullptr;
 }
 
 Kachel::~Kachel()
@@ -51,10 +57,16 @@ Kachel::~Kachel()
 //Funktionen zum dieseignen und Mahlen der Kachel
  void Kachel::addButten(float x, float y, float with, float heigth, int ID,
 							std::string text, sf::Font* font,
-							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor)
+							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+							float KachelBreite, float KachelHohe)
 {
-	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor));
+	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
 	}
+
+ void Kachel::addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
+ {
+	 cTextfeld = new Textfeld(farbe, font, pos);
+ }
 
 void Kachel::neuesBild(std::string Text,  int PosTextY,
 					 int IDTexture, int PosTextureX, int PosTextureY)
@@ -64,6 +76,10 @@ void Kachel::neuesBild(std::string Text,  int PosTextY,
 		delete vButten[i];
 		vButten.erase(vButten.begin() + i);
 	}
+
+	if (cTextfeld != nullptr)
+		delete cTextfeld;
+	cTextfeld = nullptr;
 
 	newText(Text, PosTextY);
 	// Texture
@@ -89,8 +105,41 @@ void Kachel::drawText(sf::RenderTarget& target)
 	target.draw(tText);
 	for (auto e : vButten)
 		e->drawText(target);
+
+	if (cTextfeld != nullptr)
+		cTextfeld->drawText(target);
 }
-//Funktionen zum Überpüfen der Maus und ändern der Farbe
+
+//textfeld
+void Kachel::updateTextfelder(sf::Event event, sf::Vector2i MousPos)
+{
+	if (cTextfeld != nullptr)
+	{
+		if (cTextfeld->getPos().x > MousPos.x && cTextfeld->getPos().x + cTextfeld->getBounds().width < MousPos.x &&
+			cTextfeld->getPos().y >MousPos.y && cTextfeld->getPos().y + cTextfeld->getBounds().height < MousPos.y)
+			cTextfeld->setAusgewahlt(true);
+
+		cTextfeld->Typing(event);
+		
+	}
+}
+
+bool Kachel::EnterPress(sf::Event event)
+{
+	if (cTextfeld != nullptr)
+		return cTextfeld->checkEnter(event);
+
+	return false;
+}
+bool Kachel::getTextfeldAusgewahltZustand()
+{
+	if (cTextfeld != nullptr)
+		return cTextfeld->getAusgewahlt();
+
+	return false;
+}
+
+//Funktionen zum ï¿½berpï¿½fen der Maus und ï¿½ndern der Farbe
 	//Buttens
 int Kachel::checkButtenishover(sf::Vector2i mouspos)
 {
@@ -121,12 +170,55 @@ bool Kachel::checkButtenisPressed(int ButtenID, sf::Vector2i mouspos)
 	return false;
 }
 
- void Kachel::setButtenColorToNormal()
+void Kachel::setButtenColorToNormal()
 {
 	for (auto e : vButten)
 		e->setNormalColor();
 }
-//Kachel
+
+ void Kachel::updatePos(int PosX, int PosY, int breite, int hohe)
+ {
+	 int tempx = PosX - kachel.getPosition().x;
+	 int tempy = PosY - kachel.getPosition().y ;
+
+	 TexturePos += sf::Vector2f(tempx, tempy);
+
+	 kachel.setPosition(PosX, PosY);
+	 kachel.setSize(sf::Vector2f(breite, hohe));
+	 
+	 if (tempy>0)
+	 {
+		 tempy += hohe - 500;
+		 tText.setPosition(
+			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
+			 tText.getPosition().y + tempy);
+	 }
+
+	 else
+	 {
+		 tempy += hohe - 500;
+		 tText.setPosition(
+			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
+			 tText.getPosition().y + tempy);
+	 }
+	 
+	 for (auto e : vButten)
+		 e->updatePos(tempx, tempy, breite, hohe);
+ }
+
+ void Kachel::update()
+ {
+	 if (PressTimer > 0)
+		 PressTimer--;
+
+	 if (PressTimer != 0)
+		 kachel.setFillColor(sfPressColor);
+
+	 for (auto e : vButten)
+		 e->update();
+ }
+
+ //Kachel
 bool Kachel::ishover(sf::Vector2i mouspos)
 {
 	if (mouspos.x > kachel.getPosition().x && mouspos.x<kachel.getPosition().x + kachel.getGlobalBounds().width &&
@@ -151,17 +243,24 @@ bool Kachel::isPressed(sf::Vector2i mouspos)
 
  void Kachel::sethoverColor()
 {
-	kachel.setFillColor(sfHoverColor);
+	 if (PressTimer == 0)
+	 {
+		 kachel.setFillColor(sfHoverColor);
+	 }
 }
 
  void Kachel::setPressedColor()
 {
+	PressTimer = 12;
 	kachel.setFillColor(sfPressColor);
 }
 
  void Kachel::setNormalColor()
 {
-	kachel.setFillColor(sfBackroundColor);
+	 if (PressTimer == 0)
+	 {
+		 kachel.setFillColor(sfBackroundColor);
+	 }
 }
  void Kachel::setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size)
  {
@@ -196,6 +295,16 @@ float Kachel::getScale()
  void Kachel::setTexturePosition(sf::Vector2f pos)
  {
 	TexturePos=pos;
+ }
+
+ sf::Vector2f Kachel::getPos()
+ {
+	 return kachel.getPosition();
+ }
+ 
+ sf::Vector2f Kachel::getSize()
+ {
+	 return kachel.getSize();
  }
 
 //Privat Functions

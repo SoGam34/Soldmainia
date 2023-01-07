@@ -7,7 +7,8 @@ Butten::Butten()
 
 Butten::Butten(	float x, float y, float with, float heigth, int ID,
 				std::string text, sf::Font* font, 
-				sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor)
+				sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+				float KachelBreite, float KachelHohe)
 {
 	butten.setPosition(x, y);
 	butten.setSize(sf::Vector2f(with, heigth));
@@ -27,6 +28,11 @@ Butten::Butten(	float x, float y, float with, float heigth, int ID,
 	sfPressColor = PressColor;
 	iID = ID;
 	bdruken = false;
+	PressTimer = 0;
+
+	factorBreite = with / KachelBreite;
+	factorHohe = heigth / KachelHohe;
+
 }
 
 Butten::~Butten()
@@ -56,24 +62,62 @@ bool Butten::isHover(sf::Vector2i mouspos)
 	return false;
 }
 
+void Butten::update()
+{
+	if (PressTimer > 0)
+		PressTimer--;
+	
+	if (PressTimer != 0)
+		butten.setFillColor(sfPressColor);
+}
+
+void Butten::updatePos(int PosX, int PosY, int breite, int hohe)
+{
+	butten.move(PosX, PosY);
+
+	butten.setSize(sf::Vector2f(breite * factorBreite, hohe * factorHohe));
+
+	tText.setPosition(
+		butten.getPosition().x + ((butten.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
+		butten.getPosition().y + ((butten.getGlobalBounds().height / 2) - (tText.getGlobalBounds().height / 2))
+	);
+}
+
 void Butten::setPressColor()
 {
+	PressTimer = 30;
 	butten.setFillColor(sfPressColor);
 }
 
 void Butten::setHoverColor()
 {
-	butten.setFillColor(sfHoverColor);
+	if (PressTimer == 0)
+	{
+		butten.setFillColor(sfHoverColor);
+	}
 }
 
 void Butten::setNormalColor()
 {
-	butten.setFillColor(sfBackroundColor);
+	if (PressTimer == 0)
+	{
+		butten.setFillColor(sfBackroundColor);
+	}
 }
 
 int Butten::getID()
 {
 	return iID;
+}
+
+sf::Vector2f Butten::getPos()
+{
+	return butten.getPosition();
+}
+
+sf::Vector2f Butten::getSize()
+{
+	return butten.getSize();
 }
 
 void Butten::drawFenster(sf::RenderTarget& target)

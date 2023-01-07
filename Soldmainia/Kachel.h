@@ -1,5 +1,6 @@
 #pragma once
 #include "Butten.h"
+#include "Textfeld.h"
 
 class Kachel
 {
@@ -14,7 +15,10 @@ public:
 	//Funktionen zum dieseignen und Mahlen der Kachel
 	 void addButten(float x, float y, float with, float heigth, int ID,
 						std::string text, sf::Font* font,
-						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor);
+						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+						float KachelBreite, float KachelHohe);
+
+	 void addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
 
 	void neuesBild(std::string Text, int PosTextY, 
 				int IDTexture, int PosTextureX, int PosTextureY);
@@ -24,7 +28,14 @@ public:
 	void drawFenster(sf::RenderTarget& target);
 	
 	void drawText(sf::RenderTarget& target);
-	//Funktionen zum Überpüfen der Maus und ändern der Farbe
+
+	//Textfeld
+	void updateTextfelder(sf::Event event, sf::Vector2i MousPos);
+
+	bool EnterPress(sf::Event event);
+	bool getTextfeldAusgewahltZustand();
+
+	//Funktionen zum ï¿½berpï¿½fen der Maus und ï¿½ndern der Farbe
 	//Buttens
 	int checkButtenishover(sf::Vector2i mouspos);
 
@@ -32,6 +43,11 @@ public:
 
 	 void setButtenColorToNormal();
 	//Kachel
+
+	void updatePos(int PosX, int PosY, int breite, int hohe);
+	
+	void update();
+
 	bool ishover(sf::Vector2i mouspos);
 
 	bool isPressed(sf::Vector2i mouspos);
@@ -56,20 +72,30 @@ public:
 
 	void setTexturePosition(sf::Vector2f pos);
 	
-private:
+	sf::Vector2f getPos();
+	
+	sf::Vector2f getSize();
+
+	private:
 	//Kachel
 	sf::RectangleShape kachel;
 	sf::Text tText;
 	sf::Color sfBackroundColor, sfHoverColor, sfPressColor;
 	bool bdruken;
 	int iID;
+	int PressTimer;
 	void newText(std::string Text, int PosTextY);
+	int NormalPos;
 	//Texture
 	int iIDTexture;
 	sf::Vector2f TexturePos;
 	float TextureScale;
+
 	//Butten
 	std::vector <Butten*> vButten;
-	int iButtenZähler;
+	int iButtenZï¿½hler;
+
+	//Textfeld
+	Textfeld* cTextfeld;
 };
 

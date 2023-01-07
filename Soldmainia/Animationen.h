@@ -1,5 +1,6 @@
 #pragma once
-#include "pch.h"
+#include "Kachel.h"
+#include <SFML/Graphics.hpp>
 
 class Animationen
 {
@@ -9,11 +10,11 @@ public:
 	Animationen(sf::Font font);
 	~Animationen();
 
-	void Aktualisieren();
+	void Aktualisieren(sf::Vector2i& vMauspos);
 
 	void draw(sf::RenderTarget* window);
 
-	void startUpgradeAnimation(int Spalte);
+	void startUpgradeAnimation(int Spalte, int breite, int hohe);
 
 	void startBenarichtigung(bool gut, std::string Text);
 	
@@ -21,11 +22,19 @@ public:
 
 	void setFont(sf::Font* font);
 
+	void KeinGeld(sf::Vector2f Pos, sf::Font* font);
+
+	void KeineBerechtigung(sf::Vector2f Pos, sf::Font* font);
+
+	bool getKeineBenarichtigung();
+
 private:
 	sf::Texture UpgradePfeil;
 	std::vector<sf::Sprite> Pfeile;
-
+	Kachel* kBenarichtigung;
 	sf::Text sfBenarichtigungsText;
+
+	bool bKeinBenarichtigung;
 
 	int sBenarichtigung, sUpgradeAnimation;
 	bool bBenarichtigungsArt;

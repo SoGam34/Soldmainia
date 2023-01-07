@@ -35,15 +35,45 @@ Animationen::Animationen(sf::Font font)
 	sfBenarichtigungsText.setCharacterSize(17);
 	sfBenarichtigungsText.setPosition(20, 40);
 	sfBenarichtigungsText.setFont(font);
+
+	kBenarichtigung = nullptr;
+
+	bKeinBenarichtigung = false;
 }
 
 Animationen::~Animationen()
 {
-
+	delete kBenarichtigung;
 }
 
-void Animationen::Aktualisieren()
+void Animationen::Aktualisieren(sf::Vector2i& vMauspos)
 {
+	if (bKeinBenarichtigung)
+	{
+		if (sBenarichtigung == 0)
+		{
+			startBenarichtigung(false, "");
+		}
+
+		kBenarichtigung->update();
+		//Kacheln überprüfen
+		if (kBenarichtigung->ishover(vMauspos))
+		{
+			kBenarichtigung->sethoverColor();
+			//Butten überprüfen
+			if(kBenarichtigung->checkButtenishover(vMauspos)==1)
+				if (kBenarichtigung->checkButtenisPressed(1,vMauspos))
+				{
+					bKeinBenarichtigung = false;
+					sBenarichtigung = 0;
+				}
+				else{ }
+			else
+				kBenarichtigung->setButtenColorToNormal();
+		}
+		else
+			kBenarichtigung->setNormalColor();
+	}
 	if (sUpgradeAnimation > 0)
 	{
 		sUpgradeAnimation--;
@@ -51,46 +81,39 @@ void Animationen::Aktualisieren()
 		{
 			if (i.getPosition().y > 100)
 				i.move(0, -4);
-
 			else 
 				i.setPosition(i.getPosition().x, -80);
 		}
 	}
-
 	if (sBenarichtigung > 0)
 	{
 		sBenarichtigung--;
 		if (!bBenarichtigungsArt&&sBenarichtigung>30)
 		{
-			r += 5;
-			b -= 5;
-			g -= 1;
+			r += 6;
+			b -= 6;
+			g -= 2;
 		}
 
 		else if (!bBenarichtigungsArt && sBenarichtigung <= 30)
 		{
-			r -= 5;
-			b += 5;
-			g += 1;
+			r -= 6;
+			b += 6;
+			g += 2;
 		}
-
 		else if (bBenarichtigungsArt&&sBenarichtigung>30)
 		{
-			r -= 1;
-			b -= 5;
-			g += 5;
+			r -= 2;
+			b -= 6;
+			g += 6;
 		}
-
 		else
 		{
-			r += 1;
-			b += 5;
-			g -= 5;
+			r += 2;
+			b += 6;
+			g -= 6;
 		}
-			
-		
 	}
-
 	if (sBenarichtigung == 0)
 	{
 		r = g = 60;
@@ -100,9 +123,15 @@ void Animationen::Aktualisieren()
 
 void Animationen::draw(sf::RenderTarget* window)
 {
+	if (bKeinBenarichtigung)
+	{
+		kBenarichtigung->drawFenster(*window);
+		kBenarichtigung->drawText(*window);
+	}
+
 	if (sUpgradeAnimation>0)
 	{
-		for(auto i:Pfeile)
+		for(auto &i:Pfeile)
 			window->draw(i);
 	}
 
@@ -112,16 +141,21 @@ void Animationen::draw(sf::RenderTarget* window)
 	}
 }
 
-void Animationen::startUpgradeAnimation(int Spalte)
+void Animationen::startUpgradeAnimation(int Spalte, int breite, int hohe)
 {
 	sUpgradeAnimation = 100;
 	int tempx;
 	int tempy;
 	for (int i = 0; i < Pfeile.size(); i++)
 	{
-		tempx = rand() % 130 + 30;
-		tempy = rand() % 120 + 190;
-		tempx += (Spalte>3) ? 20 : 0;
+		tempx = rand() % ((breite/2)-40) + 30;
+		tempy = rand() % hohe + 190;
+
+		if (breite < 250)
+			tempx += (Spalte > 3) ? 20 : 0;
+
+		else
+			tempx += (Spalte > 3) ? breite+50 : ((Spalte > 2) ? 150 : 60);
 		Pfeile[i].setPosition(((Spalte - 1) * 230) +(Spalte*20) + tempx, tempy);
 	}
 }
@@ -144,4 +178,24 @@ void Animationen::clearWindow(sf::RenderTarget* window)
 void Animationen::setFont(sf::Font* font)
 {
 	sfBenarichtigungsText.setFont(*font);
+}
+
+void Animationen::KeinGeld(sf::Vector2f Pos, sf::Font* font)
+{
+	kBenarichtigung = new Kachel("Sie haben nicht\ngenungend Geld um\ndie gewunschte Aktion\ndurchzufuhren", 100, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x / 2) - 200, 70, 400, 300, sf::Color(250,10,10), sf::Color(255, 240, 200), sf::Color::Green);
+	kBenarichtigung->addButten(380, (Pos.y/2) + 50, 200, 30, 1, "Bestätigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	bKeinBenarichtigung = true;
+	startBenarichtigung(false, "");
+}
+
+void Animationen::KeineBerechtigung(sf::Vector2f Pos, sf::Font* font)
+{
+	kBenarichtigung = new Kachel("Sie sind nicht\nBerechtigt die Aktion\ndurchzuführen", 80, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x/2)-200, 70, 400, 300, sf::Color::Red, sf::Color(255, 200, 200), sf::Color::Green);
+	kBenarichtigung->addButten(350, (Pos.y-2) + 50, 200, 30, 1, "Bestätigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	startBenarichtigung(false, "");
+}
+
+bool Animationen::getKeineBenarichtigung()
+{
+	return bKeinBenarichtigung;
 }

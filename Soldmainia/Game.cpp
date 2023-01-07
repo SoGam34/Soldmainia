@@ -31,7 +31,7 @@ Game::~Game()
 
 void Game::SpielLauft()
 {
-	while (cView->windowOpen())
+	while (cView->getWindow().isOpen())
 	{
 		update();
 		mahlen();
@@ -42,15 +42,15 @@ void Game::SpielLauft()
 void Game::TextAnzeigeinitzaliesieren()
 {
 	//Hauptmenu erste Zeile
-	myData->getKacheln(0).changeText("Zentrale", 160);
-	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
-	myData->getKacheln(2).changeText("Traningszentrum", 160);
-	myData->getKacheln(3).changeText("Scout Büro", 160);
+	myData->getKacheln(0).changeText("Zentrale", 250);
+	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 250);
+	myData->getKacheln(2).changeText("Traningszentrum", 250);
+	myData->getKacheln(3).changeText("Scout Büro", 250);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Aufträge", 160 + 220);
-	myData->getKacheln(5).changeText("Aktive Aufträge", 160 + 220);
-	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
-	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
+	myData->getKacheln(4).changeText("Aufträge", 255 + 220);
+	myData->getKacheln(5).changeText("Aktive Aufträge", 255 + 220);
+	myData->getKacheln(6).changeText("Logistik System", 255 + 220);
+	myData->getKacheln(7).changeText("Erholungsresort", 255 + 220);
 	//BAZ
 	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
 	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
@@ -161,7 +161,7 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
-		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
+		switch ((myData->getAnimationen().getKeineBenarichtigung())?99: updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
 		{
 		case 1: 
 		{
@@ -187,12 +187,16 @@ void Game::update()
 		{
 			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
 		}break;
+		case 5:
+		{
+			cBAZ->EndeAusbildung();
+		}
 		}
 	}break;
 
 	case scoutbüro:
 	{
-		switch (updateButtons(12, 4))
+		switch ((myData->getAnimationen().getKeineBenarichtigung()) ? 99 : updateButtons(12, 4))
 		{
 		case 1:
 		{
@@ -233,7 +237,7 @@ void Game::update()
 		clTagesTimer.restart();
 	}
 	
-	myData->getAnimationen().Aktualisieren();
+	myData->getAnimationen().Aktualisieren(vMauspos);
 
 }
 
@@ -244,6 +248,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
+		myData->getKacheln(i).update();
 		//Kacheln überprüfen
 		if (myData->getKacheln(i).ishover(vMauspos))
 		{
@@ -268,20 +273,46 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 
 void Game::checkSortcuts()
 {
-	if (cKeyboard.isKeyPressed(cKeyboard.Escape))
-		cView->Close();
+	while (cView->getWindow().pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
 
-	if (cKeyboard.isKeyPressed(cKeyboard.H))
-		eAktuellesMenu = Hauptmenu;
+			cView->getWindow().close();
+		}
 
-	if (cKeyboard.isKeyPressed(cKeyboard.Z))
-		eAktuellesMenu = Zentrale;
+		else if (event.type == sf::Event::Resized)
+		{
+			sf::FloatRect visibleArea(0, 0, event.size.width, event.size.height);
+			cView->getWindow().setView(sf::View(visibleArea));
 
-	if (cKeyboard.isKeyPressed(cKeyboard.A))
-		eAktuellesMenu = Batilionsausbildungsstate;
+			cView->ReSize();
+		}
 
-	if (cKeyboard.isKeyPressed(cKeyboard.S))
-		eAktuellesMenu = scoutbüro;
+		else if (event.type == sf::Event::TextEntered)
+		{
+			if (myData->getKacheln(8).getTextfeldAusgewahltZustand()||myData->getKacheln(8).EnterPress(event))
+				myData->getKacheln(8).updateTextfelder(event, sf::Mouse::getPosition(cView->getWindow()));
+
+			else
+			{
+				if (cKeyboard.isKeyPressed(cKeyboard.Escape))
+					cView->getWindow().close();
+
+				if (cKeyboard.isKeyPressed(cKeyboard.H))
+					eAktuellesMenu = Hauptmenu;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.Z))
+					eAktuellesMenu = Zentrale;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.A))
+					eAktuellesMenu = Batilionsausbildungsstate;
+
+				if (cKeyboard.isKeyPressed(cKeyboard.S))
+					eAktuellesMenu = scoutbüro;
+			}
+		}
+	}
 }
 
 void Game::neuerTag()
@@ -312,7 +343,7 @@ void Game::mahlen()
 		cView->DrawScoutbuero(iTag);
 	}break;
 	default: {
-
+		cView->DrawNichtVerfügbar();
 	}break;
 	}
 }
