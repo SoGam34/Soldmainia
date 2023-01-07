@@ -5,7 +5,7 @@ Animationen::Animationen()
 	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");
 	sf::Sprite temp;
 	temp.setTexture(UpgradePfeil);
-	Pfeile.push_back(temp);
+	Pfeile.push_back(temp);   
 	Pfeile.push_back(temp);
 	Pfeile.push_back(temp);
 

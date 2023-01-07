@@ -5,7 +5,7 @@
 class Data
 {
 public:
-	Data() 
+	Data()    
 	{
 		sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
 

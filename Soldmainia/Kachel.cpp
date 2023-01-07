@@ -5,7 +5,7 @@ Kachel::Kachel()
 {
 	bdruken = false;
 	//Butten
-	vButten.clear();
+	vButten.clear();  
 }
 
 Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,

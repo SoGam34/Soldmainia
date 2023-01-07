@@ -5,7 +5,7 @@ class Kachel
 {
 public:
 	//Konstruktoren
-	Kachel();
+	Kachel();   
 	Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
 		int IDTexture, int PosTextureX, int PosTextureY,
 		int ID, int PosKachelX, int PosKachelY, float with, float height,
