@@ -2,13 +2,13 @@
 #include "Timer.h"
 #include "Data.h"
 
-class Scoutbüro : public Timer
+class Scoutbuero : public Timer
 {
 public:
 	//De/Konstrucktor
-	Scoutbüro();
-	Scoutbüro(Data* data);
-	~Scoutbüro();
+	Scoutbuero();
+	Scoutbuero(Data* data);
+	~Scoutbuero();
 
 	//Ausbildungs F.
 	std::stringstream SucheText();
@@ -44,7 +44,7 @@ private:
 	int iKostenmitarbeiter;
 	// Array zum speichern des aktuellen Levels
 	int iLevel[3];
-	// Für eine einfachere Verfaltung des der Suche und Erzeugung
+	// Fuer eine einfachere Verfaltung des der Suche und Erzeugung
 	enum Rang { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
 	Rang eRang;
 };

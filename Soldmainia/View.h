@@ -12,7 +12,7 @@ public:
 	void DrawHauptmenu(int iTage);
 	void DrawBAZ(int iTage);
 	void DrawScoutbuero(int iTage);
-	void DrawNichtVerfügbar();
+	void DrawNichtVerfuegbar();
 
 	sf::Vector2i getMousPos();
 	void CheckWindow();

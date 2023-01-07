@@ -1,6 +1,6 @@
 #include "Scoutbüro.h"
 
-Scoutbüro::Scoutbüro()
+Scoutbuero::Scoutbuero()
 {
 	cData = nullptr;
 	bSucheAktiv = false;
@@ -12,7 +12,7 @@ Scoutbüro::Scoutbüro()
 	iLevel[0] = iLevel[1] = iLevel[2] = 0;
 }
 
-Scoutbüro::Scoutbüro(Data* data)
+Scoutbuero::Scoutbuero(Data* data)
 {
 	cData=data;
 	bSucheAktiv = false;
@@ -24,18 +24,18 @@ Scoutbüro::Scoutbüro(Data* data)
 	iLevel[0] = iLevel[1] = iLevel[2] = 0;
 }
 
-Scoutbüro::~Scoutbüro()
+Scoutbuero::~Scoutbuero()
 {
 }
 
-std::stringstream Scoutbüro::SucheText()
+std::stringstream Scoutbuero::SucheText()
 {
 	 std::stringstream ssText;
-	 ssText << "Die Mitarbeiter des\nScoutbüros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
+	 ssText << "Die Mitarbeiter des\nScoutbueros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
 	 return ssText;
 }
 
-void Scoutbüro::startSuche()
+void Scoutbuero::startSuche()
 {
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
 	//Erzeugen eines EM Objektes
@@ -87,15 +87,15 @@ void Scoutbüro::startSuche()
 	ssText.clear();
 }
 
-void Scoutbüro::aktSuche()
+void Scoutbuero::aktSuche()
 {
 	cData->getKacheln(12).changeText(SucheText().str(), 300);
 }
 
-void Scoutbüro::EndeSuche()
+void Scoutbuero::EndeSuche()
 {
 	std::stringstream ssText;
-	ssText << "Starke:Test\nAffinität: Test\nProzentualer Anteil: Test";
+	ssText << "Starke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
 	cData->getKacheln(12).neuesBild(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getSize().x, cData->getKacheln(12).getSize().y);
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getSize().x, cData->getKacheln(12).getSize().y);
@@ -106,7 +106,7 @@ void Scoutbüro::EndeSuche()
 	ssText.clear();
 }
 
-void Scoutbüro::Annehmen()
+void Scoutbuero::Annehmen()
 {
 	// EM dauerhaft in Data speichern
 	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
@@ -115,7 +115,7 @@ void Scoutbüro::Annehmen()
 	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
 }
 
-void Scoutbüro::Ablehnen()
+void Scoutbuero::Ablehnen()
 {
 	//EM = nullptr
 	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
@@ -125,15 +125,15 @@ void Scoutbüro::Ablehnen()
 	bSucheAktiv = false;
 }
 
-void Scoutbüro::upgrade()
+void Scoutbuero::upgrade()
 {
 }
 
-void Scoutbüro::UpgradeGeschwindikeit()
+void Scoutbuero::UpgradeGeschwindikeit()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 0) && cData->getScoutbüroGeschwindikeitsfaktor() >= 0.05)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 0) && cData->getScoutbueroGeschwindikeitsfaktor() >= 0.05)	// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		cData->setScoutbüroGeschwindikeitsFaktor(cData->getScoutbüroGeschwindikeitsfaktor() * 0.95);		// Durchfüren der Verbesserung 
+		cData->setScoutbueroGeschwindikeitsFaktor(cData->getScoutbueroGeschwindikeitsfaktor() * 0.95);		// Durchfueren der Verbesserung 
 
 		iLevel[0]++;
 
@@ -142,21 +142,21 @@ void Scoutbüro::UpgradeGeschwindikeit()
 		cData->getAnimationen().startBenarichtigung(false, ssk.str());
 		
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 0));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbüro(0, 0) : ((iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2))));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 0, cData->getfUpgradeKosten(1, 0) * ((iLevel[0] < 16) ? cData->getUpgradeFaktorScoutbuero(0, 0) : ((iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbuero(0, 1) : cData->getUpgradeFaktorScoutbuero(0, 2))));								// Speichern der neuen Verbesserungskosten
 		
 		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
-		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bSucheAktiv)	// ueberprueft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktstd();
 		}
 
-		if (cData->getScoutbüroGeschwindikeitsfaktor() < 0.10)
+		if (cData->getScoutbueroGeschwindikeitsfaktor() < 0.10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(13).neuesBild(ss.str(), 350, 1, 285 , 95);
 		}
 
@@ -171,11 +171,11 @@ void Scoutbüro::UpgradeGeschwindikeit()
 	}
 }
 
-void Scoutbüro::UpgradeRang()
+void Scoutbuero::UpgradeRang()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 1) && iRangmin<6)								// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 1) && iRangmin<6)								// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		iRangmin++;																							// Durchfüren der Verbesserung 
+		iRangmin++;																							// Durchfueren der Verbesserung 
 
 		iLevel[1]++;
 
@@ -185,12 +185,12 @@ void Scoutbüro::UpgradeRang()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * ((iLevel[1]<3)?cData->getUpgradeFaktorScoutbüro(1, 0): (iLevel[1]<5)? cData->getUpgradeFaktorScoutbüro(1, 1): cData->getUpgradeFaktorScoutbüro(1, 2)));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * ((iLevel[1]<3)?cData->getUpgradeFaktorScoutbuero(1, 0): (iLevel[1]<5)? cData->getUpgradeFaktorScoutbuero(1, 1): cData->getUpgradeFaktorScoutbuero(1, 2)));								// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
-		if (!bSucheAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bSucheAktiv)	// ueberprueft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktstd();
@@ -199,14 +199,14 @@ void Scoutbüro::UpgradeRang()
 		if (iRangmin == 6)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1) << "\nLevel: " << iLevel[1] << "/ 6";
+			ss << "Das Scoutbuero\nfindet Einzelkampfer die\neinen hoeheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1) << "\nLevel: " << iLevel[1] << "/ 6";
 			cData->getKacheln(14).changeText(ss.str(), 320);
 		}
 
@@ -214,11 +214,11 @@ void Scoutbüro::UpgradeRang()
 	}	
 }
 
-void Scoutbüro::UpgradeKosten()
+void Scoutbuero::UpgradeKosten()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 2) && iKostenmitarbeiter > 10)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 2) && iKostenmitarbeiter > 10)	// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		iKostenmitarbeiter -= 10;																	// Durchfüren der Verbesserung 
+		iKostenmitarbeiter -= 10;																	// Durchfueren der Verbesserung 
 
 		iLevel[2]++;
 
@@ -228,12 +228,12 @@ void Scoutbüro::UpgradeKosten()
 		ssk.clear();
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * ((iLevel[2] < 12) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[2] < 22) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));						// Speichern der neuen Verbesserungskosten	
+		cData->setfUpgradeKosten(1, 2, cData->getfUpgradeKosten(1, 2) * ((iLevel[2] < 12) ? cData->getUpgradeFaktorScoutbuero(0, 0) : (iLevel[2] < 22) ? cData->getUpgradeFaktorScoutbuero(0, 1) : cData->getUpgradeFaktorScoutbuero(0, 2)));						// Speichern der neuen Verbesserungskosten	
 
 		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
-		if (!bSucheAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bSucheAktiv)	// ueberprueft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktstd();			
@@ -242,7 +242,7 @@ void Scoutbüro::UpgradeKosten()
 		if (iKostenmitarbeiter == 10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(15).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
@@ -256,27 +256,27 @@ void Scoutbüro::UpgradeKosten()
 	}
 }
 
-void Scoutbüro::aktstd()
+void Scoutbuero::aktstd()
 {
 	std::stringstream ssText;
-	ssText << "Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	ssText << "Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	cData->getKacheln(12).changeText(ssText.str(), 200);
 	ssText.clear();
 }
 
-void Scoutbüro::BerrechnungVoraussichtlicheZeit()
+void Scoutbuero::BerrechnungVoraussichtlicheZeit()
 {
-	iVoraussichtlicheZeit = (iZeitversatz * eRang * cData->getScoutbüroGeschwindikeitsfaktor() * // Ermitteln der Zeit die Vorausichtlich für die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Größe, der Grundgeschwindikeit, der Bekanntheit
+	iVoraussichtlicheZeit = (iZeitversatz * eRang * cData->getScoutbueroGeschwindikeitsfaktor() * // Ermitteln der Zeit die Vorausichtlich fuer die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Groese, der Grundgeschwindikeit, der Bekanntheit
 		((cData->getBekanntheit() < 1000) ? 3 : (cData->getBekanntheit() < 10000) ? 2 : 1));	 // Ermitteln der Bekanntheit und dem dadurch resultierendem Faktor
 
 	neuerTimer(iVoraussichtlicheZeit);
 }
 
-void Scoutbüro::updateTimer()
+void Scoutbuero::updateTimer()
 {
 	aktTimer();									// akktualiesieren der Uhr
 
-	if (getTimerstand() + iZeitversatz == 0&&bSucheAktiv)	// überprüfen ob die Zeit abgelaugen ist 
+	if (getTimerstand() + iZeitversatz == 0&&bSucheAktiv)	// ueberpruefen ob die Zeit abgelaugen ist 
 		EndeSuche();						// Beenden der Ausbildung, da die Ausbildung fertig ist 
 
 	else if (bSucheAktiv)					// Aktualiesiern des Angezeigten Ausbildungs Fortschritts

@@ -18,9 +18,9 @@ private:
 	//Allgemein
 	enum AktuellesMenu
 	{
-		Hauptmenu, Zentrale, scoutbüro,
-		Batilionsausbildungsstate, Träningszentrum,
-		Aufträge, AAufträge, LogistikSystem,
+		Hauptmenu, Zentrale, scoutbuero,
+		Batilionsausbildungsstate, Traeningszentrum,
+		Auftraege, AAuftraege, LogistikSystem,
 		Erholungsresort, EinzelMitglieder, Batilione
 	};
 	AktuellesMenu eAktuellesMenu;
@@ -41,8 +41,8 @@ private:
 	//BAZ
 	Batilion_Ausbildungszentrum* cBAZ;
 
-	//Scoutbüro
-	Scoutbüro* cScoutbüro;
+	//Scoutbuero
+	Scoutbuero* cScoutbuero;
 
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();

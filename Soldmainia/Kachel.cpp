@@ -36,7 +36,7 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	//Butten
 	vButten.clear();
 
-	TextureScale = 1;
+	//TextureScale = 1;
 
 	
 	NormalPos = tText.getPosition().y;
@@ -199,7 +199,7 @@ void Kachel::setButtenColorToNormal()
 		 tempy += hohe - 500;
 		 tText.setPosition(
 			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
-			 tText.getPosition().y + tempy);
+			 tText.getPosition().y - tempy);
 	 }
 	 
 	 for (auto e : vButten)

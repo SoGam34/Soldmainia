@@ -22,7 +22,7 @@ public:
 	void BerrechnungVoraussichtlicheZeit();
 	void updateTimer();
 
-	// Batilions Größe ändern
+	// Batilions Groese aendern
 	void AnzahlErhohen();
 	void AnzahlReduzieren();
 	 

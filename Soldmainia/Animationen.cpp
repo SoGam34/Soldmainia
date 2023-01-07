@@ -56,11 +56,11 @@ void Animationen::Aktualisieren(sf::Vector2i& vMauspos)
 		}
 
 		kBenarichtigung->update();
-		//Kacheln überprüfen
+		//Kacheln ueberpruefen
 		if (kBenarichtigung->ishover(vMauspos))
 		{
 			kBenarichtigung->sethoverColor();
-			//Butten überprüfen
+			//Butten ueberpruefen
 			if(kBenarichtigung->checkButtenishover(vMauspos)==1)
 				if (kBenarichtigung->checkButtenisPressed(1,vMauspos))
 				{
@@ -183,15 +183,15 @@ void Animationen::setFont(sf::Font* font)
 void Animationen::KeinGeld(sf::Vector2f Pos, sf::Font* font)
 {
 	kBenarichtigung = new Kachel("Sie haben nicht\ngenungend Geld um\ndie gewunschte Aktion\ndurchzufuhren", 100, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x / 2) - 200, 70, 400, 300, sf::Color(250,10,10), sf::Color(255, 240, 200), sf::Color::Green);
-	kBenarichtigung->addButten(380, (Pos.y/2) + 50, 200, 30, 1, "Bestätigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	kBenarichtigung->addButten((Pos.x / 2) - 100, 300, 200, 30, 1, "Bestaetigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
 	bKeinBenarichtigung = true;
 	startBenarichtigung(false, "");
 }
 
 void Animationen::KeineBerechtigung(sf::Vector2f Pos, sf::Font* font)
 {
-	kBenarichtigung = new Kachel("Sie sind nicht\nBerechtigt die Aktion\ndurchzuführen", 80, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x/2)-200, 70, 400, 300, sf::Color::Red, sf::Color(255, 200, 200), sf::Color::Green);
-	kBenarichtigung->addButten(350, (Pos.y-2) + 50, 200, 30, 1, "Bestätigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	kBenarichtigung = new Kachel("Sie sind nicht\nBerechtigt die Aktion\ndurchzufuehren", 80, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x/2)-200, 70, 400, 300, sf::Color::Red, sf::Color(255, 200, 200), sf::Color::Green);
+	kBenarichtigung->addButten(350, (Pos.y-2) + 50, 200, 30, 1, "Bestaetigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
 	startBenarichtigung(false, "");
 }
 

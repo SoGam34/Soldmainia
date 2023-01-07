@@ -89,11 +89,10 @@ public:
 	//Texture
 	int iIDTexture;
 	sf::Vector2f TexturePos;
-	float TextureScale;
 
 	//Butten
 	std::vector <Butten*> vButten;
-	int iButtenZ�hler;
+	float TextureScale;
 
 	//Textfeld
 	Textfeld* cTextfeld;

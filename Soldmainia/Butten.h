@@ -18,12 +18,12 @@ public:
 		float KachelBreite, float KachelHohe);
 	~Butten();
 
-	//Überprufen ob die Maus sich über dem Butten befindet und dieser gedrückt wird
+	//ueberprufen ob die Maus sich ueber dem Butten befindet und dieser gedrueckt wird
 	bool isPressed(sf::Vector2i mouspos);
 	bool isHover(sf::Vector2i mouspos);
 	void update();
 	void updatePos(int PosX, int PosY, int breite, int hohe);
-	//Ändern die Farbe des Butten
+	//aendern die Farbe des Butten
 	 void setPressColor();
 	 void setHoverColor();
 	 void setNormalColor();

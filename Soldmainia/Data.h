@@ -58,14 +58,14 @@ public:
 		iBekanntheit = value;
 	}
 
-	int getBatilionsgr��e()
+	int getBatilionsgroese()
 	{
-		return iBatilonsgr��e;
+		return iBatilonsgroese;
 	}
 
-	void setBatilionsgr��e(int value)
+	void setBatilionsgroese(int value)
 	{
-		iBatilonsgr��e = value;
+		iBatilonsgroese = value;
 	}
 
 	float getBatilionGeschwindikeitsfaktor()
@@ -78,24 +78,24 @@ public:
 		iGeschwindikeitsFaktor[0] = value;
 	}
 
-	float getScoutb�roGeschwindikeitsfaktor()
+	float getScoutbueroGeschwindikeitsfaktor()
 	{
 		return iGeschwindikeitsFaktor[1];
 	}
 
-	void setScoutb�roGeschwindikeitsFaktor(float value)
+	void setScoutbueroGeschwindikeitsFaktor(float value)
 	{
 		iGeschwindikeitsFaktor[1] = value;
 	}
 
-	float getGrundst�rke()
+	float getGrundstaerke()
 	{
-		return fGrundst�rke;
+		return fGrundstaerke;
 	}
 
-	void setGrundst�rke(int starke)
+	void setGrundstaerke(int starke)
 	{
-		fGrundst�rke = starke;
+		fGrundstaerke = starke;
 	}
 
 	int getKostenProKopf()
@@ -163,14 +163,14 @@ public:
 		iHohe = value;
 	}
 
-	void getUpgradeFaktorScoutb�ro(int Spalte, int Reihe, float value)
+	void getUpgradeFaktorScoutbuero(int Spalte, int Reihe, float value)
 	{
-		UpgradeFaktorScoutb�ro[Spalte][Reihe] = value;
+		UpgradeFaktorScoutbuero[Spalte][Reihe] = value;
 	}
 
-	float getUpgradeFaktorScoutb�ro(int Spalte, int Reihe)
+	float getUpgradeFaktorScoutbuero(int Spalte, int Reihe)
 	{
-		return UpgradeFaktorScoutb�ro[Spalte][Reihe];
+		return UpgradeFaktorScoutbuero[Spalte][Reihe];
 	}
 
 	sf::Vector2f getWindowSize()
@@ -195,10 +195,10 @@ private:
 
 	//BAZ
 	int iBekanntheit = 1;
-	int iBatilonsgr��e = 10;
+	int iBatilonsgroese = 10;
 	int iKostenproKopf = 70;
 	float iGeschwindikeitsFaktor[2]{ 1,1 };//BaZ, Scout 
-	float fGrundst�rke = 10;
+	float fGrundstaerke = 10;
 
 	// Animationen
 	Animationen cAnimationen;
@@ -212,7 +212,7 @@ private:
 		100,1000,100	 //Scoutb�ro
 	};
 
-	float UpgradeFaktorScoutb�ro[3][3]
+	float UpgradeFaktorScoutbuero[3][3]
 	{
 		//Geschwindikeit, Kosten Reduzieren 
 		2.5, 1.4, 1.2,
@@ -232,10 +232,10 @@ private:
 		Kachel("Zentrale"					, 260, sf::Color::Black, &sfFont, 15,					iAbstandthalter+15, 70, 1,					 iAbstandthalter, 70, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 		Kachel("Batilionausbildungszentrum" , 260, sf::Color::Black, &sfFont, 8 , 1 * iBreite + 2 * iAbstandthalter+15, 70, 2, 1 * iBreite + 2 * iAbstandthalter, 70, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 		Kachel("Tr�ningszentrum"			, 260, sf::Color::Black, &sfFont, 11, 2 * iBreite + 3 * iAbstandthalter+15, 70, 3, 2 * iBreite + 3 * iAbstandthalter, 70, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Scout B�ro"					, 260, sf::Color::Black, &sfFont, 10, 3 * iBreite + 4 * iAbstandthalter+15, 70, 4, 3 * iBreite + 4 * iAbstandthalter, 70, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Scout Buero"					, 260, sf::Color::Black, &sfFont, 10, 3 * iBreite + 4 * iAbstandthalter+15, 70, 4, 3 * iBreite + 4 * iAbstandthalter, 70, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 		//zweite Reihe						  
-		Kachel("Auftr�ge"					, 280 + iHohe , sf::Color::Black, &sfFont, 3, 1 * iBreite + 2 * iAbstandthalter + 15, 70 + 1 * iAbstandthalter + iHohe, 6, 1 * iBreite + 2 * iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Aktive Auftr�ge"			, 280 + iHohe , sf::Color::Black, &sfFont, 2, 2 * iBreite + 3 * iAbstandthalter + 15, 70 + 1 * iAbstandthalter + iHohe, 7, 2 * iBreite + 3 * iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Auftrage"					, 280 + iHohe , sf::Color::Black, &sfFont, 3, 1 * iBreite + 2 * iAbstandthalter + 15, 70 + 1 * iAbstandthalter + iHohe, 6, 1 * iBreite + 2 * iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Aktive Auftrage"			, 280 + iHohe , sf::Color::Black, &sfFont, 2, 2 * iBreite + 3 * iAbstandthalter + 15, 70 + 1 * iAbstandthalter + iHohe, 7, 2 * iBreite + 3 * iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 		Kachel("Logistik System"			, 280 + iHohe , sf::Color::Black, &sfFont, 9, 3 * iBreite + 4 * iAbstandthalter + 15, 70 + 1 * iAbstandthalter + iHohe, 8, 3 * iBreite + 4 * iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 		Kachel("Erholungsresort"			, 280 + iHohe , sf::Color::Black, &sfFont, 7, iAbstandthalter + 15					, 70 + 1 * iAbstandthalter + iHohe, 5, 					 iAbstandthalter, 70 + 1 * iAbstandthalter + iHohe, iBreite, iHohe, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 

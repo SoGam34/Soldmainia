@@ -2,7 +2,7 @@
 
 Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum()
 {
-	cData = nullptr;					// intiltilisieren mit nullptr zur prevention von Schaden die angerichtet werden könnten
+	cData = nullptr;					// intiltilisieren mit nullptr zur prevention von Schaden die angerichtet werden koennten
 	bAusbildungAktiv = false;			// Auf False setzen, da keine Aubildung statt findet
 	
 	iZeitversatz = rand() % 5 + 3;		// Festlegen des neuen Zeitversatzes mit dem 
@@ -29,7 +29,7 @@ void Batilion_Ausbildungszentrum::updateTimer()
 {
 	aktTimer();									// akktualiesieren der Uhr
 
-	if (getTimerstand() + iZeitversatz == 0&&bAusbildungAktiv)	// überprüfen ob die Zeit abgelaugen ist 
+	if (getTimerstand() + iZeitversatz == 0&&bAusbildungAktiv)	// ueberpruefen ob die Zeit abgelaugen ist 
 		Name();						// Beenden der Ausbildung, da die Ausbildung fertig ist 
 
 	else if (bAusbildungAktiv)					// Aktualiesiern des Angezeigten Ausbildungs Fortschritts
@@ -41,14 +41,14 @@ std::stringstream Batilion_Ausbildungszentrum::AusbildungsText()
 	// Der Text der warend der Ausbildung angezeigt wird 
 	std::stringstream ssText;
 	ssText << "Ausbildung eines neuen \nBatilions ist im Gang.\n"
-		<< "Das Batilion wird aus\n" << cData->getBatilionsgröße() << " Mitgliedern bestehen.\n"
+		<< "Das Batilion wird aus\n" << cData->getBatilionsgroese() << " Mitgliedern bestehen.\n"
 		<< "Die Ausbildung wird in\n" << getTimerstand() << " Tagen vorausichtlich\nfertig sein.";
 	return ssText;
 }
 
 void Batilion_Ausbildungszentrum::startAusbildung()
 {
-	if (cData->getiKontostand() > cData->getKostenProKopf() * (iVoraussichtlicheZeit+iZeitversatz)) // überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getKostenProKopf() * (iVoraussichtlicheZeit+iZeitversatz)) // ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
 		ss << -(cData->getKostenProKopf() * iVoraussichtlicheZeit);
@@ -90,14 +90,14 @@ void Batilion_Ausbildungszentrum::EndeAusbildung()
 {
 	//Generierung eines Batilions
 	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nächsten Batilions 
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des naechsten Batilions 
 	BerrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10 * cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGroese: " << cData->getBatilionsgroese() << "\nKampfkraft: " << cData->getBatilionsgroese() * 10 * cData->getGrundstaerke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 
 	cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
-	// Hinzufügen aller Notiger Buttens 
+	// Hinzufuegen aller Notiger Buttens 
 	cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
 	cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
 	cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, cData->getKacheln(8).getSize().x, cData->getKacheln(8).getSize().y);
@@ -105,9 +105,9 @@ void Batilion_Ausbildungszentrum::EndeAusbildung()
 
 void Batilion_Ausbildungszentrum::aktstd()
 {
-	//Aktualieseiren der Anzeige wie das nächste Batilion ausehen wird 
+	//Aktualieseiren der Anzeige wie das naechste Batilion ausehen wird 
 	std::stringstream ssText;
-	ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10* cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGroese: " << cData->getBatilionsgroese() << "\nKampfkraft: " << cData->getBatilionsgroese() * 10* cData->getGrundstaerke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 	cData->getKacheln(8).changeText(ssText.str(), 200);
 	ssText.clear();
 }
@@ -115,7 +115,7 @@ void Batilion_Ausbildungszentrum::aktstd()
 void Batilion_Ausbildungszentrum::AnzahlErhohen()
 {
 	// Erhoht die Gesamtanzahl der Soldaten in dem Batilion und aktualiesiert die Ausgabe
-	cData->setBatilionsgröße(cData->getBatilionsgröße() + 1);
+	cData->setBatilionsgroese(cData->getBatilionsgroese() + 1);
 	BerrechnungVoraussichtlicheZeit();
 	aktstd();
 }
@@ -123,16 +123,16 @@ void Batilion_Ausbildungszentrum::AnzahlErhohen()
 void Batilion_Ausbildungszentrum::AnzahlReduzieren()
 {
 	// Reduziert die Gesamtanzahl der Soldaten in dem Batilion und aktualiesiert die Ausgabe
-	cData->setBatilionsgröße(cData->getBatilionsgröße() - 1);
+	cData->setBatilionsgroese(cData->getBatilionsgroese() - 1);
 	BerrechnungVoraussichtlicheZeit();
 	aktstd();
 }
 
 void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 0) && cData->getBatilionGeschwindikeitsfaktor() >= 0.05)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 0) && cData->getBatilionGeschwindikeitsfaktor() >= 0.05)	// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		cData->setBatilionGeschwindikeitsFaktor(cData->getBatilionGeschwindikeitsfaktor() * 0.95);							// Durchfüren der Verbesserung 
+		cData->setBatilionGeschwindikeitsFaktor(cData->getBatilionGeschwindikeitsfaktor() * 0.95);							// Durchfueren der Verbesserung 
 
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(0, 0));
@@ -142,12 +142,12 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 		iLevel[0]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 0));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 0, cData->getfUpgradeKosten(0, 0) * ((iLevel[0] < 15) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));								// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 0, cData->getfUpgradeKosten(0, 0) * ((iLevel[0] < 15) ? cData->getUpgradeFaktorScoutbuero(0, 0) : (iLevel[0] < 35) ? cData->getUpgradeFaktorScoutbuero(0, 1) : cData->getUpgradeFaktorScoutbuero(0, 2)));								// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
-		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bAusbildungAktiv)	// ueberprueft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			aktstd();
 			BerrechnungVoraussichtlicheZeit();
@@ -156,7 +156,7 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 		if (cData->getBatilionGeschwindikeitsfaktor() < 0.1)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(9).neuesBild(ss.str(), 350, 1, 285, 95);
 		}
 
@@ -178,9 +178,9 @@ void Batilion_Ausbildungszentrum::UpgradeGeschwindikeit()
 
 void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 1) && cData->getGrundstärke() < 25)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 1) && cData->getGrundstaerke() < 25)	// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		cData->setGrundstärke(cData->getGrundstärke() + 1);											// Durchfüren der Verbesserung 
+		cData->setGrundstaerke(cData->getGrundstaerke() + 1);											// Durchfueren der Verbesserung 
 
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(0, 1));
@@ -190,28 +190,28 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		iLevel[1]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 1));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbüro(2, 0) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbüro(2, 1) : cData->getUpgradeFaktorScoutbüro(2, 2)));					// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 1, cData->getfUpgradeKosten(0, 1) * ((iLevel[1] < 9) ? cData->getUpgradeFaktorScoutbuero(2, 0) : (iLevel[1] < 17) ? cData->getUpgradeFaktorScoutbuero(2, 1) : cData->getUpgradeFaktorScoutbuero(2, 2)));					// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 		
 		std::stringstream ss;
-		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bAusbildungAktiv)	// ueberprueft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			aktstd();
 			BerrechnungVoraussichtlicheZeit();
 		}
 
-		if (cData->getGrundstärke() > 24)
+		if (cData->getGrundstaerke() > 24)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(10).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstärke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[2] << "/" << 16;
+			ss << "Erhoung der Grundstaerke\nKosten: " << cData->getfUpgradeKosten(0, 1) << "\nLevel: " << iLevel[2] << "/" << 16;
 			cData->getKacheln(10).changeText(ss.str(), 350);
 		}
 
@@ -226,9 +226,9 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 
 void Batilion_Ausbildungszentrum::UpgradeKosten()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 2) && cData->getKostenProKopf() >= 10)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > cData->getfUpgradeKosten(0, 2) && cData->getKostenProKopf() >= 10)	// ueberpruefen ob die Ausbildung bezahlt werden kann
 	{
-		cData->setKostenProKopf(cData->getKostenProKopf() - 5);										// Durchfüren der Verbesserung 
+		cData->setKostenProKopf(cData->getKostenProKopf() - 5);										// Durchfueren der Verbesserung 
 
 		std::stringstream ssk;
 		ssk << -(cData->getfUpgradeKosten(0, 2));
@@ -238,12 +238,12 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 		iLevel[2]++;
 
 		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(0, 2));			// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(0, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 9) ? cData->getUpgradeFaktorScoutbüro(0, 0) : (iLevel[2] < 13) ? cData->getUpgradeFaktorScoutbüro(0, 1) : cData->getUpgradeFaktorScoutbüro(0, 2)));						// Speichern der neuen Verbesserungskosten
+		cData->setfUpgradeKosten(0, 2, cData->getfUpgradeKosten(0, 2) * ((iLevel[2] < 9) ? cData->getUpgradeFaktorScoutbuero(0, 0) : (iLevel[2] < 13) ? cData->getUpgradeFaktorScoutbuero(0, 1) : cData->getUpgradeFaktorScoutbuero(0, 2)));						// Speichern der neuen Verbesserungskosten
 
 		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 
 		std::stringstream ss;
-		if (!bAusbildungAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bAusbildungAktiv)	// ueberprueft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fuehrt
 		{
 			aktstd();
 			BerrechnungVoraussichtlicheZeit();
@@ -252,7 +252,7 @@ void Batilion_Ausbildungszentrum::UpgradeKosten()
 		if (cData->getKostenProKopf() < 10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(11).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
@@ -277,7 +277,7 @@ void Batilion_Ausbildungszentrum::upgrade()
 
 void Batilion_Ausbildungszentrum::BerrechnungVoraussichtlicheZeit()
 {
-	iVoraussichtlicheZeit = (iZeitversatz * cData->getBatilionsgröße() * cData->getBatilionGeschwindikeitsfaktor() * // Ermitteln der Zeit die Vorausichtlich für die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Größe, der Grundgeschwindikeit, der Bekanntheit
+	iVoraussichtlicheZeit = (iZeitversatz * cData->getBatilionsgroese() * cData->getBatilionGeschwindikeitsfaktor() * // Ermitteln der Zeit die Vorausichtlich fuer die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Groese, der Grundgeschwindikeit, der Bekanntheit
 		((cData->getBekanntheit() < 1000) ? 3 : (cData->getBekanntheit() < 10000) ? 2 : 1));				 // Ermitteln der Bekanntheit und dem dadurch resultierendem Faktor
 	
 	neuerTimer(iVoraussichtlicheZeit);																		 // Satrten der Uhr mit der neuen Zeit

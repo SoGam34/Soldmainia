@@ -8,7 +8,7 @@ Game::Game()
 	cBAZ = new Batilion_Ausbildungszentrum(myData);
 	cBAZ->aktstd();
 
-	cScoutbüro = new Scoutbüro(myData);
+	cScoutbuero = new Scoutbuero(myData);
 	
 	//Auswahl
 	cAuswahl = new Auswahl();
@@ -23,7 +23,7 @@ Game::Game()
 Game::~Game()
 {
 	delete cBAZ;
-	delete cScoutbüro;
+	delete cScoutbuero;
 	delete cAuswahl;
 	delete cView;
 	delete myData;
@@ -45,20 +45,20 @@ void Game::TextAnzeigeinitzaliesieren()
 	myData->getKacheln(0).changeText("Zentrale", 250);
 	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 250);
 	myData->getKacheln(2).changeText("Traningszentrum", 250);
-	myData->getKacheln(3).changeText("Scout Büro", 250);
+	myData->getKacheln(3).changeText("Scout Buero", 250);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Aufträge", 255 + 220);
-	myData->getKacheln(5).changeText("Aktive Aufträge", 255 + 220);
+	myData->getKacheln(4).changeText("Auftraege", 255 + 220);
+	myData->getKacheln(5).changeText("Aktive Auftraege", 255 + 220);
 	myData->getKacheln(6).changeText("Logistik System", 255 + 220);
 	myData->getKacheln(7).changeText("Erholungsresort", 255 + 220);
 	//BAZ
 	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
-	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
+	myData->getKacheln(10).changeText("Erhoung der Grundstaerke\nKosten 100", 350);
 	myData->getKacheln(11).changeText("Reduzierung der Kosten\nKosten 100", 350);
-	//Scoutbüro
-	myData->getKacheln(12).changeText("Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
+	//Scoutbuero
+	myData->getKacheln(12).changeText("Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
 	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
-	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
+	myData->getKacheln(14).changeText("Das Scoutbuero\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
 	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
 }
 
@@ -73,7 +73,7 @@ void Game::update()
 		int temp = 1;
 		for (int i = 0; i < 8; i++)
 		{
-			//Kacheln überprüfen
+			//Kacheln ueberpruefen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
 			{
 				if (myData->getHauptmenu(i).getScale() < 1.1)
@@ -94,19 +94,19 @@ void Game::update()
 						eAktuellesMenu = Batilionsausbildungsstate;
 					}break;
 					case 3: {
-						eAktuellesMenu = Träningszentrum;
+						eAktuellesMenu = Traeningszentrum;
 					}break;
 					case 4: {
-						eAktuellesMenu = scoutbüro;
+						eAktuellesMenu = scoutbuero;
 					}break;
 					case 5: {
 						eAktuellesMenu = Erholungsresort;
 					}break;
 					case 6: {
-						eAktuellesMenu = Aufträge;
+						eAktuellesMenu = Auftraege;
 					}break;
 					case 7: {
-						eAktuellesMenu = AAufträge;
+						eAktuellesMenu = AAuftraege;
 					}break;
 					case 8: {
 						eAktuellesMenu = LogistikSystem;
@@ -123,13 +123,13 @@ void Game::update()
 				myData->getHauptmenu(i).setNormalColor();
 				
 				if (i < 4)
-					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * 230 + (i + 1) * 20+15, 70));
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * myData->getBreite() + (i + 1) * 20 + 15, 70));
 				else
 				{
 					if (temp == 4)
 						temp = 0;
 
-					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(temp * 230 + (temp + 1) * 20+15, 290));
+					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(temp * myData->getBreite() + (temp + 1) * 20 + 15, myData->getHohe()+90));
 					
 				}
 			}
@@ -142,11 +142,11 @@ void Game::update()
 	{
 		//for (int i = 0; i < 8; i++)
 		//{
-		//	//Kacheln überprüfen
+		//	//Kacheln ueberpruefen
 		//	if (myData.get[i]->ishover(vMauspos))
 		//	{
 		//		vKacheln[i]->sethoverColor();
-		//		//Butten überprüfen
+		//		//Butten ueberpruefen
 		//		int ButtonID = vKacheln[i]->checkButtenishover(vMauspos);
 		//		if (ButtonID != 99)
 		//			if (vKacheln[i]->checkButtenisPressed(ButtonID, vMauspos))
@@ -161,15 +161,15 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
-		switch ((myData->getAnimationen().getKeineBenarichtigung())?99: updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
+		switch ((myData->getAnimationen().getKeineBenarichtigung())?99: updateButtons(8, 4))	// Bestimmen welcher Butten gedrueckt wurde 
 		{
 		case 1: 
 		{
-			cBAZ->startAusbildung();	//starten Gedrükt
+			cBAZ->startAusbildung();	//starten Gedruekt
 		}break;
 		case 11: 
 		{
-			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erhöht
+			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erhoeht
 		}break;
 		case 12: 
 		{
@@ -181,7 +181,7 @@ void Game::update()
 		}break;
 		case 3:
 		{
-			cBAZ->UpgradeGrundstarke();	 //Upgrade Grundstärke
+			cBAZ->UpgradeGrundstarke();	 //Upgrade Grundstaerke
 		}break;
 		case 4: 
 		{
@@ -194,33 +194,33 @@ void Game::update()
 		}
 	}break;
 
-	case scoutbüro:
+	case scoutbuero:
 	{
 		switch ((myData->getAnimationen().getKeineBenarichtigung()) ? 99 : updateButtons(12, 4))
 		{
 		case 1:
 		{
-			cScoutbüro->startSuche();				// Suche Starten
+			cScoutbuero->startSuche();				// Suche Starten
 		}break;
 		case 2:
 		{
-			cScoutbüro->UpgradeGeschwindikeit();	// Beschleunigt die Suche 
+			cScoutbuero->UpgradeGeschwindikeit();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
-			cScoutbüro->UpgradeRang();				// Erhöht den mindest Rang
+			cScoutbuero->UpgradeRang();				// Erhoeht den mindest Rang
 		}break;
 		case 4:
 		{
-			cScoutbüro->UpgradeKosten();			// Reduzierung der Suchkosten
+			cScoutbuero->UpgradeKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
-			cScoutbüro->Annehmen();					// Annehmen 
+			cScoutbuero->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
-			cScoutbüro->Ablehnen();					// Ablehnen 
+			cScoutbuero->Ablehnen();					// Ablehnen 
 		}break; 
 		}
 	}break;
@@ -244,20 +244,20 @@ void Game::update()
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
 	int iButtenID = 99;
-	bool bButtenGedrückt = false;
+	bool bButtenGedrueckt = false;
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
 		myData->getKacheln(i).update();
-		//Kacheln überprüfen
+		//Kacheln ueberpruefen
 		if (myData->getKacheln(i).ishover(vMauspos))
 		{
 			myData->getKacheln(i).sethoverColor();
-			//Butten überprüfen
+			//Butten ueberpruefen
 			 iButtenID = myData->getKacheln(i).checkButtenishover(vMauspos);
 			if (iButtenID != 99)
 				if (myData->getKacheln(i).checkButtenisPressed(iButtenID, vMauspos))
-					bButtenGedrückt = true;
+					bButtenGedrueckt = true;
 				else {}
 			else
 				myData->getKacheln(i).setButtenColorToNormal();
@@ -268,7 +268,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			myData->getKacheln(i).setScale(1);
 		}
 	}
-	return bButtenGedrückt ? iButtenID : 99;
+	return bButtenGedrueckt ? iButtenID : 99;
 }
 
 void Game::checkSortcuts()
@@ -309,7 +309,7 @@ void Game::checkSortcuts()
 					eAktuellesMenu = Batilionsausbildungsstate;
 
 				if (cKeyboard.isKeyPressed(cKeyboard.S))
-					eAktuellesMenu = scoutbüro;
+					eAktuellesMenu = scoutbuero;
 			}
 		}
 	}
@@ -319,7 +319,7 @@ void Game::neuerTag()
 {
 	iTag++;
 	cBAZ->updateTimer();
-	cScoutbüro->updateTimer();
+	cScoutbuero->updateTimer();
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen
@@ -338,12 +338,12 @@ void Game::mahlen()
 	{
 		cView->DrawBAZ(iTag);
 	}break;
-	case scoutbüro:
+	case scoutbuero:
 	{
 		cView->DrawScoutbuero(iTag);
 	}break;
 	default: {
-		cView->DrawNichtVerfügbar();
+		cView->DrawNichtVerfuegbar();
 	}break;
 	}
 }
