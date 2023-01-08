@@ -28,6 +28,8 @@ public:
 
 	bool getKeineBenarichtigung();
 
+	void updateKachelPos(int PosX, int PosY, int Breite, int Hohe);
+
 private:
 	sf::Texture UpgradePfeil;
 	std::vector<sf::Sprite> Pfeile;

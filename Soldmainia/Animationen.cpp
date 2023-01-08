@@ -199,3 +199,9 @@ bool Animationen::getKeineBenarichtigung()
 {
 	return bKeinBenarichtigung;
 }
+
+void Animationen::updateKachelPos(int PosX, int PosY, int Breite, int Hohe)
+{
+	if (kBenarichtigung != nullptr)
+		kBenarichtigung->updatePos(PosX, PosY, Breite, Hohe);
+}
