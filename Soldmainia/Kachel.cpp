@@ -199,7 +199,7 @@ void Kachel::setButtenColorToNormal()
 	 else
 		 tText.setPosition(
 			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-			 kachel.getPosition().y + ((kachel.getGlobalBounds().height / 2)+20)
+			 kachel.getPosition().y + ((kachel.getGlobalBounds().height / 2)+20) - (tText.getGlobalBounds().width / 2)
 		 );
 }
 
