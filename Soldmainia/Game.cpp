@@ -70,7 +70,7 @@ void Game::update()
 	{
 	case Hauptmenu:
 	{
-		int temp = 1;
+		int temp = 0;
 		for (int i = 0; i < 8; i++)
 		{
 			//Kacheln ueberpruefen
@@ -121,20 +121,17 @@ void Game::update()
 			{
 				myData->getHauptmenu(i).setScale(1);
 				myData->getHauptmenu(i).setNormalColor();
-				
 				if (i < 4)
 					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * myData->getBreite() + (i + 1) * 20 + 15, 70));
+
 				else
 				{
-					if (temp == 4)
-						temp = 0;
-
 					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(temp * myData->getBreite() + (temp + 1) * 20 + 15, myData->getHohe()+90));
-					
 				}
 			}
-			if(i>3)
-			temp++;
+
+			if (i > 3)
+				temp++;
 		}
 	}break;
 	
