@@ -92,11 +92,12 @@ void View::ReSize()
 {
 	cData->setBreite((window->getSize().x -100)/ 4);
 	cData->setHohe((window->getSize().y - 30 - 70) / 2);
+	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
 
 	int temp=0;
 	for (int i = 0; i < 16; i++)
 	{
-		if (temp == 4)
+		if (temp % 4 == 0)
 			temp = 0;
 
 		if (i > 7)
@@ -105,17 +106,18 @@ void View::ReSize()
 		}
 
 		else
+		{
 			if (i < 4)
 				cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp + 1) * 20 + 15, 70, cData->getBreite(), cData->getHohe());
 
-			else if (i < 8)
+			else if (i < 8&&i>3)
 				cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp + 1) * 20 + 15, 90 + cData->getHohe(), cData->getBreite(), cData->getHohe());
-		
-
-			temp++;
+		}
+		temp++;
 	}
 
-	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
+	cData->getAnimationen().updateKachelPos(static_cast<int>(1.5 * cData->getBreite()), 70, cData->getBreite(), cData->getHohe());
+	
 }
 
 void View::drawFenster(int start, int range)

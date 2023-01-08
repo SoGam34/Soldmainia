@@ -179,32 +179,29 @@ void Kachel::setButtenColorToNormal()
  void Kachel::updatePos(int PosX, int PosY, int breite, int hohe)
  {
 	 int tempx = PosX - kachel.getPosition().x;
-	 int tempy = PosY - kachel.getPosition().y ;
+	 int tempy = PosY - kachel.getPosition().y;
+	 int ButtenOffsetY = static_cast<int>((hohe - kachel.getSize().y) + tempy);
 
 	 TexturePos += sf::Vector2f(tempx, tempy);
 
 	 kachel.setPosition(PosX, PosY);
 	 kachel.setSize(sf::Vector2f(breite, hohe));
-	 
-	 if (tempy>0)
-	 {
-		 tempy += hohe - 500;
+	
+	 for (auto e : vButten)
+		 e->updatePos(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), breite, hohe);
+
+	 if (iID < 9)
 		 tText.setPosition(
-			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
-			 tText.getPosition().y + tempy);
-	 }
+			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
+			 kachel.getPosition().y + kachel.getGlobalBounds().height * 0.9
+		 );
 
 	 else
-	 {
-		 tempy += hohe - 500;
 		 tText.setPosition(
-			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
-			 tText.getPosition().y - tempy);
-	 }
-	 
-	 for (auto e : vButten)
-		 e->updatePos(tempx, tempy, breite, hohe);
- }
+			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
+			 kachel.getPosition().y + ((kachel.getGlobalBounds().height / 2)+20)
+		 );
+}
 
  void Kachel::update()
  {

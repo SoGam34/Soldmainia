@@ -73,9 +73,10 @@ void Butten::update()
 
 void Butten::updatePos(int PosX, int PosY, int breite, int hohe)
 {
-	butten.move(PosX, PosY);
+	butten.setPosition(butten.getPosition().x + PosX,
+		butten.getPosition().y + PosY);
 
-	butten.setSize(sf::Vector2f(breite * factorBreite, hohe * factorHohe));
+	butten.setSize(sf::Vector2f(breite * factorBreite, ((hohe * factorHohe)>45)?45: (hohe * factorHohe)));
 
 	tText.setPosition(
 		butten.getPosition().x + ((butten.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
