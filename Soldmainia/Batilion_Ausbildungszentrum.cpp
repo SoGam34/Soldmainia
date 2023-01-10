@@ -9,12 +9,14 @@ Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum()
 	BerrechnungVoraussichtlicheZeit();	// hier gearbeitet wird 
 }
 
-Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data)
+Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data, std::mutex& mutex)
 {
 	cData = data;						// intitlaiesieren von data 
 	bAusbildungAktiv = false;			// Auf False setzen, da keine Aubildung statt findet
 	
 	iZeitversatz = rand() % 5 + 3;		// Festlegen des neuen Zeitversatzes mit dem 
+
+	std::lock_guard<std::mutex> lock(mutex);
 	BerrechnungVoraussichtlicheZeit();	// hier gearbeitet wird 
 }
 
@@ -96,8 +98,8 @@ void Batilion_Ausbildungszentrum::aktstd()
 	//Aktualieseiren der Anzeige wie das nächste Batilion ausehen wird 
 	std::stringstream ssText;
 	ssText << "Neues Batilion Ausbilden\nGröße: " << cData->getBatilionsgröße() << "\nKampfkraft: " << cData->getBatilionsgröße() * 10* cData->getGrundstärke() << "\nKosten: " << cData->getKostenProKopf() * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	
 	cData->getKacheln(8).changeText(ssText.str(), 200);
-	ssText.clear();
 }
 
 void Batilion_Ausbildungszentrum::AnzahlErhohen()

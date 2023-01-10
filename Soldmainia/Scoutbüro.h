@@ -7,7 +7,7 @@ class Scoutbüro : public Timer
 public:
 	//De/Konstrucktor
 	Scoutbüro();
-	Scoutbüro(Data* data);
+	Scoutbüro(Data* data, std::mutex &mutex);
 	~Scoutbüro();
 
 	//Ausbildungs F.

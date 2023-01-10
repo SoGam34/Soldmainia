@@ -7,6 +7,8 @@
 #include <thread>
 #include <mutex>
 #include <chrono>
+#include <memory>
+#include <mutex>
 
 class Game
 {
@@ -36,11 +38,9 @@ public:
 	int iTag;
 
 	Data* myData;
-	Auswahl* cAuswahl;
 
 	View* cView;
 
-	std::mutex Sicherung;
 
 	//Gebaude
 	//BAZ
@@ -49,6 +49,9 @@ public:
 	//Scoutbüro
 	Scoutbüro* cScoutbüro;
 
+	std::mutex mSicherung;
+
+	//std::vector<void> test;
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();
 	void update();

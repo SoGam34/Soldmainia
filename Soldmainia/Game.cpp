@@ -3,67 +3,58 @@
 Game::Game()
 {
 	myData = new Data();
-	
-	std::thread worker(&Game::TextAnzeigeinitzaliesieren, *this);
-	//Gebaude
-	cBAZ = new Batilion_Ausbildungszentrum(myData);
-	cBAZ->aktstd();
 
-	cScoutbüro = new Scoutbüro(myData);
+	std::thread worker(&Game::TextAnzeigeinitzaliesieren, this);
+
+	//Gebaude
+	cBAZ = new Batilion_Ausbildungszentrum(myData, mSicherung);
+	
+
+	cScoutbüro = new Scoutbüro(myData, mSicherung);
 	
 	//Auswahl
-	cAuswahl = new Auswahl();
-	cAuswahl->setData(myData);
 
-	cView = new View(myData);
+	cView = new View(myData, mSicherung);
 	iTag = 0;
 
 	worker.join();
+	
+	cBAZ->aktstd();
 }
 
 Game::~Game()
 {
 	delete cBAZ;
 	delete cScoutbüro;
-	delete cAuswahl;
 	delete cView;
 	delete myData;
 }
 
 void Game::SpielLauft()
 {
-	using namespace std::literals::chrono_literals;
-
-	auto start = std::chrono::high_resolution_clock::now();
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<float> duration;
 	while (cView->windowOpen())
 	{
-		start = std::chrono::high_resolution_clock::now();
-
-		//std::thread updating(&Game::update, *this);
+		std::thread updating(&Game::update, this);
 		
 		if (clTagesTimer.getElapsedTime().asSeconds() >= 1.5)
 		{
 			neuerTag();
 			clTagesTimer.restart();
 		}
-
+		
 		myData->getAnimationen().Aktualisieren();
-
-		//updating.join();
-		update();
+		
 		checkSortcuts();
+		
+		updating.join();
+		
 		mahlen();
-
-		end = std::chrono::high_resolution_clock::now();
-		duration = end - start;
-		std::cout << duration.count() * 1000.f << "ms\n";
 	}
 }
 
 void Game::TextAnzeigeinitzaliesieren()
 {
+	std::lock_guard<std::mutex> lock(mSicherung);
 	//Hauptmenu erste Zeile
 	myData->getKacheln(0).changeText("Zentrale", 160);
 	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
@@ -91,9 +82,11 @@ void Game::update()
 
 	switch (eAktuellesMenu)
 	{
+		
 	case Hauptmenu:
 	{
 		int temp = 1;
+		std::lock_guard<std::mutex> lock(mSicherung);
 		for (int i = 0; i < 8; i++)
 		{
 			//std::lock_guard<std::mutex> lockguard(Sicherung);
@@ -165,6 +158,7 @@ void Game::update()
 	
 	case Zentrale:
 	{
+		//std::lock_guard<std::mutex> lock(Sicherung);
 		//for (int i = 0; i < 8; i++)
 		//{
 		//	//Kacheln überprüfen
@@ -186,6 +180,7 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
+		std::lock_guard<std::mutex> lock(mSicherung);
 		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
 		{
 		case 1: 
@@ -217,6 +212,7 @@ void Game::update()
 
 	case scoutbüro:
 	{
+		std::lock_guard<std::mutex> lock(mSicherung);
 		switch (updateButtons(12, 4))
 		{
 		case 1:
@@ -308,8 +304,13 @@ void Game::checkSortcuts()
 void Game::neuerTag()
 {
 	iTag++;
-	cBAZ->updateTimer();
-	cScoutbüro->updateTimer();
+
+	{
+		std::lock_guard<std::mutex> lock(mSicherung);
+		cBAZ->updateTimer();
+		cScoutbüro->updateTimer();
+	}
+
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen

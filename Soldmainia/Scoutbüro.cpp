@@ -11,15 +11,18 @@ Scoutbüro::Scoutbüro()
 	eRang = static_cast<Rang>(rand()%2+iRangmin);
 }
 
-Scoutbüro::Scoutbüro(Data* data)
+Scoutbüro::Scoutbüro(Data* data, std::mutex& mutex)
 {
 	cData=data;
 	bSucheAktiv = false;
 	iRangmin = 1;
 	iKostenmitarbeiter = 400;
 	iZeitversatz = rand() % 5 + 3;
-	BerrechnungVoraussichtlicheZeit();
+	
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
+
+	std::lock_guard<std::mutex> lock(mutex);
+	BerrechnungVoraussichtlicheZeit();
 }
 
 Scoutbüro::~Scoutbüro()

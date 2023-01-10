@@ -15,7 +15,7 @@ View::View()
 	sfText.setFont(*cData->getFont());
 }
 
-View::View(Data* data)
+View::View(Data* data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
 	window->setFramerateLimit(25);
@@ -27,6 +27,8 @@ View::View(Data* data)
 
 	sfText.setPosition(20, 10);
 	sfText.setCharacterSize(20);
+
+	std::lock_guard<std::mutex> lock(mutex);
 	sfText.setFont(*cData->getFont());
 }
 

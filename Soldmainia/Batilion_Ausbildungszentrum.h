@@ -7,7 +7,7 @@ class Batilion_Ausbildungszentrum : Timer
 public:
 	//De-/Konstrucktor
 	Batilion_Ausbildungszentrum();
-	Batilion_Ausbildungszentrum(Data* data);
+	Batilion_Ausbildungszentrum(Data* data, std::mutex& mutex);
 	~Batilion_Ausbildungszentrum();
 
 	//Ausbildungs F.
