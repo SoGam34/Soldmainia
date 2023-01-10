@@ -1,3 +1,4 @@
+#include "PreHeader.h"
 #include "Timer.h"
 
 Timer::Timer()

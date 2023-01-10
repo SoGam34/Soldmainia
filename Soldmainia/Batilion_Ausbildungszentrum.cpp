@@ -1,3 +1,4 @@
+#include "PreHeader.h"
 #include "Batilion_Ausbildungszentrum.h"
 
 Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum()

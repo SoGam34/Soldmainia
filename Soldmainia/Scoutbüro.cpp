@@ -1,3 +1,4 @@
+#include "PreHeader.h"
 #include "Scoutbüro.h"
 
 Scoutbuero::Scoutbuero()

@@ -1,4 +1,6 @@
+#include "PreHeader.h"
 #include "Kachel.h"
+
 
 //Konstruktoren#include "stdafx.h"
 Kachel::Kachel()

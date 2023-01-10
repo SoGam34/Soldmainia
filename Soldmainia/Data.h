@@ -1,5 +1,4 @@
 #pragma once
-#include "Kachel.h"
 #include "Animationen.h"
 
 class Data

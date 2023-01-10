@@ -48,6 +48,9 @@
     <ClInclude Include="Textfeld.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="PreHeader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Kachel.cpp">
@@ -81,6 +84,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Textfeld.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PreHeader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
