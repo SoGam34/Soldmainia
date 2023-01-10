@@ -193,14 +193,22 @@ void Kachel::setButtenColorToNormal()
 	 if (iID < 9)
 		 tText.setPosition(
 			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-			 kachel.getPosition().y + kachel.getGlobalBounds().height * 0.9
+			 kachel.getPosition().y + kachel.getGlobalBounds().height * 0.91
 		 );
 
 	 else
+	 {
+		 if (iID == 9 || iID == 13)
+			 tText.setPosition(
+				 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
+				 kachel.getPosition().y + ((kachel.getGlobalBounds().height * 2) / 3) - (tText.getGlobalBounds().width / 2)
+			 );
+		 else
 		 tText.setPosition(
 			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-			 kachel.getPosition().y + ((kachel.getGlobalBounds().height / 2)+20) - (tText.getGlobalBounds().width / 2)
+			 kachel.getPosition().y + ((kachel.getGlobalBounds().height * 2) / 3)
 		 );
+	 }
 }
 
  void Kachel::update()
