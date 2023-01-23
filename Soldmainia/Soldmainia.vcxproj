@@ -188,6 +188,24 @@
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Zentale.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texturen\AktiveAuftrage2.png" />
+    <Image Include="Texturen\ArbeitBeschleunigen.png" />
+    <Image Include="Texturen\Auftrage.png" />
+    <Image Include="Texturen\BessereRang.png" />
+    <Image Include="Texturen\ErhohungGrundstarke.png" />
+    <Image Include="Texturen\Erholungsresort.png" />
+    <Image Include="Texturen\Haken.png" />
+    <Image Include="Texturen\Kaserne.png" />
+    <Image Include="Texturen\Logistik System.png" />
+    <Image Include="Texturen\Pfeil.png" />
+    <Image Include="Texturen\Scoutbüro.png" />
+    <Image Include="Texturen\Tranigszentrum.png" />
+    <Image Include="Texturen\WarteAusbildung.png" />
+    <Image Include="Texturen\WarteScoutbüro.png" />
+    <Image Include="Texturen\WenigerKosten.png" />
+    <Image Include="Texturen\Zentrale.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

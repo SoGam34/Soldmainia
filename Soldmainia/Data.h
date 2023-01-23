@@ -88,54 +88,14 @@ public:
 		umEinheiten[Name] = e;
 	}
 
-	int getBekanntheit()
+	unsigned int getBekanntheit()
 	{
 		return iBekanntheit;
 	}
 
-	void setBekanntheit(int value)
+	void setBekanntheit(unsigned int value)
 	{
 		iBekanntheit = value;
-	}
-
-	int getBatilionsgröße()
-	{
-		return iBatilonsgröße;
-	}
-
-	void setBatilionsgröße(int value)
-	{
-		iBatilonsgröße = value;
-	}
-
-	float getGeschwindikeitsfaktor(int pos)
-	{
-		return iGeschwindikeitsFaktor[pos];
-	}
-
-	void setGeschwindikeitsFaktor(float value, int pos)
-	{
-		iGeschwindikeitsFaktor[pos] = value;
-	}
-
-	float getGrundstärke()
-	{
-		return fGrundstärke;
-	}
-
-	void setGrundstärke(int starke)
-	{
-		fGrundstärke = starke;
-	}
-
-	int getKostenProKopf()
-	{
-		return iKostenproKopf;
-	}
-
-	void setKostenProKopf(int kosten)
-	{
-		iKostenproKopf = kosten;
 	}
 
 	sf::Font* getFont()
@@ -162,36 +122,6 @@ public:
 	{
 		return bBenarichtigungAktiv;
 	}
-	
-	int getfUpgradeKosten(int Reihe, int Spalte)
-	{
-		return fUpgradeKosten[Reihe][Spalte];
-	}
-
-	void setfUpgradeKosten(int Reihe, int Spalte, float neueKosten)
-	{
-		fUpgradeKosten[Reihe][Spalte] = neueKosten;
-	}
-
-	int getProzessKostenFaktor(int pos)
-	{
-		return iKostenFaktor[pos];
-	}
-
-	void setProzessKostenFaktor(int value, int pos)
-	{
-		iKostenFaktor[pos] = value;
-	}
-
-	int getiZeitFaktor(int pos)
-	{
-		return iZeitFaktor[pos];
-	}
-
-	void setiZeitFaktor(int value, int pos)
-	{
-		iZeitFaktor[pos] = value;
-	}
 
 	std::vector<std::string>& getEinheitsnamen()
 	{
@@ -206,31 +136,16 @@ private:
 	int iAbstandthalter = 20;
 	sf::Font sfFont;
 
-	//BAZ
-	int iBekanntheit = 1;
-	int iBatilonsgröße = 10;
-	int iKostenproKopf = 70;
-	float fGrundstärke = 10;
-
-	//Gebaeude
-	float iGeschwindikeitsFaktor[2]{ 1, 1 };//BaZ, Scout 
-	int iKostenFaktor[2]{ 70, 400 };//BAZ, Scout
-	int iZeitFaktor[2]{ 10, 1 };//BAZ, Scout
+	//Geld
+	int iKontostand = 1000000;
 
 	// Animationen
 	Animationen cAnimationen;
 	bool bBenarichtigungAktiv = false;
-
-	//Geld
-	int iKontostand = 1000000;
-	float fUpgradeKosten[2][3]
-	{
-		100,100,100, //BAZ
-		100,100,100	 //Scoutbüro
-	};
-	
 	bool bUpgradeAnimation = false;
 
+	//Einheiten
+	unsigned int iBekanntheit;
 	std::unordered_map<std::string, Einheit> umEinheiten;
 	std::vector<std::string> EinheitNamen;
 
@@ -262,19 +177,19 @@ private:
 		Kachel("Reduzierung der Kosten\nKosten: 100"														 																															, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter+15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 	
 		//Traningszentrum
-		Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
+ /*16*/ Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Verbessert die Traningsmethoden wodurch die Effektivität ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 
 		//Zentrale
-		Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
+ /*20*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Verbessert die Traningsmethoden wodurch die Effektivität ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 
 		//Erholungsresort
-		Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
+ /*24*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivität,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Verbessert die Traningsmethoden wodurch die Effektivität ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),
 		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green),

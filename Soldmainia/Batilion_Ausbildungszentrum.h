@@ -6,7 +6,6 @@ class Batilion_Ausbildungszentrum : public Gebaeude
 {
 public:
 	//De-/Konstrucktor
-	Batilion_Ausbildungszentrum();
 	Batilion_Ausbildungszentrum(Data* data);
 	~Batilion_Ausbildungszentrum();
 
@@ -15,7 +14,7 @@ public:
 	int ProzessKosten();
 	void EndeProzess();
 
-	void Name();
+	void Vorbereiten_neueAusbildung();
 
 	//Sonstige Funktonen
 	void aktstd();
@@ -26,5 +25,11 @@ public:
 	 
 	// Upgrade Funktionen
 	void UpgradeGrundstarke();
+
+private:
+	unsigned short int iBekanntheit = 1;
+	unsigned short int iBatilonsgröße = 10;
+	unsigned short int iKostenproKopf = 70;
+	float fGrundstärke = 10;
 };
 

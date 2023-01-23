@@ -1,14 +1,6 @@
 #include "Scoutbüro.h"
 
-Scoutbüro::Scoutbüro() : Gebaeude(12, 1)
-{
-	iRangmin = 1;
-	iKostenmitarbeiter = 400;
-	BerrechnungVoraussichtlicheZeit();
-	eRang = static_cast<Rang>(rand()%2+iRangmin);
-}
-
-Scoutbüro::Scoutbüro(Data* data) : Gebaeude(data, 12, 1)
+Scoutbüro::Scoutbüro(Data* data) : Gebaeude(data, 12, 400, 1)
 {
 	iRangmin = 1;
 	iKostenmitarbeiter = 400;
@@ -43,7 +35,6 @@ void Scoutbüro::EndeProzess()
 	
 	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
 	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich Abgeschlossen");
-	ssText.clear();
 }
 
 void Scoutbüro::Annehmen()
@@ -67,21 +58,20 @@ void Scoutbüro::Ablehnen()
 
 void Scoutbüro::UpgradeRang()
 {
-	if (cData->getiKontostand() > cData->getfUpgradeKosten(1, 1) && iRangmin<6)								// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin<6)								// überprüfen ob die Ausbildung bezahlt werden kann
 	{
 		iRangmin++;																							// Durchfüren der Verbesserung 
-
-		std::stringstream ssk;
-		ssk << -(cData->getfUpgradeKosten(1, 1));
-		cData->getAnimationen().startBenarichtigung(false, ssk.str());
-		ssk.clear();
-
-		cData->setiKontostand(cData->getiKontostand() - cData->getfUpgradeKosten(1, 1));					// Abziehn der Verbesserungskosten
-		cData->setfUpgradeKosten(1, 1, cData->getfUpgradeKosten(1, 1) * 1.6);								// Speichern der neuen Verbesserungskosten
-
-		cData->getAnimationen().startUpgradeAnimation(3);
+		fUpgradeKosten[1] *= 1.6;								// Speichern der neuen Verbesserungskosten
+		std::stringstream ss;
+		ss << -fUpgradeKosten[1];
 		eRang = static_cast<Rang>(rand() % 2 + iRangmin);
-		cData->setiZeitFaktor(eRang, 1);
+		iZeitFaktor=eRang;
+		
+		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]);					// Abziehn der Verbesserungskosten
+		cData->getAnimationen().startBenarichtigung(false, ss.str());
+		cData->getAnimationen().startUpgradeAnimation(3);
+
+		
 		//Erzeugen eines EM Objektes
 		switch (eRang)
 		{
@@ -121,7 +111,8 @@ void Scoutbüro::UpgradeRang()
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		}
-		std::stringstream ss;
+
+		ss.str("");
 		if (!bProzessAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
 		{
 			BerrechnungVoraussichtlicheZeit();
@@ -138,11 +129,9 @@ void Scoutbüro::UpgradeRang()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << cData->getfUpgradeKosten(1, 1);
+			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(14).changeText(ss.str(), 320);
 		}
-
-		ss.clear();
 	}	
 }
 
@@ -151,5 +140,4 @@ void Scoutbüro::aktstd()
 	std::stringstream ssText;
 	ssText << "Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	cData->getKacheln(12).changeText(ssText.str(), 200);
-	ssText.clear();
 }

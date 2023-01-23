@@ -196,6 +196,10 @@ void Game::update()
 		{
 			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
 		}break;
+		case 5:
+		{
+			cBAZ->Vorbereiten_neueAusbildung();
+		}
 		}
 	}break;
 

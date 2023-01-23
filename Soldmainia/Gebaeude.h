@@ -6,8 +6,7 @@ class Gebaeude : public Timer
 {
 public:
 	//De/Konstrucktor
-	Gebaeude(short int iHauptKachel, short int iProzessUpgradeReihe);
-	Gebaeude(Data* data, short int iHauptKachel, short int UpgradeReihe);
+	Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor);
 	~Gebaeude();				  
 
 	//Ausbildungs F.
@@ -34,12 +33,19 @@ public:
 	// Wenn true dann wird ein Batilion ausgebildet ansonsten ist es frei	
 	bool bProzessAktiv;	
 	// Gibt an wie lange die Ausbildung vorausichtlich dauert 				
-	int iVoraussichtlicheZeit;
+	unsigned short int iVoraussichtlicheZeit;
 	// Der Ausbildungszeitversatz nachdem die Ausbildung wirklich beendet ist 
-	int iZeitversatz;
+	unsigned short int iZeitversatz;
+
+	float iGeschwindikeitsFaktor;
+
+	unsigned short int iKostenFaktor;
+
+	unsigned short int iZeitFaktor;
+
+	float fUpgradeKosten[3];
 
 private:
 	short int iProzessHauptKachel;
-	short int iProzessUpgradeReihe;
 };
 
