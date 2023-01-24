@@ -247,11 +247,6 @@ void Game::update()
 		{
 			switch (updateButtons(16, 4))
 			{
-			case 1:
-			{
-				cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
-				bAuswahl = true;
-			}break;
 			case 2:
 			{
 				cTraingzentrum->UpgradeGeschwindikeit();
@@ -263,6 +258,24 @@ void Game::update()
 			case 4:
 			{
 				cTraingzentrum->UpgradeKosten();
+			}break;
+			case 5:
+			{
+				cTraingzentrum->TrainingLang();
+				cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+				bAuswahl = true;
+			}break;
+			case 6:
+			{
+				cTraingzentrum->TrainingKurz();
+				cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+				bAuswahl = true;
+			}break;
+			case 7:
+			{
+				cTraingzentrum->TrainingMittel();
+				cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+				bAuswahl = true;
 			}break;
 			}
 		}

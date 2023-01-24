@@ -5,7 +5,6 @@
 class Erholungsresort : public Gebaeude, public Auswahl
 {
 public:
-	Erholungsresort();
 	Erholungsresort(Data* data);
 	~Erholungsresort();
 
@@ -15,5 +14,6 @@ public:
 	void AuswahlZuOrdnen(std::string Name);
 
 	void aktstd();
+	void UpgradeEffizens();
 };
 

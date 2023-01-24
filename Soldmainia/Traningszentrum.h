@@ -5,7 +5,6 @@
 class Traningszentrum : public Gebaeude, public Auswahl
 {
 public:
-	Traningszentrum();
 	Traningszentrum(Data* data);
 	~Traningszentrum();
 
@@ -15,8 +14,15 @@ public:
 	void EndeProzess();
 	void AuswahlZuOrdnen(std::string Name);
 
+	void TrainingLang();
+	void TrainingMittel();
+	void TrainingKurz();
+
 	//Sonstige Funktonen
 	void aktstd();
 	void UpgradeEffizens();
+
+private:
+	std::string sName;
 };
 

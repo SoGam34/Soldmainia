@@ -29,7 +29,6 @@ public:
 private:
 	unsigned short int iBekanntheit = 1;
 	unsigned short int iBatilonsgröße = 10;
-	unsigned short int iKostenproKopf = 70;
 	float fGrundstärke = 10;
 };
 

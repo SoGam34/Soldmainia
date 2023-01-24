@@ -58,25 +58,36 @@ std::optional<std::string> Auswahl::updateAuswahl(sf::Vector2i MousPos)
 {
 	for (int i = 0; i < vKacheln.size(); i++)
 	{
-		unsigned short int temp = vKacheln[i]->checkButtenishover(MousPos);
-		if (temp != 99)
+		if (vKacheln[i]->ishover(MousPos))
 		{
-			if (vKacheln[i]->checkButtenisPressed(temp, MousPos))
-			{
-				switch (temp)
+			vKacheln[i]->sethoverColor();
+			//Butten überprüfen
+			unsigned short int temp = vKacheln[i]->checkButtenishover(MousPos);
+			if (temp != 99)
+				if (vKacheln[i]->checkButtenisPressed(temp, MousPos))
 				{
-				case 1: { }break;
-				case 2: { }break;
-				case 3: {up(); }break;
-				case 4: {down(); }break;
-				default:
-				{
-					return vAusgewahlteEinheiten[temp - 4];
-				}break;
-				}
+					switch (temp)
+					{
+					case 1: { }break;
+					case 2: { }break;
+					case 3: {up(); }break;
+					case 4: {down(); }break;
+					default:
+					{
+						return vAusgewahlteEinheiten[temp - 4];
+					}break;
+					}
 
-				break;
-			}
+					break;
+				}
+				else {}
+			else
+				vKacheln[i]->setButtenColorToNormal();
+		}
+		else
+		{
+			 vKacheln[i]->setNormalColor();
+			 vKacheln[i]->setScale(1);
 		}
 	}
 

@@ -4,7 +4,6 @@ Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data) : Gebaeude(
 {
 	iBekanntheit = 1;
 	iBatilonsgröße = 10;
-	iKostenproKopf = 70;
 	fGrundstärke = 10;
 }
 
@@ -24,7 +23,7 @@ std::stringstream Batilion_Ausbildungszentrum::ProzessText()
 
 int Batilion_Ausbildungszentrum::ProzessKosten()
 {
-	return iKostenproKopf * (iVoraussichtlicheZeit + iZeitversatz);
+	return iKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz);
 }
 
 void Batilion_Ausbildungszentrum::EndeProzess()
@@ -40,13 +39,12 @@ void Batilion_Ausbildungszentrum::EndeProzess()
 
 void Batilion_Ausbildungszentrum::Vorbereiten_neueAusbildung()
 {
-	
 	//neues Kachel Bild
 	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nächsten Batilions 
 	BerrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenproKopf * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 
 	cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	// Hinzufügen aller Notiger Buttens 
@@ -60,7 +58,7 @@ void Batilion_Ausbildungszentrum::aktstd()
 {
 	//Aktualieseiren der Anzeige wie das nächste Batilion ausehen wird 
 	std::stringstream ssText;
-	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenproKopf * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 	cData->getKacheln(8).changeText(ssText.str(), 200);
 	ssText.clear();
 }
