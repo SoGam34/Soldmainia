@@ -1,11 +1,6 @@
 #include "PreHeader.h"
 #include "Butten.h"
 
-Butten::Butten()
-{
-	iID = 99;
-}
-
 Butten::Butten(	float x, float y, float with, float heigth, int ID,
 				std::string text, sf::Font* font, 
 				sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
@@ -40,11 +35,10 @@ Butten::~Butten()
 {
 }
 
-bool Butten::isPressed(sf::Vector2i mouspos)
+bool Butten::isPressed()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bdruken==false ) //sfTimer.getElapsedTime().asMilliseconds() > 400)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bdruken==false ) 
 	{
-		//sfTimer.restart();
 		bdruken = true;
 		return true;
 	}
@@ -87,7 +81,7 @@ void Butten::updatePos(int PosX, int PosY, int breite, int hohe)
 
 void Butten::setPressColor()
 {
-	PressTimer = 30;
+	PressTimer = 15;
 	butten.setFillColor(sfPressColor);
 }
 

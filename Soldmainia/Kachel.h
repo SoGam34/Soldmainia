@@ -4,44 +4,98 @@
 class Kachel
 {
 public:
-	//Konstruktoren
-	Kachel();   
+
+	//--------------------------------Konstruktoren----------------------------------------------//
+
+	Kachel()=delete;  
+
+	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung  
 	Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
 		int IDTexture, int PosTextureX, int PosTextureY,
 		int ID, int PosKachelX, int PosKachelY, float with, float height,
 		sf::Color backroundColor, sf::Color hoverColor, sf::Color pressColor);
 	~Kachel();
-	//Funktionen zum dieseignen und Mahlen der Kachel
-	 void addButten(float x, float y, float with, float heigth, int ID,
+
+	//--------------------------------Button Verwaltung----------------------------------------------//
+
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
+	void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
 						std::string text, sf::Font* font,
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
 
-	 void addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
-
-	void neuesBild(std::string Text, int PosTextY, 
+	/*
+	Name: neueAnzeige
+	param: std::string Text -> Der Text der Angezeigt werden soll, int PosTextY -> Die Position der Oberkante des Textes, 
+				int IDTexture -> Die Nummer des Textuers was Angezeigt werden soll, int PosTextureX -> Die X- Position des Texture , int PosTextureY -> Die Y-Position des Textures
+	Aufgabe: Das Löschen aller Buttons und Textfelder und das überschreiben der modifizierbaren Eigenschaften der Kachel
+	Retrun: keine
+	*/
+	void neueAnzeige(std::string Text, int PosTextY, 
 				int IDTexture, int PosTextureX, int PosTextureY);
 
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
 	void changeText(std::string Text, int PosTextY);
+	
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
+	int checkButtenishover(sf::Vector2i mouspos);
 
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
+	bool checkButtenisPressed(int ButtenID, sf::Vector2i mouspos);
+
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
+	void setButtenColorToNormal();
+
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
 	void drawFenster(sf::RenderTarget& target);
 	
+	/*
+	Name: ButtonHinzufuegen
+	param: alle die ein Button zur Initialisierung benötigt 
+	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Retrun: keine
+	*/
 	void drawText(sf::RenderTarget& target);
 
-	//Textfeld
+	//--------------------------------Textfeld Verwaltung----------------------------------------------//
+	
+	void addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
 	void updateTextfelder(sf::Event event, sf::Vector2i MousPos);
 
 	bool EnterPress(sf::Event event);
 	bool getTextfeldAusgewahltZustand();
 
-	//Funktionen zum �berp�fen der Maus und �ndern der Farbe
-	//Buttens
-	int checkButtenishover(sf::Vector2i mouspos);
-
-	bool checkButtenisPressed(int ButtenID, sf::Vector2i mouspos);
-
-	 void setButtenColorToNormal();
-	//Kachel
+	//--------------------------------Kachel Verwaltung----------------------------------------------//
 
 	void updatePos(int PosX, int PosY, int breite, int hohe);
 	
@@ -50,12 +104,17 @@ public:
 	bool ishover(sf::Vector2i mouspos);
 
 	bool isPressed(sf::Vector2i mouspos);
+	
+	
+	//--------------------------------Kachel Farben----------------------------------------------//
 
 	void sethoverColor();
 
 	void setPressedColor();
 
 	void setNormalColor();
+
+	//--------------------------------Get/Set----------------------------------------------//
 
 	void setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size);
 
