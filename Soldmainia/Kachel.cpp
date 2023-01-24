@@ -8,7 +8,7 @@ Kachel::Kachel()
 	bdruken = false;
 	PressTimer = 0;
 	//Butten
-	vButten.clear();  
+	vButton.clear();  
 }
 
 Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
@@ -36,7 +36,7 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 	tText.setFillColor(TextColor);
 	newText(Text, PosTextY);
 	//Butten
-	vButten.clear();
+	vButton.clear();
 
 	//TextureScale = 1;
 
@@ -49,12 +49,12 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* fo
 
 Kachel::~Kachel()
 {
-	for (int i = 0; i < vButten.size();)
+	for (int i = 0; i < vButton.size();)
 	{
-		delete vButten[i];
-		vButten.erase(vButten.begin() + i);
+		delete vButton[i];
+		vButton.erase(vButton.begin() + i);
 	}
-	vButten.clear();
+	vButton.clear();
 }
 //Funktionen zum dieseignen und Mahlen der Kachel
  void Kachel::addButten(float x, float y, float with, float heigth, int ID,
@@ -62,7 +62,7 @@ Kachel::~Kachel()
 							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 							float KachelBreite, float KachelHohe)
 {
-	vButten.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
+	vButton.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
 	}
 
  void Kachel::addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
@@ -73,10 +73,10 @@ Kachel::~Kachel()
 void Kachel::neuesBild(std::string Text,  int PosTextY,
 					 int IDTexture, int PosTextureX, int PosTextureY)
 {
-	for (int i = 0; i < vButten.size();)
+	for (int i = 0; i < vButton.size();)
 	{
-		delete vButten[i];
-		vButten.erase(vButten.begin() + i);
+		delete vButton[i];
+		vButton.erase(vButton.begin() + i);
 	}
 
 	if (cTextfeld != nullptr)
@@ -98,14 +98,14 @@ void Kachel::changeText(std::string Text, int PosTextY)
 void Kachel::drawFenster(sf::RenderTarget& target)
 {
 	target.draw(kachel);
-	for (auto e : vButten)
+	for (auto e : vButton)
 		e->drawFenster(target);
 }
 
 void Kachel::drawText(sf::RenderTarget& target)
 {
 	target.draw(tText);
-	for (auto e : vButten)
+	for (auto e : vButton)
 		e->drawText(target);
 
 	if (cTextfeld != nullptr)
@@ -143,39 +143,33 @@ bool Kachel::getTextfeldAusgewahltZustand()
 
 //Funktionen zum �berp�fen der Maus und �ndern der Farbe
 	//Buttens
-int Kachel::checkButtenishover(sf::Vector2i mouspos)
+std::optional<int> Kachel::ueberprueftAlleButtonObMausSchwebtDrüber(sf::Vector2i mouspos)
 {
-	for (int i = 0; i < vButten.size(); i++)
+	for (int i = 0; i < vButton.size(); i++)
 	{
-		if (vButten[i]->isHover(mouspos))
+		if (vButton[i]->isHover(mouspos))
 		{
-			vButten[i]->setHoverColor();
-			return vButten[i]->getID();
+			vButton[i]->setHoverColor();
+			return vButton[i]->getID();
 		}
 	}
-	return 99;
+	return {};
 }
 
-bool Kachel::checkButtenisPressed(int ButtenID, sf::Vector2i mouspos)
+bool Kachel::ueberprueftButtonObGedruektWird(int ButtenID)
 {
-	for (int i = 0; i < vButten.size(); i++)
+	if (vButton[ButtenID]->wirdGedrückt())
 	{
-		if (vButten[i]->getID() == ButtenID)
-		{
-			if (vButten[i]->isPressed(mouspos))
-			{
-				vButten[i]->setPressColor();
-				return true;
-			}
-		}
+		vButton[ButtenID]->setButton_Gedrücktfarbe();
+		return true;
 	}
 	return false;
 }
 
 void Kachel::setButtenColorToNormal()
 {
-	for (auto e : vButten)
-		e->setNormalColor();
+	for (auto e : vButton)
+		e.second->setButton_Hintergrundfarbe();
 }
 
  void Kachel::updatePos(int PosX, int PosY, int breite, int hohe)
@@ -189,7 +183,7 @@ void Kachel::setButtenColorToNormal()
 	 kachel.setPosition(PosX, PosY);
 	 kachel.setSize(sf::Vector2f(breite, hohe));
 	
-	 for (auto e : vButten)
+	 for (auto e : vButton)
 		 e->updatePos(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), breite, hohe);
 
 	 if (iID < 9)
@@ -221,7 +215,7 @@ void Kachel::setButtenColorToNormal()
 	 if (PressTimer != 0)
 		 kachel.setFillColor(sfPressColor);
 
-	 for (auto e : vButten)
+	 for (auto e : vButton)
 		 e->update();
  }
 

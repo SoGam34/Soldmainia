@@ -29,7 +29,7 @@ public:
 	Aufgabe: Die Funktion überpruft ob die Maus sich über dem Button befindet
 	Retrun: Die Funktion gibt true zurück wenn die Maus sich über dem Button befindet ansonsten wird false zurückgegeben
 	*/
-	bool MausSchwebtdrüber(sf::Vector2i& mouspos);
+	bool MausSchwebtDrüber(sf::Vector2i& mouspos);
 
 	/*
 	Name: aktualisieren
@@ -41,8 +41,8 @@ public:
 	
 	/*
 	Name: aktualisierenPosition
-	param: keine 
-	Aufgabe: Die Funktion überschreibt die Position und die Masse des Button
+	param: float Button_x -> , float Button_y, float Button_Breite, float Button_Hohe 
+	Aufgabe: Die Funktion überschreibt die Position und die Masse des Buttons
 	Retrun: keinen
 	*/
 	void aktualisierenPosition(float Button_x, float Button_y, float Button_Breite, float Button_Hohe);
@@ -128,7 +128,7 @@ private:
 	//Die Variablen speichern die Farbwerte welche der Button in den entsprechenden Fallen annimmt. Wird in den Farben set funktionen verwendet.
 	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
 
-	//Speichert die ID des Buttens welche die Game Klasse für die Zuordnung der Funktion des Buttons benötigt 
+	//Speichert die ID des Buttens welche die Game Klasse für die Zuordnung der Funktion des Buttons benötigt und für Kachel zur Überprüfung welcher Button gedrückt wird 
 	int iID;
 
 	//Die Variable speichert ob der Button gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
@@ -138,9 +138,9 @@ private:
 	int iVerbleibendeDrueckZeit;
 
 	//Die Variable speichert das Verhaltniss zur zugehorige Kachel damit das Verhaltniss von Button, Kachel und Fenster bestehen bleibt 
-	float factorBreite;
+	float fFactorBreite;
 
 	//Die Variable speichert das Verhaltniss zur zugehorige Kachel damit das Verhaltniss von Button, Kachel und Fenster bestehen bleibt 
-	float factorHohe;
+	float fFactorHohe;
 };
 

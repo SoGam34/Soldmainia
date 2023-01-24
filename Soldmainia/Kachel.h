@@ -1,5 +1,4 @@
 #pragma once
-#include "Textfeld.h"
 
 class Kachel
 {
@@ -28,6 +27,69 @@ public:
 						std::string text, sf::Font* font,
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
+	
+	/*
+	Name: ueberprueftAlleButtonObMausSchwebtDrüber
+	param: sf::Vector2i mouspos -> Die aktuelle Maus Position
+	Aufgabe: Die Funktion geht alle Button durch und uberpruft ob der Mauszeiger sich über einem Button befindet 
+	Retrun: wenn der Mauszeiger sich über einem Button befindet wird die ID des Butten zurück gegeben an sonsten wird nichts zurück gegeben
+	*/
+	std::optional<int> ueberprueftAlleButtonObMausSchwebtDrüber(sf::Vector2i& mouspos);
+
+	/*
+	Name: ueberprueftAlleButtonObGedruektWird
+	param: int ButtenID -> Die ID des Button überdem der Mauszeiger sich befindet  
+	Aufgabe: überprüft ob der Button gedrückt wird 
+	Return: wenn der Button gedrückt wird gibt die Funktion true zurück ansonsten wird false zurück gegeben 
+	*/
+	bool ueberprueftButtonObGedruektWird(int ButtenID);
+
+	/*
+	Name: setAlleButtenAufHintergrundfarbe
+	param: keine
+	Aufgabe: Geht alle Button in vButton durch und setzt alle auf die Hintergrundfarbe  
+	Retrun: keine
+	*/
+	void setAlleButtenAufHintergrundfarbe();
+
+	
+
+	//--------------------------------Textfeld Verwaltung----------------------------------------------//
+	
+	/*
+	Name: TextfeldHinzufuegen
+	param: alle param die Textfeld zur Initialisierung benötigt 
+	Aufgabe: Initialisiert oder überschreibt cTextfeld mit einem Neuem Textfeldobjekt das mit den param erstellt wurde
+	Retrun: keine
+	*/
+	void TextfeldHinzufuegen(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
+	
+	
+	/*
+	Name: aktualisierenTextfelder
+	param: sf::Event& event -> Speichert die Information welche Taste gedrückt wurde, sf::Vector2i MousPos -> Die aktuelle Mauszeiger Position 
+	Aufgabe: Wenn es ein Textfeld gibt wird die Tasten information an Textfeld weitergereicht
+	Retrun: keine
+	*/
+	void aktualisierenTextfelder(sf::Event& event, sf::Vector2i& MousPos);
+
+	/*
+	Name: ueberpruefenObEnterGedruekt
+	param: sf::Event& event -> Speichert die Information welche Taste gedrückt wurde
+	Aufgabe: Wenn es ein Textfeld gibt wird die Tasten information an Textfeld weitergereicht. Die Klasse überpruft ob enter gedruckt wurde das Ergebniss wird an ueberpruefenObEnterGedruekt zurück gegeben.
+	Retrun: Wenn Textfeld vorhanden dann wird das Ergbniss weitergereicht ansonsten wird false zurück gegeben
+	*/
+	bool ueberpruefenObEnterGedruekt(sf::Event& event);
+	
+	/*
+	Name: getTextfeldAusgewahltStatus
+	param: keine
+	Aufgabe: Den Status von dem Textfeld zurück geben 
+	Retrun:  Wenn ein Textfeld vorhanden ist wird der Ausgewahlt Status zurück gegeben ansonsten wird false zurück gegeben 
+	*/
+	bool getTextfeldAusgewahltStatus();
+
+	//--------------------------------Kachel Verwaltung----------------------------------------------//
 
 	/*
 	Name: neueAnzeige
@@ -40,79 +102,86 @@ public:
 				int IDTexture, int PosTextureX, int PosTextureY);
 
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
+	Name: TextAendern
+	param: std::string Text -> Der Text der Angezeigt werden soll, int PosTextY -> Die Position der Oberkante des Textes
+	Aufgabe: Die Funktion überschreibt den Text der Kachel und die y - Koordinate des Textes 
 	Retrun: keine
 	*/
-	void changeText(std::string Text, int PosTextY);
+	void TextAendern(std::string Text, int PosTextY);
+
+	/*
+	Name: aktualisierenPosition
+	param: float Kachel_x -> Die neue X Koordienate der Kachel, float Kachle_y -> Die neue Y Koordienate der Kachel, float Kachel_Breite -> Die neue Breite der Kachel, float Kachel_Hohe -> Die neue Hohe der Kachel
+	Aufgabe: Die Funktion überschreibt die Position und die Masse des Buttons
+	Retrun: keinen
+	*/
+	void aktualisierenPosition(float Button_x, float Button_y, float Button_Breite, float Button_Hohe);
 	
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
-	Retrun: keine
+	Name: aktualisieren
+	param: keine
+	Aufgabe: Die Funktion aktualisiert den Gedrückt Zustand indem sie den Timer, der Zahlt wie lange der Butten sich im gedrückt Zustand befindet, runterzahlt und ruft Button aktualisieren auf
+	Retrun: keinen
 	*/
-	int checkButtenishover(sf::Vector2i mouspos);
+	void aktualisieren();
 
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
-	Retrun: keine
+	Name: wirdGedrückt
+	param: keine
+	Aufgabe: Die Funktion überpruft ob die Kachel gedrückt wird
+	Retrun: Die Funktion gibt true zurück wenn die Maus gedrückt wird und die Kachel in nicht gedrückten Zustand ist ansonsten wird false zurückgegeben
 	*/
-	bool checkButtenisPressed(int ButtenID, sf::Vector2i mouspos);
+	bool wirdGedrückt();
 
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
-	Retrun: keine
+	Name: MausSchwebtdrüber
+	param: sf::Vector2i& mouspos -> Die aktuelle Maus Position
+	Aufgabe: Die Funktion überpruft ob die Maus sich über der Kachel befindet
+	Retrun: Die Funktion gibt true zurück wenn die Maus sich über der Kachel befindet ansonsten wird false zurückgegeben
 	*/
-	void setButtenColorToNormal();
-
+	bool MausSchwebtDrüber(sf::Vector2i& mouspos);
+	
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
-	Retrun: keine
+	Name: drawFenster
+	param: Das Window auf dem das Spiel lauft
+	Aufgabe: Die Funktion mahlt den Kachel und die Button Shapes auf das Fenster
+	Retrun: keinen
 	*/
 	void drawFenster(sf::RenderTarget& target);
 	
 	/*
-	Name: ButtonHinzufuegen
-	param: alle die ein Button zur Initialisierung benötigt 
-	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
-	Retrun: keine
+	Name: drawText
+	param: Das Window auf dem das Spiel lauft
+	Aufgabe: Die Funktion mahlt den Kachel und die Button Texte auf das Fenster
+	Retrun: keinen
 	*/
 	void drawText(sf::RenderTarget& target);
 
-	//--------------------------------Textfeld Verwaltung----------------------------------------------//
-	
-	void addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
-	void updateTextfelder(sf::Event event, sf::Vector2i MousPos);
-
-	bool EnterPress(sf::Event event);
-	bool getTextfeldAusgewahltZustand();
-
-	//--------------------------------Kachel Verwaltung----------------------------------------------//
-
-	void updatePos(int PosX, int PosY, int breite, int hohe);
-	
-	void update();
-
-	bool ishover(sf::Vector2i mouspos);
-
-	bool isPressed(sf::Vector2i mouspos);
-	
-	
 	//--------------------------------Kachel Farben----------------------------------------------//
 
-	void sethoverColor();
+	/*
+	Name: setKachel_Gedrücktfarbe
+	param: keine
+	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene gedrücktfarbe
+	Retrun: keine
+	*/
+	void setKachel_Gedrücktfarbe();
 
-	void setPressedColor();
+	/*
+	Name: setKachel_Schwebefarbe
+	param: keine
+	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene Schwebefarbe
+	Retrun: keine
+	*/
+	void setKachel_Schwebefarbe();
 
-	void setNormalColor();
+	/*
+	Name: setKachel_Hintergrundfarbe
+	param: keine
+	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene Hintergrundfarbe
+	Retrun: keine
+	*/
+	void setKachel_Hintergrundfarbe();
 
 	//--------------------------------Get/Set----------------------------------------------//
 
@@ -149,7 +218,7 @@ public:
 	sf::Vector2f TexturePos;
 
 	//Butten
-	std::vector <Butten*> vButten;
+	std::unordered_map<int, Button*> vButton;
 	float TextureScale;
 
 	//Textfeld

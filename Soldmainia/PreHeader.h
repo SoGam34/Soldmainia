@@ -10,6 +10,9 @@
 #include <mutex>
 #include <memory>
 #include <thread>
+#include <optional>
+#include <unordered_map>
 
 #include "Butten.h"
 #include "Kachel.h"
+#include "Textfeld.h"
