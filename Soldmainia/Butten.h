@@ -7,7 +7,7 @@ public:
 	Button()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Button(float Button_x, float Button_y, float Button_Breite, float Button_Hohe, int Button_ID,
+	Button(float Button_x, float Button_y, float Button_Breite, float Button_Hohe, unsigned int Button_ID,
 		std::string Button_Text, sf::Font& font,
 		sf::Color Button_Hintergrundfarbe, sf::Color Button_Schwebefarbe, sf::Color Button_Gedrücktfarbe, sf::Color Button_Textfarbe,
 		float Kachel_Breite, float Kachel_Hohe);
@@ -29,7 +29,7 @@ public:
 	Aufgabe: Die Funktion überpruft ob die Maus sich über dem Button befindet
 	Retrun: Die Funktion gibt true zurück wenn die Maus sich über dem Button befindet ansonsten wird false zurückgegeben
 	*/
-	bool MausSchwebtDrüber(sf::Vector2i& mouspos);
+	bool MausSchwebtDrüber(const sf::Vector2i& mouspos);
 
 	/*
 	Name: aktualisieren
@@ -55,7 +55,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung übergebene gedrücktfarbe
 	Retrun: keine
 	*/
-	void setButton_Gedrücktfarbe();
+	const inline void setButton_Gedrücktfarbe();
 
 	/*
 	Name: setButton_Schwebefarbe
@@ -63,7 +63,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung übergebene Schwebefarbe
 	Retrun: keine
 	*/
-	void setButton_Schwebefarbe();
+	const inline void setButton_Schwebefarbe();
 	
 	/*
 	Name: setButton_Hintergrundfarbe
@@ -71,7 +71,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung übergebene Hintergrundfarbe
 	Retrun: keine
 	*/
-	void setButton_Hintergrundfarbe();
+	const inline void setButton_Hintergrundfarbe();
 
 	//--------------------------------Get----------------------------------------------//
 
@@ -81,7 +81,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID zurück 
 	Retrun: Die ID des Button als int 
 	*/
-	int getID();
+	const inline unsigned int getID() const;
 
 	/*
 	Name: getPosition
@@ -89,7 +89,7 @@ public:
 	Aufgabe: Die Funktion gibt die Position des Button zurück
 	Retrun: Die Funktion gibt die Positon als sf::Vector2f zurück 
 	*/
-	sf::Vector2f getPosition();
+	const inline sf::Vector2f getPosition() const;
 
 	/*
 	Name: getGroese
@@ -97,7 +97,7 @@ public:
 	Aufgabe: Die Funktion gibt die Hohe und Breite des Button zurück 
 	Retrun: Die Funktion gibt die Hohe und Breite als sf::Vector2f zurück
 	*/
-	sf::Vector2f getGroese();
+	const inline sf::Vector2f getGroese() const;
 
 	//--------------------------------Anzeigen----------------------------------------------//
 
@@ -107,7 +107,7 @@ public:
 	Aufgabe: Die Funktion mahlt den Button Shape auf das Fenster
 	Retrun: keinen
 	*/
-	void drawFenster(sf::RenderTarget& target);
+	inline void drawFenster(sf::RenderTarget& target);
 
 	/*
 	Name: drawText
@@ -115,7 +115,7 @@ public:
 	Aufgabe: Die Funktion mahlt den Text des Button auf das Fenster
 	Retrun: keinen
 	*/
-	void drawText(sf::RenderTarget& target);
+	inline void drawText(sf::RenderTarget& target);
 
 private:
 
@@ -129,13 +129,13 @@ private:
 	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
 
 	//Speichert die ID des Buttens welche die Game Klasse für die Zuordnung der Funktion des Buttons benötigt und für Kachel zur Überprüfung welcher Button gedrückt wird 
-	int iID;
+	const unsigned iID;
 
 	//Die Variable speichert ob der Button gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;
 
 	//Die Variable speichert wie lange die gedrückt Farbe angezeigt werden soll. Die Variable fungiert wie eine art Timer, damit der User sieht, dass das System das drücken Registriert hat. 
-	int iVerbleibendeDrueckZeit;
+	unsigned iVerbleibendeDrueckZeit;
 
 	//Die Variable speichert das Verhaltniss zur zugehorige Kachel damit das Verhaltniss von Button, Kachel und Fenster bestehen bleibt 
 	float fFactorBreite;

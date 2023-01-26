@@ -16,6 +16,10 @@ Textfeld::Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
 	setAusgewahlt(true);
 }
 
+Textfeld::~Textfeld()
+{
+}
+
 bool Textfeld::checkEnter(sf::Event event)
 {
 	if (event.text.unicode == ENTER_KEY)
@@ -101,7 +105,7 @@ sf::Vector2f Textfeld::getPos()
 	return tTextfeld.getPosition();
 }
 
-sf::FloatRect Textfeld::getBounds()
+sf::FloatRect Textfeld::get()
 {
 	return tTextfeld.getGlobalBounds();
 }

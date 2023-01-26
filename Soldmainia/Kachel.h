@@ -23,7 +23,7 @@ public:
 	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
 	Retrun: keine
 	*/
-	void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
+	inline void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
 						std::string text, sf::Font& font,
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
@@ -34,7 +34,7 @@ public:
 	Aufgabe: Die Funktion geht alle Button durch und uberpruft ob der Mauszeiger sich über einem Button befindet 
 	Retrun: wenn der Mauszeiger sich über einem Button befindet wird die ID des Butten zurück gegeben an sonsten wird nichts zurück gegeben
 	*/
-	std::optional<int> ueberprueftAlleButtonObMausSchwebtDrüber(sf::Vector2i& mouspos);
+	std::optional<unsigned int> ueberprueftAlleButtonObMausSchwebtDrüber(const sf::Vector2i& mouspos);
 
 	/*
 	Name: ueberprueftAlleButtonObGedruektWird
@@ -42,7 +42,7 @@ public:
 	Aufgabe: überprüft ob der Button gedrückt wird 
 	Return: wenn der Button gedrückt wird gibt die Funktion true zurück ansonsten wird false zurück gegeben 
 	*/
-	bool ueberprueftButtonObGedruektWird(int ButtenID);
+	bool ueberprueftButtonObGedruektWird(unsigned int ButtenID);
 
 	/*
 	Name: setAlleButtenAufHintergrundfarbe
@@ -62,7 +62,7 @@ public:
 	Aufgabe: Initialisiert oder überschreibt cTextfeld mit einem Neuem Textfeldobjekt das mit den param erstellt wurde
 	Retrun: keine
 	*/
-	void TextfeldHinzufuegen(sf::Color farbe, sf::Font &font, sf::Vector2f pos);
+	inline void TextfeldHinzufuegen(const sf::Color farbe, const sf::Font &font, sf::Vector2f pos);
 	
 	
 	/*
@@ -71,7 +71,7 @@ public:
 	Aufgabe: Wenn es ein Textfeld gibt wird die Tasten information an Textfeld weitergereicht
 	Retrun: keine
 	*/
-	void aktualisierenTextfelder(sf::Event& event, sf::Vector2i& MousPos);
+	void aktualisierenTextfelder(const sf::Event& event, const sf::Vector2i& MousPos);
 
 	/*
 	Name: ueberpruefenObEnterGedruekt
@@ -79,7 +79,7 @@ public:
 	Aufgabe: Wenn es ein Textfeld gibt wird die Tasten information an Textfeld weitergereicht. Die Klasse überpruft ob enter gedruckt wurde das Ergebniss wird an ueberpruefenObEnterGedruekt zurück gegeben.
 	Retrun: Wenn Textfeld vorhanden dann wird das Ergbniss weitergereicht ansonsten wird false zurück gegeben
 	*/
-	bool ueberpruefenObEnterGedruekt(sf::Event& event);
+	bool ueberpruefenObEnterGedruekt(const sf::Event& event);
 	
 	/*
 	Name: getTextfeldAusgewahltStatus
@@ -98,8 +98,8 @@ public:
 	Aufgabe: Das Löschen aller Buttons und Textfelder und das überschreiben der modifizierbaren Eigenschaften der Kachel
 	Retrun: keine
 	*/
-	void neueAnzeige(std::string Text, int PosTextY, 
-				int IDTexture, int PosTextureX, int PosTextureY);
+	void neueAnzeige(std::string Text, unsigned PosTextY,
+		unsigned IDTexture, unsigned PosTextureX, unsigned PosTextureY);
 
 	/*
 	Name: TextAendern
@@ -107,7 +107,7 @@ public:
 	Aufgabe: Die Funktion überschreibt den Text der Kachel und die y - Koordinate des Textes 
 	Retrun: keine
 	*/
-	void TextAendern(std::string Text, int PosTextY);
+	void TextAendern(std::string Text, unsigned PosTextY);
 
 	/*
 	Name: aktualisierenPosition
@@ -139,7 +139,7 @@ public:
 	Aufgabe: Die Funktion überpruft ob die Maus sich über der Kachel befindet
 	Retrun: Die Funktion gibt true zurück wenn die Maus sich über der Kachel befindet ansonsten wird false zurückgegeben
 	*/
-	bool MausSchwebtDrüber(sf::Vector2i& mouspos);
+	bool MausSchwebtDrüber(const sf::Vector2i& mouspos);
 	
 	/*
 	Name: drawFenster
@@ -165,7 +165,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene gedrücktfarbe
 	Retrun: keine
 	*/
-	void setKachel_Gedrücktfarbe();
+	inline void setKachel_Gedrücktfarbe();
 
 	/*
 	Name: setKachel_Schwebefarbe
@@ -173,7 +173,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene Schwebefarbe
 	Retrun: keine
 	*/
-	void setKachel_Schwebefarbe();
+	inline void setKachel_Schwebefarbe();
 
 	/*
 	Name: setKachel_Hintergrundfarbe
@@ -181,7 +181,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene Hintergrundfarbe
 	Retrun: keine
 	*/
-	void setKachel_Hintergrundfarbe();
+	inline void setKachel_Hintergrundfarbe();
 
 	//--------------------------------Get/Set----------------------------------------------//
 
@@ -199,7 +199,7 @@ public:
 	Aufgabe: Die Funktion speichert den Übergebenen Faktor
 	Retrun: keine
 	*/
-	void setTextureGroessenSkalierungsFaktor(float sice);
+	inline void setTextureGroessenSkalierungsFaktor(float sice);
 	
 	/*
 	Name: getTextureID
@@ -207,7 +207,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID des Textures zurück
 	Retrun: Die ID des Texture als int
 	*/
-	int getTextureID();
+	const inline unsigned int getTextureID() const;
 
 	/*
 	Name: getTextureGroessenSkalierungsFaktor
@@ -215,7 +215,7 @@ public:
 	Aufgabe: Die Funktion gibt die aktuelle Größen Skalierung des Textures zurück 
 	Retrun: Die aktuelle Größe als float
 	*/
-	float getTextureGroessenSkalierungsFaktor();
+	const inline float getTextureGroessenSkalierungsFaktor() const;
 	
 	/*
 	Name: getTexturePosition
@@ -223,7 +223,7 @@ public:
 	Aufgabe: Die Funktion gibt die Koordinaten des Textures zurück
 	Retrun: Die Koordinaten als sf::Vector2f
 	*/
-	sf::Vector2f getTexturePosition();
+	const inline sf::Vector2f getTexturePosition() const;
 
 	/*
 	Name: setTexturePosition
@@ -231,7 +231,7 @@ public:
 	Aufgabe: Die Funktion speichert die neuen Koordinaten des Textures
 	Retrun: keine
 	*/
-	void setTexturePosition(sf::Vector2f pos);
+	void inline setTexturePosition(sf::Vector2f pos);
 	
 	/*
 	Name: getID
@@ -239,7 +239,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID zurück
 	Retrun: Die ID der Kachel als int
 	*/
-	int getID();
+	const inline unsigned int getID() const;
 
 	/*
 	Name: getPosition
@@ -247,7 +247,7 @@ public:
 	Aufgabe: Die Funktion gibt die Position der Kachel zurück
 	Retrun: Die Funktion gibt die Positon als sf::Vector2f zurück
 	*/
-	sf::Vector2f getPosition();
+	const inline sf::Vector2f getPosition() const;
 
 	/*
 	Name: getGroese
@@ -255,11 +255,12 @@ public:
 	Aufgabe: Die Funktion gibt die Hohe und Breite der Kachel zurück
 	Retrun: Die Funktion gibt die Hohe und Breite als sf::Vector2f zurück
 	*/
-	sf::Vector2f getGroese();
+	const inline sf::Vector2f getGroese() const;
 
 	private:
 
-	/*---------------Kachel Variablen--------------------------------*/
+	/*---------------------------------Kachel Variablen--------------------------------------------*/
+
 	// Die Variable speichert die Größe, die aktuelle Farbe, die Position und wird auf das Spiel window gemalt
 	sf::RectangleShape sf_rsButton;
 
@@ -270,25 +271,36 @@ public:
 	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
 
 	//Speichert die ID der Kachel welche die Game Klasse für die Zuordnung der Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
-	int iID;
+	const unsigned iID;
 
 	//Die Variable speichert ob die Kachel gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;
 
 	//Die Variable speichert wie lange die gedrückt Farbe angezeigt werden soll. Die Variable fungiert wie eine art Timer, damit der User sieht, dass das System das drücken Registriert hat. 
-	int iVerbleibendeDrueckZeit;
+	unsigned int iVerbleibendeDrueckZeit;
 
-	void newText(std::string Text, int PosTextY);
-	int NormalPos;
-	//Texture
-	int iIDTexture;
-	sf::Vector2f TexturePos;
+	//Die Funktion setzt den neuen Text und die Y-Koordinate des Textes und berrechnet die X Koordinate 
+	void newText(std::string Text, unsigned int PosTextY);
+	//int NormalPos;
+	
+	/*-------------------------------------Texture Variablen----------------------------------------*/
+	
+	//Speichert die ID des Texture welche die View Klasse für die Zuordnung der Texture braucht Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
+	const unsigned iIDTexture;
 
-	//Butten
-	std::unordered_map<int, Button*> vButton;
-	float TextureScale;
+	//Speichert die Position des Textures damit View das Texture an der Richtige stelle anzeigt 
+	sf::Vector2f TexturePosition;
 
-	//Textfeld
+	//Die Variable speichert den Größenfaktor mit dem View die Bildgröße ändert 
+	float TextureGroessenSkalierungsFaktor;
+
+	/*-------------------------------------Butto Variablen----------------------------------------*/
+
+	//Speichert alle Button die die Kachel hat  
+	std::unordered_map<unsigned, Button*> umButton;
+
+	/*-------------------------------------Textfeld Variablen----------------------------------------*/
+	//Der Pointer Speichert die Adreese des Textfeldes wenn ein Textfeld benötigt wird ansonsten ist er auf Nullptr
 	Textfeld* cTextfeld;
 };
 
