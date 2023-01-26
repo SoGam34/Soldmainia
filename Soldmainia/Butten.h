@@ -122,7 +122,7 @@ private:
 	// Die Variable speichert die Größe, die aktuelle Farbe, die Position und wird auf das Spiel window gemalt
 	sf::RectangleShape sf_rsButton;
 
-	//Die Variable speichert den Text des Buttons, die Position des Textes, den Font und die Textfarbe 
+	//Die Variable speichert den Text des Buttons, die Position des Textes, den Font und die Textfarbe und wird auf das Spiel window gemalt
 	sf::Text sf_tText;
 
 	//Die Variablen speichern die Farbwerte welche der Button in den entsprechenden Fallen annimmt. Wird in den Farben set funktionen verwendet.

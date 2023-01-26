@@ -9,7 +9,7 @@ public:
 	Kachel()=delete;  
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung  
-	Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
+	Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& font,
 		int IDTexture, int PosTextureX, int PosTextureY,
 		int ID, int PosKachelX, int PosKachelY, float with, float height,
 		sf::Color backroundColor, sf::Color hoverColor, sf::Color pressColor);
@@ -24,7 +24,7 @@ public:
 	Retrun: keine
 	*/
 	void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
-						std::string text, sf::Font* font,
+						std::string text, sf::Font& font,
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
 	
@@ -62,7 +62,7 @@ public:
 	Aufgabe: Initialisiert oder überschreibt cTextfeld mit einem Neuem Textfeldobjekt das mit den param erstellt wurde
 	Retrun: keine
 	*/
-	void TextfeldHinzufuegen(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
+	void TextfeldHinzufuegen(sf::Color farbe, sf::Font &font, sf::Vector2f pos);
 	
 	
 	/*
@@ -185,32 +185,99 @@ public:
 
 	//--------------------------------Get/Set----------------------------------------------//
 
-	void setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size);
+	/*
+	Name: setGroese
+	param: sf::Vector2f posKachel -> Die neue Position der Kachel, sf::Vector2f posTex -> Die neue Position des Kacheltextes, sf::Vector2f size -> Die neue Größe der Kachel
+	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID zurück
+	Retrun: keine
+	*/
+	void setGroese(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size);
 
-	void setScale(float sice);
-
-	int getID();
+	/*
+	Name: setTextureGroessenSkalierungsFaktor
+	param: float sice -> Den neuen Skalierungs Faktor mit dem das Texture vergrößert wird
+	Aufgabe: Die Funktion speichert den Übergebenen Faktor
+	Retrun: keine
+	*/
+	void setTextureGroessenSkalierungsFaktor(float sice);
 	
+	/*
+	Name: getTextureID
+	param: keine
+	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID des Textures zurück
+	Retrun: Die ID des Texture als int
+	*/
 	int getTextureID();
 
-	float getScale();
+	/*
+	Name: getTextureGroessenSkalierungsFaktor
+	param: keine
+	Aufgabe: Die Funktion gibt die aktuelle Größen Skalierung des Textures zurück 
+	Retrun: Die aktuelle Größe als float
+	*/
+	float getTextureGroessenSkalierungsFaktor();
 	
+	/*
+	Name: getTexturePosition
+	param: keine
+	Aufgabe: Die Funktion gibt die Koordinaten des Textures zurück
+	Retrun: Die Koordinaten als sf::Vector2f
+	*/
 	sf::Vector2f getTexturePosition();
 
+	/*
+	Name: setTexturePosition
+	param: sf::Vector2f pos -> Die neuen Koordinaten des Textures
+	Aufgabe: Die Funktion speichert die neuen Koordinaten des Textures
+	Retrun: keine
+	*/
 	void setTexturePosition(sf::Vector2f pos);
 	
-	sf::Vector2f getPos();
-	
-	sf::Vector2f getSize();
+	/*
+	Name: getID
+	param: keine
+	Aufgabe: Die Funktion gibt die bei der Initizalisierung übergeben ID zurück
+	Retrun: Die ID der Kachel als int
+	*/
+	int getID();
+
+	/*
+	Name: getPosition
+	param: keine
+	Aufgabe: Die Funktion gibt die Position der Kachel zurück
+	Retrun: Die Funktion gibt die Positon als sf::Vector2f zurück
+	*/
+	sf::Vector2f getPosition();
+
+	/*
+	Name: getGroese
+	param: keine
+	Aufgabe: Die Funktion gibt die Hohe und Breite der Kachel zurück
+	Retrun: Die Funktion gibt die Hohe und Breite als sf::Vector2f zurück
+	*/
+	sf::Vector2f getGroese();
 
 	private:
-	//Kachel
-	sf::RectangleShape kachel;
-	sf::Text tText;
-	sf::Color sfBackroundColor, sfHoverColor, sfPressColor;
-	bool bdruken;
+
+	/*---------------Kachel Variablen--------------------------------*/
+	// Die Variable speichert die Größe, die aktuelle Farbe, die Position und wird auf das Spiel window gemalt
+	sf::RectangleShape sf_rsButton;
+
+	//Die Variable speichert den Text der Kachel, die Position des Textes, den Font und die Textfarbe und wird auf das Spiel window gemalt
+	sf::Text sf_tText;
+
+	//Die Variablen speichern die Farbwerte welche die Kachel in den entsprechenden Fallen annimmt. Wird in den Farben set Funktionen verwendet.
+	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
+
+	//Speichert die ID der Kachel welche die Game Klasse für die Zuordnung der Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
 	int iID;
-	int PressTimer;
+
+	//Die Variable speichert ob die Kachel gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
+	bool bDruecken;
+
+	//Die Variable speichert wie lange die gedrückt Farbe angezeigt werden soll. Die Variable fungiert wie eine art Timer, damit der User sieht, dass das System das drücken Registriert hat. 
+	int iVerbleibendeDrueckZeit;
+
 	void newText(std::string Text, int PosTextY);
 	int NormalPos;
 	//Texture

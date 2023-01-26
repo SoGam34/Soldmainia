@@ -228,7 +228,7 @@ bool Kachel::ishover(sf::Vector2i mouspos)
 	return false;
 }
 
-bool Kachel::isPressed(sf::Vector2i mouspos)
+bool Kachel::isPressed(sf::Vector2i mou+spos)
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bdruken == false) //sfTimer.getElapsedTime().asMilliseconds() > 400)
 	{
