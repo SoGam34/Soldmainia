@@ -43,24 +43,24 @@ void Game::SpielLauft()
 void Game::TextAnzeigeinitzaliesieren()
 {
 	//Hauptmenu erste Zeile
-	myData->getKacheln(0).changeText("Zentrale", 250);
-	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 250);
-	myData->getKacheln(2).changeText("Traningszentrum", 250);
-	myData->getKacheln(3).changeText("Scout Buero", 250);
+	myData->getKacheln(0).TextAendern("Zentrale", 250);
+	myData->getKacheln(1).TextAendern("Batilionausbildungszentrum", 250);
+	myData->getKacheln(2).TextAendern("Traningszentrum", 250);
+	myData->getKacheln(3).TextAendern("Scout Buero", 250);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Auftraege", 255 + 220);
-	myData->getKacheln(5).changeText("Aktive Auftraege", 255 + 220);
-	myData->getKacheln(6).changeText("Logistik System", 255 + 220);
-	myData->getKacheln(7).changeText("Erholungsresort", 255 + 220);
+	myData->getKacheln(4).TextAendern("Auftraege", 255 + 220);
+	myData->getKacheln(5).TextAendern("Aktive Auftraege", 255 + 220);
+	myData->getKacheln(6).TextAendern("Logistik System", 255 + 220);
+	myData->getKacheln(7).TextAendern("Erholungsresort", 255 + 220);
 	//BAZ
-	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
-	myData->getKacheln(10).changeText("Erhoung der Grundstaerke\nKosten 100", 350);
-	myData->getKacheln(11).changeText("Reduzierung der Kosten\nKosten 100", 350);
+	myData->getKacheln(9) .TextAendern("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
+	myData->getKacheln(10).TextAendern("Erhoung der Grundstaerke\nKosten 100", 350);
+	myData->getKacheln(11).TextAendern("Reduzierung der Kosten\nKosten 100", 350);
 	//Scoutbuero
-	myData->getKacheln(12).changeText("Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
-	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
-	myData->getKacheln(14).changeText("Das Scoutbuero\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
-	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
+	myData->getKacheln(12).TextAendern("Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
+	myData->getKacheln(13).TextAendern("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
+	myData->getKacheln(14).TextAendern("Das Scoutbuero\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
+	myData->getKacheln(15).TextAendern("Reduzierung der Kosten\nKosten: 100", 350);
 }
 
 void Game::update()
@@ -75,17 +75,17 @@ void Game::update()
 		for (int i = 0; i < 8; i++)
 		{
 			//Kacheln ueberpruefen
-			if (myData->getHauptmenu(i).ishover(vMauspos))
+			if (myData->getHauptmenu(i).MausSchwebtDrüber(vMauspos))
 			{
-				if (myData->getHauptmenu(i).getScale() < 1.1)
+				if (myData->getHauptmenu(i).getTextureGroessenSkalierungsFaktor() < 1.1)
 				{
-					myData->getHauptmenu(i).setScale(myData->getKacheln(i).getScale() + 0.01);
+					myData->getHauptmenu(i).setTextureGroessenSkalierungsFaktor(myData->getKacheln(i).getTextureGroessenSkalierungsFaktor() + 0.01);
 					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(myData->getKacheln(i).getTexturePosition().x-1, myData->getKacheln(i).getTexturePosition().y - 2));
 				}
 
-				if (myData->getHauptmenu(i).isPressed(vMauspos))
+				if (myData->getHauptmenu(i).wirdGedrückt())
 				{
-					myData->getHauptmenu(i).setPressedColor();
+					myData->getHauptmenu(i).setKachel_Gedrücktfarbe();
 					switch (myData->getHauptmenu(i).getID())
 					{
 					case 1: {
@@ -115,13 +115,13 @@ void Game::update()
 					}
 				}
 				else
-					myData->getHauptmenu(i).sethoverColor();
+					myData->getHauptmenu(i).setKachel_Schwebefarbe();
 
 			}
 			else
 			{
-				myData->getHauptmenu(i).setScale(1);
-				myData->getHauptmenu(i).setNormalColor();
+				myData->getHauptmenu(i).setTextureGroessenSkalierungsFaktor(1);
+				myData->getHauptmenu(i).setKachel_Hintergrundfarbe();
 				if (i < 4)
 					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(i * myData->getBreite() + (i + 1) * 20 + 15, 70));
 
@@ -241,32 +241,32 @@ void Game::update()
 
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
-	int iButtenID = 99;
+		std::optional<int> iButtenID = {};
 	bool bButtenGedrueckt = false;
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
-		myData->getKacheln(i).update();
+		myData->getKacheln(i).aktualisieren();
 		//Kacheln ueberpruefen
-		if (myData->getKacheln(i).ishover(vMauspos))
+		if (myData->getKacheln(i).MausSchwebtDrüber(vMauspos))
 		{
-			myData->getKacheln(i).sethoverColor();
+			myData->getKacheln(i).setKachel_Schwebefarbe();
 			//Butten ueberpruefen
-			 iButtenID = myData->getKacheln(i).checkButtenishover(vMauspos);
-			if (iButtenID != 99)
-				if (myData->getKacheln(i).checkButtenisPressed(iButtenID, vMauspos))
+			 iButtenID = myData->getKacheln(i).ueberprueftAlleButtonObMausSchwebtDrüber(vMauspos);
+			if (iButtenID.has_value())
+				if (myData->getKacheln(i).ueberprueftButtonObGedruektWird(iButtenID.value()))
 					bButtenGedrueckt = true;
 				else {}
 			else
-				myData->getKacheln(i).setButtenColorToNormal();
+				myData->getKacheln(i).setAlleButtenAufHintergrundfarbe();
 		}
 		else
 		{
-			myData->getKacheln(i).setNormalColor();
-			myData->getKacheln(i).setScale(1);
+			myData->getKacheln(i).setKachel_Hintergrundfarbe();
+			myData->getKacheln(i).setTextureGroessenSkalierungsFaktor(1);
 		}
 	}
-	return bButtenGedrueckt ? iButtenID : 99;
+	return bButtenGedrueckt ? iButtenID.value() : 99;
 }
 
 void Game::checkSortcuts()
@@ -289,8 +289,8 @@ void Game::checkSortcuts()
 
 		else if (event.type == sf::Event::TextEntered)
 		{
-			if (myData->getKacheln(8).getTextfeldAusgewahltZustand()||myData->getKacheln(8).EnterPress(event))
-				myData->getKacheln(8).updateTextfelder(event, sf::Mouse::getPosition(cView->getWindow()));
+			if (myData->getKacheln(8).getTextfeldAusgewahltStatus()||myData->getKacheln(8).ueberpruefenObEnterGedruekt(event))
+				myData->getKacheln(8).aktualisierenTextfelder(event, sf::Mouse::getPosition(cView->getWindow()));
 
 			else
 			{

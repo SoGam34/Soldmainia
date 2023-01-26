@@ -1,319 +1,310 @@
 #include "PreHeader.h"
 #include "Kachel.h"
-
-
 //Konstruktoren#include "stdafx.h"
-Kachel::Kachel()
-{
-	bdruken = false;
-	PressTimer = 0;
-	//Butten
-	vButton.clear();  
-}
 
-Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font* font,
-	int IDTexture, int PosTextureX, int PosTextureY, 
+Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& font,
+	int IDTexture, int PosTextureX, int PosTextureY,
 	int ID, int PosKachelX, int PosKachelY, float with, float height,
 	sf::Color backroundColor, sf::Color hoverColor, sf::Color pressColor)
 {
 	// Texture
 	iIDTexture = IDTexture;
-	TexturePos.x = PosTextureX;
-	TexturePos.y = PosTextureY;
+	TexturePosition.x = PosTextureX;
+	TexturePosition.y = PosTextureY;
 	//Kachel
 	iID = ID;
-	kachel.setPosition(PosKachelX, PosKachelY);
-	kachel.setSize(sf::Vector2f(with, height));
-	tText.setCharacterSize(15);
-	sfBackroundColor = backroundColor;
-	sfHoverColor = hoverColor;
-	sfPressColor = pressColor;
-	kachel.setFillColor(sfBackroundColor);
-	bdruken = false;
-	PressTimer = 0;
+	sf_rsKachel.setPosition(PosKachelX, PosKachelY);
+	sf_rsKachel.setSize(sf::Vector2f(with, height));
+	sf_tText.setCharacterSize(15);
+	sf_cHintergrundfarbe = backroundColor;
+	sf_cSchwebefarbe = hoverColor;
+	sf_cGedrücktfarbe = pressColor;
+	sf_rsKachel.setFillColor(sf_cHintergrundfarbe);
+	bDruecken = false;
+	iVerbleibendeDrueckZeit = 0;
 	// Text
-	tText.setFont(*font);
-	tText.setFillColor(TextColor);
+	sf_tText.setFont(font);
+	sf_tText.setFillColor(TextColor);
 	newText(Text, PosTextY);
 	//Butten
-	vButton.clear();
+	umButton.clear();
 
-	//TextureScale = 1;
-
-	
-	NormalPos = tText.getPosition().y;
+	//TextureGroessenSkalierungsFaktor = 1;
+		
+	//NormalPos = sf_tText.getPosition().y;
 
 	//Textfeld
-	cTextfeld = nullptr;
+	//cTextfeld = nullptr;
 }
 
 Kachel::~Kachel()
 {
-	for (int i = 0; i < vButton.size();)
+	for (int i = 0; i < umButton.size();)
 	{
-		delete vButton[i];
-		vButton.erase(vButton.begin() + i);
+		delete umButton[i];
+		umButton.erase(i);
 	}
-	vButton.clear();
+	umButton.clear();
 }
 //Funktionen zum dieseignen und Mahlen der Kachel
- void Kachel::addButten(float x, float y, float with, float heigth, int ID,
-							std::string text, sf::Font* font,
-							sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
-							float KachelBreite, float KachelHohe)
+inline void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
+	std::string text, sf::Font& font,
+	sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
+	float KachelBreite, float KachelHohe)
 {
-	vButton.push_back(new Butten(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
-	}
+	std::pair<int, Button*> temp1((int)umButton.size(), new Button(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
+	umButton.insert(temp1);
+}
 
- void Kachel::addTextfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
+inline void Kachel::TextfeldHinzufuegen(const sf::Color farbe, const sf::Font& font, sf::Vector2f pos)
  {
-	 cTextfeld = new Textfeld(farbe, font, pos);
+	// cTextfeld = new Textfeld(farbe, font, pos);
  }
 
-void Kachel::neuesBild(std::string Text,  int PosTextY,
-					 int IDTexture, int PosTextureX, int PosTextureY)
+void Kachel::neueAnzeige(std::string Text, unsigned PosTextY,
+	unsigned IDTexture, unsigned PosTextureX, unsigned PosTextureY)
 {
-	for (int i = 0; i < vButton.size();)
+	for (int i = 0; i < umButton.size();)
 	{
-		delete vButton[i];
-		vButton.erase(vButton.begin() + i);
+		delete umButton[i];
+		umButton.erase(i);
 	}
 
-	if (cTextfeld != nullptr)
-		delete cTextfeld;
-	cTextfeld = nullptr;
+	//if (cTextfeld != nullptr)
+	//	delete cTextfeld;
+	//cTextfeld = nullptr;
 
 	newText(Text, PosTextY);
 	// Texture
 	iIDTexture = IDTexture;
-	TexturePos.x = PosTextureX;
-	TexturePos.y = PosTextureY;
+	TexturePosition.x = PosTextureX;
+	TexturePosition.y = PosTextureY;
 }
 
-void Kachel::changeText(std::string Text, int PosTextY)
+void Kachel::TextAendern(std::string Text, unsigned PosTextY)
 {
 	newText(Text, PosTextY);
 }
 
 void Kachel::drawFenster(sf::RenderTarget& target)
 {
-	target.draw(kachel);
-	for (auto e : vButton)
-		e->drawFenster(target);
+	target.draw(sf_rsKachel);
+	for (auto e : umButton)
+		e.second->drawFenster(target);
 }
 
 void Kachel::drawText(sf::RenderTarget& target)
 {
-	target.draw(tText);
-	for (auto e : vButton)
-		e->drawText(target);
+	target.draw(sf_tText);
+	for (auto e : umButton)
+		e.second->drawText(target);
 
-	if (cTextfeld != nullptr)
-		cTextfeld->drawText(target);
+	//if (cTextfeld != nullptr)
+	//	cTextfeld->drawText(target);
 }
 
 //textfeld
-void Kachel::updateTextfelder(sf::Event event, sf::Vector2i MousPos)
+void Kachel::aktualisierenTextfelder(const sf::Event& event, const sf::Vector2i& MousPos)
 {
-	if (cTextfeld != nullptr)
+	/*if (cTextfeld != nullptr)
 	{
-		if (cTextfeld->getPos().x > MousPos.x && cTextfeld->getPos().x + cTextfeld->getBounds().width < MousPos.x &&
-			cTextfeld->getPos().y >MousPos.y && cTextfeld->getPos().y + cTextfeld->getBounds().height < MousPos.y)
-			cTextfeld->setAusgewahlt(true);
+		if (cTextfeld->getPosition().x > MousPos.x && cTextfeld->getPosition().x + cTextfeld->getBegrenzungen().width < MousPos.x &&
+			cTextfeld->getPosition().y >MousPos.y && cTextfeld->getPosition().y + cTextfeld->getBegrenzungen().height < MousPos.y)
+			cTextfeld->setTextfeldAusgewahlt(true);
 
-		cTextfeld->Typing(event);
+		cTextfeld->BuchstabeGedrückt(event);
 		
-	}
+	}*/
 }
 
-bool Kachel::EnterPress(sf::Event event)
+bool Kachel::ueberpruefenObEnterGedruekt(const sf::Event& event)
 {
-	if (cTextfeld != nullptr)
-		return cTextfeld->checkEnter(event);
+	//if (cTextfeld != nullptr)
+	//	return cTextfeld->ueberpruefeObEnterGedrueckt(event);
 
 	return false;
 }
-bool Kachel::getTextfeldAusgewahltZustand()
+bool Kachel::getTextfeldAusgewahltStatus()
 {
-	if (cTextfeld != nullptr)
-		return cTextfeld->getAusgewahlt();
+	//if (cTextfeld != nullptr)
+	//	return cTextfeld->getAusgewahlt();
 
 	return false;
 }
 
 //Funktionen zum �berp�fen der Maus und �ndern der Farbe
 	//Buttens
-std::optional<int> Kachel::ueberprueftAlleButtonObMausSchwebtDrüber(sf::Vector2i mouspos)
+std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrüber(const sf::Vector2i& mouspos)
 {
-	for (int i = 0; i < vButton.size(); i++)
+	for (auto e:umButton)
 	{
-		if (vButton[i]->isHover(mouspos))
+		if (e.second->MausSchwebtDrüber(mouspos))
 		{
-			vButton[i]->setHoverColor();
-			return vButton[i]->getID();
+			e.second->setButton_Schwebefarbe();
+			return e.second->getID();
 		}
 	}
 	return {};
 }
 
-bool Kachel::ueberprueftButtonObGedruektWird(int ButtenID)
+bool Kachel::ueberprueftButtonObGedruektWird(unsigned int ButtenID)
 {
-	if (vButton[ButtenID]->wirdGedrückt())
+	if (umButton[ButtenID]->wirdGedrückt())
 	{
-		vButton[ButtenID]->setButton_Gedrücktfarbe();
+		umButton[ButtenID]->setButton_Gedrücktfarbe();
 		return true;
 	}
 	return false;
 }
 
-void Kachel::setButtenColorToNormal()
+void Kachel::setAlleButtenAufHintergrundfarbe()
 {
-	for (auto e : vButton)
+	for (auto e : umButton)
 		e.second->setButton_Hintergrundfarbe();
 }
 
- void Kachel::updatePos(int PosX, int PosY, int breite, int hohe)
+void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_Breite, float Kachel_Hohe)
  {
-	 int tempx = PosX - kachel.getPosition().x;
-	 int tempy = PosY - kachel.getPosition().y;
-	 int ButtenOffsetY = static_cast<int>((hohe - kachel.getSize().y) + tempy);
+	 int tempx = Kachel_x - sf_rsKachel.getPosition().x;
+	 int tempy = Kachel_y - sf_rsKachel.getPosition().y;
+	 int ButtenOffsetY = static_cast<int>((Kachel_Hohe - sf_rsKachel.getSize().y) + tempy);
 
-	 TexturePos += sf::Vector2f(tempx, tempy);
+	 TexturePosition += sf::Vector2f(tempx, tempy);
 
-	 kachel.setPosition(PosX, PosY);
-	 kachel.setSize(sf::Vector2f(breite, hohe));
+	 sf_rsKachel.setPosition(Kachel_x, Kachel_y);
+	 sf_rsKachel.setSize(sf::Vector2f(Kachel_Breite, Kachel_Hohe));
 	
-	 for (auto e : vButton)
-		 e->updatePos(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), breite, hohe);
+	 for (auto e : umButton)
+		 e.second->aktualisierenPosition(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), Kachel_Breite, Kachel_Hohe);
 
 	 if (iID < 9)
-		 tText.setPosition(
-			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-			 kachel.getPosition().y + kachel.getGlobalBounds().height * 0.91
+		 sf_tText.setPosition(
+			 sf_rsKachel.getPosition().x + ((sf_rsKachel.getGlobalBounds().width / 2) - (sf_tText.getGlobalBounds().width / 2)),
+			 sf_rsKachel.getPosition().y + sf_rsKachel.getGlobalBounds().height * 0.91
 		 );
 
 	 else
 	 {
 		 if (iID == 9 || iID == 13)
-			 tText.setPosition(
-				 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-				 kachel.getPosition().y + ((kachel.getGlobalBounds().height * 2) / 3) - (tText.getGlobalBounds().width / 2)
+			 sf_tText.setPosition(
+				 sf_rsKachel.getPosition().x + ((sf_rsKachel.getGlobalBounds().width / 2) - (sf_tText.getGlobalBounds().width / 2)),
+				 sf_rsKachel.getPosition().y + ((sf_rsKachel.getGlobalBounds().height * 2) / 3) - (sf_tText.getGlobalBounds().width / 2)
 			 );
 		 else
-		 tText.setPosition(
-			 kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2) - (tText.getGlobalBounds().width / 2)),
-			 kachel.getPosition().y + ((kachel.getGlobalBounds().height * 2) / 3)
+		 sf_tText.setPosition(
+			 sf_rsKachel.getPosition().x + ((sf_rsKachel.getGlobalBounds().width / 2) - (sf_tText.getGlobalBounds().width / 2)),
+			 sf_rsKachel.getPosition().y + ((sf_rsKachel.getGlobalBounds().height * 2) / 3)
 		 );
 	 }
 }
 
- void Kachel::update()
+ void Kachel::aktualisieren()
  {
-	 if (PressTimer > 0)
-		 PressTimer--;
+	 if (iVerbleibendeDrueckZeit > 0)
+		 iVerbleibendeDrueckZeit--;
 
-	 if (PressTimer != 0)
-		 kachel.setFillColor(sfPressColor);
+	 if (iVerbleibendeDrueckZeit != 0)
+		 sf_rsKachel.setFillColor(sf_cGedrücktfarbe);
 
-	 for (auto e : vButton)
-		 e->update();
+	 for (auto e : umButton)
+		 e.second->aktualisieren();
  }
 
  //Kachel
-bool Kachel::ishover(sf::Vector2i mouspos)
+ bool Kachel::MausSchwebtDrüber(const sf::Vector2i& mouspos)
 {
-	if (mouspos.x > kachel.getPosition().x && mouspos.x<kachel.getPosition().x + kachel.getGlobalBounds().width &&
-		mouspos.y>kachel.getGlobalBounds().top && mouspos.y < kachel.getGlobalBounds().top + kachel.getGlobalBounds().height)
+	if (mouspos.x > sf_rsKachel.getPosition().x && mouspos.x<sf_rsKachel.getPosition().x + sf_rsKachel.getGlobalBounds().width &&
+		mouspos.y>sf_rsKachel.getGlobalBounds().top && mouspos.y < sf_rsKachel.getGlobalBounds().top + sf_rsKachel.getGlobalBounds().height)
 		return true;
 	return false;
 }
 
-bool Kachel::isPressed(sf::Vector2i mou+spos)
+bool Kachel::wirdGedrückt()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bdruken == false) //sfTimer.getElapsedTime().asMilliseconds() > 400)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bDruecken == false) //sfTimer.getElapsedTime().asMilliseconds() > 400)
 	{
-		bdruken = true;
+		bDruecken = true;
 		return true;
 	}
 
 	else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		bdruken = false;
+		bDruecken = false;
 
 	return false;
 }
 
- void Kachel::sethoverColor()
+inline void Kachel::setKachel_Schwebefarbe()
 {
-	 if (PressTimer == 0)
+	 if (iVerbleibendeDrueckZeit == 0)
 	 {
-		 kachel.setFillColor(sfHoverColor);
+		 sf_rsKachel.setFillColor(sf_cSchwebefarbe);
 	 }
 }
 
- void Kachel::setPressedColor()
+inline void Kachel::setKachel_Gedrücktfarbe()
 {
-	PressTimer = 12;
-	kachel.setFillColor(sfPressColor);
+	iVerbleibendeDrueckZeit = 12;
+	sf_rsKachel.setFillColor(sf_cGedrücktfarbe);
 }
 
- void Kachel::setNormalColor()
+inline void Kachel::setKachel_Hintergrundfarbe()
 {
-	 if (PressTimer == 0)
+	 if (iVerbleibendeDrueckZeit == 0)
 	 {
-		 kachel.setFillColor(sfBackroundColor);
+		 sf_rsKachel.setFillColor(sf_cHintergrundfarbe);
 	 }
 }
- void Kachel::setSize(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size)
+void Kachel::setGroese(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f size)
  {
-	 kachel.setPosition(posKachel);
-	 kachel.setSize(size);
-	 TexturePos.x = posTex.x;
-	 TexturePos.y = posTex.y;
+	 sf_rsKachel.setPosition(posKachel);
+	 sf_rsKachel.setSize(size);
+	 TexturePosition.x = posTex.x;
+	 TexturePosition.y = posTex.y;
  }
- void Kachel::setScale(float sice)
+ inline void Kachel::setTextureGroessenSkalierungsFaktor(float sice)
  {
-	 TextureScale = sice;
+	 TextureGroessenSkalierungsFaktor = sice;
  }
- int Kachel::getID()
+ const inline unsigned int Kachel::getID() const
  {
 	 return iID;
  }
- int Kachel::getTextureID()
+ const inline unsigned int Kachel::getTextureID() const
  {
 	 return iIDTexture;
  }
 
-float Kachel::getScale()
+ const inline float Kachel::getTextureGroessenSkalierungsFaktor() const
  {
-	 return TextureScale;
+	 return TextureGroessenSkalierungsFaktor;
  }
 
- sf::Vector2f Kachel::getTexturePosition()
+ const inline sf::Vector2f Kachel::getTexturePosition() const
  {
-	 return TexturePos;
+	 return TexturePosition;
  }
 
- void Kachel::setTexturePosition(sf::Vector2f pos)
+ void inline Kachel::setTexturePosition(sf::Vector2f pos)
  {
-	TexturePos=pos;
+	TexturePosition=pos;
  }
 
- sf::Vector2f Kachel::getPos()
+ const inline sf::Vector2f Kachel::getPosition() const
  {
-	 return kachel.getPosition();
+	 return sf_rsKachel.getPosition();
  }
  
- sf::Vector2f Kachel::getSize()
+ const inline sf::Vector2f Kachel::getGroese() const
  {
-	 return kachel.getSize();
+	 return sf_rsKachel.getSize();
  }
 
 //Privat Functions
-void Kachel::newText(std::string Text, int PosTextY)
+ void Kachel::newText(std::string Text, unsigned int PosTextY)
 {
-	tText.setString(Text);
-	tText.setPosition(
-		kachel.getPosition().x + ((kachel.getGlobalBounds().width / 2.f) - (tText.getGlobalBounds().width / 2.f)),
+	sf_tText.setString(Text);
+	sf_tText.setPosition(
+		sf_rsKachel.getPosition().x + ((sf_rsKachel.getGlobalBounds().width / 2.f) - (sf_tText.getGlobalBounds().width / 2.f)),
 		PosTextY
 	);
 }

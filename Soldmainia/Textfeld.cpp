@@ -1,26 +1,21 @@
 #include "PreHeader.h"
 #include "Textfeld.h"
 
-Textfeld::Textfeld()
+Textfeld::Textfeld(const sf::Color farbe, const sf::Font& font, const sf::Vector2f pos)
 {
+	sf_tTextfeld.setFillColor(farbe);
+	sf_tTextfeld.setCharacterSize(15);
+	sf_tTextfeld.setFont(font);
+	sf_tTextfeld.setPosition(pos);
 
-}
-
-Textfeld::Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos)
-{
-	tTextfeld.setFillColor(farbe);
-	tTextfeld.setCharacterSize(15);
-	tTextfeld.setFont(*font);
-	tTextfeld.setPosition(pos);
-
-	setAusgewahlt(true);
+	setTextfeldAusgewahlt(true);
 }
 
 Textfeld::~Textfeld()
 {
 }
 
-bool Textfeld::checkEnter(sf::Event event)
+bool Textfeld::ueberpruefeObEnterGedrueckt(const sf::Event& event)
 {
 	if (event.text.unicode == ENTER_KEY)
 	{
@@ -30,7 +25,7 @@ bool Textfeld::checkEnter(sf::Event event)
 
 	return false;
 }
-void Textfeld::Typing(sf::Event event)
+void Textfeld::BuchstabeGedrückt(const sf::Event& event)
 {
 	int Buchstabe = event.text.unicode;
 	if (Buchstabe < 128&&Buchstabe>=0)
@@ -39,12 +34,12 @@ void Textfeld::Typing(sf::Event event)
 	}
 }
 
-bool Textfeld::getAusgewahlt()
+const inline bool Textfeld::getAusgewahlt() const
 {
 	return bAusgewalt;
 }
 
-void Textfeld::setAusgewahlt(bool auswahl)
+void Textfeld::setTextfeldAusgewahlt(bool auswahl)
 {
 	bAusgewalt = auswahl;
 	if (!auswahl)
@@ -56,18 +51,18 @@ void Textfeld::setAusgewahlt(bool auswahl)
 		}
 		oText.str("");
 		oText << newText;
-		tTextfeld.setString(oText.str());
+		sf_tTextfeld.setString(oText.str());
 	}
 
 	else
 	{
-		tTextfeld.setString(oText.str()+"_");
+		sf_tTextfeld.setString(oText.str()+"_");
 	}
 }
 
 void Textfeld::drawText(sf::RenderTarget& target)
 {
-	target.draw(tTextfeld);
+	target.draw(sf_tTextfeld);
 }
 
 void Textfeld::inputlogic(int Buch)
@@ -75,7 +70,7 @@ void Textfeld::inputlogic(int Buch)
 	if (Buch != DELETE_KEY && Buch != ESCAPE_KEY && Buch != ENTER_KEY)
 	{
 		oText << static_cast<char>(Buch);
-		tTextfeld.setString(oText.str() + "_");
+		sf_tTextfeld.setString(oText.str() + "_");
 	}
 
 	else if (Buch == DELETE_KEY)
@@ -89,28 +84,28 @@ void Textfeld::inputlogic(int Buch)
 			}
 			oText.str("");
 			oText << newText;
-			tTextfeld.setString(oText.str()+"_");
+			sf_tTextfeld.setString(oText.str()+"_");
 		}
 	}
 
 	else if (Buch == ESCAPE_KEY)
-		setAusgewahlt(false);
+		setTextfeldAusgewahlt(false);
 
 	else if (Buch == ENTER_KEY)
-		setAusgewahlt(true);
+		setTextfeldAusgewahlt(true);
 }
 
-sf::Vector2f Textfeld::getPos()
+const inline sf::Vector2f Textfeld::getPosition() const
 {
-	return tTextfeld.getPosition();
+	return sf_tTextfeld.getPosition();
 }
 
-sf::FloatRect Textfeld::get()
+const inline sf::FloatRect Textfeld::getBegrenzungen() const
 {
-	return tTextfeld.getGlobalBounds();
+	return sf_tTextfeld.getGlobalBounds();
 }
 
-std::string Textfeld::getText()
+const inline std::string Textfeld::getText() const
 {
 	return oText.str();
 }

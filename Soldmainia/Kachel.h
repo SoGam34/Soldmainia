@@ -115,7 +115,7 @@ public:
 	Aufgabe: Die Funktion überschreibt die Position und die Masse des Buttons
 	Retrun: keinen
 	*/
-	void aktualisierenPosition(float Button_x, float Button_y, float Button_Breite, float Button_Hohe);
+	void aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_Breite, float Kachel_Hohe);
 	
 	/*
 	Name: aktualisieren
@@ -262,7 +262,7 @@ public:
 	/*---------------------------------Kachel Variablen--------------------------------------------*/
 
 	// Die Variable speichert die Größe, die aktuelle Farbe, die Position und wird auf das Spiel window gemalt
-	sf::RectangleShape sf_rsButton;
+	sf::RectangleShape sf_rsKachel;
 
 	//Die Variable speichert den Text der Kachel, die Position des Textes, den Font und die Textfarbe und wird auf das Spiel window gemalt
 	sf::Text sf_tText;
@@ -271,7 +271,7 @@ public:
 	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
 
 	//Speichert die ID der Kachel welche die Game Klasse für die Zuordnung der Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
-	const unsigned iID;
+	unsigned int iID;
 
 	//Die Variable speichert ob die Kachel gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;
@@ -286,7 +286,7 @@ public:
 	/*-------------------------------------Texture Variablen----------------------------------------*/
 	
 	//Speichert die ID des Texture welche die View Klasse für die Zuordnung der Texture braucht Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
-	const unsigned iIDTexture;
+	unsigned iIDTexture;
 
 	//Speichert die Position des Textures damit View das Texture an der Richtige stelle anzeigt 
 	sf::Vector2f TexturePosition;
@@ -301,6 +301,6 @@ public:
 
 	/*-------------------------------------Textfeld Variablen----------------------------------------*/
 	//Der Pointer Speichert die Adreese des Textfeldes wenn ein Textfeld benötigt wird ansonsten ist er auf Nullptr
-	Textfeld* cTextfeld;
+	//Textfeld* cTextfeld;
 };
 

@@ -10,10 +10,10 @@ public:
 
 	//--------------------------------Konstruktoren----------------------------------------------//
 
-	Textfeld() = delete;
-
+	//Textfeld()= delete;
+	Textfeld();
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
-	Textfeld(sf::Color farbe, sf::Font *font, sf::Vector2f pos);
+	Textfeld(const sf::Color farbe, const sf::Font &font, const sf::Vector2f pos);
 
 	~Textfeld();
 

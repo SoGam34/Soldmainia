@@ -129,7 +129,7 @@ private:
 	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
 
 	//Speichert die ID des Buttens welche die Game Klasse für die Zuordnung der Funktion des Buttons benötigt und für Kachel zur Überprüfung welcher Button gedrückt wird 
-	const unsigned iID;
+	unsigned iID;
 
 	//Die Variable speichert ob der Button gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;
