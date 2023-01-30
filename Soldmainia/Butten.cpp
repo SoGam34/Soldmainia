@@ -3,11 +3,19 @@
 
 
 
-Button::Button(float Button_x, float Button_y, float Button_Breite, float Button_Hohe, unsigned int Button_ID, std::string Button_Text, sf::Font& font, sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor, float KachelBreite, float KachelHohe)
+Button::Button(float Button_x, float Button_y, float Button_Breite, float Button_Hohe, unsigned int Button_ID,
+ std::string Button_Text, sf::Font& font, sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor, 
+ float KachelBreite, float KachelHohe)
+ :  sf_cHintergrundfarbe(backroundColor),
+	sf_cSchwebefarbe(hoverColor),
+	sf_cGedruecktfarbe(PressColor),
+	iID(Button_ID),
+	bDruecken(false),
+	iVerbleibendeDrueckZeit(0)
 {
 	sf_rsButton.setPosition(Button_x, Button_y);
 	sf_rsButton.setSize(sf::Vector2f(Button_Breite, Button_Hohe));
-	sf_rsButton.setFillColor(backroundColor);
+	sf_rsButton.setFillColor(sf_cHintergrundfarbe);
 
 	sf_tText.setFont(font);
 	sf_tText.setCharacterSize(15);
@@ -18,13 +26,6 @@ Button::Button(float Button_x, float Button_y, float Button_Breite, float Button
 	);
 	sf_tText.setFillColor(textColor);
 
-	sf_cHintergrundfarbe = backroundColor;
-	sf_cSchwebefarbe = hoverColor;
-	sf_cGedrücktfarbe = PressColor;
-	iID = Button_ID;
-	bDruecken = false;
-	iVerbleibendeDrueckZeit = 0;
-
 	fFactorBreite = Button_Breite / KachelBreite;
 	fFactorHohe = Button_Hohe / KachelHohe;
 }
@@ -34,7 +35,7 @@ Button::~Button()
 
 }
 
-bool Button::wirdGedrückt()
+bool Button::wirdGedrueckt()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bDruecken==false ) 
 	{
@@ -48,7 +49,7 @@ bool Button::wirdGedrückt()
 	return false;
 }
 
-bool Button::MausSchwebtDrüber(const sf::Vector2i& mouspos)
+bool Button::MausSchwebtDrueber(const sf::Vector2i& mouspos)
 {
 	if (mouspos.x > sf_rsButton.getPosition().x && mouspos.x<sf_rsButton.getPosition().x + sf_rsButton.getGlobalBounds().width &&
 		mouspos.y>sf_rsButton.getGlobalBounds().top && mouspos.y < sf_rsButton.getGlobalBounds().top + sf_rsButton.getGlobalBounds().height)
@@ -62,7 +63,7 @@ void Button::aktualisieren()
 		iVerbleibendeDrueckZeit--;
 	
 	if (iVerbleibendeDrueckZeit != 0)
-		sf_rsButton.setFillColor(sf_cGedrücktfarbe);
+		sf_rsButton.setFillColor(sf_cGedruecktfarbe);
 }
 
 void Button::aktualisierenPosition(float Button_x, float Button_y, float Button_Breite, float Button_Hohe)
@@ -78,10 +79,10 @@ void Button::aktualisierenPosition(float Button_x, float Button_y, float Button_
 	);
 }
 
-const inline void Button::setButton_Gedrücktfarbe()
+const inline void Button::setButton_Gedruecktfarbe()
 {
 	iVerbleibendeDrueckZeit = 15;
-	sf_rsButton.setFillColor(sf_cGedrücktfarbe);
+	sf_rsButton.setFillColor(sf_cGedruecktfarbe);
 }
 
 const inline void Button::setButton_Schwebefarbe()

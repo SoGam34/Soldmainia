@@ -16,20 +16,20 @@ public:
 	//--------------------------------Zustand und Position----------------------------------------------//
 
 	/*
-	Name: wirdGedrückt
+	Name: wirdGedrueckt
 	param: keine 
 	Aufgabe: Die Funktion überpruft ob der Button gedrückt wird 
 	Retrun: Die Funktion gibt true zurück wenn die Maus gedrückt wird und der Button in nicht gedrückten Zustand ist ansonsten wird false zurückgegeben
 	*/
-	bool wirdGedrückt();
+	bool wirdGedrueckt();
 
 	/*
-	Name: MausSchwebtdrüber
+	Name: MausSchwebtdrueber
 	param: sf::Vector2i& mouspos -> Die aktuelle Maus Position  
 	Aufgabe: Die Funktion überpruft ob die Maus sich über dem Button befindet
 	Retrun: Die Funktion gibt true zurück wenn die Maus sich über dem Button befindet ansonsten wird false zurückgegeben
 	*/
-	bool MausSchwebtDrüber(const sf::Vector2i& mouspos);
+	bool MausSchwebtDrueber(const sf::Vector2i& mouspos);
 
 	/*
 	Name: aktualisieren
@@ -50,12 +50,12 @@ public:
 	//--------------------------------Farben----------------------------------------------//
 
 	/*
-	Name: setButton_Gedrücktfarbe
+	Name: setButton_Gedruecktfarbe
 	param: keine 
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung übergebene gedrücktfarbe
 	Retrun: keine
 	*/
-	const inline void setButton_Gedrücktfarbe();
+	const inline void setButton_Gedruecktfarbe();
 
 	/*
 	Name: setButton_Schwebefarbe
@@ -126,10 +126,10 @@ private:
 	sf::Text sf_tText;
 
 	//Die Variablen speichern die Farbwerte welche der Button in den entsprechenden Fallen annimmt. Wird in den Farben set funktionen verwendet.
-	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
+	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedruecktfarbe;
 
 	//Speichert die ID des Buttens welche die Game Klasse für die Zuordnung der Funktion des Buttons benötigt und für Kachel zur Überprüfung welcher Button gedrückt wird 
-	unsigned iID;
+	const unsigned iID;
 
 	//Die Variable speichert ob der Button gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;

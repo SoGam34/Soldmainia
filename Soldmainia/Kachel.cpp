@@ -6,26 +6,27 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& fo
 	int IDTexture, int PosTextureX, int PosTextureY,
 	int ID, int PosKachelX, int PosKachelY, float with, float height,
 	sf::Color backroundColor, sf::Color hoverColor, sf::Color pressColor)
+	: iIDTexture(IDTexture),
+	TexturePosition.x(PosTextureX),
+	TexturePosition.y(PosTextureY),
+	iID(ID),
+	sf_cHintergrundfarbe(backroundColor),
+	sf_cSchwebefarbe(hoverColor),
+	sf_cGedruecktfarbe(pressColor),
+	bDruecken(false),
+	iVerbleibendeDrueckZeit(0),
 {
-	// Texture
-	iIDTexture = IDTexture;
-	TexturePosition.x = PosTextureX;
-	TexturePosition.y = PosTextureY;
-	//Kachel
-	iID = ID;
+	//Kachel	
 	sf_rsKachel.setPosition(PosKachelX, PosKachelY);
 	sf_rsKachel.setSize(sf::Vector2f(with, height));
-	sf_tText.setCharacterSize(15);
-	sf_cHintergrundfarbe = backroundColor;
-	sf_cSchwebefarbe = hoverColor;
-	sf_cGedrücktfarbe = pressColor;
 	sf_rsKachel.setFillColor(sf_cHintergrundfarbe);
-	bDruecken = false;
-	iVerbleibendeDrueckZeit = 0;
+		
 	// Text
+	sf_tText.setCharacterSize(15);
 	sf_tText.setFont(font);
 	sf_tText.setFillColor(TextColor);
 	newText(Text, PosTextY);
+
 	//Butten
 	umButton.clear();
 
@@ -134,11 +135,11 @@ bool Kachel::getTextfeldAusgewahltStatus()
 
 //Funktionen zum �berp�fen der Maus und �ndern der Farbe
 	//Buttens
-std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrüber(const sf::Vector2i& mouspos)
+std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrueber(const sf::Vector2i& mouspos)
 {
 	for (auto e:umButton)
 	{
-		if (e.second->MausSchwebtDrüber(mouspos))
+		if (e.second->MausSchwebtDrueber(mouspos))
 		{
 			e.second->setButton_Schwebefarbe();
 			return e.second->getID();
@@ -149,9 +150,9 @@ std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrüber(co
 
 bool Kachel::ueberprueftButtonObGedruektWird(unsigned int ButtenID)
 {
-	if (umButton[ButtenID]->wirdGedrückt())
+	if (umButton[ButtenID]->wirdGedrueckt())
 	{
-		umButton[ButtenID]->setButton_Gedrücktfarbe();
+		umButton[ButtenID]->setButton_Gedruecktfarbe();
 		return true;
 	}
 	return false;
@@ -204,14 +205,14 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 		 iVerbleibendeDrueckZeit--;
 
 	 if (iVerbleibendeDrueckZeit != 0)
-		 sf_rsKachel.setFillColor(sf_cGedrücktfarbe);
+		 sf_rsKachel.setFillColor(sf_cGedruecktfarbe);
 
 	 for (auto e : umButton)
 		 e.second->aktualisieren();
  }
 
  //Kachel
- bool Kachel::MausSchwebtDrüber(const sf::Vector2i& mouspos)
+ bool Kachel::MausSchwebtDrueber(const sf::Vector2i& mouspos)
 {
 	if (mouspos.x > sf_rsKachel.getPosition().x && mouspos.x<sf_rsKachel.getPosition().x + sf_rsKachel.getGlobalBounds().width &&
 		mouspos.y>sf_rsKachel.getGlobalBounds().top && mouspos.y < sf_rsKachel.getGlobalBounds().top + sf_rsKachel.getGlobalBounds().height)
@@ -219,9 +220,9 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 	return false;
 }
 
-bool Kachel::wirdGedrückt()
+bool Kachel::wirdGedruedckt()
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bDruecken == false) //sfTimer.getElapsedTime().asMilliseconds() > 400)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) == true && bDruecken == false)
 	{
 		bDruecken = true;
 		return true;
@@ -241,10 +242,10 @@ inline void Kachel::setKachel_Schwebefarbe()
 	 }
 }
 
-inline void Kachel::setKachel_Gedrücktfarbe()
+inline void Kachel::setKachel_Gedruecktfarbe()
 {
 	iVerbleibendeDrueckZeit = 12;
-	sf_rsKachel.setFillColor(sf_cGedrücktfarbe);
+	sf_rsKachel.setFillColor(sf_cGedruecktfarbe);
 }
 
 inline void Kachel::setKachel_Hintergrundfarbe()

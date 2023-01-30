@@ -29,12 +29,12 @@ public:
 						float KachelBreite, float KachelHohe);
 	
 	/*
-	Name: ueberprueftAlleButtonObMausSchwebtDrüber
+	Name: ueberprueftAlleButtonObMausSchwebtDrueber
 	param: sf::Vector2i mouspos -> Die aktuelle Maus Position
 	Aufgabe: Die Funktion geht alle Button durch und uberpruft ob der Mauszeiger sich über einem Button befindet 
 	Retrun: wenn der Mauszeiger sich über einem Button befindet wird die ID des Butten zurück gegeben an sonsten wird nichts zurück gegeben
 	*/
-	std::optional<unsigned int> ueberprueftAlleButtonObMausSchwebtDrüber(const sf::Vector2i& mouspos);
+	std::optional<unsigned int> ueberprueftAlleButtonObMausSchwebtDrueber(const sf::Vector2i& mouspos);
 
 	/*
 	Name: ueberprueftAlleButtonObGedruektWird
@@ -131,7 +131,7 @@ public:
 	Aufgabe: Die Funktion überpruft ob die Kachel gedrückt wird
 	Retrun: Die Funktion gibt true zurück wenn die Maus gedrückt wird und die Kachel in nicht gedrückten Zustand ist ansonsten wird false zurückgegeben
 	*/
-	bool wirdGedrückt();
+	bool wirdGedruedckt();
 
 	/*
 	Name: MausSchwebtdrüber
@@ -139,7 +139,7 @@ public:
 	Aufgabe: Die Funktion überpruft ob die Maus sich über der Kachel befindet
 	Retrun: Die Funktion gibt true zurück wenn die Maus sich über der Kachel befindet ansonsten wird false zurückgegeben
 	*/
-	bool MausSchwebtDrüber(const sf::Vector2i& mouspos);
+	bool MausSchwebtDrueber(const sf::Vector2i& mouspos);
 	
 	/*
 	Name: drawFenster
@@ -165,7 +165,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung übergebene gedrücktfarbe
 	Retrun: keine
 	*/
-	inline void setKachel_Gedrücktfarbe();
+	inline void setKachel_Gedruecktfarbe();
 
 	/*
 	Name: setKachel_Schwebefarbe
@@ -268,10 +268,10 @@ public:
 	sf::Text sf_tText;
 
 	//Die Variablen speichern die Farbwerte welche die Kachel in den entsprechenden Fallen annimmt. Wird in den Farben set Funktionen verwendet.
-	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedrücktfarbe;
+	sf::Color sf_cHintergrundfarbe, sf_cSchwebefarbe, sf_cGedruecktfarbe;
 
 	//Speichert die ID der Kachel welche die Game Klasse für die Zuordnung der Hauptmenu auswahl braucht und für Bereichseingrenzung an manchen stellen 
-	unsigned int iID;
+	const unsigned int iID;
 
 	//Die Variable speichert ob die Kachel gedrückt wurde um unbeabsichtigtes drücken zu verhindern 
 	bool bDruecken;
