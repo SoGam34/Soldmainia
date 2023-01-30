@@ -1,18 +1,13 @@
 #include "Gebaeude.h"
 
 Gebaeude::Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor)
+: 	cData(data),
+	bProzessAktiv(false),
+	iProzessHauptKachel(iHauptKachel),
+	iGeschwindikeitsFaktor(1),
+	iKostenFaktor(KostenFaktor),
+	iZeitFaktor(ZeitFaktor),
 {
-	cData = data;						// intitlaiesieren von data 
-	bProzessAktiv = false;				// Auf False setzen, da keine Aubildung statt findet
-
-	iProzessHauptKachel = iHauptKachel;
-
-	iGeschwindikeitsFaktor = 1;
-
-	iKostenFaktor = KostenFaktor;
-
-	iZeitFaktor = ZeitFaktor;
-
 	fUpgradeKosten[0] = 100;
 	fUpgradeKosten[1] = 100;
 	fUpgradeKosten[2] = 100;
@@ -27,7 +22,7 @@ Gebaeude::~Gebaeude()
 
 void Gebaeude::StartProzess()
 {
-	if (cData->getiKontostand() > ProzessKosten()) // überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > ProzessKosten()) // ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
 		ss << -ProzessKosten();
@@ -47,7 +42,7 @@ void Gebaeude::aktProzessZustand()
 
 void Gebaeude::UpgradeGeschwindikeit()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[0] && iGeschwindikeitsFaktor >= 0.1)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > fUpgradeKosten[0] && iGeschwindikeitsFaktor >= 0.1)	// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
 		ss << -fUpgradeKosten[0];
@@ -57,10 +52,10 @@ void Gebaeude::UpgradeGeschwindikeit()
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[0]);					// Abziehn der Verbesserungskosten
 		
 		fUpgradeKosten[0] *= 1.2;								// Speichern der neuen Verbesserungskosten
-		iGeschwindikeitsFaktor -= 0.05;		// Durchfüren der Verbesserung 
+		iGeschwindikeitsFaktor -= 0.05;		// Durchfï¿½ren der Verbesserung 
 
 		ss.str("");
-		if (!bProzessAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
 		{
 			aktstd();
 			BerrechnungVoraussichtlicheZeit();
@@ -69,7 +64,7 @@ void Gebaeude::UpgradeGeschwindikeit()
 		if (iGeschwindikeitsFaktor < 0.10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(iProzessHauptKachel+1).neuesBild(ss.str(), 350, 1, 285, 95);
 		}
 
@@ -84,7 +79,7 @@ void Gebaeude::UpgradeGeschwindikeit()
 
 void Gebaeude::UpgradeKosten()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[2] && iKostenFaktor > 10)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > fUpgradeKosten[2] && iKostenFaktor > 10)	// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
 		ss << -fUpgradeKosten[2];
@@ -97,7 +92,7 @@ void Gebaeude::UpgradeKosten()
 		iKostenFaktor -= 10;
 
 		ss.str("");
-		if (!bProzessAktiv)	// überprüft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein EM gesucht wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktstd();
@@ -106,7 +101,7 @@ void Gebaeude::UpgradeKosten()
 		if (iKostenFaktor == 10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(iProzessHauptKachel+3).neuesBild(ss.str(), 350, 1, 785, 95);
 		}
 
@@ -120,7 +115,7 @@ void Gebaeude::UpgradeKosten()
 
 void Gebaeude::BerrechnungVoraussichtlicheZeit()
 {
-	iVoraussichtlicheZeit = (iZeitversatz * iZeitFaktor * iGeschwindikeitsFaktor * // Ermitteln der Zeit die Vorausichtlich für die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Größe, der Grundgeschwindikeit, der Bekanntheit
+	iVoraussichtlicheZeit = (iZeitversatz * iZeitFaktor * iGeschwindikeitsFaktor * // Ermitteln der Zeit die Vorausichtlich fï¿½r die Ausbildung gebraucht wird Unterberucksichtigung von der eines Faktors, der Grï¿½ï¿½e, der Grundgeschwindikeit, der Bekanntheit
 		((cData->getBekanntheit() < 1000) ? 3 : (cData->getBekanntheit() < 10000) ? 2 : 1));	 // Ermitteln der Bekanntheit und dem dadurch resultierendem Faktor
 
 	neuerTimer(iVoraussichtlicheZeit);
@@ -130,7 +125,7 @@ void Gebaeude::updateTimer()
 {
 	aktTimer();									// akktualiesieren der Uhr
 
-	if (getTimerstand() + iZeitversatz == 0 && bProzessAktiv)	// überprüfen ob die Zeit abgelaugen ist 
+	if (getTimerstand() + iZeitversatz == 0 && bProzessAktiv)	// ï¿½berprï¿½fen ob die Zeit abgelaugen ist 
 		EndeProzess();						// Beenden der Ausbildung, da die Ausbildung fertig ist 
 
 	else if (bProzessAktiv)					// Aktualiesiern des Angezeigten Ausbildungs Fortschritts

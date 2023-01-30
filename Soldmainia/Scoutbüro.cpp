@@ -1,33 +1,33 @@
-#include "Scoutbüro.h"
+#include "Scoutbï¿½ro.h"
 
-Scoutbüro::Scoutbüro(Data* data) : Gebaeude(data, 12, 400, 1)
+Scoutbï¿½ro::Scoutbï¿½ro(Data* data) : Gebaeude(data, 12, 400, 1)
 {
 	iRangmin = 1;
-	iKostenmitarbeiter = 400;
+	iAusfuhrungsKostenFaktor = 400;
 	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
 }
 
-Scoutbüro::~Scoutbüro()
+Scoutbï¿½ro::~Scoutbï¿½ro()
 {
 }
 
-std::stringstream Scoutbüro::ProzessText()
+std::stringstream Scoutbï¿½ro::ProzessText()
 {
 	 std::stringstream ssText;
-	 ssText << "Die Mitarbeiter des\nScoutbüros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
+	 ssText << "Die Mitarbeiter des\nScoutbï¿½ros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
 	 return ssText;
 }
 
-int Scoutbüro::ProzessKosten()
+int Scoutbï¿½ro::ProzessKosten()
 {
-	return (eRang * iKostenmitarbeiter * (iVoraussichtlicheZeit + iZeitversatz));
+	return (eRang * iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz));
 }
 
-void Scoutbüro::EndeProzess()
+void Scoutbï¿½ro::EndeProzess()
 {
 	std::stringstream ssText;
-	ssText << "Starke:Test\nAffinität: Test\nProzentualer Anteil: Test";
+	ssText << "Starke:Test\nAffinitï¿½t: Test\nProzentualer Anteil: Test";
 	cData->getKacheln(12).neuesBild(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).addButten(35, 400, 200, 30, 5, "Annehmen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 6, "Ablehnen", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
@@ -37,7 +37,7 @@ void Scoutbüro::EndeProzess()
 	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich Abgeschlossen");
 }
 
-void Scoutbüro::Annehmen()
+void Scoutbï¿½ro::Annehmen()
 {
 	// EM dauerhaft in Data speichern
 	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
@@ -46,7 +46,7 @@ void Scoutbüro::Annehmen()
 	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
 }
 
-void Scoutbüro::Ablehnen()
+void Scoutbï¿½ro::Ablehnen()
 {
 	//EM = nullptr
 	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
@@ -56,11 +56,11 @@ void Scoutbüro::Ablehnen()
 	bProzessAktiv = false;
 }
 
-void Scoutbüro::UpgradeRang()
+void Scoutbï¿½ro::UpgradeRang()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin<6)								// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin<6)								// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
 	{
-		iRangmin++;																							// Durchfüren der Verbesserung 
+		iRangmin++;																							// Durchfï¿½ren der Verbesserung 
 		fUpgradeKosten[1] *= 1.6;								// Speichern der neuen Verbesserungskosten
 		std::stringstream ss;
 		ss << -fUpgradeKosten[1];
@@ -113,7 +113,7 @@ void Scoutbüro::UpgradeRang()
 		}
 
 		ss.str("");
-		if (!bProzessAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktstd();
@@ -122,22 +122,22 @@ void Scoutbüro::UpgradeRang()
 		if (iRangmin == 6)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
+			ss << "Das Scoutbï¿½ro\nfindet Einzelkampfer die\neinen hï¿½heren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(14).changeText(ss.str(), 320);
 		}
 	}	
 }
 
-void Scoutbüro::aktstd()
+void Scoutbï¿½ro::aktstd()
 {
 	std::stringstream ssText;
-	ssText << "Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	ssText << "Einselkï¿½mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitï¿½t.\nDie Affinitï¿½t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	cData->getKacheln(12).changeText(ssText.str(), 200);
 }

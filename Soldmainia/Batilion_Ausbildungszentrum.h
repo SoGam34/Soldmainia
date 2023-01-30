@@ -5,30 +5,89 @@
 class Batilion_Ausbildungszentrum : public Gebaeude
 {
 public:
-	//De-/Konstrucktor
+	//--------------------------------Konstruktoren----------------------------------------------//
+	Batilion_Ausbildungszentrum()=delete;
+
+	//Konstrucktor mit allen informationen f√ºr eine vollstandige Initzialisierung 
 	Batilion_Ausbildungszentrum(Data* data);
 	~Batilion_Ausbildungszentrum();
 
-	//Ausbildungs F.
-	std::stringstream ProzessText();
-	int ProzessKosten();
-	void EndeProzess();
+	//--------------------------------Aufgaben Ablauf----------------------------------------------//
+	
+	/*
+	Name: GebaeudeAusfuhrungskosten
+	param: keine 
+	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
+	Retrun: Die Funktion gibt die kosten als int zur√ºck
+	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
+	*/
+	unsigned const int GebaeudeAusfuhrungskosten() const;
 
+	/*
+	Name: GebaudeAktivText
+	param: keine 
+	Aufgabe: Die virtuelle Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
+	Retrun: Die Funktion gibt den Text als stringstram zur√ºck
+	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
+	*/
+	const std::stringstream GebaudeAktivText() const;
+	
+	/*
+	Name: AnzahlErhohen
+	param: keine 
+	Aufgabe: Die Funktion erhot die Groe√üe des Batilions was ausgebildet werden soll
+	Retrun: keine
+	*/
+	void AnzahlErhohen();
+
+	/*
+	Name: AnzahlReduzieren
+	param: keine 
+	Aufgabe: Die Funktion rediziert die Groe√üe des Batilions was ausgebildet werden soll
+	Retrun: keine
+	*/
+	void AnzahlReduzieren();
+
+	/*
+	Name: BeendenDerAusfuhrung
+	param: keine 
+	Aufgabe: Die virtuelle Funktion sorgt f√ºr ein geregeltes Ende der Ausfuhrung  
+	Retrun: keine
+	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
+	*/
+	void BeendenDerAusfuhrung();
+
+	/*
+	Name: Vorbereiten_neueAusbildung
+	param: keine 
+	Aufgabe: Die Funktion bereitet alles f√ºr eine neue Ausbildung vor 
+	Retrun: keine
+	*/
 	void Vorbereiten_neueAusbildung();
 
-	//Sonstige Funktonen
-	void aktstd();
+	//--------------------------------Allgemeine Funktionen Gebaeudes----------------------------------------------//
 
-	// Batilions Grˆﬂe ‰ndern
-	void AnzahlErhohen();
-	void AnzahlReduzieren();
+	/*
+	Name: aktualisierenInformationsText
+	param: keine 
+	Aufgabe: Die Funktion aktualisiert den Informationstext sodass der Spieler weis was die Aufgabe des gebaudes ist und unter welchen Bedingungen diese Erfullt wird 
+	Retrun: kein
+	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
+	*/	
+	inline void aktualisierenInformationsText();
 	 
-	// Upgrade Funktionen
-	void UpgradeGrundstarke();
+	//--------------------------------Upgraden des Gebaeudes----------------------------------------------//
+
+	/*
+	Name: ErhohenDerGrundstarke
+	param: keine 
+	Aufgabe: Die Funktion modifiziert fGrundstaerke, sodass das Batilion starker ist und passt den Kontostand sowie die Kacheln an
+	Retrun: keine
+	*/
+	void ErhohenDerGrundstarke();
 
 private:
-	unsigned short int iBekanntheit = 1;
-	unsigned short int iBatilonsgrˆﬂe = 10;
-	float fGrundst‰rke = 10;
+	unsigned short int iBatilionsgroe√üe = 10;
+	float fGrundstaerke = 10;
 };
 

@@ -1,10 +1,10 @@
 #include "Batilion_Ausbildungszentrum.h"
 
 Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data) : Gebaeude(data, 8, 70, 10)
+: 	iBatilionsgroeÃŸe(10),
+	fGrundstaerke(10)
 {
-	iBekanntheit = 1;
-	iBatilonsgröße = 10;
-	fGrundstärke = 10;
+	
 }
 
 Batilion_Ausbildungszentrum::~Batilion_Ausbildungszentrum()
@@ -16,7 +16,7 @@ std::stringstream Batilion_Ausbildungszentrum::ProzessText()
 	// Der Text der warend der Ausbildung angezeigt wird 
 	std::stringstream ssText;
 	ssText << "Ausbildung eines neuen \nBatilions ist im Gang.\n"
-		<< "Das Batilion wird aus\n" <<iBatilonsgröße << " Mitgliedern bestehen.\n"
+		<< "Das Batilion wird aus\n" <<iBatilionsgroeÃŸe << " Mitgliedern bestehen.\n"
 		<< "Die Ausbildung wird in\n" << getTimerstand() << " Tagen vorausichtlich\nfertig sein.";
 	return ssText;
 }
@@ -40,14 +40,14 @@ void Batilion_Ausbildungszentrum::EndeProzess()
 void Batilion_Ausbildungszentrum::Vorbereiten_neueAusbildung()
 {
 	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nächsten Batilions 
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nï¿½chsten Batilions 
 	BerrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGrï¿½ï¿½e: " << iBatilonsgrï¿½ï¿½e << "\nKampfkraft: " << iBatilonsgrï¿½ï¿½e * 10 * fGrundstï¿½rke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 
 	cData->getKacheln(8).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
-	// Hinzufügen aller Notiger Buttens 
+	// Hinzufï¿½gen aller Notiger Buttens 
 	cData->getKacheln(8).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White);
 	cData->getKacheln(8).addButten(35, 350, 200, 30, 11, "Mehr Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White);
 	cData->getKacheln(8).addButten(35, 400, 200, 30, 12, "Weniger Mitglieder", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White);
@@ -56,9 +56,9 @@ void Batilion_Ausbildungszentrum::Vorbereiten_neueAusbildung()
 
 void Batilion_Ausbildungszentrum::aktstd()
 {
-	//Aktualieseiren der Anzeige wie das nächste Batilion ausehen wird 
+	//Aktualieseiren der Anzeige wie das nï¿½chste Batilion ausehen wird 
 	std::stringstream ssText;
-	ssText << "Neues Batilion Ausbilden\nGröße: " << iBatilonsgröße << "\nKampfkraft: " << iBatilonsgröße * 10 * fGrundstärke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGrï¿½ï¿½e: " << iBatilonsgrï¿½ï¿½e << "\nKampfkraft: " << iBatilonsgrï¿½ï¿½e * 10 * fGrundstï¿½rke << "\nKosten: " << iKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 	cData->getKacheln(8).changeText(ssText.str(), 200);
 	ssText.clear();
 }
@@ -66,8 +66,8 @@ void Batilion_Ausbildungszentrum::aktstd()
 void Batilion_Ausbildungszentrum::AnzahlErhohen()
 {
 	// Erhoht die Gesamtanzahl der Soldaten in dem Batilion und aktualiesiert die Ausgabe
-	iBatilonsgröße += 1;
-	iZeitFaktor = iBatilonsgröße;
+	iBatilonsgrï¿½ï¿½e += 1;
+	iZeitFaktor = iBatilonsgrï¿½ï¿½e;
 	BerrechnungVoraussichtlicheZeit();
 	aktstd();
 }
@@ -75,17 +75,17 @@ void Batilion_Ausbildungszentrum::AnzahlErhohen()
 void Batilion_Ausbildungszentrum::AnzahlReduzieren()
 {
 	// Reduziert die Gesamtanzahl der Soldaten in dem Batilion und aktualiesiert die Ausgabe
-	iBatilonsgröße -= 1;
-	iZeitFaktor = iBatilonsgröße;
+	iBatilonsgrï¿½ï¿½e -= 1;
+	iZeitFaktor = iBatilonsgrï¿½ï¿½e;
 	BerrechnungVoraussichtlicheZeit();
 	aktstd();
 }
 
 void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[1] && fGrundstärke < 25)	// überprüfen ob die Ausbildung bezahlt werden kann
+	if (cData->getiKontostand() > fUpgradeKosten[1] && fGrundstï¿½rke < 25)	// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
 	{
-		fGrundstärke += 1;											// Durchfüren der Verbesserung 
+		fGrundstï¿½rke += 1;											// Durchfï¿½ren der Verbesserung 
 
 		std::stringstream ssk;
 		ssk << -fUpgradeKosten[1];
@@ -98,23 +98,23 @@ void Batilion_Ausbildungszentrum::UpgradeGrundstarke()
 		cData->getAnimationen().startUpgradeAnimation(3);
 		
 		std::stringstream ss;
-		if (!bProzessAktiv)	// überprüft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs führt
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
 		{
 			aktstd();
 			BerrechnungVoraussichtlicheZeit();
 		}
 
-		if (fGrundstärke > 24)
+		if (fGrundstï¿½rke > 24)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(10).neuesBild(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstärke\nKosten: " << fUpgradeKosten[1];
+			ss << "Erhoung der Grundstï¿½rke\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(10).changeText(ss.str(), 350);
 		}
 
