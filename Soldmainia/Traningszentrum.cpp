@@ -1,6 +1,6 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16,100,1), Auswahl(data)
+Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16,100,1), Auswahl(data), iWirksamkeitsgrad(1)
 {
 }
 
@@ -8,36 +8,30 @@ Traningszentrum::~Traningszentrum()
 {
 }
 
-std::stringstream Traningszentrum::ProzessText()
+
+unsigned const int GebaeudeAusfuhrungskosten() const
 {
-	// Der Text der warend des TRainings angezeigt wird 
-	std::stringstream ssText;
-	ssText << "Die Einheit "<<sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<iVoraussichtlicheZeit<<"\nTagen abgeschloßen";
-	return ssText;
+	return iKostenFaktor*(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[sName].Groï¿½e;
 }
 
-int Traningszentrum::ProzessKosten()
+
+
+void Traningszentrum::LangeTrainingsDauer()
 {
-	return iKostenFaktor*(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[sName].Große;
+	iZeitFaktor = 3;
+	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
-void Traningszentrum::EndeProzess()
+void Traningszentrum::MittlereTrainingsDauer()
 {
-	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nächsten Batilions 
-	BerrechnungVoraussichtlicheZeit();
+	iZeitFaktor = 2;
+	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+}
 
-	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	ssText << "Neue Einheit Trainieren\nDie Einheit erhalt\nErfahrungspunkte was sie\nStarker macht und\ndie Erfolgsraten in\nEinsatzen verbessert.\nDei Menge der\nErfahrungspunkte hangt von\nder Dauer ab";
-
-	cData->getKacheln(16).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
-	//// Hinzufügen aller Notiger Buttens 
-	cData->getKacheln(16).addButten(35, 450, 200, 30, 5, "Lange Tranings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(35, 350, 200, 30, 6, "Kurze Trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(35, 400, 200, 30, 7, "Mittlere trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-
-	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
-	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet, die Einheit ist jetzt wieder Einsatzbereit");
+void Traningszentrum::KurzeTraningsDauer()
+{
+	iZeitFaktor = 1;
+	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::AuswahlZuOrdnen(std::string Name)
@@ -46,25 +40,76 @@ void Traningszentrum::AuswahlZuOrdnen(std::string Name)
 	StartProzess();
 }
 
-void Traningszentrum::TrainingLang()
+const std::stringstream GebaudeAktivText() const
 {
-	iZeitFaktor = 3;
+	// Der Text der warend des Trainings angezeigt wird 
+	std::stringstream ssText;
+	ssText << "Die Einheit "<<sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<iVoraussichtlicheZeit<<"\nTagen abgeschloï¿½en";
+	return ssText;
 }
 
-void Traningszentrum::TrainingMittel()
+void Traningszentrum::BeendenDerAusfuhrung()
 {
-	iZeitFaktor = 2;
+	//neues Kachel Bild
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nï¿½chsten Batilions 
+	BerrechnungVoraussichtlicheZeit();
+	
+	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
+	
+	std::stringstream ssText;			// Der Text der Angezeigt werden soll
+	ssText << "Neue Einheit Trainieren\nDie Einheit erhalt\nErfahrungspunkte was sie\nStarker macht und\ndie Erfolgsraten in\nEinsatzen verbessert.\nDei Menge der\nErfahrungspunkte hangt von\nder Dauer ab";
+
+	cData->getKacheln(16).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	//// Hinzufï¿½gen aller Notiger Buttens 
+	cData->getKacheln(16).addButten(35, 450, 200, 30, 5, "Lange Tranings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).addButten(35, 350, 200, 30, 6, "Kurze Trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).addButten(35, 400, 200, 30, 7, "Mittlere trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	
+	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet, die Einheit ist jetzt wieder Einsatzbereit");
+
+	cData->getEinheiten()[sName].XPhinzufugen(iWirksamkeitsgrad*iZeitFaktor);	
 }
 
-void Traningszentrum::TrainingKurz()
+
+inline void aktualisierenInformationsText()
 {
-	iZeitFaktor = 1;
+	std::stringstream ssText;
+	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
+	cData->getKacheln(16).changeText(ssText.str(), 200);
 }
 
-void Traningszentrum::aktstd()
+void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 {
-}
+	if (cData->getiKontostand() > fUpgradeKosten[1] && iWirksamkeitsgrad < 25)	// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
+	{
+		iWirksamkeitsgrad += 1;												// Durchfï¿½ren der Verbesserung 
+		fUpgradeKosten[1] *= 1.6;											// Speichern der neuen Verbesserungskosten
+		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]); // Abziehn der Verbesserungskosten
+		
+		std::stringstream ss;
+		ss << -fUpgradeKosten[1];
+		cData->getAnimationen().startBenarichtigung(false, ss.str());
+		cData->getAnimationen().startUpgradeAnimation(3);
 
-void Traningszentrum::UpgradeEffizens()
-{
+		ss.str("");
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
+		{
+			aktstd();
+			BerrechnungVoraussichtlicheZeit();
+		}
+
+		if (iWirksamkeitsgrad > 24)
+		{
+			// Ausgabe des neuen Textes
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
+			cData->getKacheln(16).neuesBild(ss.str(), 350, 1, 535, 95);
+		}
+
+		else
+		{
+			// Ausgabe des neuen Textes
+			ss << "Erhoung der Grundstï¿½rke\nKosten: " << fUpgradeKosten[1];
+			cData->getKacheln(16).changeText(ss.str(), 350);
+		}
+	}
 }

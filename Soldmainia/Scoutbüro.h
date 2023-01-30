@@ -17,7 +17,7 @@ public:
 	/*
 	Name: GebaeudeAusfuhrungskosten
 	param: keine 
-	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
+	Aufgabe: Die Funktion berechnet wie viel die Ausfuhrung kostet
 	Retrun: Die Funktion gibt die kosten als int zurück
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
@@ -26,7 +26,7 @@ public:
 	/*
 	Name: GebaudeAktivText
 	param: keine 
-	Aufgabe: Die virtuelle Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
+	Aufgabe: Die Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
 	Retrun: Die Funktion gibt den Text als stringstram zurück
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
@@ -35,7 +35,7 @@ public:
 	/*
 	Name: BeendenDerAusfuhrung
 	param: keine 
-	Aufgabe: Die virtuelle Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
+	Aufgabe: Die Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
 	Retrun: keine
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
