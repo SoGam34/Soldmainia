@@ -87,7 +87,7 @@ public:
 	void ErhohenDerGrundstarke();
 
 private:
-	unsigned short int iBatilionsgroeße = 10;
+	unsigned short int iBatilionsgroesse = 10;
 	float fGrundstaerke = 10;
 };
 

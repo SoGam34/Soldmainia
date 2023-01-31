@@ -1,30 +1,31 @@
-#include "Scoutb�ro.h"
+#include "Scoutbüro.h"
 
-Scoutb�ro::Scoutb�ro(Data* data) : Gebaeude(data, 12, 400, 1)
+Scoutbuero::Scoutbuero(Data* data) : Gebaeude(data, 12, 400, 1), iRangmin(1)
 {
-	iRangmin = 1;
 	iAusfuhrungsKostenFaktor = 400;
 	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
 }
 
-Scoutb�ro::~Scoutb�ro()
+Scoutbuero::~Scoutbuero()
 {
 }
 
-std::stringstream Scoutb�ro::ProzessText()
+unsigned const int Scoutbuero::GebaeudeAusfuhrungskosten() const
+{
+	return (eRang * iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz));
+}
+
+const std::stringstream Scoutbuero::GebaudeAktivText() const
 {
 	 std::stringstream ssText;
 	 ssText << "Die Mitarbeiter des\nScoutb�ros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
 	 return ssText;
 }
 
-int Scoutb�ro::ProzessKosten()
-{
-	return (eRang * iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz));
-}
 
-void Scoutb�ro::EndeProzess()
+
+void Scoutbuero::BeendenDerAusfuhrung()
 {
 	std::stringstream ssText;
 	ssText << "Starke:Test\nAffinit�t: Test\nProzentualer Anteil: Test";
@@ -37,26 +38,33 @@ void Scoutb�ro::EndeProzess()
 	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich Abgeschlossen");
 }
 
-void Scoutb�ro::Annehmen()
+void Scoutbuero::Annehmen()
 {
 	// EM dauerhaft in Data speichern
 	cData->getKacheln(12).neuesBild("Error in Annehmen", 160, 99, 1, 1);
-	aktstd();
+	aktualisierenInformationsText();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
 }
 
-void Scoutb�ro::Ablehnen()
+void Scoutbuero::Ablehnen()
 {
 	//EM = nullptr
 	cData->getKacheln(12).neuesBild("Error in Ablehnen", 160, 99, 1, 1);
-	aktstd();
+	aktualisierenInformationsText();
 	cData->getKacheln(12).addButten(35, 450, 200, 30, 1, "Starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cData->getAnimationen().startBenarichtigung(false, "EM Abgelehnt");
 	bProzessAktiv = false;
 }
 
-void Scoutb�ro::UpgradeRang()
+inline void Scoutbuero::aktualisierenInformationsText()
+{
+	std::stringstream ssText;
+	ssText << "Einselk�mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinit�t.\nDie Affinit�t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	cData->getKacheln(12).changeText(ssText.str(), 200);
+}
+
+void Scoutbuero::ErhohenDesMoeglichenRanges()
 {
 	if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin<6)								// �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
@@ -65,7 +73,7 @@ void Scoutb�ro::UpgradeRang()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[1];
 		eRang = static_cast<Rang>(rand() % 2 + iRangmin);
-		iZeitFaktor=eRang;
+		iGebaeudeEinflussZeitFaktor = eRang;
 		
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]);					// Abziehn der Verbesserungskosten
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
@@ -116,7 +124,7 @@ void Scoutb�ro::UpgradeRang()
 		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			BerrechnungVoraussichtlicheZeit();
-			aktstd();
+			aktualisierenInformationsText();
 		}
 
 		if (iRangmin == 6)
@@ -135,9 +143,3 @@ void Scoutb�ro::UpgradeRang()
 	}	
 }
 
-void Scoutb�ro::aktstd()
-{
-	std::stringstream ssText;
-	ssText << "Einselk�mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinit�t.\nDie Affinit�t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
-	cData->getKacheln(12).changeText(ssText.str(), 200);
-}

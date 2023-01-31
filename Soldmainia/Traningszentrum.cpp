@@ -1,6 +1,7 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16,100,1), Auswahl(data), iWirksamkeitsgrad(1)
+Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16,100,1), Auswahl(data),
+iWirksamkeitsgrad(1)
 {
 }
 
@@ -9,38 +10,36 @@ Traningszentrum::~Traningszentrum()
 }
 
 
-unsigned const int GebaeudeAusfuhrungskosten() const
+unsigned const int Traningszentrum::GebaeudeAusfuhrungskosten() const
 {
-	return iKostenFaktor*(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[sName].Gro�e;
+	return iAusfuhrungsKostenFaktor *(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[sName].Grosse;
 }
-
-
 
 void Traningszentrum::LangeTrainingsDauer()
 {
-	iZeitFaktor = 3;
-	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+	iGebaeudeEinflussZeitFaktor = 3;
+	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::MittlereTrainingsDauer()
 {
-	iZeitFaktor = 2;
-	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+	iGebaeudeEinflussZeitFaktor = 2;
+	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::KurzeTraningsDauer()
 {
-	iZeitFaktor = 1;
-	cTraingzentrum->SucheEinsetzbare_UND_GesundeEinheiten();
+	iGebaeudeEinflussZeitFaktor = 1;
+	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::AuswahlZuOrdnen(std::string Name)
 {
 	sName = Name;
-	StartProzess();
+	BeginnAufgabe();
 }
 
-const std::stringstream GebaudeAktivText() const
+const std::stringstream Traningszentrum::GebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird 
 	std::stringstream ssText;
@@ -67,11 +66,11 @@ void Traningszentrum::BeendenDerAusfuhrung()
 	
 	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet, die Einheit ist jetzt wieder Einsatzbereit");
 
-	cData->getEinheiten()[sName].XPhinzufugen(iWirksamkeitsgrad*iZeitFaktor);	
+	cData->getEinheiten()[sName].XPHinzufugen(iWirksamkeitsgrad* iGebaeudeEinflussZeitFaktor);
 }
 
 
-inline void aktualisierenInformationsText()
+inline void Traningszentrum::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
@@ -94,7 +93,7 @@ void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 		ss.str("");
 		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
-			aktstd();
+			aktualisierenInformationsText();
 			BerrechnungVoraussichtlicheZeit();
 		}
 

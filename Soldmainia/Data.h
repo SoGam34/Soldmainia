@@ -8,21 +8,23 @@ struct Einheit
 	unsigned short int HP;
 	unsigned short int Moral;
 	unsigned short int Starke;
-	unsigned short int Gro�e;
+	unsigned short int Grosse;
 	bool Einsatzbereit;
 	unsigned int XP;
 	unsigned int Level;
 
-	Einheit( unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true, unsigned short int Gro�e=1, unsigned int XP=1;
-	unsigned int Level=1;)
+	Einheit( unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true, unsigned short int grosse=1, unsigned int xp=1)
 	{
 		HP = hp;
 		Moral = moral;
 		Starke = starke;
 		Einsatzbereit = einsatzbereit;
+		Grosse = grosse;
+		XP = xp;
+		
 	}
 
-	XPHinzufugen(unsigned int newXP)
+	void XPHinzufugen(unsigned int newXP)
 	{
 		XP+=newXP;
 		if(XP/100>0)

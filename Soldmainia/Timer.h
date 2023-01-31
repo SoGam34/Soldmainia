@@ -18,8 +18,8 @@ public:
 	bool checkTimerAbgelaufenMitID(int ID);
 
 	//Get/set Funktionen
-	 int getTimerstand();
-	 int getTimerstandMitID(int ID);
+	const int getTimerstand() const;
+	const int getTimerstandMitID(int ID) const;
 
 private:
 	int iTimer; // Einzel

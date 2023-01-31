@@ -20,7 +20,7 @@ public:
 	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
 	Retrun: Die Funktion gibt die kosten als int zurück
 	*/
-	virtual unsigned const int GebaeudeAusfuhrungskosten() = 0 const;
+	virtual unsigned const int GebaeudeAusfuhrungskosten() const = 0;
 	
 	/*
 	Name: BeginnAufgabe
@@ -44,7 +44,7 @@ public:
 	Aufgabe: Die virtuelle Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
 	Retrun: Die Funktion gibt den Text als stringstram zurück
 	*/
-	virtual const std::stringstream GebaudeAktivText() = 0 const;
+	virtual const std::stringstream GebaudeAktivText() const = 0;
 
 	/*
 	Name: BeendenDerAusfuhrung
