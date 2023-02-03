@@ -10,18 +10,20 @@ struct Einheit
 	unsigned short int Starke;
 	unsigned short int Grosse;
 	bool Einsatzbereit;
+	std::string sName;
 	unsigned int XP;
 	unsigned int Level;
 
-	Einheit( unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true, unsigned short int grosse=1, unsigned int xp=1)
+	Einheit(std::string name, unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true, unsigned short int grosse=1, unsigned int xp=1)
 	{
+		sName = name;
 		HP = hp;
 		Moral = moral;
 		Starke = starke;
 		Einsatzbereit = einsatzbereit;
 		Grosse = grosse;
 		XP = xp;
-		
+		Level = 0;
 	}
 
 	void XPHinzufugen(unsigned int newXP)
@@ -31,6 +33,11 @@ struct Einheit
 		{
 			Level+=XP/100;
 		}
+	}
+
+	inline const std::string getName() const
+	{
+		return sName;
 	}
 };
 
@@ -65,14 +72,17 @@ public:
 		aKacheln[19].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		
 		umEinheiten.clear();
-		EinheitNamen.clear();
 
-		Einheit e;
-		addEinheit("Kai", e);
-		addEinheit("Laura", e);
-		addEinheit("Phillip", e);
-		addEinheit("Annika", e);
-		addEinheit("Kai2", e);
+		Einheit e("Kai");
+		Einheit r("Alina");
+		Einheit d("Samantha");
+		Einheit f("Lars");
+		Einheit g("Tina");
+		addEinheit( e);
+		addEinheit( r);
+		addEinheit( d);
+		addEinheit( f);
+		addEinheit( g);
 	}
 	~Data()
 	{
@@ -94,15 +104,14 @@ public:
 		return cAnimationen;
 	}
 
-	std::unordered_map<std::string, Einheit>& getEinheiten()
+	std::vector<Einheit>& getEinheiten()
 	{
 		return umEinheiten;
 	}
 
-	const void addEinheit(std::string Name, const Einheit& const e)
+	const void addEinheit(const Einheit& const e)
 	{
-		EinheitNamen.emplace_back(Name);
-		umEinheiten[Name] = e;
+		umEinheiten.emplace_back(e);
 	}
 
 	unsigned int getBekanntheit()
@@ -140,11 +149,6 @@ public:
 		return bBenarichtigungAktiv;
 	}
 
-	std::vector<std::string>& getEinheitsnamen()
-	{
-		return EinheitNamen;
-	}
-
 private:
 
 	//Kachel
@@ -163,8 +167,7 @@ private:
 
 	//Einheiten
 	unsigned int iBekanntheit;
-	std::unordered_map<std::string, Einheit> umEinheiten;
-	std::vector<std::string> EinheitNamen;
+	std::vector<Einheit> umEinheiten;
 
 	Kachel aKacheln[28]
 	{

@@ -165,7 +165,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </DeploymentContent>
     </ClInclude>
-    <ClInclude Include="Scoutbüro.h" />
+    <ClInclude Include="Scoutbuero.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Traningszentrum.h" />
     <ClInclude Include="View.h" />

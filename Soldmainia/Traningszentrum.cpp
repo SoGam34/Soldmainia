@@ -12,7 +12,7 @@ Traningszentrum::~Traningszentrum()
 
 unsigned const int Traningszentrum::GebaeudeAusfuhrungskosten() const
 {
-	return iAusfuhrungsKostenFaktor *(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[sName].Grosse;
+	return iAusfuhrungsKostenFaktor *(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[EinheitsVPosition].Grosse;
 }
 
 void Traningszentrum::LangeTrainingsDauer()
@@ -33,9 +33,9 @@ void Traningszentrum::KurzeTraningsDauer()
 	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
-void Traningszentrum::AuswahlZuOrdnen(std::string Name)
+void Traningszentrum::AuswahlZuOrdnen(int Position)
 {
-	sName = Name;
+	EinheitsVPosition = Position;
 	BeginnAufgabe();
 }
 
@@ -43,7 +43,7 @@ const std::stringstream Traningszentrum::GebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird 
 	std::stringstream ssText;
-	ssText << "Die Einheit "<<sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<iVoraussichtlicheZeit<<"\nTagen abgeschlo�en";
+	ssText << "Die Einheit "<<cData->getEinheiten()[EinheitsVPosition].sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<iVoraussichtlicheZeit<<"\nTagen abgeschlo�en";
 	return ssText;
 }
 
@@ -66,7 +66,7 @@ void Traningszentrum::BeendenDerAusfuhrung()
 	
 	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet, die Einheit ist jetzt wieder Einsatzbereit");
 
-	cData->getEinheiten()[sName].XPHinzufugen(iWirksamkeitsgrad* iGebaeudeEinflussZeitFaktor);
+	cData->getEinheiten()[EinheitsVPosition].XPHinzufugen(iWirksamkeitsgrad* iGebaeudeEinflussZeitFaktor);
 }
 
 

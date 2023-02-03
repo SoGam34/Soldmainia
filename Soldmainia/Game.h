@@ -1,7 +1,7 @@
 #pragma once
 #include "Data.h"
 #include "Batilion_Ausbildungszentrum.h"
-#include "Scoutbüro.h"
+#include "Scoutbuero.h"
 #include "Traningszentrum.h"
 #include "Zentale.h"
 #include "Erholungsresort.h"
@@ -22,9 +22,9 @@ private:
 	//Allgemein
 	enum AktuellesMenu
 	{
-		Hauptmenu, Zentrale, scoutbüro,
+		Hauptmenu, Zentrale, scoutbuero,
 		Batilionsausbildungsstate, traningszentrum,
-		Aufträge, AAufträge, LogistikSystem,
+		Auftraege, AAuftraege, LogistikSystem,
 		erholungsresort, EinzelMitglieder, Batilione
 	};
 	AktuellesMenu eAktuellesMenu;
@@ -47,7 +47,7 @@ private:
 	Batilion_Ausbildungszentrum* cBAZ;
 
 	//Scoutbüro
-	Scoutbüro* cScoutbüro;
+	Scoutbuero* cScoutbuero;
 
 	//Trainingzentrum 
 	Traningszentrum* cTraingzentrum;

@@ -1,18 +1,19 @@
 #pragma once
 #include "Data.h"
 #include <optional>
+#include <memory>
 
 class Auswahl
 {
 public:
-	Auswahl();
+	Auswahl()=delete;
 	Auswahl(Data* data);
 	~Auswahl();
 
 	// Erzeugen der Kacheln
 	void AnzeigeVorbereitung();
 
-	std::optional<std::string> updateAuswahl(sf::Vector2i MousPos);
+	std::optional<int> updateAuswahl(sf::Vector2i MousPos);
 	//Anzeigen
 	void Mahlen(sf::RenderWindow& window);
 
@@ -32,13 +33,10 @@ public:
 	void SortiereNachStarke();
 	void down();
 
-	//Get/Set
-	 std::string getEinheitsname(int ButtenID);
-
 private:
-	std::vector <Kachel*> vKacheln;
-	std::vector <std::string> vAusgewahlteEinheiten;
-	std::vector <std::pair<std::string, int>> vAusgewahlten;
+	std::vector <std::unique_ptr<Kachel>> vKacheln;
+	std::vector <int> vAusgewahlteEinheiten;
+	//std::vector <std::pair<std::string, int>> vAusgewahlten;
 	Data* myData;
 
 	Butten* cButtenLinks;

@@ -53,7 +53,7 @@ public:
 	Aufgabe: Die Funktion speichert den Namen der Ausgewahlten Einheit und startet die Ausbildung 
 	Retrun: keine
 	*/
-	void AuswahlZuOrdnen(std::string Name);
+	void AuswahlZuOrdnen(int Position);
 	
 	/*
 	Name: GebaudeAktivText
@@ -96,7 +96,7 @@ public:
 
 private:
 	//Speichert den Namen der Einheit die Traniert wird 
-	std::string sName;
+	int EinheitsVPosition;
 
 	//Speichert den Wirksamkeitsgrad und ist damit ein wichtiger Faktor in der Berrechnung der Xp die die Einheit bekommt und kann vom Spieler veraendert werden
 	unsigned short int iWirksamkeitsgrad;

@@ -1,4 +1,4 @@
-#include "Scoutbüro.h"
+#include "Scoutbuero.h"
 
 Scoutbuero::Scoutbuero(Data* data) : Gebaeude(data, 12, 400, 1), iRangmin(1)
 {

@@ -25,7 +25,7 @@ void Gebaeude::BeginnAufgabe()
 	if (cData->getiKontostand() > GebaeudeAusfuhrungskosten()) // �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
-		ss << -GebaeudeAusfuhrungskosten();
+		ss << GebaeudeAusfuhrungskosten()*(-1);
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
 
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	

@@ -6,15 +6,15 @@ Game::Game()
 
 	//Gebaude
 	cBAZ = new Batilion_Ausbildungszentrum(myData);
-	cBAZ->aktstd();
+	cBAZ->aktualisierenInformationsText();
 
-	cScoutb�ro = new Scoutb�ro(myData);
+	cScoutbuero = new Scoutbuero(myData);
 
 	cTraingzentrum = new Traningszentrum(myData);
 
 	cZentrale = new Zentale(myData);
 
-	cErholungsresort = new Erholungsresort(myData);
+	//cErholungsresort = new Erholungsresort(myData);
 
 	cView = new View(myData);
 	iTag = 0;
@@ -25,7 +25,7 @@ Game::Game()
 Game::~Game()
 {
 	delete cBAZ;
-	delete cScoutb�ro;
+	delete cScoutbuero;
 	delete cTraingzentrum;
 	delete cZentrale;
 	delete cErholungsresort;
@@ -106,16 +106,16 @@ void Game::update()
 						eAktuellesMenu = traningszentrum;
 					}break;
 					case 4: {
-						eAktuellesMenu = scoutb�ro;
+						eAktuellesMenu = scoutbuero;
 					}break;
 					case 5: {
 						eAktuellesMenu = erholungsresort;
 					}break;
 					case 6: {
-						eAktuellesMenu = Auftr�ge;
+						eAktuellesMenu = Auftraege;
 					}break;
 					case 7: {
-						eAktuellesMenu = AAuftr�ge;
+						eAktuellesMenu = AAuftraege;
 					}break;
 					case 8: {
 						eAktuellesMenu = LogistikSystem;
@@ -174,7 +174,7 @@ void Game::update()
 		{
 		case 1: 
 		{
-			cBAZ->StartProzess();	//starten Gedr�kt
+			cBAZ->BeginnAufgabe();	//starten Gedr�kt
 		}break;
 		case 11: 
 		{
@@ -186,15 +186,15 @@ void Game::update()
 		}break;
 		case 2: 
 		{
-			cBAZ->UpgradeGeschwindikeit();	//Upgrade Geschwindikeit
+			cBAZ->BeschleunigungDerAufgabenDurchfuehrung();	//Upgrade Geschwindikeit
 		}break;
 		case 3:
 		{
-			cBAZ->UpgradeGrundstarke();	 //Upgrade Grundst�rke
+			cBAZ->ErhohenDerGrundstarke();	 //Upgrade Grundst�rke
 		}break;
 		case 4: 
 		{
-			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
+			cBAZ->ReduzierenDerAusfuhrungsKosten();		//Upgrade zur kosten Reduzierung
 		}break;
 		case 5:
 		{
@@ -203,33 +203,33 @@ void Game::update()
 		}
 	}break;
 
-	case scoutb�ro:
+	case scoutbuero:
 	{
 		switch (updateButtons(12, 4))
 		{
 		case 1:
 		{
-			cScoutb�ro->StartProzess();				// Suche Starten
+			cScoutbuero->BeginnAufgabe();				// Suche Starten
 		}break;
 		case 2:
 		{
-			cScoutb�ro->UpgradeGeschwindikeit();	// Beschleunigt die Suche 
+			cScoutbuero->BeschleunigungDerAufgabenDurchfuehrung();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
-			cScoutb�ro->UpgradeRang();				// Erh�ht den mindest Rang
+			cScoutbuero->ErhohenDesMoeglichenRanges();				// Erh�ht den mindest Rang
 		}break;
 		case 4:
 		{
-			cScoutb�ro->UpgradeKosten();			// Reduzierung der Suchkosten
+			cScoutbuero->ReduzierenDerAusfuhrungsKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
-			cScoutb�ro->Annehmen();					// Annehmen 
+			cScoutbuero->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
-			cScoutb�ro->Ablehnen();					// Ablehnen 
+			cScoutbuero->Ablehnen();					// Ablehnen 
 		}break; 
 		}
 	}break;
@@ -249,29 +249,29 @@ void Game::update()
 			{
 			case 2:
 			{
-				cTraingzentrum->UpgradeGeschwindikeit();
+				cTraingzentrum->BeschleunigungDerAufgabenDurchfuehrung();
 			}break;
 			case 3:
 			{
-				cTraingzentrum->UpgradeEffizens();
+				cTraingzentrum->ErhohenDerTraningsWirksamkeit();
 			}break;
 			case 4:
 			{
-				cTraingzentrum->UpgradeKosten();
+				cTraingzentrum->ReduzierenDerAusfuhrungsKosten();
 			}break;
 			case 5:
 			{
-				cTraingzentrum->TrainingLang();
+				cTraingzentrum->LangeTrainingsDauer();
 				bAuswahl = true;
 			}break;
 			case 6:
 			{
-				cTraingzentrum->TrainingKurz();
+				cTraingzentrum->KurzeTraningsDauer();
 				bAuswahl = true;
 			}break;
 			case 7:
 			{
-				cTraingzentrum->TrainingMittel();
+				cTraingzentrum->MittlereTrainingsDauer();
 				bAuswahl = true;
 			}break;
 			}
@@ -280,7 +280,7 @@ void Game::update()
 
 	case erholungsresort:
 	{
-		if (bAuswahl)
+		/*if (bAuswahl)
 		{
 			auto temp = cErholungsresort->updateAuswahl(vMauspos);
 			if (temp.has_value())
@@ -296,7 +296,7 @@ void Game::update()
 
 			}break;
 			}
-		}
+		}*/
 	}break;
 	default:
 	{
@@ -318,7 +318,7 @@ void Game::update()
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
 	int iButtenID = 99;
-	bool bButtenGedr�ckt = false;
+	bool bButtenGedrueckt = false;
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
@@ -330,7 +330,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			 iButtenID = myData->getKacheln(i).checkButtenishover(vMauspos);
 			if (iButtenID != 99)
 				if (myData->getKacheln(i).checkButtenisPressed(iButtenID, vMauspos))
-					bButtenGedr�ckt = true;
+					bButtenGedrueckt = true;
 				else {}
 			else
 				myData->getKacheln(i).setButtenColorToNormal();
@@ -341,7 +341,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			myData->getKacheln(i).setScale(1);
 		}
 	}
-	return bButtenGedr�ckt ? iButtenID : 99;
+	return bButtenGedrueckt ? iButtenID : 99;
 }
 
 void Game::checkSortcuts()
@@ -359,14 +359,14 @@ void Game::checkSortcuts()
 		eAktuellesMenu = Batilionsausbildungsstate;
 
 	if (cKeyboard.isKeyPressed(cKeyboard.S))
-		eAktuellesMenu = scoutb�ro;
+		eAktuellesMenu = scoutbuero;
 }
 
 void Game::neuerTag()
 {
 	iTag++;
-	cBAZ->updateTimer();
-	cScoutb�ro->updateTimer();
+	cBAZ->aktualisierenTimer();
+	cScoutbuero->aktualisierenTimer();
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen
@@ -385,7 +385,7 @@ void Game::mahlen()
 	{
 		cView->DrawBAZ(iTag);
 	}break;
-	case scoutb�ro:
+	case scoutbuero:
 	{
 		cView->DrawScoutbuero(iTag);
 	}break;
