@@ -36,6 +36,7 @@ void Traningszentrum::KurzeTraningsDauer()
 void Traningszentrum::AuswahlZuOrdnen(int Position)
 {
 	EinheitsVPosition = Position;
+	leeren();
 	BeginnAufgabe();
 }
 
@@ -60,11 +61,11 @@ void Traningszentrum::BeendenDerAusfuhrung()
 
 	cData->getKacheln(16).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	//// Hinzuf�gen aller Notiger Buttens 
-	cData->getKacheln(16).addButten(35, 450, 200, 30, 5, "Lange Tranings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(35, 350, 200, 30, 6, "Kurze Trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(35, 400, 200, 30, 7, "Mittlere trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).addButten(45, 450, 200, 30, 5, "Lange Tranings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).addButten(45, 350, 200, 30, 6, "Kurze Trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).addButten(45, 400, 200, 30, 7, "Mittlere trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	
-	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet, die Einheit ist jetzt wieder Einsatzbereit");
+	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet");
 
 	cData->getEinheiten()[EinheitsVPosition].XPHinzufugen(iWirksamkeitsgrad* iGebaeudeEinflussZeitFaktor);
 }

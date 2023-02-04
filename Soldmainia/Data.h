@@ -64,12 +64,12 @@ public:
 		aKacheln[15].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 
 		//Trainingszentrum 
-		aKacheln[16].addButten(35, 450, 200, 30, 5, "Lange Tranings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[16].addButten(35, 350, 200, 30, 6, "Kurze Trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[16].addButten(35, 400, 200, 30, 7, "Mittlere trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[17].addButten(1 * iAbstandthalter + 1 * iBreite + 35, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[18].addButten(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[19].addButten(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[16].addButten(45, 450, 200, 30, 5, "Lange Tranings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[16].addButten(45, 350, 200, 30, 6, "Kurze Trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[16].addButten(45, 400, 200, 30, 7, "Mittlere trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[17].addButten(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[18].addButten(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[19].addButten(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		
 		umEinheiten.clear();
 

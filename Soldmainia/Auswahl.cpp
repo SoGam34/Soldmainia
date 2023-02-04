@@ -6,8 +6,6 @@ Auswahl::Auswahl(Data* data)
 
 	vKacheln.clear();
 
-	vKacheln.reserve(5);
-
 	cButtenLinks = new Butten(5, 300, 35, 35, 1, "<", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cButtenRechts = new Butten(950, 300, 35, 35, 2, ">", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cButtenUP = new Butten(400, 40, 105, 25, 3, "Aufsteigen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
@@ -21,17 +19,17 @@ Auswahl::~Auswahl()
 	delete cButtenRechts;
 	delete cButtenUP;
 	delete cButtenDown;
-
-}
+	}
 
 void Auswahl::AnzeigeVorbereitung()
 {
-	for (int i = 0; i < 2; i++)
+	for(int i = 0; i < 2; i++)
 	{
 		std::stringstream osText;
 		osText << "Name: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].sName << "\nHP: "<< myData->getEinheiten()[vAusgewahlteEinheiten[i]].HP << "\nMoral: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Moral << "\nKampfkraft: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Starke;
 		
 		vKacheln.emplace_back(new Kachel(osText.str(), 100, sf::Color::Black, myData->getFont(), 99, 1, 1, vAusgewahlteEinheiten[i], 230 * i + 20 * i + 50, 70, 230, 2 * 200 + 20, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green));
+		
 		vKacheln[i]->addButten(i * 20 + i * 230 + 60, 450, 200, 30, vAusgewahlteEinheiten[i], "Einheit Auswahlen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 		
 		osText.str("");
@@ -213,6 +211,16 @@ void Auswahl::SucheEinsetzbare_UND_GesundeEinheiten()
 
 	AnzeigeVorbereitung();
 	
+}
+
+void Auswahl::leeren()
+{
+	for (int i = 0; i < vKacheln.size();)
+		vKacheln.erase(vKacheln.begin());
+
+	for (int i = 0; i < vAusgewahlteEinheiten.size();)
+		vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin()+i);
+
 }
 
 void Auswahl::up()

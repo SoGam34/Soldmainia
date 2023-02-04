@@ -28,6 +28,7 @@ public:
 
 	void SucheEinsetzbare_UND_GesundeEinheiten();
 
+	void leeren();
 	// Sortieren
 	void up();
 	void SortiereNachStarke();
@@ -36,7 +37,6 @@ public:
 private:
 	std::vector <std::unique_ptr<Kachel>> vKacheln;
 	std::vector <int> vAusgewahlteEinheiten;
-	//std::vector <std::pair<std::string, int>> vAusgewahlten;
 	Data* myData;
 
 	Butten* cButtenLinks;

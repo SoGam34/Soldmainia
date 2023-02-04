@@ -25,7 +25,8 @@ void Gebaeude::BeginnAufgabe()
 	if (cData->getiKontostand() > GebaeudeAusfuhrungskosten()) // �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;
-		ss << GebaeudeAusfuhrungskosten()*(-1);
+		int temp = GebaeudeAusfuhrungskosten();
+		ss << -temp;
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
 
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
@@ -37,7 +38,7 @@ void Gebaeude::BeginnAufgabe()
 
 inline void Gebaeude::aktualisierenProzessZustand()
 {
-	cData->getKacheln(iProzessHauptKachel).changeText(GebaudeAktivText().str(), 300);
+	cData->getKacheln(iProzessHauptKachel).changeText(GebaudeAktivText().str(), 200);
 }
 
 void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()

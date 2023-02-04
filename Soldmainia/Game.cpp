@@ -240,7 +240,10 @@ void Game::update()
 		{
 			auto temp = cTraingzentrum->updateAuswahl(vMauspos);
 			if (temp.has_value())
+			{
 				cTraingzentrum->AuswahlZuOrdnen(temp.value());
+				bAuswahl = false;
+			}
 		}
 
 		else
@@ -367,6 +370,7 @@ void Game::neuerTag()
 	iTag++;
 	cBAZ->aktualisierenTimer();
 	cScoutbuero->aktualisierenTimer();
+	cTraingzentrum->aktualisierenTimer();
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen
