@@ -32,7 +32,7 @@ void Gebaeude::BeginnAufgabe()
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
 		cData->setiKontostand(cData->getiKontostand() - GebaeudeAusfuhrungskosten());	// Abziehn der gesamten Ausbildungskosten
 		bProzessAktiv = true;																			// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird 
-		cData->getKacheln(iProzessHauptKachel).neuesBild(GebaudeAktivText().str(), 300, 99, 1, 1);	//neues Kachel Bild	
+		cData->getKacheln(iProzessHauptKachel).neuesBild(GebaudeAktivText().str(), 200, 99, 1, 1);	//neues Kachel Bild	
 	}
 }
 

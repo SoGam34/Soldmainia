@@ -5,6 +5,7 @@ Auswahl::Auswahl(Data* data)
 	myData = data;
 
 	vKacheln.clear();
+	vAusgewahlteEinheiten.clear();
 
 	cButtenLinks = new Butten(5, 300, 35, 35, 1, "<", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	cButtenRechts = new Butten(950, 300, 35, 35, 2, ">", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);

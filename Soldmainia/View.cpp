@@ -93,6 +93,14 @@ void View::DrawDiffrent(Traningszentrum& e)
 	window->display();
 }
 
+void View::DrawDiffrent(Erholungsresort& e)
+{
+	cData->getAnimationen().clearWindow(window);
+	e.Mahlen(*window);
+	cData->getAnimationen().draw(window);
+	window->display();
+}
+
 sf::Vector2i View::getMousPos()
 {
 	return sf::Mouse::getPosition(*window);

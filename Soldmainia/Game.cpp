@@ -14,7 +14,7 @@ Game::Game()
 
 	cZentrale = new Zentale(myData);
 
-	//cErholungsresort = new Erholungsresort(myData);
+	cErholungsresort = new Erholungsresort(myData);
 
 	cView = new View(myData);
 	iTag = 0;
@@ -283,23 +283,39 @@ void Game::update()
 
 	case erholungsresort:
 	{
-		/*if (bAuswahl)
+		if (bAuswahl)
 		{
 			auto temp = cErholungsresort->updateAuswahl(vMauspos);
 			if (temp.has_value())
+			{
 				cErholungsresort->AuswahlZuOrdnen(temp.value());
+				bAuswahl = false;
+			}
 		}
 
 		else
 		{
 			switch (updateButtons(24, 4))
 			{
-			case 1:
+			case 2:
 			{
-
+				cErholungsresort->BeschleunigungDerAufgabenDurchfuehrung();
 			}break;
+			case 3:
+			{
+				cErholungsresort->ErhohenDerTraningsWirksamkeit();
+			}break;
+			case 4:
+			{
+				cErholungsresort->ReduzierenDerAusfuhrungsKosten();
+			}break;
+
+			case 5:
+				cErholungsresort->leeren();
+				cErholungsresort->SucheNachEinsetzbarenEinheiten();
+				bAuswahl = true;
 			}
-		}*/
+		}
 	}break;
 	default:
 	{
@@ -368,9 +384,12 @@ void Game::checkSortcuts()
 void Game::neuerTag()
 {
 	iTag++;
+
 	cBAZ->aktualisierenTimer();
 	cScoutbuero->aktualisierenTimer();
 	cTraingzentrum->aktualisierenTimer();
+	cErholungsresort->aktualisierenTimer();
+
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen
@@ -405,8 +424,7 @@ void Game::mahlen()
 		if (!bAuswahl)
 			cView->DrawErholungsresort(iTag);
 		else
-			
-			cErholungsresort->Mahlen(cView->Window());
+			cView->DrawDiffrent(*cErholungsresort);
 	}break;
 	default: {
 

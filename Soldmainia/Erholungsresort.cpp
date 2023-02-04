@@ -1,6 +1,7 @@
-#include "Erholungsresort.h"
+ï»¿#include "Erholungsresort.h"
 
-Erholungsresort::Erholungsresort(Data* data) : Gebaeude(data, 24,100,1), Auswahl(data)
+Erholungsresort::Erholungsresort(Data* data) : Gebaeude(data, 24, 100, 1), Auswahl(data),
+iWirksamkeitsgrad(1)
 {
 }
 
@@ -8,56 +9,86 @@ Erholungsresort::~Erholungsresort()
 {
 }
 
-std::stringstream Erholungsresort::ProzessText()
+unsigned const int Erholungsresort::GebaeudeAusfuhrungskosten() const
 {
-	return std::stringstream();
+	return iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz) * cData->getEinheiten()[EinheitsVPosition].Grosse;
 }
 
-int Erholungsresort::ProzessKosten()
+void Erholungsresort::AuswahlZuOrdnen(int Position)
 {
-	return 0;
+	EinheitsVPosition = Position;
+	leeren();
+	BeginnAufgabe();
 }
 
-void Erholungsresort::EndeProzess()
+const std::stringstream Erholungsresort::GebaudeAktivText() const
 {
+	// Der Text der warend des Trainings angezeigt wird 
+	std::stringstream ssText;
+	ssText << "Die Einheit " << cData->getEinheiten()[EinheitsVPosition].sName << "\nwird gerade Versorgen\nDie Versorgen ist\nvorausicht in " << iVoraussichtlicheZeit << "\nTagen abgeschlosen";
+	return ssText;
 }
 
-void Erholungsresort::AuswahlZuOrdnen(std::string Name)
+void Erholungsresort::BeendenDerAusfuhrung()
 {
-	std::cout << Name << "wurde dem trainigszentrum zugeordnet\n";
-}
+	//neues Kachel Bild
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des nï¿½chsten Batilions 
+	BerrechnungVoraussichtlicheZeit();
 
-void Erholungsresort::aktstd()
-{
+	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
+
+	std::stringstream ssText;			// Der Text der Angezeigt werden soll
+	ssText << "Neue Einheit Versorgen.\nDie Einheit regeneriert\nihre Moral und\nHP was\ndie Erfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
+
+	cData->getKacheln(24).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	//// Hinzufï¿½gen aller Notiger Buttens 
+	cData->getKacheln(24).addButten(45, 450, 200, 30, 5, "Erholung starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
 	
+	cData->getAnimationen().startBenarichtigung(true, "Die Einheit ist vollstandig regeneriert");
+
+	cData->getEinheiten()[EinheitsVPosition].XPHinzufugen(iWirksamkeitsgrad * iGebaeudeEinflussZeitFaktor);
 }
 
-void Erholungsresort::UpgradeEffizens()
+
+inline void Erholungsresort::aktualisierenInformationsText()
 {
-	//if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin < 6)								// überprüfen ob die Ausbildung bezahlt werden kann
-	//{
-	//	iRangmin++;																							// Durchfüren der Verbesserung 
-	//	fUpgradeKosten[1] *= 1.6;								// Speichern der neuen Verbesserungskosten
-	//	std::stringstream ss;
-	//	ss << -fUpgradeKosten[1];
-	//	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
-	//	iZeitFaktor = eRang;
+	std::stringstream ssText;
+	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
+	cData->getKacheln(24).changeText(ssText.str(), 200);
+}
 
-	//	cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]);					// Abziehn der Verbesserungskosten
-	//	cData->getAnimationen().startBenarichtigung(false, ss.str());
-	//	cData->getAnimationen().startUpgradeAnimation(3);
-	//	if (iRangmin == 6)
-	//	{
-	//		// Ausgabe des neuen Textes
-	//		ss << "Die Maximale Stufe\nwürde erreicht.\nSie können diesen\nPrarameter nicht mehr\noprimieren";
-	//		cData->getKacheln(14).neuesBild(ss.str(), 350, 1, 535, 95);
-	//	}
+void Erholungsresort::ErhohenDerTraningsWirksamkeit()
+{
+	if (cData->getiKontostand() > fUpgradeKosten[1] && iWirksamkeitsgrad < 25)	// ï¿½berprï¿½fen ob die Ausbildung bezahlt werden kann
+	{
+		iWirksamkeitsgrad += 1;												// Durchfï¿½ren der Verbesserung 
+		fUpgradeKosten[1] *= 1.6;											// Speichern der neuen Verbesserungskosten
+		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]); // Abziehn der Verbesserungskosten
 
-	//	else
-	//	{
-	//		// Ausgabe des neuen Textes
-	//		ss << "Das Scoutbüro\nfindet Einzelkampfer die\neinen höheren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
-	//		cData->getKacheln(14).changeText(ss.str(), 320);
-	//	}
-	//}
+		std::stringstream ss;
+		ss << -fUpgradeKosten[1];
+		cData->getAnimationen().startBenarichtigung(false, ss.str());
+		cData->getAnimationen().startUpgradeAnimation(3);
+
+		ss.str("");
+		if (!bProzessAktiv)	// ï¿½berprï¿½ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs fï¿½hrt
+		{
+			aktualisierenInformationsText();
+			BerrechnungVoraussichtlicheZeit();
+		}
+
+		if (iWirksamkeitsgrad > 26)
+		{
+			// Ausgabe des neuen Textes
+			ss << "Die Maximale Stufe\nwï¿½rde erreicht.\nSie kï¿½nnen diesen\nPrarameter nicht mehr\noprimieren";
+			cData->getKacheln(26).neuesBild(ss.str(), 350, 1, 535, 95);
+		}
+
+		else
+		{
+			// Ausgabe des neuen Textes
+			ss << "Erhoung der Grundstï¿½rke\nKosten: " << fUpgradeKosten[1];
+			cData->getKacheln(26).changeText(ss.str(), 350);
+		}
+	}
 }
