@@ -1,10 +1,13 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(Data* data) : Gebaeude(data, 12, 400, 1), iRangmin(1)
+Scoutbuero::Scoutbuero(Data* data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1), iRangmin(1)
 {
 	iAusfuhrungsKostenFaktor = 400;
 	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
+
+	std::lock_guard<std::mutex> lock(mutex);
+	BerrechnungVoraussichtlicheZeit();
 }
 
 Scoutbuero::~Scoutbuero()

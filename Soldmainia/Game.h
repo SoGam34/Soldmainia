@@ -7,7 +7,10 @@
 #include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
+#include <thread>
 #include <chrono>
+#include <memory>
+#include <mutex>
 
 class Game
 {
@@ -18,7 +21,7 @@ public:
 	//Update loop
 	void SpielLauft();
 
-private:
+
 	//Allgemein
 	enum AktuellesMenu
 	{
@@ -46,7 +49,7 @@ private:
 	//BAZ
 	Batilion_Ausbildungszentrum* cBAZ;
 
-	//Scoutbüro
+	//Scoutbï¿½ro
 	Scoutbuero* cScoutbuero;
 
 	//Trainingzentrum 
@@ -58,6 +61,9 @@ private:
 	//Erholungsresort
 	Erholungsresort* cErholungsresort;
 
+	std::mutex mSicherung;
+
+	//std::vector<void> test;
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();
 	void update();

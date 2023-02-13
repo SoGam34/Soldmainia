@@ -9,7 +9,7 @@ public:
 	Batilion_Ausbildungszentrum()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Batilion_Ausbildungszentrum(Data* data);
+	Batilion_Ausbildungszentrum(Data* data, std::mutex& mutex);
 	~Batilion_Ausbildungszentrum();
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//

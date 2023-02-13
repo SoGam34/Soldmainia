@@ -8,7 +8,7 @@ class View
 public:
 	//De/Konstrucktor
 	View();
-	View(Data* data);
+	View(Data* data, std::mutex& mutex);
 	~View();
 	
 	void DrawHauptmenu(int iTage);
