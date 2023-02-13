@@ -6,25 +6,29 @@ Game::Game()
 
 	//Gebaude
 	cBAZ = new Batilion_Ausbildungszentrum(myData);
-	cBAZ->aktstd();
+	cBAZ->aktualisierenInformationsText();
 
-	cScoutbüro = new Scoutbüro(myData);
-	
-	//Auswahl
-	cAuswahl = new Auswahl();
-	cAuswahl->setData(myData);
+	cScoutbuero = new Scoutbuero(myData);
+
+	cTraingzentrum = new Traningszentrum(myData);
+
+	cZentrale = new Zentale(myData);
+
+	cErholungsresort = new Erholungsresort(myData);
 
 	cView = new View(myData);
 	iTag = 0;
-
+	bAuswahl = false;
 	TextAnzeigeinitzaliesieren();
 }
 
 Game::~Game()
 {
 	delete cBAZ;
-	delete cScoutbüro;
-	delete cAuswahl;
+	delete cScoutbuero;
+	delete cTraingzentrum;
+	delete cZentrale;
+	delete cErholungsresort;
 	delete cView;
 	delete myData;
 }
@@ -45,21 +49,26 @@ void Game::TextAnzeigeinitzaliesieren()
 	myData->getKacheln(0).changeText("Zentrale", 160);
 	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
 	myData->getKacheln(2).changeText("Traningszentrum", 160);
-	myData->getKacheln(3).changeText("Scout Büro", 160);
+	myData->getKacheln(3).changeText("Scout Bï¿½ro", 160);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Aufträge", 160 + 220);
-	myData->getKacheln(5).changeText("Aktive Aufträge", 160 + 220);
+	myData->getKacheln(4).changeText("Auftrï¿½ge", 160 + 220);
+	myData->getKacheln(5).changeText("Aktive Auftrï¿½ge", 160 + 220);
 	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
 	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
 	//BAZ
 	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
-	myData->getKacheln(10).changeText("Erhoung der Grundstärke\nKosten 100", 350);
+	myData->getKacheln(10).changeText("Erhoung der Grundstï¿½rke\nKosten 100", 350);
 	myData->getKacheln(11).changeText("Reduzierung der Kosten\nKosten 100", 350);
-	//Scoutbüro
-	myData->getKacheln(12).changeText("Einselkämpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinität.\nDie Affinität erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
+	//Scoutbï¿½ro
+	myData->getKacheln(12).changeText("Einselkï¿½mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitï¿½t.\nDie Affinitï¿½t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
 	myData->getKacheln(13).changeText("Beschleungigt die\nSuche um 5%\nKosten: 100", 350);
-	myData->getKacheln(14).changeText("Das Scoutbüro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
+	myData->getKacheln(14).changeText("Das Scoutbï¿½ro\nfindet Einselkampfer die\neinen hohren Rang\nund Potenzial habne\nKosten: 100", 320);
 	myData->getKacheln(15).changeText("Reduzierung der Kosten\nKosten: 100", 350);
+	//Traningzentrum
+	myData->getKacheln(16).changeText("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160);
+	myData->getKacheln(17).changeText("Beschleungigt das\n Traning, bei\ngleicher Effektivitï¿½t,\num 5%\nKosten: 100", 290);
+	myData->getKacheln(18).changeText("Verbessert die\nTraningsmethoden\nwodurch die Effektivitï¿½t\nansteigt die Einheit\nwird noch starker\nund erhalt mehr\nerfahrung\nKosten: 100", 300);
+	myData->getKacheln(19).changeText("Reduzierung der\nTraningskosten\nKosten: 100", 300);
 }
 
 void Game::update()
@@ -73,7 +82,7 @@ void Game::update()
 		int temp = 1;
 		for (int i = 0; i < 8; i++)
 		{
-			//Kacheln überprüfen
+			//Kacheln ï¿½berprï¿½fen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
 			{
 				if (myData->getHauptmenu(i).getScale() < 1.1)
@@ -94,19 +103,19 @@ void Game::update()
 						eAktuellesMenu = Batilionsausbildungsstate;
 					}break;
 					case 3: {
-						eAktuellesMenu = Träningszentrum;
+						eAktuellesMenu = traningszentrum;
 					}break;
 					case 4: {
-						eAktuellesMenu = scoutbüro;
+						eAktuellesMenu = scoutbuero;
 					}break;
 					case 5: {
-						eAktuellesMenu = Erholungsresort;
+						eAktuellesMenu = erholungsresort;
 					}break;
 					case 6: {
-						eAktuellesMenu = Aufträge;
+						eAktuellesMenu = Auftraege;
 					}break;
 					case 7: {
-						eAktuellesMenu = AAufträge;
+						eAktuellesMenu = AAuftraege;
 					}break;
 					case 8: {
 						eAktuellesMenu = LogistikSystem;
@@ -142,11 +151,11 @@ void Game::update()
 	{
 		//for (int i = 0; i < 8; i++)
 		//{
-		//	//Kacheln überprüfen
+		//	//Kacheln ï¿½berprï¿½fen
 		//	if (myData.get[i]->ishover(vMauspos))
 		//	{
 		//		vKacheln[i]->sethoverColor();
-		//		//Butten überprüfen
+		//		//Butten ï¿½berprï¿½fen
 		//		int ButtonID = vKacheln[i]->checkButtenishover(vMauspos);
 		//		if (ButtonID != 99)
 		//			if (vKacheln[i]->checkButtenisPressed(ButtonID, vMauspos))
@@ -161,15 +170,15 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
-		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedrückt wurde 
+		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedrï¿½ckt wurde 
 		{
 		case 1: 
 		{
-			cBAZ->startAusbildung();	//starten Gedrükt
+			cBAZ->BeginnAufgabe();	//starten Gedrï¿½kt
 		}break;
 		case 11: 
 		{
-			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erhöht
+			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erhï¿½ht
 		}break;
 		case 12: 
 		{
@@ -177,47 +186,135 @@ void Game::update()
 		}break;
 		case 2: 
 		{
-			cBAZ->UpgradeGeschwindikeit();	//Upgrade Geschwindikeit
+			cBAZ->BeschleunigungDerAufgabenDurchfuehrung();	//Upgrade Geschwindikeit
 		}break;
 		case 3:
 		{
-			cBAZ->UpgradeGrundstarke();	 //Upgrade Grundstärke
+			cBAZ->ErhohenDerGrundstarke();	 //Upgrade Grundstï¿½rke
 		}break;
 		case 4: 
 		{
-			cBAZ->UpgradeKosten();		//Upgrade zur kosten Reduzierung
+			cBAZ->ReduzierenDerAusfuhrungsKosten();		//Upgrade zur kosten Reduzierung
 		}break;
+		case 5:
+		{
+			cBAZ->Vorbereiten_neueAusbildung();
+		}
 		}
 	}break;
 
-	case scoutbüro:
+	case scoutbuero:
 	{
 		switch (updateButtons(12, 4))
 		{
 		case 1:
 		{
-			cScoutbüro->startSuche();				// Suche Starten
+			cScoutbuero->BeginnAufgabe();				// Suche Starten
 		}break;
 		case 2:
 		{
-			cScoutbüro->UpgradeGeschwindikeit();	// Beschleunigt die Suche 
+			cScoutbuero->BeschleunigungDerAufgabenDurchfuehrung();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
-			cScoutbüro->UpgradeRang();				// Erhöht den mindest Rang
+			cScoutbuero->ErhohenDesMoeglichenRanges();				// Erhï¿½ht den mindest Rang
 		}break;
 		case 4:
 		{
-			cScoutbüro->UpgradeKosten();			// Reduzierung der Suchkosten
+			cScoutbuero->ReduzierenDerAusfuhrungsKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
-			cScoutbüro->Annehmen();					// Annehmen 
+			cScoutbuero->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
-			cScoutbüro->Ablehnen();					// Ablehnen 
+			cScoutbuero->Ablehnen();					// Ablehnen 
 		}break; 
+		}
+	}break;
+
+	case traningszentrum:
+	{
+		if (bAuswahl)
+		{
+			auto temp = cTraingzentrum->updateAuswahl(vMauspos);
+			if (temp.has_value())
+			{
+				cTraingzentrum->AuswahlZuOrdnen(temp.value());
+				bAuswahl = false;
+			}
+		}
+
+		else
+		{
+			switch (updateButtons(16, 4))
+			{
+			case 2:
+			{
+				cTraingzentrum->BeschleunigungDerAufgabenDurchfuehrung();
+			}break;
+			case 3:
+			{
+				cTraingzentrum->ErhohenDerTraningsWirksamkeit();
+			}break;
+			case 4:
+			{
+				cTraingzentrum->ReduzierenDerAusfuhrungsKosten();
+			}break;
+			case 5:
+			{
+				cTraingzentrum->LangeTrainingsDauer();
+				bAuswahl = true;
+			}break;
+			case 6:
+			{
+				cTraingzentrum->KurzeTraningsDauer();
+				bAuswahl = true;
+			}break;
+			case 7:
+			{
+				cTraingzentrum->MittlereTrainingsDauer();
+				bAuswahl = true;
+			}break;
+			}
+		}
+	}break;
+
+	case erholungsresort:
+	{
+		if (bAuswahl)
+		{
+			auto temp = cErholungsresort->updateAuswahl(vMauspos);
+			if (temp.has_value())
+			{
+				cErholungsresort->AuswahlZuOrdnen(temp.value());
+				bAuswahl = false;
+			}
+		}
+
+		else
+		{
+			switch (updateButtons(24, 4))
+			{
+			case 2:
+			{
+				cErholungsresort->BeschleunigungDerAufgabenDurchfuehrung();
+			}break;
+			case 3:
+			{
+				cErholungsresort->ErhohenDerTraningsWirksamkeit();
+			}break;
+			case 4:
+			{
+				cErholungsresort->ReduzierenDerAusfuhrungsKosten();
+			}break;
+
+			case 5:
+				cErholungsresort->leeren();
+				cErholungsresort->SucheNachEinsetzbarenEinheiten();
+				bAuswahl = true;
+			}
 		}
 	}break;
 	default:
@@ -240,19 +337,19 @@ void Game::update()
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
 	int iButtenID = 99;
-	bool bButtenGedrückt = false;
+	bool bButtenGedrueckt = false;
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)
 	{
-		//Kacheln überprüfen
+		//Kacheln ï¿½berprï¿½fen
 		if (myData->getKacheln(i).ishover(vMauspos))
 		{
 			myData->getKacheln(i).sethoverColor();
-			//Butten überprüfen
+			//Butten ï¿½berprï¿½fen
 			 iButtenID = myData->getKacheln(i).checkButtenishover(vMauspos);
 			if (iButtenID != 99)
 				if (myData->getKacheln(i).checkButtenisPressed(iButtenID, vMauspos))
-					bButtenGedrückt = true;
+					bButtenGedrueckt = true;
 				else {}
 			else
 				myData->getKacheln(i).setButtenColorToNormal();
@@ -263,7 +360,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 			myData->getKacheln(i).setScale(1);
 		}
 	}
-	return bButtenGedrückt ? iButtenID : 99;
+	return bButtenGedrueckt ? iButtenID : 99;
 }
 
 void Game::checkSortcuts()
@@ -281,14 +378,18 @@ void Game::checkSortcuts()
 		eAktuellesMenu = Batilionsausbildungsstate;
 
 	if (cKeyboard.isKeyPressed(cKeyboard.S))
-		eAktuellesMenu = scoutbüro;
+		eAktuellesMenu = scoutbuero;
 }
 
 void Game::neuerTag()
 {
 	iTag++;
-	cBAZ->updateTimer();
-	cScoutbüro->updateTimer();
+
+	cBAZ->aktualisierenTimer();
+	cScoutbuero->aktualisierenTimer();
+	cTraingzentrum->aktualisierenTimer();
+	cErholungsresort->aktualisierenTimer();
+
 	if (iTag % 30 == 0)
 	{
 		//Sold auszahlen
@@ -307,9 +408,23 @@ void Game::mahlen()
 	{
 		cView->DrawBAZ(iTag);
 	}break;
-	case scoutbüro:
+	case scoutbuero:
 	{
 		cView->DrawScoutbuero(iTag);
+	}break;
+	case traningszentrum:
+	{
+		if (!bAuswahl)
+			cView->DrawTraningszentrum(iTag);
+		else
+			cView->DrawDiffrent(*cTraingzentrum);
+	}break;
+	case erholungsresort:
+	{
+		if (!bAuswahl)
+			cView->DrawErholungsresort(iTag);
+		else
+			cView->DrawDiffrent(*cErholungsresort);
 	}break;
 	default: {
 

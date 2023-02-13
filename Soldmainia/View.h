@@ -1,5 +1,7 @@
 #pragma once
 #include "Data.h"
+#include "Traningszentrum.h"
+#include "Erholungsresort.h"
 
 class View 
 {
@@ -12,10 +14,19 @@ public:
 	void DrawHauptmenu(int iTage);
 	void DrawBAZ(int iTage);
 	void DrawScoutbuero(int iTage);
+	void DrawTraningszentrum(int iTage);
+	void DrawErholungsresort(int iTage);
+
+	void DrawDiffrent(Traningszentrum& e);
+	void DrawDiffrent(Erholungsresort& e);
 
 	sf::Vector2i getMousPos();
 	bool windowOpen();
 	void Close();
+	sf::RenderWindow& Window()
+	{
+		return *window;
+	}
 
 private:
 	void drawFenster(int start, int range);

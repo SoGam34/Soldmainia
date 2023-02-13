@@ -2,22 +2,22 @@
 #include "Gebaeude.h"
 #include "Data.h"
 
-class Batilion_Ausbildungszentrum : public Gebaeude
+class Scoutbuero : public Gebaeude
 {
 public:
 	//--------------------------------Konstruktoren----------------------------------------------//
-	Batilion_Ausbildungszentrum()=delete;
+	Scoutbuero()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Batilion_Ausbildungszentrum(Data* data);
-	~Batilion_Ausbildungszentrum();
+	Scoutbuero(Data* data);
+	~Scoutbuero();		
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
 	
 	/*
 	Name: GebaeudeAusfuhrungskosten
 	param: keine 
-	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
+	Aufgabe: Die Funktion berechnet wie viel die Ausfuhrung kostet
 	Retrun: Die Funktion gibt die kosten als int zurück
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
@@ -26,45 +26,36 @@ public:
 	/*
 	Name: GebaudeAktivText
 	param: keine 
-	Aufgabe: Die virtuelle Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
+	Aufgabe: Die Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
 	Retrun: Die Funktion gibt den Text als stringstram zurück
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	const std::stringstream GebaudeAktivText() const;
 	
 	/*
-	Name: AnzahlErhohen
-	param: keine 
-	Aufgabe: Die Funktion erhot die Groeße des Batilions was ausgebildet werden soll
-	Retrun: keine
-	*/
-	void AnzahlErhohen();
-
-	/*
-	Name: AnzahlReduzieren
-	param: keine 
-	Aufgabe: Die Funktion rediziert die Groeße des Batilions was ausgebildet werden soll
-	Retrun: keine
-	*/
-	void AnzahlReduzieren();
-
-	/*
 	Name: BeendenDerAusfuhrung
 	param: keine 
-	Aufgabe: Die virtuelle Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
+	Aufgabe: Die Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
 	Retrun: keine
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	void BeendenDerAusfuhrung();
-
+	
 	/*
-	Name: Vorbereiten_neueAusbildung
+	Name: Annehmen
 	param: keine 
-	Aufgabe: Die Funktion bereitet alles für eine neue Ausbildung vor 
+	Aufgabe: Die  Funktion fuegt das EM hinzu und stellt die Aufgaben anzige auf Informationtext um Anzeige
 	Retrun: keine
 	*/
-	void Vorbereiten_neueAusbildung();
-
+	void Annehmen();
+	
+	/*
+	Name: Ablehnen
+	param: keine 
+	Aufgabe: Die Funktion loescht das EM und stellt die Aufgaben anzige auf Informationtext um Anzeige
+	Retrun: keine
+	*/
+	void Ablehnen();
 	//--------------------------------Allgemeine Funktionen Gebaeudes----------------------------------------------//
 
 	/*
@@ -79,15 +70,19 @@ public:
 	//--------------------------------Upgraden des Gebaeudes----------------------------------------------//
 
 	/*
-	Name: ErhohenDerGrundstarke
+	Name: ErhohenDesMoeglichenRanges
 	param: keine 
-	Aufgabe: Die Funktion modifiziert fGrundstaerke, sodass das Batilion starker ist und passt den Kontostand sowie die Kacheln an
+	Aufgabe: Die Funktion modifiziert iRangmin, so das die Em`s die gefunden werden einen hoheren Rang haben und passt den Kontostand sowie die Kacheln an
 	Retrun: keine
 	*/
-	void ErhohenDerGrundstarke();
+	void ErhohenDesMoeglichenRanges();
 
 private:
-	unsigned short int iBatilionsgroesse = 10;
-	float fGrundstaerke = 10;
+	// Der mindest Rang den ein EM haben kann
+	int iRangmin;
+	// Fuer eine einfachere Verwaltung der Suche und Erzeugung
+	enum Rang { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
+	//Das Objekt in dem der aktuelle Rang gespeichrt wird 
+	Rang eRang;
 };
 

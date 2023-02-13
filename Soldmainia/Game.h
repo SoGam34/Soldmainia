@@ -1,9 +1,13 @@
 #pragma once
 #include "Data.h"
 #include "Batilion_Ausbildungszentrum.h"
-#include "Scoutbüro.h"
+#include "Scoutbuero.h"
+#include "Traningszentrum.h"
+#include "Zentale.h"
+#include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
+#include <chrono>
 
 class Game
 {
@@ -18,10 +22,10 @@ private:
 	//Allgemein
 	enum AktuellesMenu
 	{
-		Hauptmenu, Zentrale, scoutbüro,
-		Batilionsausbildungsstate, Träningszentrum,
-		Aufträge, AAufträge, LogistikSystem,
-		Erholungsresort, EinzelMitglieder, Batilione
+		Hauptmenu, Zentrale, scoutbuero,
+		Batilionsausbildungsstate, traningszentrum,
+		Auftraege, AAuftraege, LogistikSystem,
+		erholungsresort, EinzelMitglieder, Batilione
 	};
 	AktuellesMenu eAktuellesMenu;
 
@@ -33,16 +37,26 @@ private:
 	int iTag;
 
 	Data* myData;
-	Auswahl* cAuswahl;
 
 	View* cView;
+
+	bool bAuswahl;
 
 	//Gebaude
 	//BAZ
 	Batilion_Ausbildungszentrum* cBAZ;
 
 	//Scoutbüro
-	Scoutbüro* cScoutbüro;
+	Scoutbuero* cScoutbuero;
+
+	//Trainingzentrum 
+	Traningszentrum* cTraingzentrum;
+
+	//Zentrale
+	Zentale* cZentrale;
+
+	//Erholungsresort
+	Erholungsresort* cErholungsresort;
 
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();

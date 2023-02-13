@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Gebaeude">
+      <UniqueIdentifier>{9c9fe639-86ed-43d4-9da7-327e8297ce4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Kachel.h">
@@ -33,13 +36,7 @@
     <ClInclude Include="pch.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Batilion_Ausbildungszentrum.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Data.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Scoutbüro.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Animationen.h">
@@ -47,6 +44,24 @@
     </ClInclude>
     <ClInclude Include="View.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Batilion_Ausbildungszentrum.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Erholungsresort.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Gebaeude.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Scoutbüro.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Traningszentrum.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Zentale.h">
+      <Filter>Gebaeude</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,13 +83,7 @@
     <ClCompile Include="Auswahl.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Batilion_Ausbildungszentrum.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Scoutbüro.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Animationen.cpp">
@@ -83,5 +92,73 @@
     <ClCompile Include="View.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Batilion_Ausbildungszentrum.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Erholungsresort.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Gebaeude.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Scoutbüro.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Traningszentrum.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Zentale.cpp">
+      <Filter>Gebaeude</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texturen\AktiveAuftrage2.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\ArbeitBeschleunigen.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Auftrage.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\BessereRang.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\ErhohungGrundstarke.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Erholungsresort.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Haken.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Kaserne.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Logistik System.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Pfeil.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Scoutbüro.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Tranigszentrum.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\WarteAusbildung.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\WarteScoutbüro.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\WenigerKosten.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Texturen\Zentrale.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

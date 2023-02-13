@@ -65,6 +65,42 @@ void View::DrawScoutbuero(int iTage)
 	window->display();
 }
 
+void View::DrawTraningszentrum(int iTage)
+{
+		cData->getAnimationen().clearWindow(window);
+		drawFenster(16, 4);
+		drawSprite(16, 4);
+		cData->getAnimationen().draw(window);
+		drawText(16, 4, "Traingszentrum", iTage);
+		window->display();
+}
+
+void View::DrawErholungsresort(int iTage)
+{
+	cData->getAnimationen().clearWindow(window);
+	drawFenster(24, 4);
+	drawSprite(24, 4);
+	cData->getAnimationen().draw(window);
+	drawText(24, 4, "Erholungsresort", iTage);
+	window->display();
+}
+
+void View::DrawDiffrent(Traningszentrum& e)
+{
+	cData->getAnimationen().clearWindow(window);
+	e.Mahlen(*window);
+	cData->getAnimationen().draw(window);
+	window->display();
+}
+
+void View::DrawDiffrent(Erholungsresort& e)
+{
+	cData->getAnimationen().clearWindow(window);
+	e.Mahlen(*window);
+	cData->getAnimationen().draw(window);
+	window->display();
+}
+
 sf::Vector2i View::getMousPos()
 {
 	return sf::Mouse::getPosition(*window);
