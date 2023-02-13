@@ -44,7 +44,7 @@ std::optional<int> Auswahl::updateAuswahl(sf::Vector2i MousPos)
 		if (vKacheln[i]->ishover(MousPos))
 		{
 			vKacheln[i]->sethoverColor();
-			//Butten überprüfen
+			//Butten ï¿½berprï¿½fen
 			unsigned short int temp = vKacheln[i]->checkButtenishover(MousPos);
 			if (temp != 99)
 				if (vKacheln[i]->checkButtenisPressed(temp, MousPos))
@@ -216,12 +216,17 @@ void Auswahl::SucheEinsetzbare_UND_GesundeEinheiten()
 
 void Auswahl::leeren()
 {
-	for (int i = 0; i < vKacheln.size();)
-		vKacheln.erase(vKacheln.begin());
+	for (; 0 < vKacheln.size();)
+		{
+			delete vKacheln[0];
+			vKacheln.erase(vKacheln.begin());
+		}
 
-	for (int i = 0; i < vAusgewahlteEinheiten.size();)
-		vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin()+i);
-
+	for (; 0 < vAusgewahlteEinheiten.size();)
+		{
+			delete vAusgewahlteEinheiten[0];
+			vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin()+i);
+		}
 }
 
 void Auswahl::up()
