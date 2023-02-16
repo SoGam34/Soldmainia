@@ -1,23 +1,5 @@
 #include "Animationen.h"
 
-Animationen::Animationen()
-{
-	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");
-	sf::Sprite temp;
-	temp.setTexture(UpgradePfeil);
-	Pfeile.push_back(temp);
-	Pfeile.push_back(temp);
-	Pfeile.push_back(temp);
-
-	sBenarichtigung = sUpgradeAnimation = 0;
-
-	r = g = 60;
-	b = 180;
-
-	sfBenarichtigungsText.setCharacterSize(17);
-	sfBenarichtigungsText.setPosition(20, 40);
-}
-
 Animationen::Animationen(sf::Font font)
 {
 	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");

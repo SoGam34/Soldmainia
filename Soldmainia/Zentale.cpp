@@ -1,11 +1,6 @@
 #include "Zentale.h"
 
-Zentale::Zentale() 
-{
-	cData = nullptr;
-}
-
-Zentale::Zentale(Data* data)
+Zentale::Zentale(Data* data, std::mutex& mutex)
 {
 	cData = data;
 }

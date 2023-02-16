@@ -1,20 +1,5 @@
 #include "View.h"
 
-View::View()
-{
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
-	window->setFramerateLimit(25);
-	
-	cData = nullptr;
-	
-	tTexture.loadFromFile(Addressen[0]);
-	sSprite.setTexture(tTexture);
-
-	sfText.setPosition(20, 10);
-	sfText.setCharacterSize(20);
-	sfText.setFont(*cData->getFont());
-}
-
 View::View(Data* data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");

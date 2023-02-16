@@ -1,6 +1,6 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(Data*data) : Gebaeude(data, 16,100,1), Auswahl(data),
+Traningszentrum::Traningszentrum(Data*data, std::mutex& mutex) : Gebaeude(data, 16,100,1, mutex), Auswahl(data, mutex),
 iWirksamkeitsgrad(1)
 {
 }
@@ -33,11 +33,11 @@ void Traningszentrum::KurzeTraningsDauer()
 	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
-void Traningszentrum::AuswahlZuOrdnen(int Position)
+void Traningszentrum::AuswahlZuOrdnen(int Position, std::mutex& mutex)
 {
 	EinheitsVPosition = Position;
 	leeren();
-	BeginnAufgabe();
+	BeginnAufgabe(mutex);
 }
 
 const std::stringstream Traningszentrum::GebaudeAktivText() const
@@ -75,6 +75,7 @@ inline void Traningszentrum::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
+	
 	cData->getKacheln(16).changeText(ssText.str(), 200);
 }
 

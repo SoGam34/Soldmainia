@@ -7,7 +7,7 @@ class Auswahl
 {
 public:
 	Auswahl()=delete;
-	Auswahl(Data* data);
+	Auswahl(Data* data, std::mutex& mutex);
 	~Auswahl();
 
 	// Erzeugen der Kacheln

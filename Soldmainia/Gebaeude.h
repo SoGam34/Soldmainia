@@ -9,7 +9,7 @@ public:
 	Gebaeude()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor);
+	Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex);
 	~Gebaeude();				  
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -28,7 +28,7 @@ public:
 	Aufgabe: Die Funktion beginnt die Aufgabe des Gebaudes z.b. beim BAZ der start der Ausbildung  
 	Retrun: keine
 	*/
-	void BeginnAufgabe();
+	void BeginnAufgabe(std::mutex& mutex);
 	
 	/*
 	Name: aktualisierenProzessZustand
@@ -80,7 +80,7 @@ public:
 	Aufgabe: Die virtuelle Funktion aktualisiert den Informationstext sodass der Spieler weis was die Aufgabe des gebaudes ist und unter welchen Bedingungen diese Erfullt wird 
 	Retrun: kein
 	*/	
-	virtual inline void aktualisierenInformationsText() = 0;		
+	virtual inline void aktualisierenInformationsText() = 0;
 
 	/*
 	Name: aktualisierenInformationsText

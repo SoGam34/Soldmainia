@@ -4,8 +4,8 @@
 class Zentale
 {
 public:
-	Zentale();
-	Zentale(Data* data);
+	Zentale()=delete;
+	Zentale(Data* data, std::mutex& mutex);
 	~Zentale();
 
 private:

@@ -7,7 +7,7 @@ class View
 {
 public:
 	//De/Konstrucktor
-	View();
+	View() = delete;
 	View(Data* data, std::mutex& mutex);
 	~View();
 	

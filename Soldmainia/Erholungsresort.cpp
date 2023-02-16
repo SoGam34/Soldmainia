@@ -1,6 +1,6 @@
 ﻿#include "Erholungsresort.h"
 
-Erholungsresort::Erholungsresort(Data* data) : Gebaeude(data, 24, 100, 1), Auswahl(data),
+Erholungsresort::Erholungsresort(Data* data, std::mutex& mutex) : Gebaeude(data, 24, 100, 1, mutex), Auswahl(data, mutex),
 iWirksamkeitsgrad(1)
 {
 }
@@ -14,11 +14,11 @@ unsigned const int Erholungsresort::GebaeudeAusfuhrungskosten() const
 	return iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz) * cData->getEinheiten()[EinheitsVPosition].Grosse;
 }
 
-void Erholungsresort::AuswahlZuOrdnen(int Position)
+void Erholungsresort::AuswahlZuOrdnen(int Position, std::mutex& mutex)
 {
 	EinheitsVPosition = Position;
 	leeren();
-	BeginnAufgabe();
+	BeginnAufgabe(mutex);
 }
 
 const std::stringstream Erholungsresort::GebaudeAktivText() const
@@ -54,6 +54,7 @@ inline void Erholungsresort::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
+	
 	cData->getKacheln(24).changeText(ssText.str(), 200);
 }
 

@@ -9,7 +9,7 @@ public:
 	Erholungsresort() = delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
-	Erholungsresort(Data* data);
+	Erholungsresort(Data* data, std::mutex& mutex);
 	~Erholungsresort();
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -29,7 +29,7 @@ public:
 	Aufgabe: Die Funktion speichert den Namen der Ausgewahlten Einheit und startet die Ausbildung
 	Retrun: keine
 	*/
-	void AuswahlZuOrdnen(int Position);
+	void AuswahlZuOrdnen(int Position, std::mutex& mutex);
 
 	/*
 	Name: GebaudeAktivText

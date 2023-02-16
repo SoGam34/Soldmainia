@@ -1,6 +1,6 @@
 #include "Batilion_Ausbildungszentrum.h"
 
-Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data) : Gebaeude(data, 8, 70, 10), iBatilionsgroesse(10),
+Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data, std::mutex& mutex) : Gebaeude(data, 8, 70, 10, mutex), iBatilionsgroesse(10),
 fGrundstaerke(10)
 {
 	
@@ -76,8 +76,8 @@ inline void Batilion_Ausbildungszentrum::aktualisierenInformationsText()
 	//Aktualieseiren der Anzeige wie das n�chste Batilion ausehen wird 
 	std::stringstream ssText;
 	ssText << "Neues Batilion Ausbilden\nGr��e: " << iBatilionsgroesse << "\nKampfkraft: " << iBatilionsgroesse * 10 * fGrundstaerke << "\nKosten: " << iAusfuhrungsKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	
 	cData->getKacheln(8).changeText(ssText.str(), 200);
-	ssText.clear();
 }
 
 void Batilion_Ausbildungszentrum::ErhohenDerGrundstarke()

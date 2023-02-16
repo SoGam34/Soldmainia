@@ -54,13 +54,13 @@
     <ClInclude Include="Gebaeude.h">
       <Filter>Gebaeude</Filter>
     </ClInclude>
-    <ClInclude Include="Scoutbüro.h">
-      <Filter>Gebaeude</Filter>
-    </ClInclude>
     <ClInclude Include="Traningszentrum.h">
       <Filter>Gebaeude</Filter>
     </ClInclude>
     <ClInclude Include="Zentale.h">
+      <Filter>Gebaeude</Filter>
+    </ClInclude>
+    <ClInclude Include="Scoutbuero.h">
       <Filter>Gebaeude</Filter>
     </ClInclude>
   </ItemGroup>

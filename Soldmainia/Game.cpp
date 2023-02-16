@@ -4,26 +4,27 @@ Game::Game()
 {
 	myData = new Data();
 	
-	std::thread worker(&Game::TextAnzeigeinitzaliesieren, this);
+	
 	//Gebaude
 	cBAZ = new Batilion_Ausbildungszentrum(myData, mSicherung);
-	cBAZ->aktualisierenInformationsText();
-
+	
 	cScoutbuero = new Scoutbuero(myData, mSicherung);
 
-	cTraingzentrum = new Traningszentrum(myData);
+	cTraingzentrum = new Traningszentrum(myData, mSicherung);
 
-	cZentrale = new Zentale(myData);
+	cZentrale = new Zentale(myData, mSicherung);
 
-	cErholungsresort = new Erholungsresort(myData);
-	
+	cErholungsresort = new Erholungsresort(myData, mSicherung);
 	
 	//Auswahl
-
+	std::thread worker(&Game::TextAnzeigeinitzaliesieren, this);
+	
 	cView = new View(myData, mSicherung);
 	iTag = 0;
 	bAuswahl = false;
 
+	cBAZ->aktualisierenInformationsText();
+	
 	worker.join();
 }
 
@@ -44,19 +45,21 @@ void Game::SpielLauft()
 	{
 		std::thread updating(&Game::update, this);
 		
-		if (clTagesTimer.getElapsedTime().asSeconds() >= 1.5)
-		{
-			neuerTag();
-			clTagesTimer.restart();
-		}
-		
-		myData->getAnimationen().Aktualisieren();
-		
-		checkSortcuts();
+		std::thread inputs(&Game::checkSortcuts, this);
+
+		std::thread time(&Game::Zeit, this);
+
+		time.join();
+
+		inputs.join();
 		
 		updating.join();
-		
-		mahlen();
+		if (cView->windowOpen())
+		{
+			myData->getAnimationen().Aktualisieren();
+
+			mahlen();
+		}
 	}
 }
 
@@ -64,15 +67,15 @@ void Game::TextAnzeigeinitzaliesieren()
 {
 	std::lock_guard<std::mutex> lock(mSicherung);
 	//Hauptmenu erste Zeile
-	myData->getKacheln(0).changeText("Zentrale", 160);
-	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 160);
-	myData->getKacheln(2).changeText("Traningszentrum", 160);
-	myData->getKacheln(3).changeText("Scout B�ro", 160);
+	myData->getKacheln(0).changeText("Zentrale", 220);
+	myData->getKacheln(1).changeText("Batilionausbildungszentrum", 220);
+	myData->getKacheln(2).changeText("Traningszentrum", 220);
+	myData->getKacheln(3).changeText("Scout Buero", 220);
 	//Hauptmenu zweite Zeile
-	myData->getKacheln(4).changeText("Auftr�ge", 160 + 220);
-	myData->getKacheln(5).changeText("Aktive Auftr�ge", 160 + 220);
-	myData->getKacheln(6).changeText("Logistik System", 160 + 220);
-	myData->getKacheln(7).changeText("Erholungsresort", 160 + 220);
+	myData->getKacheln(4).changeText("Auftraege", 220 + 220);
+	myData->getKacheln(5).changeText("Aktive Auftraege", 220 + 220);
+	myData->getKacheln(6).changeText("Logistik System", 220 + 220);
+	myData->getKacheln(7).changeText("Erholungsresort", 220 + 220);
 	//BAZ
 	myData->getKacheln(9).changeText("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
 	myData->getKacheln(10).changeText("Erhoung der Grundst�rke\nKosten 100", 350);
@@ -91,7 +94,10 @@ void Game::TextAnzeigeinitzaliesieren()
 
 void Game::update()
 {
-	vMauspos = cView->getMousPos();
+	{
+		std::lock_guard<std::mutex> lock(mSicherung);
+		vMauspos = cView->getMousPos();
+	}
 
 	switch (eAktuellesMenu)
 	{
@@ -102,8 +108,6 @@ void Game::update()
 		std::lock_guard<std::mutex> lock(mSicherung);
 		for (int i = 0; i < 8; i++)
 		{
-			//std::lock_guard<std::mutex> lockguard(Sicherung);
-			//Kacheln �berpr�fen
 			if (myData->getHauptmenu(i).ishover(vMauspos))
 			{
 				if (myData->getHauptmenu(i).getScale() < 1.1)
@@ -145,7 +149,6 @@ void Game::update()
 				}
 				else
 					myData->getHauptmenu(i).sethoverColor();
-
 			}
 			else
 			{
@@ -163,7 +166,6 @@ void Game::update()
 					
 				}
 			}
-			//lockguard.~lock_guard();
 			if(i>3)
 			temp++;
 		}
@@ -193,67 +195,86 @@ void Game::update()
 
 	case Batilionsausbildungsstate:
 	{
-		std::lock_guard<std::mutex> lock(mSicherung);
-		switch (updateButtons(8, 4))	// Bestimmen welcher Butten gedr�ckt wurde 
+		int temp = 0;
+		{
+			std::lock_guard<std::mutex> lock(mSicherung);
+			temp = updateButtons(8, 4);
+		}
+		switch (temp)	// Bestimmen welcher Butten gedr�ckt wurde 
 		{
 		case 1: 
 		{
-			cBAZ->BeginnAufgabe();	//starten Gedr�kt
+			cBAZ->BeginnAufgabe(mSicherung);	//starten Gedr�kt
 		}break;
 		case 11: 
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erh�ht
 		}break;
 		case 12: 
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->AnzahlReduzieren();	//Anzahl der Mitglieder wird gesengt
 		}break;
 		case 2: 
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->BeschleunigungDerAufgabenDurchfuehrung();	//Upgrade Geschwindikeit
 		}break;
 		case 3:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->ErhohenDerGrundstarke();	 //Upgrade Grundst�rke
 		}break;
 		case 4: 
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->ReduzierenDerAusfuhrungsKosten();		//Upgrade zur kosten Reduzierung
 		}break;
 		case 5:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->Vorbereiten_neueAusbildung();
-		}
+		}break;
 		}
 	}break;
 
 	case scoutbuero:
 	{
-		std::lock_guard<std::mutex> lock(mSicherung);
-		switch (updateButtons(12, 4))
+		int temp = 0;
+		{
+			std::lock_guard<std::mutex> lock(mSicherung);
+			temp = updateButtons(12, 4);
+		}
+		switch (temp)
 		{
 		case 1:
 		{
-			cScoutbuero->BeginnAufgabe();				// Suche Starten
+			cScoutbuero->BeginnAufgabe(mSicherung);				// Suche Starten
 		}break;
 		case 2:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->BeschleunigungDerAufgabenDurchfuehrung();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->ErhohenDesMoeglichenRanges();				// Erh�ht den mindest Rang
 		}break;
 		case 4:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->ReduzierenDerAusfuhrungsKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->Ablehnen();					// Ablehnen 
 		}break; 
 		}
@@ -266,13 +287,14 @@ void Game::update()
 			auto temp = cTraingzentrum->updateAuswahl(vMauspos);
 			if (temp.has_value())
 			{
-				cTraingzentrum->AuswahlZuOrdnen(temp.value());
+				cTraingzentrum->AuswahlZuOrdnen(temp.value(), mSicherung);
 				bAuswahl = false;
 			}
 		}
 
 		else
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			switch (updateButtons(16, 4))
 			{
 			case 2:
@@ -313,13 +335,14 @@ void Game::update()
 			auto temp = cErholungsresort->updateAuswahl(vMauspos);
 			if (temp.has_value())
 			{
-				cErholungsresort->AuswahlZuOrdnen(temp.value());
+				cErholungsresort->AuswahlZuOrdnen(temp.value(), mSicherung);
 				bAuswahl = false;
 			}
 		}
 
 		else
 		{
+			std::lock_guard<std::mutex> lock(mSicherung);
 			switch (updateButtons(24, 4))
 			{
 			case 2:
@@ -348,9 +371,6 @@ void Game::update()
 	}break;
 
 	}
-
-	
-
 }
 
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
@@ -386,7 +406,10 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 void Game::checkSortcuts()
 {
 	if (cKeyboard.isKeyPressed(cKeyboard.Escape))
+	{
+		std::lock_guard<std::mutex> lock(mSicherung);
 		cView->Close();
+	}
 
 	if (cKeyboard.isKeyPressed(cKeyboard.H))
 		eAktuellesMenu = Hauptmenu;
@@ -401,22 +424,25 @@ void Game::checkSortcuts()
 		eAktuellesMenu = scoutbuero;
 }
 
-void Game::neuerTag()
+void Game::Zeit()
 {
-	iTag++;
-
-	
+	if (clTagesTimer.getElapsedTime().asSeconds() >= 1.5)
 	{
-		std::lock_guard<std::mutex> lock(mSicherung);
-		cBAZ->aktualisierenTimer();
-		cScoutbuero->aktualisierenTimer();
-		cTraingzentrum->aktualisierenTimer();
-		cErholungsresort->aktualisierenTimer();
-	}
+		iTag++;
 
-	if (iTag % 30 == 0)
-	{
-		//Sold auszahlen
+		{
+			std::lock_guard<std::mutex> lock(mSicherung);
+			cBAZ->aktualisierenTimer();
+			cScoutbuero->aktualisierenTimer();
+			cTraingzentrum->aktualisierenTimer();
+			cErholungsresort->aktualisierenTimer();
+		}
+
+		if (iTag % 30 == 0)
+		{
+			//Sold auszahlen
+		}
+		clTagesTimer.restart();
 	}
 }
 
@@ -451,7 +477,7 @@ void Game::mahlen()
 			cView->DrawDiffrent(*cErholungsresort);
 	}break;
 	default: {
-
+		
 	}break;
 	}
 }

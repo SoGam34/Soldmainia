@@ -1,21 +1,23 @@
 #include "Auswahl.h"
 
-Auswahl::Auswahl(Data* data)
+Auswahl::Auswahl(Data* data, std::mutex& mutex)
 {
 	myData = data;
 
 	vKacheln.clear();
 	vAusgewahlteEinheiten.clear();
-
-	cButtenLinks = new Butten(5, 300, 35, 35, 1, "<", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cButtenRechts = new Butten(950, 300, 35, 35, 2, ">", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cButtenUP = new Butten(400, 40, 105, 25, 3, "Aufsteigen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cButtenDown = new Butten(550, 40, 105, 25, 4, "Absteigend", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	{
+		std::lock_guard<std::mutex> lock(mutex);
+		cButtenLinks = new Butten(5, 300, 35, 35, 1, "<", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		cButtenRechts = new Butten(950, 300, 35, 35, 2, ">", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		cButtenUP = new Butten(400, 40, 105, 25, 3, "Aufsteigen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		cButtenDown = new Butten(550, 40, 105, 25, 4, "Absteigend", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	}
 }
 
 Auswahl::~Auswahl()
 {
-	vKacheln.clear();
+	leeren();
 	delete cButtenLinks;
 	delete cButtenRechts;
 	delete cButtenUP;
@@ -218,14 +220,12 @@ void Auswahl::leeren()
 {
 	for (; 0 < vKacheln.size();)
 		{
-			delete vKacheln[0];
 			vKacheln.erase(vKacheln.begin());
 		}
 
 	for (; 0 < vAusgewahlteEinheiten.size();)
 		{
-			delete vAusgewahlteEinheiten[0];
-			vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin()+i);
+			vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin());
 		}
 }
 

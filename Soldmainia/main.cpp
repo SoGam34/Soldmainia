@@ -6,4 +6,5 @@ int main()
 	//std::thread worker(&Game::TextAnzeigeinitzaliesieren, cGame);
 	//worker.join();
 	cGame.SpielLauft();
+	return 0;
 }

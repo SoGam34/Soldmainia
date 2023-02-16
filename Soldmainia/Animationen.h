@@ -5,7 +5,6 @@ class Animationen
 {
 public:
 
-	Animationen();
 	Animationen(sf::Font font);
 	~Animationen();
 

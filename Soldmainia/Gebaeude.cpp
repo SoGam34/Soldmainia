@@ -1,6 +1,6 @@
 #include "Gebaeude.h"
 
-Gebaeude::Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor)
+Gebaeude::Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex)
 : 	cData(data),
 	bProzessAktiv(false),
 	iProzessHauptKachel(iHauptKachel),
@@ -13,6 +13,8 @@ Gebaeude::Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short i
 	fUpgradeKosten[2] = 100;
 	
 	iZeitversatz = rand() % 5 + 3;		// Festlegen des neuen Zeitversatzes mit dem 
+
+	std::lock_guard<std::mutex> lock(mutex);
 	BerrechnungVoraussichtlicheZeit();	// hier gearbeitet wird 
 }
 
@@ -20,8 +22,9 @@ Gebaeude::~Gebaeude()
 {
 }
 
-void Gebaeude::BeginnAufgabe()
+void Gebaeude::BeginnAufgabe(std::mutex& mutex)
 {
+	std::lock_guard<std::mutex> lock(mutex);
 	if (cData->getiKontostand() > GebaeudeAusfuhrungskosten()) // �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
 		std::stringstream ss;

@@ -1,13 +1,8 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(Data* data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1), iRangmin(1)
+Scoutbuero::Scoutbuero(Data* data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1, mutex), iRangmin(1)
 {
-	iAusfuhrungsKostenFaktor = 400;
-	BerrechnungVoraussichtlicheZeit();
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
-
-	std::lock_guard<std::mutex> lock(mutex);
-	BerrechnungVoraussichtlicheZeit();
 }
 
 Scoutbuero::~Scoutbuero()
@@ -64,6 +59,7 @@ inline void Scoutbuero::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
 	ssText << "Einselk�mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinit�t.\nDie Affinit�t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	
 	cData->getKacheln(12).changeText(ssText.str(), 200);
 }
 
