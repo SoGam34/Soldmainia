@@ -9,7 +9,7 @@ public:
 	Traningszentrum()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
-	Traningszentrum(Data* data, std::mutex& mutex);
+	Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Traningszentrum();
 	
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//

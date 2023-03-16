@@ -39,9 +39,9 @@ public:
 	sf::Clock clTagesTimer;
 	int iTag;
 
-	Data* myData;
+	std::shared_ptr<Data> myData;
 
-	View* cView;
+	std::unique_ptr<View> cView;
 
 	bool bAuswahl;
 

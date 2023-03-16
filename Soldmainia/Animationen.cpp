@@ -1,5 +1,10 @@
 #include "Animationen.h"
 
+Animationen::Animationen()
+{
+
+}
+
 Animationen::Animationen(sf::Font font)
 {
 	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");

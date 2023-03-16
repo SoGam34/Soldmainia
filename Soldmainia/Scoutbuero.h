@@ -9,7 +9,7 @@ public:
 	Scoutbuero()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Scoutbuero(Data* data, std::mutex& mutex);
+	Scoutbuero(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Scoutbuero();		
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//

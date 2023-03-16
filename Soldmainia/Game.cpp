@@ -2,30 +2,36 @@
 
 Game::Game()
 {
-	myData = new Data();
-	
+	myData = std::make_shared<Data>();
 	
 	//Gebaude
-	cBAZ = new Batilion_Ausbildungszentrum(myData, mSicherung);
+	std::thread worker1([=]() { cBAZ = new Batilion_Ausbildungszentrum(myData, mSicherung); });
 	
-	cScoutbuero = new Scoutbuero(myData, mSicherung);
+	std::thread worker2([=]() { cScoutbuero = new Scoutbuero(myData, mSicherung); });
 
-	cTraingzentrum = new Traningszentrum(myData, mSicherung);
+	std::thread worker3([=]() { cTraingzentrum = new Traningszentrum(myData, mSicherung); });
 
-	cZentrale = new Zentale(myData, mSicherung);
+	std::thread worker4([=]() { cZentrale = new Zentale(myData, mSicherung); });
 
-	cErholungsresort = new Erholungsresort(myData, mSicherung);
+	std::thread worker5([=]() { cErholungsresort = new Erholungsresort(myData, mSicherung); });
+
+	std::thread worker0(&Game::TextAnzeigeinitzaliesieren, this);
 	
 	//Auswahl
-	std::thread worker(&Game::TextAnzeigeinitzaliesieren, this);
-	
-	cView = new View(myData, mSicherung);
 	iTag = 0;
 	bAuswahl = false;
 
+	cView = std::make_unique<View>(myData, mSicherung);
+
+	worker1.join();
 	cBAZ->aktualisierenInformationsText();
 	
-	worker.join();
+	
+	worker2.join();
+	worker3.join();
+	worker4.join();
+	worker5.join();
+	worker0.join();
 }
 
 Game::~Game()
@@ -35,8 +41,6 @@ Game::~Game()
 	delete cTraingzentrum;
 	delete cZentrale;
 	delete cErholungsresort;
-	delete cView;
-	delete myData;
 }
 
 void Game::SpielLauft()

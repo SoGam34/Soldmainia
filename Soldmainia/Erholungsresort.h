@@ -9,7 +9,7 @@ public:
 	Erholungsresort() = delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
-	Erholungsresort(Data* data, std::mutex& mutex);
+	Erholungsresort(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Erholungsresort();
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
