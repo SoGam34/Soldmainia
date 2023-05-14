@@ -1,6 +1,6 @@
 #include "Batilion_Ausbildungszentrum.h"
 
-Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(Data* data, std::mutex& mutex) : Gebaeude(data, 8, 70, 10, mutex), iBatilionsgroesse(10),
+Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 8, 70, 10, mutex), iBatilionsgroesse(10),
 fGrundstaerke(10)
 {
 	

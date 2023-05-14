@@ -7,7 +7,7 @@ class Auswahl
 {
 public:
 	Auswahl()=delete;
-	Auswahl(Data* data, std::mutex& mutex);
+	Auswahl(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Auswahl();
 
 	// Erzeugen der Kacheln
@@ -37,7 +37,7 @@ public:
 private:
 	std::vector <std::unique_ptr<Kachel>> vKacheln;
 	std::vector <int> vAusgewahlteEinheiten;
-	Data* myData;
+	std::shared_ptr<Data> myData;
 
 	Butten* cButtenLinks;
 	Butten* cButtenRechts;

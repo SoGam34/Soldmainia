@@ -127,25 +127,13 @@
     <Image Include="Texturen\ErhohungGrundstarke.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Texturen\Erholungsresort.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
     <Image Include="Texturen\Haken.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Texturen\Kaserne.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Texturen\Logistik System.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Texturen\Pfeil.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Texturen\Scoutbüro.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-    <Image Include="Texturen\Tranigszentrum.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
     <Image Include="Texturen\WarteAusbildung.png">
@@ -157,7 +145,19 @@
     <Image Include="Texturen\WenigerKosten.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
-    <Image Include="Texturen\Zentrale.png">
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Erholungsresort.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Kaserne.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Scoutbüro.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Tranigszentrum.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Zentrale.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
   </ItemGroup>

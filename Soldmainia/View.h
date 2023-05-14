@@ -8,7 +8,7 @@ class View
 public:
 	//De/Konstrucktor
 	View() = delete;
-	View(Data* data, std::mutex& mutex);
+	View(std::shared_ptr<Data> data, std::mutex& mutex);
 	~View();
 	
 	void DrawHauptmenu(int iTage);
@@ -37,7 +37,7 @@ private:
 	sf::RenderWindow* window;
 
 	// Data zeiger
-	Data* cData;				 
+	std::shared_ptr<Data> cData;
 	
 	sf::Texture tTexture;
 	sf::Sprite sSprite;

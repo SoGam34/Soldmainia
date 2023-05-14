@@ -1,6 +1,6 @@
 #include "Gebaeude.h"
 
-Gebaeude::Gebaeude(Data* data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex)
+Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex)
 : 	cData(data),
 	bProzessAktiv(false),
 	iProzessHauptKachel(iHauptKachel),

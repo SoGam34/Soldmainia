@@ -5,11 +5,11 @@ class Zentale
 {
 public:
 	Zentale()=delete;
-	Zentale(Data* data, std::mutex& mutex);
+	Zentale(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Zentale();
 
 private:
-	Data* cData;
+	std::shared_ptr<Data> cData;
 
 };
 

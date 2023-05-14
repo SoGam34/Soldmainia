@@ -1,6 +1,6 @@
 #include "Auswahl.h"
 
-Auswahl::Auswahl(Data* data, std::mutex& mutex)
+Auswahl::Auswahl(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	myData = data;
 

@@ -1,6 +1,6 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(Data*data, std::mutex& mutex) : Gebaeude(data, 16,100,1, mutex), Auswahl(data, mutex),
+Traningszentrum::Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 16,100,1, mutex), Auswahl(data, mutex),
 iWirksamkeitsgrad(1)
 {
 }

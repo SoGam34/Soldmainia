@@ -1,6 +1,6 @@
 #include "View.h"
 
-View::View(Data* data, std::mutex& mutex)
+View::View(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
 	window->setFramerateLimit(25);

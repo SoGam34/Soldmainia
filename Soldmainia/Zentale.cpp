@@ -1,6 +1,6 @@
 #include "Zentale.h"
 
-Zentale::Zentale(Data* data, std::mutex& mutex)
+Zentale::Zentale(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	cData = data;
 }

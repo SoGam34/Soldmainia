@@ -1,6 +1,6 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(Data* data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1, mutex), iRangmin(1)
+Scoutbuero::Scoutbuero(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1, mutex), iRangmin(1)
 {
 	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
 }

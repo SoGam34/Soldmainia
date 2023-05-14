@@ -100,7 +100,7 @@ public:
 
 
 	// Data zeiger
-	Data* cData;	
+	std::shared_ptr<Data> cData;
 	
 	// Wenn true dann wird die Aufgabe Ausgefuhrt der Prozess ist am laufen/aktiv	
 	bool bProzessAktiv;	
