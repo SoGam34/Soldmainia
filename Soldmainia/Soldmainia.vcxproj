@@ -150,20 +150,26 @@
     <ClInclude Include="Batilion_Ausbildungszentrum.h" />
     <ClInclude Include="Butten.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="Erholungsresort.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gebaeude.h" />
     <ClInclude Include="Kachel.h" />
     <ClInclude Include="PreHeader.h" />
     <ClInclude Include="Scoutbüro.h" />
     <ClInclude Include="Textfeld.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Traningszentrum.h" />
     <ClInclude Include="View.h" />
+    <ClInclude Include="Zentale.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animationen.cpp" />
     <ClCompile Include="Auswahl.cpp" />
     <ClCompile Include="Batilion_Ausbildungszentrum.cpp" />
     <ClCompile Include="Butten.cpp" />
+    <ClCompile Include="Erholungsresort.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gebaeude.cpp" />
     <ClCompile Include="Kachel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PreHeader.cpp">
@@ -179,7 +185,27 @@
     <ClCompile Include="Scoutbüro.cpp" />
     <ClCompile Include="Textfeld.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Traningszentrum.cpp" />
     <ClCompile Include="View.cpp" />
+    <ClCompile Include="Zentale.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Erholungsresort.png" />
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Kaserne.png" />
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Scoutbüro.png" />
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Tranigszentrum.png" />
+    <Image Include="..\..\..\..\Documents\GitHub\Soldmainia\Soldmainia\Texturen\Zentrale.png" />
+    <Image Include="Texturen\AktiveAuftrage2.png" />
+    <Image Include="Texturen\ArbeitBeschleunigen.png" />
+    <Image Include="Texturen\Auftrage.png" />
+    <Image Include="Texturen\BessereRang.png" />
+    <Image Include="Texturen\ErhohungGrundstarke.png" />
+    <Image Include="Texturen\Haken.png" />
+    <Image Include="Texturen\Logistik System.png" />
+    <Image Include="Texturen\Pfeil.png" />
+    <Image Include="Texturen\WarteAusbildung.png" />
+    <Image Include="Texturen\WarteScoutbüro.png" />
+    <Image Include="Texturen\WenigerKosten.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

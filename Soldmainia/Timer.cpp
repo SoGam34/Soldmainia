@@ -40,12 +40,12 @@ bool Timer::checkTimerAbgelaufenMitID(int ID)
 	return false;
 }
 
- int Timer::getTimerstand()
+const int Timer::getTimerstand() const
 {
 	return iTimer;
 }
 
- int Timer::getTimerstandMitID(int ID)
+const int Timer::getTimerstandMitID(int ID) const
 {
 	for (int i = 0; i < vTimer.size(); i++)
 		if (vTimer[i].first == ID)

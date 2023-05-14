@@ -1,24 +1,9 @@
 #include "PreHeader.h"
 #include "View.h"
 
-View::View()
+View::View(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
-	window->setFramerateLimit(25);
-	
-	cData = nullptr;
-	
-	tTexture.loadFromFile(Addressen[0]);
-	sSprite.setTexture(tTexture);
-
-	sfText.setPosition(20, 10);
-	sfText.setCharacterSize(20);
-	sfText.setFont(*cData->getFont());
-}
-
-View::View(Data* data)
-{
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia");
 	window->setFramerateLimit(25);
 	
 	cData = data;
@@ -28,6 +13,8 @@ View::View(Data* data)
 
 	sfText.setPosition(20, 10);
 	sfText.setCharacterSize(20);
+
+	std::lock_guard<std::mutex> lock(mutex);
 	sfText.setFont(*cData->getFont());
 
 	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
@@ -76,6 +63,42 @@ void View::DrawNichtVerfuegbar()
 	Warnung.setCharacterSize(30);
 	Warnung.setString("Dieses Menu ist zur Zeit nicht Verf�gbar");
 	window->draw(Warnung);
+	window->display();
+}
+
+void View::DrawTraningszentrum(int iTage)
+{
+		cData->getAnimationen().clearWindow(window);
+		drawFenster(16, 4);
+		drawSprite(16, 4);
+		cData->getAnimationen().draw(window);
+		drawText(16, 4, "Traingszentrum", iTage);
+		window->display();
+}
+
+void View::DrawErholungsresort(int iTage)
+{
+	cData->getAnimationen().clearWindow(window);
+	drawFenster(24, 4);
+	drawSprite(24, 4);
+	cData->getAnimationen().draw(window);
+	drawText(24, 4, "Erholungsresort", iTage);
+	window->display();
+}
+
+void View::DrawDiffrent(Traningszentrum& e)
+{
+	cData->getAnimationen().clearWindow(window);
+	e.Mahlen(*window);
+	cData->getAnimationen().draw(window);
+	window->display();
+}
+
+void View::DrawDiffrent(Erholungsresort& e)
+{
+	cData->getAnimationen().clearWindow(window);
+	e.Mahlen(*window);
+	cData->getAnimationen().draw(window);
 	window->display();
 }
 

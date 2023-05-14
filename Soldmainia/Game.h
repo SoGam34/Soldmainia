@@ -1,9 +1,16 @@
 #pragma once
 #include "Data.h"
 #include "Batilion_Ausbildungszentrum.h"
-#include "Scoutbüro.h"
+#include "Scoutbuero.h"
+#include "Traningszentrum.h"
+#include "Zentale.h"
+#include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
+#include <thread>
+#include <chrono>
+#include <memory>
+#include <mutex>
 
 class Game
 {
@@ -14,14 +21,14 @@ public:
 	//Update loop
 	void SpielLauft();
 
-private:
+
 	//Allgemein
 	enum AktuellesMenu
 	{
 		Hauptmenu, Zentrale, scoutbuero,
-		Batilionsausbildungsstate, Traeningszentrum,
+		Batilionsausbildungsstate, traningszentrum,
 		Auftraege, AAuftraege, LogistikSystem,
-		Erholungsresort, EinzelMitglieder, Batilione
+		erholungsresort, EinzelMitglieder, Batilione
 	};
 	AktuellesMenu eAktuellesMenu;
 
@@ -32,10 +39,11 @@ private:
 	sf::Clock clTagesTimer;
 	int iTag;
 
-	Data* myData;
-	Auswahl* cAuswahl;
-	sf::Event event;
-	View* cView;
+	std::shared_ptr<Data> myData;
+
+	std::unique_ptr<View> cView;
+
+	bool bAuswahl;
 
 	//Gebaude
 	//BAZ
@@ -44,11 +52,24 @@ private:
 	//Scoutbuero
 	Scoutbuero* cScoutbuero;
 
+	//Trainingzentrum 
+	Traningszentrum* cTraingzentrum;
+
+	//Zentrale
+	Zentale* cZentrale;
+
+	//Erholungsresort
+	Erholungsresort* cErholungsresort;
+
+	std::mutex mSicherung;
+
+	//std::vector<void> test;
 	//Funktionen
 	void TextAnzeigeinitzaliesieren();
 	void update();
 	int updateButtons(int iOffset, int iAnzahlKacheln);
 	void checkSortcuts();
+	void Zeit();
 	void neuerTag();
 	void mahlen();
 };
