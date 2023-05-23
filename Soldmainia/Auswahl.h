@@ -1,7 +1,5 @@
 #pragma once
 #include "Data.h"
-#include <optional>
-#include <memory>
 
 class Auswahl
 {
@@ -39,10 +37,10 @@ private:
 	std::vector <int> vAusgewahlteEinheiten;
 	std::shared_ptr<Data> myData;
 
-	Butten* cButtenLinks;
-	Butten* cButtenRechts;
-	Butten* cButtenUP;
-	Butten* cButtenDown;
+	Button* cButtenLinks;
+	Button* cButtenRechts;
+	Button* cButtenUP;
+	Button* cButtenDown;
 
 };
 

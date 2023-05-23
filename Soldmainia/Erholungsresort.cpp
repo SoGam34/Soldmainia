@@ -1,4 +1,5 @@
-﻿#include "Erholungsresort.h"
+﻿#include "PreHeader.h"
+#include "Erholungsresort.h"
 
 Erholungsresort::Erholungsresort(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 24, 100, 1, mutex), Auswahl(data, mutex),
 iWirksamkeitsgrad(1)
@@ -40,9 +41,9 @@ void Erholungsresort::BeendenDerAusfuhrung()
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
 	ssText << "Neue Einheit Versorgen.\nDie Einheit regeneriert\nihre Moral und\nHP was\ndie Erfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
 
-	cData->getKacheln(24).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	cData->getKacheln(24).neueAnzeige(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	//// Hinzuf�gen aller Notiger Buttens 
-	cData->getKacheln(24).addButten(45, 450, 200, 30, 5, "Erholung starten", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(24).ButtonHinzufuegen(45, 450, 200, 30, 5, "Erholung starten", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(24).getGroese().x, cData->getKacheln(24).getGroese().y);
 	
 	cData->getAnimationen().startBenarichtigung(true, "Die Einheit ist vollstandig regeneriert");
 
@@ -55,7 +56,7 @@ inline void Erholungsresort::aktualisierenInformationsText()
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
 	
-	cData->getKacheln(24).changeText(ssText.str(), 200);
+	cData->getKacheln(24).TextAendern(ssText.str(), 200);
 }
 
 void Erholungsresort::ErhohenDerTraningsWirksamkeit()
@@ -69,7 +70,7 @@ void Erholungsresort::ErhohenDerTraningsWirksamkeit()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[1];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		cData->getAnimationen().startUpgradeAnimation(3);
+		//cData->getAnimationen().startUpgradeAnimation(3);
 
 		ss.str("");
 		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
@@ -82,14 +83,14 @@ void Erholungsresort::ErhohenDerTraningsWirksamkeit()
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(26).neuesBild(ss.str(), 350, 1, 535, 95);
+			cData->getKacheln(26).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
 			ss << "Erhoung der Grundst�rke\nKosten: " << fUpgradeKosten[1];
-			cData->getKacheln(26).changeText(ss.str(), 350);
+			cData->getKacheln(26).TextAendern(ss.str(), 350);
 		}
 	}
 }

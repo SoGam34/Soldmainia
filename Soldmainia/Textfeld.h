@@ -12,7 +12,7 @@ public:
 
 	//Textfeld()= delete;
 	Textfeld();
-	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
+	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung
 	Textfeld(const sf::Color farbe, const sf::Font &font, const sf::Vector2f pos);
 
 	~Textfeld();
@@ -21,7 +21,7 @@ public:
 
 	/*
 	Name: ueberpruefeObEnterGedrueckt
-	param:  sf::Event& event -> Speichert die Information welche Taste gedrückt wurde
+	param:  sf::Event& event -> Speichert die Information welche Taste gedrueckt wurde
 	Aufgabe: Anhangen eines neuen Button an den vButton Vektor
 	Retrun: keine
 	*/
@@ -29,16 +29,16 @@ public:
 
 	/*
 	Name: ButtonHinzufuegen
-	param: sf::Event& event -> Speichert die Information welche Taste gedrückt wurde
+	param: sf::Event& event -> Speichert die Information welche Taste gedrueckt wurde
 	Aufgabe: Kontroliert ob ein sinnvoller Bustabe gedruckt wurde wenn ja wird er angehangt
 	Retrun: keine
 	*/
-	void BuchstabeGedrückt(const sf::Event& event);
+	void BuchstabeGedrueckt(const sf::Event& event);
 
 	/*
 	Name: setTextfeldAusgewahlt
 	param: bool auswahl -> Der neue status des textfeldes 
-	Aufgabe: Ändert den Status des Textfeldes und entfernt oder fügt ein _ hinzu um zu zeigen welchen Status das Textfeld hat
+	Aufgabe: aendert den Status des Textfeldes und entfernt oder fuegt ein _ hinzu um zu zeigen welchen Status das Textfeld hat
 	Retrun: keine
 	*/
 	void setTextfeldAusgewahlt(bool auswahl);
@@ -48,32 +48,32 @@ public:
 	/*
 	Name: getAusgewahlt
 	param: keine
-	Aufgabe: Die Funktion gibt den Status des Textfelds zurück
-	Retrun: Die Funktion gibt den Status als bool zurück
+	Aufgabe: Die Funktion gibt den Status des Textfelds zurueck
+	Retrun: Die Funktion gibt den Status als bool zurueck
 	*/
 	const inline bool getAusgewahlt() const;
 	
 	/*
 	Name: getPosition
 	param: keine
-	Aufgabe: Die Funktion gibt die aktuelle Position des textfeldes zurück
-	Retrun: Die Funktion gibt die Koordinaten als sf::Vector2f zurück
+	Aufgabe: Die Funktion gibt die aktuelle Position des textfeldes zurueck
+	Retrun: Die Funktion gibt die Koordinaten als sf::Vector2f zurueck
 	*/
 	const inline sf::Vector2f getPosition() const;
 
 	/*
 	Name: getBegrenzungen
 	param: keine
-	Aufgabe: Die Funktion gibt die Begrenzungen des Textfelds zurück
-	Retrun: Die Funktion gibt die Begrenzung als sf::FloatRect zurück
+	Aufgabe: Die Funktion gibt die Begrenzungen des Textfelds zurueck
+	Retrun: Die Funktion gibt die Begrenzung als sf::FloatRect zurueck
 	*/
 	const inline sf::FloatRect getBegrenzungen() const;
 
 	/*
 	Name: getText
 	param: keine
-	Aufgabe: Die Funktion gibt den Text zurück
-	Retrun: Die Funktion gibt Text als string zurück
+	Aufgabe: Die Funktion gibt den Text zurueck
+	Retrun: Die Funktion gibt Text als string zurueck
 	*/
 	const inline std::string getText() const;
 
@@ -97,7 +97,7 @@ private:
 	//Speichert den status des Testfeldes 
 	bool bAusgewalt;
 
-	//Die Methode fügt den Text hinzu und behandelt ausnahme Falle 
+	//Die Methode fuegt den Text hinzu und behandelt ausnahme Falle 
 	void inputlogic(int Buch);
 };
 

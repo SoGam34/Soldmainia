@@ -1,4 +1,5 @@
 #include "Gebaeude.h"
+#include "PreHeader.h"
 
 Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex)
 : 	cData(data),
@@ -35,13 +36,13 @@ void Gebaeude::BeginnAufgabe(std::mutex& mutex)
 		neuerTimer(iVoraussichtlicheZeit);																	// Start des Timers	
 		cData->setiKontostand(cData->getiKontostand() - GebaeudeAusfuhrungskosten());	// Abziehn der gesamten Ausbildungskosten
 		bProzessAktiv = true;																			// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird 
-		cData->getKacheln(iProzessHauptKachel).neuesBild(GebaudeAktivText().str(), 200, 99, 1, 1);	//neues Kachel Bild	
+		cData->getKacheln(iProzessHauptKachel).neueAnzeige(GebaudeAktivText().str(), 200, 99, 1, 1);	//neues Kachel Bild	
 	}
 }
 
 inline void Gebaeude::aktualisierenProzessZustand()
 {
-	cData->getKacheln(iProzessHauptKachel).changeText(GebaudeAktivText().str(), 200);
+	cData->getKacheln(iProzessHauptKachel).TextAendern(GebaudeAktivText().str(), 200);
 }
 
 void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
@@ -51,7 +52,7 @@ void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[0];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		cData->getAnimationen().startUpgradeAnimation(2);
+		//cData->getAnimationen().startUpgradeAnimation(2);
 
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[0]);					// Abziehn der Verbesserungskosten
 		
@@ -69,14 +70,14 @@ void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(iProzessHauptKachel+1).neuesBild(ss.str(), 350, 1, 285, 95);
+			cData->getKacheln(iProzessHauptKachel+1).neueAnzeige(ss.str(), 350, 1, 285, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
 			ss << "Beschleunigt die\nAusbildungsdauer um 5%\nKosten:" << fUpgradeKosten[0];
-			cData->getKacheln(iProzessHauptKachel+1).changeText(ss.str(), 350);
+			cData->getKacheln(iProzessHauptKachel+1).TextAendern(ss.str(), 350);
 		}
 	}
 }
@@ -88,7 +89,7 @@ void Gebaeude::ReduzierenDerAusfuhrungsKosten()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[2];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		cData->getAnimationen().startUpgradeAnimation(4);
+		//cData->getAnimationen().startUpgradeAnimation(4);
 		
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[2]);			// Abziehn der Verbesserungskosten
 		
@@ -106,13 +107,13 @@ void Gebaeude::ReduzierenDerAusfuhrungsKosten()
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(iProzessHauptKachel+3).neuesBild(ss.str(), 350, 1, 785, 95);
+			cData->getKacheln(iProzessHauptKachel+3).neueAnzeige(ss.str(), 350, 1, 785, 95);
 		}
 
 		else
 		{
 			ss << "Reduzierung der Kosten\nKosten: " << fUpgradeKosten[2];
-			cData->getKacheln(iProzessHauptKachel+3).changeText(ss.str(), 350);
+			cData->getKacheln(iProzessHauptKachel+3).TextAendern(ss.str(), 350);
 		}
 	}
 }

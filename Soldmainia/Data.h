@@ -63,25 +63,25 @@ public:
 		aKacheln[8].ButtonHinzufuegen(35,													 400,	200, 30, 12, "Weniger Mitglieder",	sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[8].getGroese().x, aKacheln[8].getGroese().y);
 
 		//Scoutbuero
-		aKacheln[12].ButtonHinzufuegen(									   35, 450 , 200, 30, 1, "Starten", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[12].getGroese().x, aKacheln[12].getGroese().y);
+		aKacheln[12].ButtonHinzufuegen(									   35, 450 , 200, 30, 1, "Starten", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White,  aKacheln[12].getGroese().x, aKacheln[12].getGroese().y);
 		aKacheln[13].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 35, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[13].getGroese().x, aKacheln[13].getGroese().y);
 		aKacheln[14].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[14].getGroese().x, aKacheln[14].getGroese().y);
 		aKacheln[15].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[15].getGroese().x, aKacheln[15].getGroese().y);
 	
 		//Trainingszentrum 
-		aKacheln[16].ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[16].ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[16].ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[17].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[18].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[19].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		aKacheln[16].ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White		,	 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
+		aKacheln[16].ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White,		 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
+		aKacheln[16].ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White,	 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
+		aKacheln[17].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[17].getGroese().x, aKacheln[17].getGroese().y);
+		aKacheln[18].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[18].getGroese().x, aKacheln[18].getGroese().y);
+		aKacheln[19].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[19].getGroese().x, aKacheln[19].getGroese().y);
 		
 		//Trainingszentrum 
-		aKacheln[24].ButtonHinzufuegen(45, 450, 200, 30, 5, "Erholung starten", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[25].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[26].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		aKacheln[27].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", &sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-
+		aKacheln[24].ButtonHinzufuegen(45, 450, 200, 30, 5, "Erholung starten", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[24].getGroese().x, aKacheln[24].getGroese().y);
+		aKacheln[25].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[25].getGroese().x, aKacheln[25].getGroese().y);
+		aKacheln[26].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[26].getGroese().x, aKacheln[26].getGroese().y);
+		aKacheln[27].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[27].getGroese().x, aKacheln[27].getGroese().y);
+		
 		umEinheiten.clear();
 
 		Einheit e("Kai");
@@ -135,56 +135,6 @@ public:
 		iBekanntheit = value;
 	}
 
-	int getBatilionsgroese()
-	{
-		return iBatilonsgroese;
-	}
-
-	void setBatilionsgroese(int value)
-	{
-		iBatilonsgroese = value;
-	}
-
-	float getBatilionGeschwindikeitsfaktor()
-	{
-		return iGeschwindikeitsFaktor[0];
-	}
-
-	void setBatilionGeschwindikeitsFaktor(float value)
-	{
-		iGeschwindikeitsFaktor[0] = value;
-	}
-
-	float getScoutbueroGeschwindikeitsfaktor()
-	{
-		return iGeschwindikeitsFaktor[1];
-	}
-
-	void setScoutbueroGeschwindikeitsFaktor(float value)
-	{
-		iGeschwindikeitsFaktor[1] = value;
-	}
-
-	float getGrundstaerke()
-	{
-		return fGrundstaerke;
-	}
-
-	void setGrundstaerke(int starke)
-	{
-		fGrundstaerke = starke;
-	}
-
-	int getKostenProKopf()
-	{
-		return iKostenproKopf;
-	}
-
-	void setKostenProKopf(int kosten)
-	{
-		iKostenproKopf = kosten;
-	}
-
 	sf::Font* getFont()
 	{
 		return &sfFont;
@@ -210,11 +160,6 @@ public:
 		return bBenarichtigungAktiv;
 	}
 
-	void setfUpgradeKosten(int Reihe, int Spalte, float neueKosten)
-	{
-		fUpgradeKosten[Reihe][Spalte] = neueKosten;
-	}
-
 	int getBreite()
 	{
 		return iBreite;
@@ -233,16 +178,6 @@ public:
 	void setHohe(int value)
 	{
 		iHohe = value;
-	}
-
-	void getUpgradeFaktorScoutbuero(int Spalte, int Reihe, float value)
-	{
-		UpgradeFaktorScoutbuero[Spalte][Reihe] = value;
-	}
-
-	float getUpgradeFaktorScoutbuero(int Spalte, int Reihe)
-	{
-		return UpgradeFaktorScoutbuero[Spalte][Reihe];
 	}
 
 	sf::Vector2f getWindowSize()
@@ -305,22 +240,22 @@ private:
 		Kachel("Reduzierung der Kosten\nKosten: 100"														 																															, 350, sf::Color::Black, sfFont, 14,3 * iBreite + 4 * iAbstandthalter+15, 95, 16, 3 * iBreite + 4 * iAbstandthalter, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 	
 	//Traningszentrum
- /*16*/ Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+ /*16*/ Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 
 		//Zentrale
- /*20*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+ /*20*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.", 160, sf::Color::Black, sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 
 		//Erholungsresort
- /*24*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.", 160, sf::Color::Black, &sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, 		 sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, &sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
-		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, &sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+ /*24*/	Kachel("Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.", 160, sf::Color::Black, sfFont, 99, 1, 1, 1,				     iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, 		 sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Beschleungigt das\n Traning, bei\ngleicher Effektivit�t,\num 5%\nKosten: 100"										 													, 350, sf::Color::Black, sfFont, 99, 1, 1, 2, 1 * iBreite + 2 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Verbessert die Traningsmethoden wodurch die Effektivit�t ansteigt die Einheit wird noch starker und erhalt mehr erfahrung\nKosten: 100"									, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 2 * iBreite + 3 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
+		Kachel("Reduzierung der Traningskosten\nKosten: 100"														 																	, 350, sf::Color::Black, sfFont, 99, 1, 1, 3, 3 * iBreite + 4 * iAbstandthalter + 15, 70, iBreite, 2 * iHohe + iAbstandthalter, sf::Color(200, 200, 200), sf::Color(100, 100, 200), sf::Color::Green),
 
 	};
 

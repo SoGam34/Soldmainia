@@ -8,7 +8,7 @@ public:
 	//--------------------------------Konstruktoren----------------------------------------------//
 	Traningszentrum()=delete;
 
-	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung
+	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung
 	Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Traningszentrum();
 	
@@ -18,7 +18,7 @@ public:
 	Name: GebaeudeAusfuhrungskosten
 	param: keine 
 	Aufgabe: Die Funktion berechnet wie viel die Ausfuhrung kostet
-	Retrun: Die Funktion gibt die kosten als int zurück
+	Retrun: Die Funktion gibt die kosten als int zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	unsigned const int GebaeudeAusfuhrungskosten() const;
@@ -26,7 +26,7 @@ public:
 	/*
 	Name: LangeTrainingsDauer
 	param: keine 
-	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer lang und sortiert die möglich einsetzbaren Einheiten 
+	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer lang und sortiert die moeglich einsetzbaren Einheiten 
 	Retrun: keine
 	*/
 	void LangeTrainingsDauer();
@@ -34,7 +34,7 @@ public:
 	/*
 	Name: MittlereTrainingsDauer
 	param: keine 
-	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer die Mittlere dauer und sortiert die möglich einsetzbaren Einheiten 
+	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer die Mittlere dauer und sortiert die moeglich einsetzbaren Einheiten 
 	Retrun: keine
 	*/
 	void MittlereTrainingsDauer();
@@ -42,7 +42,7 @@ public:
 	/*
 	Name: KurzeTraningsDauer
 	param: keine 
-	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer eine kurze dauer und sortiert die möglich einsetzbaren Einheiten 
+	Aufgabe: Die Funktion setzt den iGebaeudeEinflussZeitFaktor auf den Wert fuer eine kurze dauer und sortiert die moeglich einsetzbaren Einheiten 
 	Retrun: keine
 	*/
 	void KurzeTraningsDauer();
@@ -59,7 +59,7 @@ public:
 	Name: GebaudeAktivText
 	param: keine 
 	Aufgabe: Die Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
-	Retrun: Die Funktion gibt den Text als stringstram zurück
+	Retrun: Die Funktion gibt den Text als stringstram zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	const std::stringstream GebaudeAktivText() const;
@@ -67,7 +67,7 @@ public:
 	/*
 	Name: BeendenDerAusfuhrung
 	param: keine 
-	Aufgabe: Die Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
+	Aufgabe: Die Funktion sorgt fuer ein geregeltes Ende der Ausfuhrung  
 	Retrun: keine
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/

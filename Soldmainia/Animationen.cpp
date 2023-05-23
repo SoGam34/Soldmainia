@@ -34,7 +34,7 @@ Animationen::~Animationen()
 	delete kBenarichtigung;
 }
 
-void Animationen::Aktualisieren(sf::Vector2i& vMauspos)
+void Animationen::Aktualisieren(sf::Vector2i vMauspos)
 {
 	if (bKeinBenarichtigung)
 	{
@@ -43,24 +43,24 @@ void Animationen::Aktualisieren(sf::Vector2i& vMauspos)
 			startBenarichtigung(false, "");
 		}
 
-		kBenarichtigung->update();
+		kBenarichtigung->aktualisieren();
 		//Kacheln ueberpruefen
-		if (kBenarichtigung->ishover(vMauspos))
+		if (kBenarichtigung->MausSchwebtDrueber(vMauspos))
 		{
-			kBenarichtigung->sethoverColor();
+			kBenarichtigung->setKachel_Schwebefarbe();
 			//Butten ueberpruefen
-			if(kBenarichtigung->checkButtenishover(vMauspos)==1)
-				if (kBenarichtigung->checkButtenisPressed(1,vMauspos))
+			if(kBenarichtigung->ueberprueftAlleButtonObMausSchwebtDrueber(vMauspos)==1)
+				if (kBenarichtigung->ueberprueftButtonObGedruektWird(1))
 				{
 					bKeinBenarichtigung = false;
 					sBenarichtigung = 0;
 				}
 				else{ }
 			else
-				kBenarichtigung->setButtenColorToNormal();
+				kBenarichtigung->setAlleButtenAufHintergrundfarbe();
 		}
 		else
-			kBenarichtigung->setNormalColor();
+			kBenarichtigung->setKachel_Hintergrundfarbe();
 	}
 	if (sUpgradeAnimation > 0)
 	{
@@ -170,16 +170,16 @@ void Animationen::setFont(sf::Font* font)
 
 void Animationen::KeinGeld(sf::Vector2f Pos, sf::Font* font)
 {
-	kBenarichtigung = new Kachel("Sie haben nicht\ngenungend Geld um\ndie gewunschte Aktion\ndurchzufuhren", 100, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x / 2) - 200, 70, 400, 300, sf::Color(250,10,10), sf::Color(255, 240, 200), sf::Color::Green);
-	kBenarichtigung->addButten((Pos.x / 2) - 100, 300, 200, 30, 1, "Bestaetigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	kBenarichtigung = new Kachel("Sie haben nicht\ngenungend Geld um\ndie gewunschte Aktion\ndurchzufuhren", 100, sf::Color::Black, *font, 99, 1 * 20, 95, 9, (Pos.x / 2) - 200, 70, 400, 300, sf::Color(250,10,10), sf::Color(255, 240, 200), sf::Color::Green);
+	kBenarichtigung->ButtonHinzufuegen((Pos.x / 2) - 100, 300, 200, 30, 1, "Bestaetigen", *font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getGroese().x, kBenarichtigung->getGroese().y);
 	bKeinBenarichtigung = true;
 	startBenarichtigung(false, "");
 }
 
 void Animationen::KeineBerechtigung(sf::Vector2f Pos, sf::Font* font)
 {
-	kBenarichtigung = new Kachel("Sie sind nicht\nBerechtigt die Aktion\ndurchzufuehren", 80, sf::Color::Black, font, 99, 1 * 20, 95, 9, (Pos.x/2)-200, 70, 400, 300, sf::Color::Red, sf::Color(255, 200, 200), sf::Color::Green);
-	kBenarichtigung->addButten(350, (Pos.y-2) + 50, 200, 30, 1, "Bestaetigen", font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getSize().x, kBenarichtigung->getSize().y);
+	kBenarichtigung = new Kachel("Sie sind nicht\nBerechtigt die Aktion\ndurchzufuehren", 80, sf::Color::Black, *font, 99, 1 * 20, 95, 9, (Pos.x/2)-200, 70, 400, 300, sf::Color::Red, sf::Color(255, 200, 200), sf::Color::Green);
+	kBenarichtigung->ButtonHinzufuegen(350, (Pos.y-2) + 50, 200, 30, 1, "Bestaetigen", *font, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, kBenarichtigung->getGroese().x, kBenarichtigung->getGroese().y);
 	startBenarichtigung(false, "");
 }
 
@@ -191,5 +191,5 @@ bool Animationen::getKeineBenarichtigung()
 void Animationen::updateKachelPos(int PosX, int PosY, int Breite, int Hohe)
 {
 	if (kBenarichtigung != nullptr)
-		kBenarichtigung->updatePos(PosX, PosY, Breite, Hohe);
+		kBenarichtigung->aktualisierenPosition(PosX, PosY, Breite, Hohe);
 }

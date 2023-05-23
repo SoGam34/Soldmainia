@@ -9,10 +9,10 @@ Auswahl::Auswahl(std::shared_ptr<Data> data, std::mutex& mutex)
 	vAusgewahlteEinheiten.clear();
 	{
 		std::lock_guard<std::mutex> lock(mutex);
-		cButtenLinks = new Butten(5, 300, 35, 35, 1, "<", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		cButtenRechts = new Butten(950, 300, 35, 35, 2, ">", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		cButtenUP = new Butten(400, 40, 105, 25, 3, "Aufsteigen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-		cButtenDown = new Butten(550, 40, 105, 25, 4, "Absteigend", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		cButtenLinks = new Button(5, 300, 35, 35, 1, "<", *myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, 100, 100);
+		cButtenRechts = new Button(950, 300, 35, 35, 2, ">", *myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, 100, 100);
+		cButtenUP = new Button(400, 40, 105, 25, 3, "Aufsteigen", *myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, 100, 100);
+		cButtenDown = new Button(550, 40, 105, 25, 4, "Absteigend", *myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, 100, 100);
 	}
 }
 
@@ -32,9 +32,9 @@ void Auswahl::AnzeigeVorbereitung()
 		std::stringstream osText;
 		osText << "Name: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].sName << "\nHP: "<< myData->getEinheiten()[vAusgewahlteEinheiten[i]].HP << "\nMoral: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Moral << "\nKampfkraft: " << myData->getEinheiten()[vAusgewahlteEinheiten[i]].Starke;
 		
-		vKacheln.emplace_back(new Kachel(osText.str(), 100, sf::Color::Black, myData->getFont(), 99, 1, 1, vAusgewahlteEinheiten[i], 230 * i + 20 * i + 50, 70, 230, 2 * 200 + 20, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green));
+		vKacheln.emplace_back(new Kachel(osText.str(), 100, sf::Color::Black, *myData->getFont(), 99, 1, 1, vAusgewahlteEinheiten[i], 230 * i + 20 * i + 50, 70, 230, 2 * 200 + 20, sf::Color::Blue, sf::Color::Cyan, sf::Color::Green));
 		
-		vKacheln[i]->addButten(i * 20 + i * 230 + 60, 450, 200, 30, vAusgewahlteEinheiten[i], "Einheit Auswahlen", myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+		vKacheln[i]->ButtonHinzufuegen(i * 20 + i * 230 + 60, 450, 200, 30, vAusgewahlteEinheiten[i], "Einheit Auswahlen", *myData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, myData->getKacheln(i).getGroese().x, myData->getKacheln(i).getGroese().y);
 		
 		osText.str("");
 	}
@@ -44,76 +44,76 @@ std::optional<int> Auswahl::updateAuswahl(sf::Vector2i MousPos)
 {
 	for (int i = 0; i < vKacheln.size(); i++)
 	{
-		if (vKacheln[i]->ishover(MousPos))
+		if (vKacheln[i]->MausSchwebtDrueber(MousPos))
 		{
-			vKacheln[i]->sethoverColor();
+			vKacheln[i]->setKachel_Schwebefarbe();
 			//Butten �berpr�fen
-			unsigned short int temp = vKacheln[i]->checkButtenishover(MousPos);
-			if (temp != 99)
-				if (vKacheln[i]->checkButtenisPressed(temp, MousPos))
+			std::optional<unsigned int> temp = vKacheln[i]->ueberprueftAlleButtonObMausSchwebtDrueber(MousPos);
+			if (temp.has_value())
+				if (vKacheln[i]->ueberprueftButtonObGedruektWird(temp.value()))
 				{
 						return vKacheln[i]->getID();
 				}
 				else {}
 			else
-				vKacheln[i]->setButtenColorToNormal();
+				vKacheln[i]->setAlleButtenAufHintergrundfarbe();
 		}
 		else
 		{
-			 vKacheln[i]->setNormalColor();
-			 vKacheln[i]->setScale(1);
+			 vKacheln[i]->setKachel_Hintergrundfarbe();
+			 vKacheln[i]->setTextureGroessenSkalierungsFaktor(1);
 		}
 	}
 	{
-		if (cButtenDown->isHover(MousPos))
+		if (cButtenDown->MausSchwebtDrueber(MousPos))
 		{
-			if (cButtenDown->isPressed(MousPos))
+			if (cButtenDown->wirdGedrueckt())
 			{
-				cButtenDown->setPressColor();
+				cButtenDown->setButton_Gedruecktfarbe();
 				down();
 			}
 			else
-				cButtenDown->setHoverColor();
+				cButtenDown->setButton_Schwebefarbe();
 		}
 		else
-			cButtenDown->setNormalColor();
+			cButtenDown->setButton_Hintergrundfarbe();
 
-		 if (cButtenRechts->isHover(MousPos))
+		 if (cButtenRechts->MausSchwebtDrueber(MousPos))
 		 {
-			 if (cButtenRechts->isPressed(MousPos))
+			 if (cButtenRechts->wirdGedrueckt())
 			 {
-				 cButtenRechts->setPressColor();
+				 cButtenRechts->setButton_Gedruecktfarbe();
 			 }
 			 else
-				 cButtenRechts->setHoverColor();
+				 cButtenRechts->setButton_Schwebefarbe();
 		 }
 		 else
-			 cButtenRechts->setNormalColor();
+			 cButtenRechts->setButton_Hintergrundfarbe();
 
-		 if (cButtenLinks->isHover(MousPos))
+		 if (cButtenLinks->MausSchwebtDrueber(MousPos))
 		 {
-			 if (cButtenLinks->isPressed(MousPos))
+			 if (cButtenLinks->wirdGedrueckt())
 			 {
-				 cButtenLinks->setPressColor();
+				 cButtenLinks->setButton_Gedruecktfarbe();
 			 }
 			 else
-				 cButtenLinks->setHoverColor();
+				 cButtenLinks->setButton_Schwebefarbe();
 		 }
 		 else
-			 cButtenLinks->setNormalColor();
+			 cButtenLinks->setButton_Hintergrundfarbe();
 
-		 if (cButtenUP->isHover(MousPos))
+		 if (cButtenUP->MausSchwebtDrueber(MousPos))
 		 {
-			 if (cButtenUP->isPressed(MousPos))
+			 if (cButtenUP->wirdGedrueckt())
 			 {
-				 cButtenUP->setPressColor();
+				 cButtenUP->setButton_Gedruecktfarbe();
 				 up();
 			 }
 			 else
-				 cButtenUP->setHoverColor();
+				 cButtenUP->setButton_Schwebefarbe();
 		 }
 		 else
-			 cButtenUP->setNormalColor();
+			 cButtenUP->setButton_Hintergrundfarbe();
 	}
 
 	return {};

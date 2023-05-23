@@ -70,6 +70,5 @@ public:
 	int updateButtons(int iOffset, int iAnzahlKacheln);
 	void checkSortcuts();
 	void Zeit();
-	void neuerTag();
 	void mahlen();
 };

@@ -1,5 +1,4 @@
 #pragma once
-#include "Gebaeude.h"
 #include "Data.h"
 
 class Batilion_Ausbildungszentrum : public Gebaeude
@@ -8,7 +7,7 @@ public:
 	//--------------------------------Konstruktoren----------------------------------------------//
 	Batilion_Ausbildungszentrum()=delete;
 
-	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
+	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung 
 	Batilion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
 	~Batilion_Ausbildungszentrum();
 
@@ -18,7 +17,7 @@ public:
 	Name: GebaeudeAusfuhrungskosten
 	param: keine 
 	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
-	Retrun: Die Funktion gibt die kosten als int zurück
+	Retrun: Die Funktion gibt die kosten als int zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	unsigned const int GebaeudeAusfuhrungskosten() const;
@@ -27,7 +26,7 @@ public:
 	Name: GebaudeAktivText
 	param: keine 
 	Aufgabe: Die virtuelle Funktion erstellt den Text der Angezeigt wird wenn das Gebaude aktiv ist 
-	Retrun: Die Funktion gibt den Text als stringstram zurück
+	Retrun: Die Funktion gibt den Text als stringstram zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
 	const std::stringstream GebaudeAktivText() const;
@@ -51,7 +50,7 @@ public:
 	/*
 	Name: BeendenDerAusfuhrung
 	param: keine 
-	Aufgabe: Die virtuelle Funktion sorgt für ein geregeltes Ende der Ausfuhrung  
+	Aufgabe: Die virtuelle Funktion sorgt fuer ein geregeltes Ende der Ausfuhrung  
 	Retrun: keine
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
@@ -60,7 +59,7 @@ public:
 	/*
 	Name: Vorbereiten_neueAusbildung
 	param: keine 
-	Aufgabe: Die Funktion bereitet alles für eine neue Ausbildung vor 
+	Aufgabe: Die Funktion bereitet alles fuer eine neue Ausbildung vor 
 	Retrun: keine
 	*/
 	void Vorbereiten_neueAusbildung();

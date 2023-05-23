@@ -1,3 +1,4 @@
+#include "PreHeader.h"
 #include "Traningszentrum.h"
 
 Traningszentrum::Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 16,100,1, mutex), Auswahl(data, mutex),
@@ -59,11 +60,11 @@ void Traningszentrum::BeendenDerAusfuhrung()
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
 	ssText << "Neue Einheit Trainieren\nDie Einheit erhalt\nErfahrungspunkte was sie\nStarker macht und\ndie Erfolgsraten in\nEinsatzen verbessert.\nDei Menge der\nErfahrungspunkte hangt von\nder Dauer ab";
 
-	cData->getKacheln(16).neuesBild(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	cData->getKacheln(16).neueAnzeige(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	//// Hinzuf�gen aller Notiger Buttens 
-	cData->getKacheln(16).addButten(45, 450, 200, 30, 5, "Lange Tranings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(45, 350, 200, 30, 6, "Kurze Trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
-	cData->getKacheln(16).addButten(45, 400, 200, 30, 7, "Mittlere trainings Einheit", cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White);
+	cData->getKacheln(16).ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit",		*cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
+	cData->getKacheln(16).ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
+	cData->getKacheln(16).ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
 	
 	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet");
 
@@ -76,7 +77,7 @@ inline void Traningszentrum::aktualisierenInformationsText()
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
 	
-	cData->getKacheln(16).changeText(ssText.str(), 200);
+	cData->getKacheln(16).TextAendern(ssText.str(), 200);
 }
 
 void Traningszentrum::ErhohenDerTraningsWirksamkeit()
@@ -90,7 +91,7 @@ void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[1];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		cData->getAnimationen().startUpgradeAnimation(3);
+		//cData->getAnimationen().startUpgradeAnimation(3);
 
 		ss.str("");
 		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
@@ -103,14 +104,14 @@ void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(16).neuesBild(ss.str(), 350, 1, 535, 95);
+			cData->getKacheln(16).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
 			ss << "Erhoung der Grundst�rke\nKosten: " << fUpgradeKosten[1];
-			cData->getKacheln(16).changeText(ss.str(), 350);
+			cData->getKacheln(16).TextAendern(ss.str(), 350);
 		}
 	}
 }

@@ -4,11 +4,12 @@
 
 
 Button::Button(float Button_x, float Button_y, float Button_Breite, float Button_Hohe, unsigned int Button_ID,
- std::string Button_Text, sf::Font& font, sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor, 
- float KachelBreite, float KachelHohe)
- :  sf_cHintergrundfarbe(backroundColor),
-	sf_cSchwebefarbe(hoverColor),
-	sf_cGedruecktfarbe(PressColor),
+	std::string Button_Text, sf::Font& font,
+	sf::Color Button_Hintergrundfarbe, sf::Color Button_Schwebefarbe, sf::Color Button_Gedruecktfarbe, sf::Color Button_Textfarbe,
+	float Kachel_Breite, float Kachel_Hohe)
+ :  sf_cHintergrundfarbe(Button_Hintergrundfarbe),
+	sf_cSchwebefarbe(Button_Schwebefarbe),
+	sf_cGedruecktfarbe(Button_Gedruecktfarbe),
 	iID(Button_ID),
 	bDruecken(false),
 	iVerbleibendeDrueckZeit(0)
@@ -24,10 +25,10 @@ Button::Button(float Button_x, float Button_y, float Button_Breite, float Button
 		sf_rsButton.getPosition().x + ((sf_rsButton.getGlobalBounds().width / 2) - (sf_tText.getGlobalBounds().width / 2)),
 		sf_rsButton.getPosition().y + ((sf_rsButton.getGlobalBounds().height / 2) - (sf_tText.getGlobalBounds().height / 2))
 	);
-	sf_tText.setFillColor(textColor);
+	sf_tText.setFillColor(Button_Textfarbe);
 
-	fFactorBreite = Button_Breite / KachelBreite;
-	fFactorHohe = Button_Hohe / KachelHohe;
+	fFactorBreite = Button_Breite / Kachel_Breite;
+	fFactorHohe = Button_Hohe / Kachel_Hohe;
 }
 
 Button::~Button()

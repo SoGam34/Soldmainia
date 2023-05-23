@@ -126,16 +126,16 @@ void View::ReSize()
 
 		if (i > 7)
 		{
-			cData->getKacheln(i).updatePos((temp * cData->getBreite() + (temp + 1) * 20), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
+			cData->getKacheln(i).aktualisierenPosition((temp * cData->getBreite() + (temp + 1) * 20), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
 		}
 
 		else
 		{
 			if (i < 4)
-				cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp + 1) * 20 + 15, 70, cData->getBreite(), cData->getHohe());
+				cData->getKacheln(i).aktualisierenPosition(temp * cData->getBreite() + (temp + 1) * 20 + 15, 70, cData->getBreite(), cData->getHohe());
 
 			else if (i < 8&&i>3)
-				cData->getKacheln(i).updatePos(temp * cData->getBreite() + (temp + 1) * 20 + 15, 90 + cData->getHohe(), cData->getBreite(), cData->getHohe());
+				cData->getKacheln(i).aktualisierenPosition(temp * cData->getBreite() + (temp + 1) * 20 + 15, 90 + cData->getHohe(), cData->getBreite(), cData->getHohe());
 		}
 		temp++;
 	}
@@ -163,7 +163,7 @@ void View::drawSprite(int start, int range)
 			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
 
 			sSprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
-			sSprite.setScale(static_cast<float>(cData->getBreite() / 200) + (cData->getKacheln(i).getScale() - 1), static_cast<float>(cData->getHohe() / 200)+(cData->getKacheln(i).getScale() - 1));
+			sSprite.setScale(static_cast<float>(cData->getBreite() / 200) + (cData->getKacheln(i).getTextureGroessenSkalierungsFaktor() - 1), static_cast<float>(cData->getHohe() / 200)+(cData->getKacheln(i).getTextureGroessenSkalierungsFaktor() - 1));
 			
 			window->draw(sSprite);
 		}

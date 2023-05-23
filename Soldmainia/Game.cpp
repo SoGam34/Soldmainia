@@ -39,8 +39,6 @@ Game::~Game()
 {
 	delete cBAZ;
 	delete cScoutbuero;
-	delete cAuswahl;
-	delete cView;
 	delete cTraingzentrum;
 	delete cZentrale;
 	delete cErholungsresort;
@@ -63,7 +61,7 @@ void Game::SpielLauft()
 		updating.join();
 		if (cView->windowOpen())
 		{
-			myData->getAnimationen().Aktualisieren();
+			myData->getAnimationen().Aktualisieren(cView->getMousPos());
 
 			mahlen();
 		}
@@ -118,9 +116,9 @@ void Game::update()
 					myData->getHauptmenu(i).setTexturePosition(sf::Vector2f(myData->getKacheln(i).getTexturePosition().x-1, myData->getKacheln(i).getTexturePosition().y - 2));
 				}
 
-				if (myData->getHauptmenu(i).wirdGedr�ckt())
+				if (myData->getHauptmenu(i).wirdGedruedckt())
 				{
-					myData->getHauptmenu(i).setKachel_Gedr�cktfarbe();
+					myData->getHauptmenu(i).setKachel_Gedruecktfarbe();
 					switch (myData->getHauptmenu(i).getID())
 					{
 					case 1: {
@@ -236,10 +234,6 @@ void Game::update()
 			std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->Vorbereiten_neueAusbildung();
 		}break;
-		case 5:
-		{
-			cBAZ->EndeAusbildung();
-		}
 		}
 	}break;
 
@@ -386,11 +380,11 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 	{
 		myData->getKacheln(i).aktualisieren();
 		//Kacheln ueberpruefen
-		if (myData->getKacheln(i).MausSchwebtDr�ber(vMauspos))
+		if (myData->getKacheln(i).MausSchwebtDrueber(vMauspos))
 		{
 			myData->getKacheln(i).setKachel_Schwebefarbe();
 			//Butten ueberpruefen
-			 iButtenID = myData->getKacheln(i).ueberprueftAlleButtonObMausSchwebtDr�ber(vMauspos);
+			 iButtenID = myData->getKacheln(i).ueberprueftAlleButtonObMausSchwebtDrueber(vMauspos);
 			if (iButtenID.has_value())
 				if (myData->getKacheln(i).ueberprueftButtonObGedruektWird(iButtenID.value()))
 					bButtenGedrueckt = true;
@@ -410,6 +404,7 @@ int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 
 void Game::checkSortcuts()
 {
+	sf::Event event;
 	while (cView->getWindow().pollEvent(event))
 	{
 		if (event.type == sf::Event::Closed)

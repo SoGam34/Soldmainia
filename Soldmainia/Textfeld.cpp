@@ -25,7 +25,7 @@ bool Textfeld::ueberpruefeObEnterGedrueckt(const sf::Event& event)
 
 	return false;
 }
-void Textfeld::BuchstabeGedrückt(const sf::Event& event)
+void Textfeld::BuchstabeGedrueckt(const sf::Event& event)
 {
 	int Buchstabe = event.text.unicode;
 	if (Buchstabe < 128&&Buchstabe>=0)

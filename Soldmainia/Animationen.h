@@ -9,7 +9,7 @@ public:
 	Animationen(sf::Font font);
 	~Animationen();
 
-	void Aktualisieren(sf::Vector2i& vMauspos);
+	void Aktualisieren(sf::Vector2i vMauspos);
 
 	void draw(sf::RenderTarget* window);
 

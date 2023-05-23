@@ -7,14 +7,13 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& fo
 	int ID, int PosKachelX, int PosKachelY, float with, float height,
 	sf::Color backroundColor, sf::Color hoverColor, sf::Color pressColor)
 	: iIDTexture(IDTexture),
-	TexturePosition.x(PosTextureX),
-	TexturePosition.y(PosTextureY),
+	TexturePosition(PosTextureX, PosTextureY),
 	iID(ID),
 	sf_cHintergrundfarbe(backroundColor),
 	sf_cSchwebefarbe(hoverColor),
 	sf_cGedruecktfarbe(pressColor),
 	bDruecken(false),
-	iVerbleibendeDrueckZeit(0),
+	iVerbleibendeDrueckZeit(0)
 {
 	//Kachel	
 	sf_rsKachel.setPosition(PosKachelX, PosKachelY);
@@ -90,14 +89,14 @@ void Kachel::TextAendern(std::string Text, unsigned PosTextY)
 void Kachel::drawFenster(sf::RenderTarget& target)
 {
 	target.draw(sf_rsKachel);
-	for (auto e : umButton)
+	for (auto &e : umButton)
 		e.second->drawFenster(target);
 }
 
 void Kachel::drawText(sf::RenderTarget& target)
 {
 	target.draw(sf_tText);
-	for (auto e : umButton)
+	for (auto &e : umButton)
 		e.second->drawText(target);
 
 	//if (cTextfeld != nullptr)
@@ -113,7 +112,7 @@ void Kachel::aktualisierenTextfelder(const sf::Event& event, const sf::Vector2i&
 			cTextfeld->getPosition().y >MousPos.y && cTextfeld->getPosition().y + cTextfeld->getBegrenzungen().height < MousPos.y)
 			cTextfeld->setTextfeldAusgewahlt(true);
 
-		cTextfeld->BuchstabeGedrückt(event);
+		cTextfeld->BuchstabeGedrueckt(event);
 		
 	}*/
 }
@@ -137,7 +136,7 @@ bool Kachel::getTextfeldAusgewahltStatus()
 	//Buttens
 std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrueber(const sf::Vector2i& mouspos)
 {
-	for (auto e:umButton)
+	for (auto &e:umButton)
 	{
 		if (e.second->MausSchwebtDrueber(mouspos))
 		{
@@ -160,7 +159,7 @@ bool Kachel::ueberprueftButtonObGedruektWird(unsigned int ButtenID)
 
 void Kachel::setAlleButtenAufHintergrundfarbe()
 {
-	for (auto e : umButton)
+	for (auto &e : umButton)
 		e.second->setButton_Hintergrundfarbe();
 }
 
@@ -175,7 +174,7 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 	 sf_rsKachel.setPosition(Kachel_x, Kachel_y);
 	 sf_rsKachel.setSize(sf::Vector2f(Kachel_Breite, Kachel_Hohe));
 	
-	 for (auto e : umButton)
+	 for (auto &e : umButton)
 		 e.second->aktualisierenPosition(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), Kachel_Breite, Kachel_Hohe);
 
 	 if (iID < 9)
@@ -207,7 +206,7 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 	 if (iVerbleibendeDrueckZeit != 0)
 		 sf_rsKachel.setFillColor(sf_cGedruecktfarbe);
 
-	 for (auto e : umButton)
+	 for (auto &e : umButton)
 		 e.second->aktualisieren();
  }
 
