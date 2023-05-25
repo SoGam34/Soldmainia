@@ -1,11 +1,26 @@
 #pragma once
-#include "Kachel.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
+#include <vector>
+#include <iostream>
+#include <time.h>
+#include <sstream>
+#include <mutex>
+#include <memory>
+#include <thread>
+#include <optional>
+#include <unordered_map>
+
+#include "Timer.h"
+#include "Butten.h"
+#include "Textfeld.h"
+#include "Kachel.h"
 
 class Animationen
 {
 public:
-	Animationen();
+	Animationen()=delete;
 	Animationen(sf::Font font);
 	~Animationen();
 

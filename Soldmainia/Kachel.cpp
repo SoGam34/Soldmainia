@@ -47,7 +47,7 @@ Kachel::~Kachel()
 	umButton.clear();
 }
 //Funktionen zum dieseignen und Mahlen der Kachel
-inline void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
+void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
 	std::string text, sf::Font& font,
 	sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 	float KachelBreite, float KachelHohe)
@@ -56,7 +56,7 @@ inline void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth
 	umButton.insert(temp1);
 }
 
-inline void Kachel::TextfeldHinzufuegen(const sf::Color farbe, const sf::Font& font, sf::Vector2f pos)
+ void Kachel::TextfeldHinzufuegen(const sf::Color farbe, const sf::Font& font, sf::Vector2f pos)
  {
 	// cTextfeld = new Textfeld(farbe, font, pos);
  }
@@ -233,7 +233,7 @@ bool Kachel::wirdGedruedckt()
 	return false;
 }
 
-inline void Kachel::setKachel_Schwebefarbe()
+ void Kachel::setKachel_Schwebefarbe()
 {
 	 if (iVerbleibendeDrueckZeit == 0)
 	 {
@@ -241,13 +241,13 @@ inline void Kachel::setKachel_Schwebefarbe()
 	 }
 }
 
-inline void Kachel::setKachel_Gedruecktfarbe()
+ void Kachel::setKachel_Gedruecktfarbe()
 {
 	iVerbleibendeDrueckZeit = 12;
 	sf_rsKachel.setFillColor(sf_cGedruecktfarbe);
 }
 
-inline void Kachel::setKachel_Hintergrundfarbe()
+ void Kachel::setKachel_Hintergrundfarbe()
 {
 	 if (iVerbleibendeDrueckZeit == 0)
 	 {
@@ -261,40 +261,40 @@ void Kachel::setGroese(sf::Vector2f posKachel, sf::Vector2f posTex, sf::Vector2f
 	 TexturePosition.x = posTex.x;
 	 TexturePosition.y = posTex.y;
  }
- inline void Kachel::setTextureGroessenSkalierungsFaktor(float sice)
+  void Kachel::setTextureGroessenSkalierungsFaktor(float sice)
  {
 	 TextureGroessenSkalierungsFaktor = sice;
  }
- const inline unsigned int Kachel::getID() const
+ const  unsigned int Kachel::getID() const
  {
 	 return iID;
  }
- const inline unsigned int Kachel::getTextureID() const
+ const  unsigned int Kachel::getTextureID() const
  {
 	 return iIDTexture;
  }
 
- const inline float Kachel::getTextureGroessenSkalierungsFaktor() const
+ const  float Kachel::getTextureGroessenSkalierungsFaktor() const
  {
 	 return TextureGroessenSkalierungsFaktor;
  }
 
- const inline sf::Vector2f Kachel::getTexturePosition() const
+ const  sf::Vector2f Kachel::getTexturePosition() const
  {
 	 return TexturePosition;
  }
 
- void inline Kachel::setTexturePosition(sf::Vector2f pos)
+ void  Kachel::setTexturePosition(sf::Vector2f pos)
  {
 	TexturePosition=pos;
  }
 
- const inline sf::Vector2f Kachel::getPosition() const
+ const  sf::Vector2f Kachel::getPosition() const
  {
 	 return sf_rsKachel.getPosition();
  }
  
- const inline sf::Vector2f Kachel::getGroese() const
+ const sf::Vector2f Kachel::getGroese() const
  {
 	 return sf_rsKachel.getSize();
  }

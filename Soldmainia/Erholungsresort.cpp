@@ -1,5 +1,4 @@
-﻿#include "PreHeader.h"
-#include "Erholungsresort.h"
+﻿#include "Erholungsresort.h"
 
 Erholungsresort::Erholungsresort(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 24, 100, 1, mutex), Auswahl(data, mutex),
 iWirksamkeitsgrad(1)

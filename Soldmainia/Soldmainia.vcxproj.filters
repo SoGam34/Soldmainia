@@ -63,8 +63,8 @@
     <ClInclude Include="Zentale.h">
       <Filter>Gebaeude</Filter>
     </ClInclude>
-    <ClInclude Include="Scoutbuero.h">
-      <Filter>Gebaeude</Filter>
+    <ClInclude Include="Scoutbüro.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="Zentale.cpp">
       <Filter>Gebaeude</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

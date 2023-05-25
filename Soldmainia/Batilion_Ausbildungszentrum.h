@@ -1,4 +1,5 @@
 #pragma once
+#include "Gebaeude.h"
 #include "Data.h"
 
 class Batilion_Ausbildungszentrum : public Gebaeude

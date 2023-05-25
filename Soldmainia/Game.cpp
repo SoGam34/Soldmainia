@@ -48,18 +48,13 @@ void Game::SpielLauft()
 {
 	while (cView->getWindow().isOpen())
 	{
-		std::thread updating(&Game::update, this);
+		update();
 		
-		std::thread inputs(&Game::checkSortcuts, this);
+		checkSortcuts();
 
-		std::thread time(&Game::Zeit, this);
+		Zeit();
 
-		time.join();
-
-		inputs.join();
-		
-		updating.join();
-		if (cView->windowOpen())
+		if (cView->getWindow().isOpen())
 		{
 			myData->getAnimationen().Aktualisieren(cView->getMousPos());
 
@@ -95,7 +90,7 @@ void Game::TextAnzeigeinitzaliesieren()
 void Game::update()
 {
 	{
-		std::lock_guard<std::mutex> lock(mSicherung);
+		//std::lock_guard<std::mutex> lock(mSicherung);
 		vMauspos = cView->getMousPos();
 	}
 
@@ -105,7 +100,7 @@ void Game::update()
 	case Hauptmenu:
 	{
 		int temp = 1;
-		std::lock_guard<std::mutex> lock(mSicherung);
+		//std::lock_guard<std::mutex> lock(mSicherung);
 		for (int i = 0; i < 8; i++)
 		{
 			if (myData->getHauptmenu(i).MausSchwebtDrueber(vMauspos))
@@ -195,7 +190,7 @@ void Game::update()
 	{
 		int temp = 0;
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			temp = (myData->getAnimationen().getKeineBenarichtigung())?99: updateButtons(8, 4);
 		}
 		switch (temp)	// Bestimmen welcher Butten gedr�ckt wurde 
@@ -206,32 +201,32 @@ void Game::update()
 		}break;
 		case 11: 
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->AnzahlErhohen();		//Anzahl Mitglieder wird erh�ht
 		}break;
 		case 12: 
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->AnzahlReduzieren();	//Anzahl der Mitglieder wird gesengt
 		}break;
 		case 2: 
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->BeschleunigungDerAufgabenDurchfuehrung();	//Upgrade Geschwindikeit
 		}break;
 		case 3:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->ErhohenDerGrundstarke();	 //Upgrade Grundst�rke
 		}break;
 		case 4: 
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->ReduzierenDerAusfuhrungsKosten();		//Upgrade zur kosten Reduzierung
 		}break;
 		case 5:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->Vorbereiten_neueAusbildung();
 		}break;
 		}
@@ -241,7 +236,7 @@ void Game::update()
 	{
 		int temp = 0;
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			temp = updateButtons(12, 4);
 		}
 		switch (temp)
@@ -252,27 +247,27 @@ void Game::update()
 		}break;
 		case 2:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->BeschleunigungDerAufgabenDurchfuehrung();	// Beschleunigt die Suche 
 		}break;
 		case 3:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->ErhohenDesMoeglichenRanges();				// Erh�ht den mindest Rang
 		}break;
 		case 4:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->ReduzierenDerAusfuhrungsKosten();			// Reduzierung der Suchkosten
 		}break;
 		case 5:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->Annehmen();					// Annehmen 
 		}break;
 		case 6:
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cScoutbuero->Ablehnen();					// Ablehnen 
 		}break; 
 		}
@@ -292,7 +287,7 @@ void Game::update()
 
 		else
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			switch (updateButtons(16, 4))
 			{
 			case 2:
@@ -340,7 +335,7 @@ void Game::update()
 
 		else
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			switch (updateButtons(24, 4))
 			{
 			case 2:
@@ -409,8 +404,8 @@ void Game::checkSortcuts()
 	{
 		if (event.type == sf::Event::Closed)
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
-			cView->Close();
+			//std::lock_guard<std::mutex> lock(mSicherung);
+			cView->getWindow().close();
 		}
 
 		else if (event.type == sf::Event::Resized)
@@ -454,7 +449,7 @@ void Game::Zeit()
 		iTag++;
 
 		{
-			std::lock_guard<std::mutex> lock(mSicherung);
+			//std::lock_guard<std::mutex> lock(mSicherung);
 			cBAZ->aktualisierenTimer();
 			cScoutbuero->aktualisierenTimer();
 			cTraingzentrum->aktualisierenTimer();

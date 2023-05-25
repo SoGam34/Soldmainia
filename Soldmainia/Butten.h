@@ -55,7 +55,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung uebergebene gedruecktfarbe
 	Retrun: keine
 	*/
-	const inline void setButton_Gedruecktfarbe();
+	const void setButton_Gedruecktfarbe();
 
 	/*
 	Name: setButton_Schwebefarbe
@@ -63,7 +63,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung uebergebene Schwebefarbe
 	Retrun: keine
 	*/
-	const inline void setButton_Schwebefarbe();
+	const void setButton_Schwebefarbe();
 	
 	/*
 	Name: setButton_Hintergrundfarbe
@@ -71,7 +71,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe des Button auf die bei der Initzalisierung uebergebene Hintergrundfarbe
 	Retrun: keine
 	*/
-	const inline void setButton_Hintergrundfarbe();
+	const void setButton_Hintergrundfarbe();
 
 	//--------------------------------Get----------------------------------------------//
 
@@ -81,7 +81,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung uebergeben ID zurueck 
 	Retrun: Die ID des Button als int 
 	*/
-	const inline unsigned int getID() const;
+	const  unsigned int getID() const;
 
 	/*
 	Name: getPosition
@@ -89,7 +89,7 @@ public:
 	Aufgabe: Die Funktion gibt die Position des Button zurueck
 	Retrun: Die Funktion gibt die Positon als sf::Vector2f zurueck 
 	*/
-	const inline sf::Vector2f getPosition() const;
+	const  sf::Vector2f getPosition() const;
 
 	/*
 	Name: getGroese
@@ -97,7 +97,7 @@ public:
 	Aufgabe: Die Funktion gibt die Hohe und Breite des Button zurueck 
 	Retrun: Die Funktion gibt die Hohe und Breite als sf::Vector2f zurueck
 	*/
-	const inline sf::Vector2f getGroese() const;
+	const  sf::Vector2f getGroese() const;
 
 	//--------------------------------Anzeigen----------------------------------------------//
 
@@ -107,7 +107,7 @@ public:
 	Aufgabe: Die Funktion mahlt den Button Shape auf das Fenster
 	Retrun: keinen
 	*/
-	inline void drawFenster(sf::RenderTarget& target);
+	 void drawFenster(sf::RenderTarget& target);
 
 	/*
 	Name: drawText
@@ -115,7 +115,7 @@ public:
 	Aufgabe: Die Funktion mahlt den Text des Button auf das Fenster
 	Retrun: keinen
 	*/
-	inline void drawText(sf::RenderTarget& target);
+	 void drawText(sf::RenderTarget& target);
 
 private:
 
@@ -135,7 +135,7 @@ private:
 	bool bDruecken;
 
 	//Die Variable speichert wie lange die gedrueckt Farbe angezeigt werden soll. Die Variable fungiert wie eine art Timer, damit der User sieht, dass das System das druecken Registriert hat. 
-	unsigned iVerbleibendeDrueckZeit;
+	int iVerbleibendeDrueckZeit;
 
 	//Die Variable speichert das Verhaltniss zur zugehorige Kachel damit das Verhaltniss von Button, Kachel und Fenster bestehen bleibt 
 	float fFactorBreite;

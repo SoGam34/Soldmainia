@@ -1,11 +1,6 @@
 #include "PreHeader.h"
 #include "Animationen.h"
 
-Animationen::Animationen()
-{
-
-}
-
 Animationen::Animationen(sf::Font font)
 {
 	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");
@@ -43,24 +38,27 @@ void Animationen::Aktualisieren(sf::Vector2i vMauspos)
 			startBenarichtigung(false, "");
 		}
 
-		kBenarichtigung->aktualisieren();
-		//Kacheln ueberpruefen
-		if (kBenarichtigung->MausSchwebtDrueber(vMauspos))
+		if (kBenarichtigung != nullptr)
 		{
-			kBenarichtigung->setKachel_Schwebefarbe();
-			//Butten ueberpruefen
-			if(kBenarichtigung->ueberprueftAlleButtonObMausSchwebtDrueber(vMauspos)==1)
-				if (kBenarichtigung->ueberprueftButtonObGedruektWird(1))
-				{
-					bKeinBenarichtigung = false;
-					sBenarichtigung = 0;
-				}
-				else{ }
+			kBenarichtigung->aktualisieren();
+			//Kacheln ueberpruefen
+			if (kBenarichtigung->MausSchwebtDrueber(vMauspos))
+			{
+				kBenarichtigung->setKachel_Schwebefarbe();
+				//Butten ueberpruefen
+				if (kBenarichtigung->ueberprueftAlleButtonObMausSchwebtDrueber(vMauspos) == 1)
+					if (kBenarichtigung->ueberprueftButtonObGedruektWird(1))
+					{
+						bKeinBenarichtigung = false;
+						sBenarichtigung = 0;
+					}
+					else {}
+				else
+					kBenarichtigung->setAlleButtenAufHintergrundfarbe();
+			}
 			else
-				kBenarichtigung->setAlleButtenAufHintergrundfarbe();
+				kBenarichtigung->setKachel_Hintergrundfarbe();
 		}
-		else
-			kBenarichtigung->setKachel_Hintergrundfarbe();
 	}
 	if (sUpgradeAnimation > 0)
 	{

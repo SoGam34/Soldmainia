@@ -1,7 +1,5 @@
 #pragma once
 #include "Animationen.h"
-#include <unordered_map>
-#include <mutex>
 
 struct Einheit
 {
@@ -45,150 +43,45 @@ struct Einheit
 class Data
 {
 public:
-	Data()    
-	{
+	Data();
 
-		WindowSize.x = 1020;
-		WindowSize.y = 500;
+	~Data();
 
-		sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
+	Kachel& getHauptmenu(int pos);
 
-		cAnimationen.setFont(&sfFont);
-		//BAZ
-		aKacheln[11].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 35, 2 * iHohe + 50, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[11].getGroese().x, aKacheln[11].getGroese().y);
-		aKacheln[10].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 35, 2 * iHohe + 50, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[10].getGroese().x, aKacheln[10].getGroese().y);
-		aKacheln[9].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite  + 35, 2 * iHohe + 50, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[9]. getGroese().x, aKacheln[9].getGroese().y);
-		aKacheln[8].ButtonHinzufuegen(15 + iAbstandthalter,					  2 * iHohe + 50, 200, 30, 1, "Starten",				sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[8].getGroese().x, aKacheln[8].getGroese().y);
-		aKacheln[8].ButtonHinzufuegen(35,												     350,	200, 30, 11, "Mehr Mitglieder",		sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[8].getGroese().x, aKacheln[8].getGroese().y);
-		aKacheln[8].ButtonHinzufuegen(35,													 400,	200, 30, 12, "Weniger Mitglieder",	sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, aKacheln[8].getGroese().x, aKacheln[8].getGroese().y);
+	Kachel& getKacheln(int pos);
 
-		//Scoutbuero
-		aKacheln[12].ButtonHinzufuegen(									   35, 450 , 200, 30, 1, "Starten", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White,  aKacheln[12].getGroese().x, aKacheln[12].getGroese().y);
-		aKacheln[13].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 35, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[13].getGroese().x, aKacheln[13].getGroese().y);
-		aKacheln[14].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 35, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[14].getGroese().x, aKacheln[14].getGroese().y);
-		aKacheln[15].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 35, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[15].getGroese().x, aKacheln[15].getGroese().y);
-	
-		//Trainingszentrum 
-		aKacheln[16].ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White		,	 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
-		aKacheln[16].ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White,		 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
-		aKacheln[16].ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White,	 aKacheln[16].getGroese().x, aKacheln[16].getGroese().y);
-		aKacheln[17].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[17].getGroese().x, aKacheln[17].getGroese().y);
-		aKacheln[18].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[18].getGroese().x, aKacheln[18].getGroese().y);
-		aKacheln[19].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[19].getGroese().x, aKacheln[19].getGroese().y);
-		
-		//Trainingszentrum 
-		aKacheln[24].ButtonHinzufuegen(45, 450, 200, 30, 5, "Erholung starten", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[24].getGroese().x, aKacheln[24].getGroese().y);
-		aKacheln[25].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[25].getGroese().x, aKacheln[25].getGroese().y);
-		aKacheln[26].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[26].getGroese().x, aKacheln[26].getGroese().y);
-		aKacheln[27].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[27].getGroese().x, aKacheln[27].getGroese().y);
-		
-		umEinheiten.clear();
+	Animationen& getAnimationen();
 
-		Einheit e("Kai");
-		Einheit r("Alina");
-		Einheit d("Samantha");
-		Einheit f("Lars");
-		Einheit g("Tina");
-		addEinheit( e);
-		addEinheit( r);
-		addEinheit( d);
-		addEinheit( f);
-		addEinheit( g);
-	}
-	~Data()
-	{
-		
-	}
+	std::vector<Einheit>& getEinheiten();
 
-	Kachel& getHauptmenu(int pos)
-	{
-		return aKacheln[pos];
-	}
+	const void addEinheit(const Einheit& const e);
 
-	Kachel& getKacheln(int pos)
-	{
-		return aKacheln[pos];
-	}
+	unsigned int getBekanntheit();
 
-	Animationen& getAnimationen()
-	{
-		return cAnimationen;
-	}
+	void setBekanntheit(unsigned int value);
 
-	std::vector<Einheit>& getEinheiten()
-	{
-		return umEinheiten;
-	}
+	sf::Font* getFont();
 
-	const void addEinheit(const Einheit& const e)
-	{
-		umEinheiten.emplace_back(e);
-	}
+	int getiKontostand();
 
-	unsigned int getBekanntheit()
-	{
-		return iBekanntheit;
-	}
+	void setiKontostand(int kontostand);
 
-	void setBekanntheit(unsigned int value)
-	{
-		iBekanntheit = value;
-	}
+	void setBenarichtigungAktiv();
 
-	sf::Font* getFont()
-	{
-		return &sfFont;
-	}
+	bool getBenarichtigungAktiv();
 
-	int getiKontostand()
-	{
-		return iKontostand;
-	}
+	int getBreite();
 
-	void setiKontostand(int kontostand)
-	{
-		iKontostand = kontostand;
-	}
+	void setBreite(int value);
 
-	void setBenarichtigungAktiv()
-	{
-		bBenarichtigungAktiv = true;
-	}
+	int getHohe();
 
-	bool getBenarichtigungAktiv()
-	{
-		return bBenarichtigungAktiv;
-	}
+	void setHohe(int value);
 
-	int getBreite()
-	{
-		return iBreite;
-	}
+	sf::Vector2f getWindowSize();
 
-	void setBreite(int value)
-	{
-		iBreite = value;
-	}
-
-	int getHohe()
-	{
-		return iHohe;
-	}
-
-	void setHohe(int value)
-	{
-		iHohe = value;
-	}
-
-	sf::Vector2f getWindowSize()
-	{
-		return WindowSize;
-	}
-
-	void setWindowSize(sf::Vector2f windowsize)
-	{
-		WindowSize = windowsize;
-	}
+	void setWindowSize(sf::Vector2f windowsize);
 
 private:
 
@@ -201,7 +94,7 @@ private:
 	sf::Font sfFont;
 
 	// Animationen
-	Animationen cAnimationen;
+	Animationen *cAnimationen;
 	bool bBenarichtigungAktiv = false;
 	bool bUpgradeAnimation = false;
 
@@ -261,4 +154,3 @@ private:
 
 	
 };
-

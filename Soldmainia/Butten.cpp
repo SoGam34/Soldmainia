@@ -80,13 +80,13 @@ void Button::aktualisierenPosition(float Button_x, float Button_y, float Button_
 	);
 }
 
-const inline void Button::setButton_Gedruecktfarbe()
+const  void Button::setButton_Gedruecktfarbe()
 {
 	iVerbleibendeDrueckZeit = 15;
 	sf_rsButton.setFillColor(sf_cGedruecktfarbe);
 }
 
-const inline void Button::setButton_Schwebefarbe()
+const  void Button::setButton_Schwebefarbe()
 {
 	if (iVerbleibendeDrueckZeit == 0)
 	{
@@ -94,7 +94,7 @@ const inline void Button::setButton_Schwebefarbe()
 	}
 }
 
-const inline void Button::setButton_Hintergrundfarbe()
+const  void Button::setButton_Hintergrundfarbe()
 {
 	if (iVerbleibendeDrueckZeit == 0)
 	{
@@ -102,17 +102,17 @@ const inline void Button::setButton_Hintergrundfarbe()
 	}
 }
 
-const inline unsigned int Button::getID() const
+const  unsigned int Button::getID() const
 {
 	return iID;
 }
 
-const inline sf::Vector2f Button::getPosition() const
+const  sf::Vector2f Button::getPosition() const
 {
 	return sf_rsButton.getPosition();
 }
 
-const inline sf::Vector2f Button::getGroese() const
+const  sf::Vector2f Button::getGroese() const
 {
 	return sf_rsButton.getSize();
 }

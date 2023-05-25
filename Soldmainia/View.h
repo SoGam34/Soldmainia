@@ -14,21 +14,18 @@ public:
 	void DrawHauptmenu(int iTage);
 	void DrawBAZ(int iTage);
 	void DrawScoutbuero(int iTage);
-	void DrawNichtVerfuegbar();
-
 	void DrawTraningszentrum(int iTage);
 	void DrawErholungsresort(int iTage);
+
+	void DrawNichtVerfuegbar();
 
 	void DrawDiffrent(Traningszentrum& e);
 	void DrawDiffrent(Erholungsresort& e);
 
 	void ReSize();
 
-	void CheckWindow();
 	sf::RenderWindow& getWindow();
 	sf::Vector2i getMousPos();
-	bool windowOpen();
-	void Close();
 
 private:
 	void drawFenster(int start, int range);
@@ -57,7 +54,7 @@ private:
 		"Texturen/Erholungsresort.png",
 		"Texturen/Kaserne.png",
 		"Texturen/Logistik System.png",
-		"Texturen/Scoutb�ro.png",
+		"Texturen/Scoutbuero.png",
 		"Texturen/Tranigszentrum.png",
 		"Texturen/WarteAusbildung.png",
 		"Texturen/WarteScoutb�ro.png",

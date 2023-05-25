@@ -1,5 +1,4 @@
 #include "Gebaeude.h"
-#include "PreHeader.h"
 
 Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex)
 : 	cData(data),

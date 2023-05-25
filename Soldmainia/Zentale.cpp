@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "Zentale.h"
 
 Zentale::Zentale(std::shared_ptr<Data> data, std::mutex& mutex)

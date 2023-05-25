@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "Batilion_Ausbildungszentrum.h"
 
 Batilion_Ausbildungszentrum::Batilion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 8, 70, 10, mutex), iBatilionsgroesse(10),

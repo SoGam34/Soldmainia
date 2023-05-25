@@ -23,7 +23,7 @@ public:
 	Aufgabe: Anhangen eines neuen Button an den vButton Vektor 
 	Retrun: keine
 	*/
-	inline void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
+	void ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
 						std::string text, sf::Font& font,
 						sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 						float KachelBreite, float KachelHohe);
@@ -62,7 +62,7 @@ public:
 	Aufgabe: Initialisiert oder ueberschreibt cTextfeld mit einem Neuem Textfeldobjekt das mit den param erstellt wurde
 	Retrun: keine
 	*/
-	inline void TextfeldHinzufuegen(const sf::Color farbe, const sf::Font &font, sf::Vector2f pos);
+	 void TextfeldHinzufuegen(const sf::Color farbe, const sf::Font &font, sf::Vector2f pos);
 	
 	
 	/*
@@ -165,7 +165,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung uebergebene gedruecktfarbe
 	Retrun: keine
 	*/
-	inline void setKachel_Gedruecktfarbe();
+	 void setKachel_Gedruecktfarbe();
 
 	/*
 	Name: setKachel_Schwebefarbe
@@ -173,7 +173,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung uebergebene Schwebefarbe
 	Retrun: keine
 	*/
-	inline void setKachel_Schwebefarbe();
+	 void setKachel_Schwebefarbe();
 
 	/*
 	Name: setKachel_Hintergrundfarbe
@@ -181,7 +181,7 @@ public:
 	Aufgabe: Die Funktion setzt die Farbe der Kachel auf die bei der Initzalisierung uebergebene Hintergrundfarbe
 	Retrun: keine
 	*/
-	inline void setKachel_Hintergrundfarbe();
+	 void setKachel_Hintergrundfarbe();
 
 	//--------------------------------Get/Set----------------------------------------------//
 
@@ -199,7 +199,7 @@ public:
 	Aufgabe: Die Funktion speichert den uebergebenen Faktor
 	Retrun: keine
 	*/
-	inline void setTextureGroessenSkalierungsFaktor(float sice);
+	 void setTextureGroessenSkalierungsFaktor(float sice);
 	
 	/*
 	Name: getTextureID
@@ -207,7 +207,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung uebergeben ID des Textures zurueck
 	Retrun: Die ID des Texture als int
 	*/
-	const inline unsigned int getTextureID() const;
+	const  unsigned int getTextureID() const;
 
 	/*
 	Name: getTextureGroessenSkalierungsFaktor
@@ -215,7 +215,7 @@ public:
 	Aufgabe: Die Funktion gibt die aktuelle Groeßen Skalierung des Textures zurueck 
 	Retrun: Die aktuelle Groeße als float
 	*/
-	const inline float getTextureGroessenSkalierungsFaktor() const;
+	const  float getTextureGroessenSkalierungsFaktor() const;
 	
 	/*
 	Name: getTexturePosition
@@ -223,7 +223,7 @@ public:
 	Aufgabe: Die Funktion gibt die Koordinaten des Textures zurueck
 	Retrun: Die Koordinaten als sf::Vector2f
 	*/
-	const inline sf::Vector2f getTexturePosition() const;
+	const  sf::Vector2f getTexturePosition() const;
 
 	/*
 	Name: setTexturePosition
@@ -231,7 +231,7 @@ public:
 	Aufgabe: Die Funktion speichert die neuen Koordinaten des Textures
 	Retrun: keine
 	*/
-	void inline setTexturePosition(sf::Vector2f pos);
+	void  setTexturePosition(sf::Vector2f pos);
 	
 	/*
 	Name: getID
@@ -239,7 +239,7 @@ public:
 	Aufgabe: Die Funktion gibt die bei der Initizalisierung uebergeben ID zurueck
 	Retrun: Die ID der Kachel als int
 	*/
-	const inline unsigned int getID() const;
+	const  unsigned int getID() const;
 
 	/*
 	Name: getPosition
@@ -247,7 +247,7 @@ public:
 	Aufgabe: Die Funktion gibt die Position der Kachel zurueck
 	Retrun: Die Funktion gibt die Positon als sf::Vector2f zurueck
 	*/
-	const inline sf::Vector2f getPosition() const;
+	const  sf::Vector2f getPosition() const;
 
 	/*
 	Name: getGroese
@@ -255,7 +255,7 @@ public:
 	Aufgabe: Die Funktion gibt die Hohe und Breite der Kachel zurueck
 	Retrun: Die Funktion gibt die Hohe und Breite als sf::Vector2f zurueck
 	*/
-	const inline sf::Vector2f getGroese() const;
+	const sf::Vector2f getGroese() const;
 
 	private:
 
@@ -277,7 +277,7 @@ public:
 	bool bDruecken;
 
 	//Die Variable speichert wie lange die gedrueckt Farbe angezeigt werden soll. Die Variable fungiert wie eine art Timer, damit der User sieht, dass das System das druecken Registriert hat. 
-	unsigned int iVerbleibendeDrueckZeit;
+	 int iVerbleibendeDrueckZeit;
 
 	//Die Funktion setzt den neuen Text und die Y-Koordinate des Textes und berrechnet die X Koordinate 
 	void newText(std::string Text, unsigned int PosTextY);

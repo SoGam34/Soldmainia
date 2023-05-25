@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "Scoutbuero.h"
 
 Scoutbuero::Scoutbuero(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1, mutex), iRangmin(1)

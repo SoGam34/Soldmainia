@@ -1,5 +1,6 @@
 #pragma once
 #include "Data.h"
+#include "Gebaeude.h"
 
 class Zentale
 {
