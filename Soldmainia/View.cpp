@@ -4,7 +4,6 @@
 View::View(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
-	window->setFramerateLimit(25);
 	
 	cData = data;
 	

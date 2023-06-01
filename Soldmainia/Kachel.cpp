@@ -53,7 +53,7 @@ void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int I
 	float KachelBreite, float KachelHohe)
 {
 	std::pair<int, Button*> temp1((int)umButton.size(), new Button(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
-	umButton.insert(temp1);
+	umButton.emplace(temp1);
 }
 
  void Kachel::TextfeldHinzufuegen(const sf::Color farbe, const sf::Font& font, sf::Vector2f pos)
@@ -149,9 +149,9 @@ std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrueber(co
 
 bool Kachel::ueberprueftButtonObGedruektWird(unsigned int ButtenID)
 {
-	if (umButton[ButtenID]->wirdGedrueckt())
+	if (umButton.at(ButtenID)->wirdGedrueckt())
 	{
-		umButton[ButtenID]->setButton_Gedruecktfarbe();
+		umButton.at(ButtenID)->setButton_Gedruecktfarbe();
 		return true;
 	}
 	return false;
