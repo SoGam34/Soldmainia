@@ -368,7 +368,7 @@ void Game::update()
 
 int Game::updateButtons(int iOffset, int iAnzahlKacheln)
 {
-		std::optional<int> iButtenID = {};
+	std::optional<int> iButtenID = {};
 	bool bButtenGedrueckt = false;
 
 	for (int i = iOffset; i < iAnzahlKacheln+iOffset; i++)

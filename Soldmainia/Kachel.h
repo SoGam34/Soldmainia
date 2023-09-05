@@ -297,7 +297,7 @@ public:
 	/*-------------------------------------Butto Variablen----------------------------------------*/
 
 	//Speichert alle Button die die Kachel hat  
-	std::unordered_map<unsigned, Button*> umButton;
+	std::vector<std::unique_ptr<Button>> vButton;
 
 	/*-------------------------------------Textfeld Variablen----------------------------------------*/
 	//Der Pointer Speichert die Adreese des Textfeldes wenn ein Textfeld benoetigt wird ansonsten ist er auf Nullptr

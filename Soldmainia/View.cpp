@@ -4,7 +4,8 @@
 View::View(std::shared_ptr<Data> data, std::mutex& mutex)
 {
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
-	
+	window->setFramerateLimit(26);
+
 	cData = data;
 	
 	tTexture.loadFromFile(Addressen[0]);
@@ -29,7 +30,7 @@ void View::DrawHauptmenu(int iTage)
 	cData->getAnimationen().clearWindow(window);
 	drawSprite(0, 8);
 	drawText(0, 8, "Hauptmenu", iTage);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	window->display();
 }
 
@@ -39,7 +40,7 @@ void View::DrawBAZ(int iTage)
 	drawFenster(8, 4);
 	drawSprite(8, 4);
 	drawText(8, 4, "BAZ", iTage);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	window->display();
 }
 
@@ -48,7 +49,7 @@ void View::DrawScoutbuero(int iTage)
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(12, 4);
 	drawSprite(12, 4);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	drawText(12, 4, "Scoutb�ro", iTage);
 	window->display();
 }
@@ -70,7 +71,7 @@ void View::DrawTraningszentrum(int iTage)
 		cData->getAnimationen().clearWindow(window);
 		drawFenster(16, 4);
 		drawSprite(16, 4);
-		cData->getAnimationen().draw(window);
+		cData->getAnimationen().draw(*window);
 		drawText(16, 4, "Traingszentrum", iTage);
 		window->display();
 }
@@ -80,7 +81,7 @@ void View::DrawErholungsresort(int iTage)
 	cData->getAnimationen().clearWindow(window);
 	drawFenster(24, 4);
 	drawSprite(24, 4);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	drawText(24, 4, "Erholungsresort", iTage);
 	window->display();
 }
@@ -89,7 +90,7 @@ void View::DrawDiffrent(Traningszentrum& e)
 {
 	cData->getAnimationen().clearWindow(window);
 	e.Mahlen(*window);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	window->display();
 }
 
@@ -97,7 +98,7 @@ void View::DrawDiffrent(Erholungsresort& e)
 {
 	cData->getAnimationen().clearWindow(window);
 	e.Mahlen(*window);
-	cData->getAnimationen().draw(window);
+	cData->getAnimationen().draw(*window);
 	window->display();
 }
 

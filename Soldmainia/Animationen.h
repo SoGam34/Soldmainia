@@ -21,12 +21,12 @@ class Animationen
 {
 public:
 	Animationen()=delete;
-	Animationen(sf::Font font);
+	Animationen(sf::Font& font);
 	~Animationen();
 
 	void Aktualisieren(sf::Vector2i vMauspos);
 
-	void draw(sf::RenderTarget* window);
+	void draw(sf::RenderTarget& window);
 
 	void startUpgradeAnimation(int Spalte, int breite, int hohe);
 

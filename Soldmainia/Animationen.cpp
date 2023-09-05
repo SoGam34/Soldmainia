@@ -1,7 +1,7 @@
 #include "PreHeader.h"
 #include "Animationen.h"
 
-Animationen::Animationen(sf::Font font)
+Animationen::Animationen(sf::Font& font)
 {
 	UpgradePfeil.loadFromFile("Texturen/Pfeil.png");
 	sf::Sprite temp;
@@ -18,6 +18,7 @@ Animationen::Animationen(sf::Font font)
 	sfBenarichtigungsText.setCharacterSize(17);
 	sfBenarichtigungsText.setPosition(20, 40);
 	sfBenarichtigungsText.setFont(font);
+	sfBenarichtigungsText.setString("Keine Naricht");
 
 	kBenarichtigung = nullptr;
 
@@ -107,23 +108,23 @@ void Animationen::Aktualisieren(sf::Vector2i vMauspos)
 	}
 }
 
-void Animationen::draw(sf::RenderTarget* window)
+void Animationen::draw(sf::RenderTarget& window)
 {
 	if (bKeinBenarichtigung)
 	{
-		kBenarichtigung->drawFenster(*window);
-		kBenarichtigung->drawText(*window);
+		kBenarichtigung->drawFenster(window);
+		kBenarichtigung->drawText(window);
 	}
 
 	if (sUpgradeAnimation>0)
 	{
-		for(auto &i:Pfeile)
-			window->draw(i);
+		for(int i=0; i<3; i++)
+			window.draw(Pfeile.at(i));
 	}
 
 	if (sBenarichtigung > 0)
 	{
-		window->draw(sfBenarichtigungsText);
+		window.draw(sfBenarichtigungsText);
 	}
 }
 

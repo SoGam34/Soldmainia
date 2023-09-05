@@ -27,7 +27,7 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& fo
 	newText(Text, PosTextY);
 
 	//Butten
-	umButton.clear();
+	vButton.reserve(1);
 
 	//TextureGroessenSkalierungsFaktor = 1;
 		
@@ -39,12 +39,6 @@ Kachel::Kachel(std::string Text, int PosTextY, sf::Color TextColor, sf::Font& fo
 
 Kachel::~Kachel()
 {
-	for (int i = 0; i < umButton.size();)
-	{
-		delete umButton[i];
-		umButton.erase(i);
-	}
-	umButton.clear();
 }
 //Funktionen zum dieseignen und Mahlen der Kachel
 void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int ID,
@@ -52,8 +46,7 @@ void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int I
 	sf::Color backroundColor, sf::Color hoverColor, sf::Color PressColor, sf::Color textColor,
 	float KachelBreite, float KachelHohe)
 {
-	std::pair<int, Button*> temp1((int)umButton.size(), new Button(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
-	umButton.emplace(temp1);
+	vButton.push_back(std::make_unique<Button>(x, y, with, heigth, ID, text, font, backroundColor, hoverColor, PressColor, textColor, KachelBreite, KachelHohe));
 }
 
  void Kachel::TextfeldHinzufuegen(const sf::Color farbe, const sf::Font& font, sf::Vector2f pos)
@@ -64,12 +57,10 @@ void Kachel::ButtonHinzufuegen(float x, float y, float with, float heigth, int I
 void Kachel::neueAnzeige(std::string Text, unsigned PosTextY,
 	unsigned IDTexture, unsigned PosTextureX, unsigned PosTextureY)
 {
-	for (int i = 0; i < umButton.size();)
+	for (auto& e : vButton)
 	{
-		delete umButton[i];
-		umButton.erase(i);
+		e.reset();
 	}
-
 	//if (cTextfeld != nullptr)
 	//	delete cTextfeld;
 	//cTextfeld = nullptr;
@@ -89,16 +80,23 @@ void Kachel::TextAendern(std::string Text, unsigned PosTextY)
 void Kachel::drawFenster(sf::RenderTarget& target)
 {
 	target.draw(sf_rsKachel);
-	for (auto &e : umButton)
-		e.second->drawFenster(target);
+	
+	for (int i = 0; i < vButton.size(); i++)
+	{
+		if (vButton.at(i) != nullptr)
+			vButton.at(i)->drawFenster(target);
+	}
 }
 
 void Kachel::drawText(sf::RenderTarget& target)
 {
 	target.draw(sf_tText);
-	for (auto &e : umButton)
-		e.second->drawText(target);
-
+	
+	for (int i = 0; i < vButton.size(); i++)
+	{
+		if (vButton.at(i) != nullptr)
+			vButton.at(i)->drawText(target);
+	}
 	//if (cTextfeld != nullptr)
 	//	cTextfeld->drawText(target);
 }
@@ -136,12 +134,13 @@ bool Kachel::getTextfeldAusgewahltStatus()
 	//Buttens
 std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrueber(const sf::Vector2i& mouspos)
 {
-	for (auto &e:umButton)
+	for (int i = 0; i < vButton.size(); i++)
 	{
-		if (e.second->MausSchwebtDrueber(mouspos))
+		if (vButton.at(i) != nullptr)
+		if (vButton.at(i)->MausSchwebtDrueber(mouspos))
 		{
-			e.second->setButton_Schwebefarbe();
-			return e.second->getID();
+			vButton.at(i)->setButton_Schwebefarbe();
+			return vButton.at(i)->getID();
 		}
 	}
 	return {};
@@ -149,18 +148,25 @@ std::optional<unsigned int> Kachel::ueberprueftAlleButtonObMausSchwebtDrueber(co
 
 bool Kachel::ueberprueftButtonObGedruektWird(unsigned int ButtenID)
 {
-	if (umButton.at(ButtenID)->wirdGedrueckt())
+	for (int i = 0; i < vButton.size(); i++)
 	{
-		umButton.at(ButtenID)->setButton_Gedruecktfarbe();
-		return true;
+		if (vButton.at(i) != nullptr)
+		if (vButton.at(i)->getID()==ButtenID && vButton.at(i)->wirdGedrueckt())
+		{
+			vButton.at(i)->setButton_Gedruecktfarbe();
+			return true;
+		}
 	}
 	return false;
 }
 
 void Kachel::setAlleButtenAufHintergrundfarbe()
 {
-	for (auto &e : umButton)
-		e.second->setButton_Hintergrundfarbe();
+	for (int i = 0; i < vButton.size(); i++)
+	{
+		if (vButton.at(i) != nullptr)
+			vButton.at(i)->setButton_Hintergrundfarbe();
+	}
 }
 
 void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_Breite, float Kachel_Hohe)
@@ -174,8 +180,8 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 	 sf_rsKachel.setPosition(Kachel_x, Kachel_y);
 	 sf_rsKachel.setSize(sf::Vector2f(Kachel_Breite, Kachel_Hohe));
 	
-	 for (auto &e : umButton)
-		 e.second->aktualisierenPosition(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), Kachel_Breite, Kachel_Hohe);
+	 for (auto &e : vButton)
+		 e->aktualisierenPosition(tempx, ((ButtenOffsetY>0)?ButtenOffsetY-10:ButtenOffsetY+10), Kachel_Breite, Kachel_Hohe);
 
 	 if (iID < 9)
 		 sf_tText.setPosition(
@@ -206,8 +212,11 @@ void Kachel::aktualisierenPosition(float Kachel_x, float Kachel_y, float Kachel_
 	 if (iVerbleibendeDrueckZeit != 0)
 		 sf_rsKachel.setFillColor(sf_cGedruecktfarbe);
 
-	 for (auto &e : umButton)
-		 e.second->aktualisieren();
+	 for (int i = 0; i < vButton.size(); i++)
+	 {
+		 if (vButton.at(i) != nullptr)
+			 vButton.at(i)->aktualisieren();
+	 }
  }
 
  //Kachel
