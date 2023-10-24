@@ -81,14 +81,14 @@ void Erholungsresort::ErhohenDerTraningsWirksamkeit()
 		if (iWirksamkeitsgrad > 26)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(26).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundst�rke\nKosten: " << fUpgradeKosten[1];
+			ss << "Erhoung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(26).TextAendern(ss.str(), 350);
 		}
 	}

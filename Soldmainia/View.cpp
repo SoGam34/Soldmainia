@@ -50,7 +50,7 @@ void View::DrawScoutbuero(int iTage)
 	drawFenster(12, 4);
 	drawSprite(12, 4);
 	cData->getAnimationen().draw(*window);
-	drawText(12, 4, "Scoutb�ro", iTage);
+	drawText(12, 4, "Scout Buero", iTage);
 	window->display();
 }
 
@@ -61,7 +61,7 @@ void View::DrawNichtVerfuegbar()
 	Warnung.setFont(*cData->getFont());
 	Warnung.setPosition(window->getPosition().x / 2 - 20, window->getPosition().y / 2);
 	Warnung.setCharacterSize(30);
-	Warnung.setString("Dieses Menu ist zur Zeit nicht Verf�gbar");
+	Warnung.setString("Dieses Menu ist zur Zeit nicht Verfuegbar");
 	window->draw(Warnung);
 	window->display();
 }

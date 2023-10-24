@@ -18,7 +18,7 @@ unsigned const int Scoutbuero::GebaeudeAusfuhrungskosten() const
 const std::stringstream Scoutbuero::GebaudeAktivText() const
 {
 	 std::stringstream ssText;
-	 ssText << "Die Mitarbeiter des\nScoutb�ros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
+	 ssText << "Die Mitarbeiter des\nScoutbueros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
 	 return ssText;
 }
 
@@ -27,7 +27,7 @@ const std::stringstream Scoutbuero::GebaudeAktivText() const
 void Scoutbuero::BeendenDerAusfuhrung()
 {
 	std::stringstream ssText;
-	ssText << "Starke:Test\nAffinit�t: Test\nProzentualer Anteil: Test";
+	ssText << "Starke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
 	cData->getKacheln(12).neueAnzeige(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).ButtonHinzufuegen(35, 400, 200, 30, 5, "Annehmen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
 	cData->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 6, "Ablehnen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
@@ -59,7 +59,7 @@ void Scoutbuero::Ablehnen()
 inline void Scoutbuero::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
-	ssText << "Einselk�mpfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinit�t.\nDie Affinit�t erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	ssText << "Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	
 	cData->getKacheln(12).TextAendern(ssText.str(), 200);
 }
@@ -130,14 +130,14 @@ void Scoutbuero::ErhohenDesMoeglichenRanges()
 		if (iRangmin == 6)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(14).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutb�ro\nfindet Einzelkampfer die\neinen h�heren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
+			ss << "Das Scoutbuero\nfindet Einzelkampfer die\neinen hoeheren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(14).TextAendern(ss.str(), 320);
 		}
 	}	

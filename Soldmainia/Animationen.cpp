@@ -143,7 +143,7 @@ void Animationen::startUpgradeAnimation(int Spalte, int breite, int hohe)
 
 		else
 			tempx += (Spalte > 3) ? breite+50 : ((Spalte > 2) ? 150 : 60);
-		Pfeile[i].setPosition(((Spalte - 1) * 230) +(Spalte*20) + tempx, tempy);
+		Pfeile[i].setPosition(((Spalte - 1) * 230) + (Spalte * 20) + tempx, tempy);
 	}
 }
 

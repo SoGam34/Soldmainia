@@ -61,7 +61,7 @@ void Batilion_Ausbildungszentrum::Vorbereiten_neueAusbildung()
 	BerrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
-	ssText << "Neues Batilion Ausbilden\nGr��e: " << iBatilionsgroesse << "\nKampfkraft: " << iBatilionsgroesse * 10 * fGrundstaerke << "\nKosten: " << iAusfuhrungsKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGroese: " << iBatilionsgroesse << "\nKampfkraft: " << iBatilionsgroesse * 10 * fGrundstaerke << "\nKosten: " << iAusfuhrungsKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 
 	cData->getKacheln(8).neueAnzeige(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
 	// Hinzuf�gen aller Notiger Buttens 
@@ -75,7 +75,7 @@ inline void Batilion_Ausbildungszentrum::aktualisierenInformationsText()
 {
 	//Aktualieseiren der Anzeige wie das n�chste Batilion ausehen wird 
 	std::stringstream ssText;
-	ssText << "Neues Batilion Ausbilden\nGr��e: " << iBatilionsgroesse << "\nKampfkraft: " << iBatilionsgroesse * 10 * fGrundstaerke << "\nKosten: " << iAusfuhrungsKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
+	ssText << "Neues Batilion Ausbilden\nGroese: " << iBatilionsgroesse << "\nKampfkraft: " << iBatilionsgroesse * 10 * fGrundstaerke << "\nKosten: " << iAusfuhrungsKostenFaktor * iVoraussichtlicheZeit << "\nVorausichtlich fertig in: " << iVoraussichtlicheZeit;
 	
 	cData->getKacheln(8).TextAendern(ssText.str(), 200);
 }
@@ -109,14 +109,14 @@ void Batilion_Ausbildungszentrum::ErhohenDerGrundstarke()
 		if (fGrundstaerke > 24)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(10).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundst�rke\nKosten: " << fUpgradeKosten[1];
+			ss << "Erhoung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(10).TextAendern(ss.str(), 350);
 		}
 

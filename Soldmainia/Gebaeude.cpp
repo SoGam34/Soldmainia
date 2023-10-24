@@ -51,7 +51,7 @@ void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[0];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		//cData->getAnimationen().startUpgradeAnimation(2);
+		cData->getAnimationen().startUpgradeAnimation(2, cData->getBreite(), cData->getHohe());
 
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[0]);					// Abziehn der Verbesserungskosten
 		
@@ -68,7 +68,7 @@ void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
 		if (iAufgabenDurchfuehrungZeitFaktor < 0.10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(iProzessHauptKachel+1).neueAnzeige(ss.str(), 350, 1, 285, 95);
 		}
 
@@ -88,7 +88,7 @@ void Gebaeude::ReduzierenDerAusfuhrungsKosten()
 		std::stringstream ss;
 		ss << -fUpgradeKosten[2];
 		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		//cData->getAnimationen().startUpgradeAnimation(4);
+		cData->getAnimationen().startUpgradeAnimation(4, cData->getBreite(), cData->getHohe());
 		
 		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[2]);			// Abziehn der Verbesserungskosten
 		
@@ -105,7 +105,7 @@ void Gebaeude::ReduzierenDerAusfuhrungsKosten()
 		if (iAusfuhrungsKostenFaktor == 10)
 		{
 			// Ausgabe des neuen Textes
-			ss << "Die Maximale Stufe\nw�rde erreicht.\nSie k�nnen diesen\nPrarameter nicht mehr\noprimieren";
+			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
 			cData->getKacheln(iProzessHauptKachel+3).neueAnzeige(ss.str(), 350, 1, 785, 95);
 		}
 
