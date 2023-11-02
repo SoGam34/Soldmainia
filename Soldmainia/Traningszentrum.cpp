@@ -51,7 +51,7 @@ const std::stringstream Traningszentrum::GebaudeAktivText() const
 void Traningszentrum::BeendenDerAusfuhrung()
 {
 	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batilions 
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batillions 
 	BerrechnungVoraussichtlicheZeit();
 	
 	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
@@ -74,7 +74,7 @@ void Traningszentrum::BeendenDerAusfuhrung()
 inline void Traningszentrum::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
-	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
+	ssText << "Sie wahlen eine\nEinheit(Batillion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
 	
 	cData->getKacheln(16).TextAendern(ssText.str(), 200);
 }
@@ -93,7 +93,7 @@ void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			aktualisierenInformationsText();
 			BerrechnungVoraussichtlicheZeit();
@@ -109,7 +109,7 @@ void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
+			ss << "Erhoehung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(16).TextAendern(ss.str(), 350);
 		}
 	}

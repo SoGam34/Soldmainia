@@ -59,7 +59,7 @@ void Gebaeude::BeschleunigungDerAufgabenDurchfuehrung()
 		iAufgabenDurchfuehrungZeitFaktor -= 0.05;		// Durchf�ren der Verbesserung 
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			aktualisierenInformationsText();
 			BerrechnungVoraussichtlicheZeit();

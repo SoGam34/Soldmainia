@@ -18,7 +18,7 @@ unsigned const int Scoutbuero::GebaeudeAusfuhrungskosten() const
 const std::stringstream Scoutbuero::GebaudeAktivText() const
 {
 	 std::stringstream ssText;
-	 ssText << "Die Mitarbeiter des\nScoutbueros suchen intensiv\nnach einem Geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
+	 ssText << "Die Mitarbeiter des\nScoutbueros suchen intensiv\nnach einem geeignetem\nMitglied. Die Suche\ndauert voraussichtlich\nnoch " << getTimerstand();
 	 return ssText;
 }
 
@@ -27,14 +27,14 @@ const std::stringstream Scoutbuero::GebaudeAktivText() const
 void Scoutbuero::BeendenDerAusfuhrung()
 {
 	std::stringstream ssText;
-	ssText << "Starke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
+	ssText << "Staerke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
 	cData->getKacheln(12).neueAnzeige(ssText.str(), 160, 99, 1, 1);
 	cData->getKacheln(12).ButtonHinzufuegen(35, 400, 200, 30, 5, "Annehmen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
 	cData->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 6, "Ablehnen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
 
 	
 	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
-	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich Abgeschlossen");
+	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich abgeschlossen");
 }
 
 void Scoutbuero::Annehmen()
@@ -59,7 +59,7 @@ void Scoutbuero::Ablehnen()
 inline void Scoutbuero::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
-	ssText << "Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
+	ssText << "Einselkaempfer rekutieren\n(EM)\nEin EM bekommt\nein Teil der finanzellen\nBelohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftraegen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	
 	cData->getKacheln(12).TextAendern(ssText.str(), 200);
 }
@@ -121,7 +121,7 @@ void Scoutbuero::ErhohenDesMoeglichenRanges()
 		}
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktualisierenInformationsText();
@@ -137,7 +137,7 @@ void Scoutbuero::ErhohenDesMoeglichenRanges()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbuero\nfindet Einzelkampfer die\neinen hoeheren Rang\nund Potenzial habne\nKosten: " << fUpgradeKosten[1];
+			ss << "Das Scoutbuero\nfindet Einzelkaempfer die\neinen hoeheren Rang\nund Potenzial haben\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(14).TextAendern(ss.str(), 320);
 		}
 	}	

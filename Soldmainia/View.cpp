@@ -29,7 +29,7 @@ void View::DrawHauptmenu(int iTage)
 {
 	cData->getAnimationen().clearWindow(window);
 	drawSprite(0, 8);
-	drawText(0, 8, "Hauptmenu", iTage);
+	drawText(0, 8, "Hauptmenue", iTage);
 	cData->getAnimationen().draw(*window);
 	window->display();
 }
@@ -72,7 +72,7 @@ void View::DrawTraningszentrum(int iTage)
 		drawFenster(16, 4);
 		drawSprite(16, 4);
 		cData->getAnimationen().draw(*window);
-		drawText(16, 4, "Traingszentrum", iTage);
+		drawText(16, 4, "Trainingszentrum", iTage);
 		window->display();
 }
 

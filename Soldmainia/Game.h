@@ -26,9 +26,9 @@ public:
 	enum AktuellesMenu
 	{
 		Hauptmenu, Zentrale, scoutbuero,
-		Batilionsausbildungsstate, traningszentrum,
+		Batillionsausbildungsstate, traningszentrum,
 		Auftraege, AAuftraege, LogistikSystem,
-		erholungsresort, EinzelMitglieder, Batilione
+		erholungsresort, EinzelMitglieder, Batillione
 	};
 	AktuellesMenu eAktuellesMenu;
 
@@ -47,7 +47,7 @@ public:
 
 	//Gebaude
 	//BAZ
-	Batilion_Ausbildungszentrum* cBAZ;
+	Batillion_Ausbildungszentrum* cBAZ;
 
 	//Scoutbuero
 	Scoutbuero* cScoutbuero;

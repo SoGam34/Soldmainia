@@ -2,15 +2,15 @@
 #include "Gebaeude.h"
 #include "Data.h"
 
-class Batilion_Ausbildungszentrum : public Gebaeude
+class Batillion_Ausbildungszentrum : public Gebaeude
 {
 public:
 	//--------------------------------Konstruktoren----------------------------------------------//
-	Batilion_Ausbildungszentrum()=delete;
+	Batillion_Ausbildungszentrum()=delete;
 
 	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung 
-	Batilion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
-	~Batilion_Ausbildungszentrum();
+	Batillion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
+	~Batillion_Ausbildungszentrum();
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
 	
@@ -35,7 +35,7 @@ public:
 	/*
 	Name: AnzahlErhohen
 	param: keine 
-	Aufgabe: Die Funktion erhot die Groeße des Batilions was ausgebildet werden soll
+	Aufgabe: Die Funktion erhot die Groeße des Batillions was ausgebildet werden soll
 	Retrun: keine
 	*/
 	void AnzahlErhohen();
@@ -43,7 +43,7 @@ public:
 	/*
 	Name: AnzahlReduzieren
 	param: keine 
-	Aufgabe: Die Funktion rediziert die Groeße des Batilions was ausgebildet werden soll
+	Aufgabe: Die Funktion rediziert die Groeße des Batillions was ausgebildet werden soll
 	Retrun: keine
 	*/
 	void AnzahlReduzieren();
@@ -81,12 +81,12 @@ public:
 	/*
 	Name: ErhohenDerGrundstarke
 	param: keine 
-	Aufgabe: Die Funktion modifiziert fGrundstaerke, sodass das Batilion starker ist und passt den Kontostand sowie die Kacheln an
+	Aufgabe: Die Funktion modifiziert fGrundstaerke, sodass das Batillion starker ist und passt den Kontostand sowie die Kacheln an
 	Retrun: keine
 	*/
 	void ErhohenDerGrundstarke();
 
 private:
-	unsigned short int iBatilionsgroesse = 10;
+	unsigned short int iBatillionsgroesse = 10;
 	float fGrundstaerke = 10;
 };

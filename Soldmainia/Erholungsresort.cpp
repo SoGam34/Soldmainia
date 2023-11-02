@@ -32,7 +32,7 @@ const std::stringstream Erholungsresort::GebaudeAktivText() const
 void Erholungsresort::BeendenDerAusfuhrung()
 {
 	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batilions 
+	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batillions 
 	BerrechnungVoraussichtlicheZeit();
 
 	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
@@ -53,7 +53,7 @@ void Erholungsresort::BeendenDerAusfuhrung()
 inline void Erholungsresort::aktualisierenInformationsText()
 {
 	std::stringstream ssText;
-	ssText << "Sie wahlen eine\nEinheit(Batilion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
+	ssText << "Sie wahlen eine\nEinheit(Batillion/EM) aus,\nwelche sich dann\nVersorgt wird,\ndadurch steigen die\nErfolgsraten und\nUberlebenschance in\nEinsatzen verbessert.";
 	
 	cData->getKacheln(24).TextAendern(ssText.str(), 200);
 }
@@ -72,7 +72,7 @@ void Erholungsresort::ErhohenDerTraningsWirksamkeit()
 		//cData->getAnimationen().startUpgradeAnimation(3);
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batilion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			aktualisierenInformationsText();
 			BerrechnungVoraussichtlicheZeit();
@@ -88,7 +88,7 @@ void Erholungsresort::ErhohenDerTraningsWirksamkeit()
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
+			ss << "Erhoehung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
 			cData->getKacheln(26).TextAendern(ss.str(), 350);
 		}
 	}

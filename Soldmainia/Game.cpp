@@ -6,7 +6,7 @@ Game::Game()
 	myData = std::make_shared<Data>();
 	
 	//Gebaude
-	std::thread worker1([=]() { cBAZ = new Batilion_Ausbildungszentrum(myData, mSicherung); });
+	std::thread worker1([=]() { cBAZ = new Batillion_Ausbildungszentrum(myData, mSicherung); });
 	
 	std::thread worker2([=]() { cScoutbuero = new Scoutbuero(myData, mSicherung); });
 
@@ -68,8 +68,8 @@ void Game::TextAnzeigeinitzaliesieren()
 	std::lock_guard<std::mutex> lock(mSicherung);
 	//Hauptmenu erste Zeile
 	myData->getKacheln(0).TextAendern("Zentrale", 250);
-	myData->getKacheln(1).TextAendern("Batilionausbildungszentrum", 250);
-	myData->getKacheln(2).TextAendern("Traningszentrum", 250);
+	myData->getKacheln(1).TextAendern("Batillionausbildungszentrum", 250);
+	myData->getKacheln(2).TextAendern("Trainingszentrum", 250);
 	myData->getKacheln(3).TextAendern("Scout Buero", 250);
 	//Hauptmenu zweite Zeile
 	myData->getKacheln(4).TextAendern("Auftraege", 255 + 220);
@@ -78,7 +78,7 @@ void Game::TextAnzeigeinitzaliesieren()
 	myData->getKacheln(7).TextAendern("Erholungsresort", 255 + 220);
 	//BAZ
 	myData->getKacheln(9) .TextAendern("Beschleunigt die\nAusbildungsdauer um 5%\n Kosten 100", 350);
-	myData->getKacheln(10).TextAendern("Erhoung der Grundstaerke\nKosten 100", 350);
+	myData->getKacheln(10).TextAendern("Erhoehung der Grundstaerke\nKosten 100", 350);
 	myData->getKacheln(11).TextAendern("Reduzierung der Kosten\nKosten 100", 350);
 	//Scoutbuero
 	myData->getKacheln(12).TextAendern("Einselkaempfer Rekutieren\n(EM)\nEin EM bekommt\nein Teil der Finanzellen\nBehlohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftragen.", 200);
@@ -120,7 +120,7 @@ void Game::update()
 						eAktuellesMenu = Zentrale;
 					}break;
 					case 2: {
-						eAktuellesMenu = Batilionsausbildungsstate;
+						eAktuellesMenu = Batillionsausbildungsstate;
 					}break;
 					case 3: {
 						eAktuellesMenu = traningszentrum;
@@ -186,7 +186,7 @@ void Game::update()
 
 	}break;
 
-	case Batilionsausbildungsstate:
+	case Batillionsausbildungsstate:
 	{
 		int temp = 0;
 		{
@@ -433,7 +433,7 @@ void Game::checkSortcuts()
 					eAktuellesMenu = Zentrale;
 
 				if (cKeyboard.isKeyPressed(cKeyboard.A))
-					eAktuellesMenu = Batilionsausbildungsstate;
+					eAktuellesMenu = Batillionsausbildungsstate;
 
 				if (cKeyboard.isKeyPressed(cKeyboard.S))
 					eAktuellesMenu = scoutbuero;
@@ -472,7 +472,7 @@ void Game::mahlen()
 	{           
 		cView->DrawHauptmenu(iTag);
 	}break;
-	case Batilionsausbildungsstate:
+	case Batillionsausbildungsstate:
 	{
 		cView->DrawBAZ(iTag);
 	}break;
