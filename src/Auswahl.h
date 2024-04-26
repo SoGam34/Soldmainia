@@ -1,19 +1,12 @@
 #pragma once
-#include "Data.h"
+#include "Data/Data.h"
 
 class Auswahl
 {
 public:
 	Auswahl()=delete;
-	Auswahl(std::shared_ptr<Data> data, std::mutex& mutex);
+	Auswahl(std::shared_ptr<Data> data);
 	~Auswahl();
-
-	// Erzeugen der Kacheln
-	void AnzeigeVorbereitung();
-
-	std::optional<int> updateAuswahl(sf::Vector2i MousPos);
-	//Anzeigen
-	void Mahlen(sf::RenderWindow& window);
 
 	// Such Allgerhytmen
 	void SucheNachEinsetzbarenEinheiten();
@@ -28,19 +21,11 @@ public:
 
 	void leeren();
 	// Sortieren
-	void up();
 	void SortiereNachStarke();
-	void down();
 
 private:
-	std::vector <std::unique_ptr<Kachel>> vKacheln;
 	std::vector <int> vAusgewahlteEinheiten;
-	std::shared_ptr<Data> myData;
-
-	Button* cButtenLinks;
-	Button* cButtenRechts;
-	Button* cButtenUP;
-	Button* cButtenDown;
+	std::shared_ptr<Data> Daten;
 
 };
 

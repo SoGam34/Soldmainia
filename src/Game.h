@@ -7,10 +7,8 @@
 #include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
-#include <thread>
 #include <chrono>
 #include <memory>
-#include <mutex>
 
 class Game
 {
@@ -23,45 +21,43 @@ public:
 
 
 	//Allgemein
-	enum AktuellesMenu
+	enum Menus
 	{
-		Hauptmenu, Zentrale, scoutbuero,
+		Hauptmenu, zentrale, scoutbuero,
 		Batillionsausbildungsstate, traningszentrum,
 		Auftraege, AAuftraege, LogistikSystem,
 		erholungsresort, EinzelMitglieder, Batillione
 	};
-	AktuellesMenu eAktuellesMenu;
+	Menus AktuellesMenu;
 
-	sf::Vector2i vMauspos;
+	/*sf::Vector2i vMauspos;
 	sf::Mouse cMouse;
 	sf::Keyboard cKeyboard;
 
-	sf::Clock clTagesTimer;
-	int iTag;
+	sf::Clock clTagesTimer;*/
+	int Tag;
 
-	std::shared_ptr<Data> myData;
+	std::shared_ptr<Data> Daten;
 
-	std::unique_ptr<View> cView;
+	std::unique_ptr<View> View;
 
-	bool bAuswahl;
+	bool Auswahl;
 
 	//Gebaude
 	//BAZ
-	Batillion_Ausbildungszentrum* cBAZ;
+	Batillion_Ausbildungszentrum* BAZ;
 
 	//Scoutbuero
-	Scoutbuero* cScoutbuero;
+	Scoutbuero* Scoutbueros;
 
 	//Trainingzentrum 
-	Traningszentrum* cTraingzentrum;
+	Traningszentrum* Traningzentren;
 
 	//Zentrale
-	Zentale* cZentrale;
+	Zentale* Zentrale;
 
 	//Erholungsresort
-	Erholungsresort* cErholungsresort;
-
-	std::mutex mSicherung;
+	Erholungsresort* Erholungsresorts;
 
 	//std::vector<void> test;
 	//Funktionen

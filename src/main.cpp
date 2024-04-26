@@ -2,9 +2,7 @@
 
 int main()
 {
-	Game cGame;
-	//std::thread worker(&Game::TextAnzeigeinitzaliesieren, cGame);
-	//worker.join();
-	cGame.SpielLauft();
+	Game Spiel;
+	Spiel.SpielLauft();
 	return 0;
 }

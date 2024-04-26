@@ -4,13 +4,11 @@
 #include <iostream>
 #include <time.h>
 #include <sstream>
-#include <mutex>
 #include <memory>
-#include <thread>
 #include <optional>
 #include <unordered_map>
 
 #include "Timer.h"
-#include "Butten.h"
-#include "Textfeld.h"
-#include "Kachel.h"
+#include "../Rendern/Butten.h"
+#include "../Rendern/Textfeld.h"
+#include "../Rendern/Kachel.h"

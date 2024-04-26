@@ -21,7 +21,7 @@ public:
 	const int getTimerstandMitID(int ID) const;
 
 private:
-	int iTimer; // Einzel
-    std::vector <std::pair<int,int>> vTimer; // ID Timer
+	int EinzelTimer; // Einzel
+    std::vector <std::pair<int,int>> IDTimer; // ID Timer
 };
 

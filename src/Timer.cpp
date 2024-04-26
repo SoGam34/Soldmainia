@@ -3,51 +3,51 @@
 
 Timer::Timer()
 {
-	vTimer.clear();
-	iTimer = 0;
+	IDTimer.clear();
+	EinzelTimer = 0;
 }
 
 void Timer::aktTimer()
 {
-	iTimer--;
-	for (auto e : vTimer)
+	EinzelTimer--;
+	for (auto e : IDTimer)
 		e.second--;
 }
 
  void Timer::neuerTimer(int Dauer)
 {
-	iTimer = Dauer;
+	 EinzelTimer = Dauer;
 }
 
  bool Timer::checkTimerAbgelaufen()
 {
-	if (iTimer == 0)
+	if (EinzelTimer == 0)
 		return true;
 	return false;
 }
 
  void Timer::neuerTimerMitID(int Dauer, int ID)
 {
-	vTimer.push_back(std::make_pair(ID, Dauer));
+	IDTimer.push_back(std::make_pair(ID, Dauer));
 }
 
 bool Timer::checkTimerAbgelaufenMitID(int ID)
 {
-	for (int i = 0; i < vTimer.size(); i++)
-		if (vTimer[i].first == ID)
-			if (vTimer[i].second == 0)
+	for (int i = 0; i < IDTimer.size(); i++)
+		if (IDTimer[i].first == ID)
+			if (IDTimer[i].second == 0)
 				return true;
 	return false;
 }
 
 const int Timer::getTimerstand() const
 {
-	return iTimer;
+	return EinzelTimer;
 }
 
 const int Timer::getTimerstandMitID(int ID) const
 {
-	for (int i = 0; i < vTimer.size(); i++)
-		if (vTimer[i].first == ID)
-			return vTimer[i].second;
+	for (int i = 0; i < IDTimer.size(); i++)
+		if (IDTimer[i].first == ID)
+			return IDTimer[i].second;
 }
