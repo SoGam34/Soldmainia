@@ -1,5 +1,10 @@
 #pragma once
-#include "Data.h"
+
+#include "../Data/Data.h"
+#include "../Timer.h"
+
+
+#include <memory>
 
 class Gebaeude : public Timer
 {
@@ -8,7 +13,7 @@ public:
 	Gebaeude()=delete;
 
 	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung 
-	Gebaeude(std::shared_ptr<Data> data, unsigned short int iHauptKachel, unsigned short int KostenFaktor, unsigned short int ZeitFaktor, std::mutex& mutex);
+	Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor, unsigned short int ZeitFaktor);
 	~Gebaeude();				  
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -19,7 +24,7 @@ public:
 	Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
 	Retrun: Die Funktion gibt die kosten als int zurueck
 	*/
-	virtual unsigned const int GebaeudeAusfuhrungskosten() const = 0;
+	virtual unsigned const int getGebaeudeAusfuhrungskosten() const = 0;
 	
 	/*
 	Name: BeginnAufgabe
@@ -27,7 +32,7 @@ public:
 	Aufgabe: Die Funktion beginnt die Aufgabe des Gebaudes z.b. beim BAZ der start der Ausbildung  
 	Retrun: keine
 	*/
-	void BeginnAufgabe(std::mutex& mutex);
+	void BeginnAufgabe();
 	
 	/*
 	Name: aktualisierenProzessZustand
@@ -98,33 +103,33 @@ public:
 	void aktualisierenTimer();					
 
 
-	// Data zeiger
-	std::shared_ptr<Data> cData;
+	// Daten zeiger
+	std::shared_ptr<Data> Daten;
 	
 	// Wenn true dann wird die Aufgabe Ausgefuhrt der Prozess ist am laufen/aktiv	
-	bool bProzessAktiv;	
+	bool ProzessAktiv;
 	
 	// Gibt an wie lange die Ausbildung vorausichtlich dauert 				
-	unsigned short int iVoraussichtlicheZeit;
+	unsigned short int VoraussichtlicheZeit;
 	
 	// Zeit versatz der mit der Vorausichtlichen addiert wird was die tatsachliche benoetigte Zeit ergibt 
-	unsigned short int iZeitversatz;
+	unsigned short int Zeitversatz;
 	
 	// ein Faktor der zur Berrechnung der vorausichtlichen Zeit benoetigt wird und der einzige auf den der Spieler einen direkten einfluss hat ueber die Upgrades
-	float iAufgabenDurchfuehrungZeitFaktor;
+	float AufgabenDurchfuehrungZeitFaktor;
 	
 	//ein Faktor der zur Berrechnung der Ausfuhrungs Kosten benoetigt wird, der Spieler hat auf ihn einen direkten einfluss ueber die Upgrades
-	unsigned short int iAusfuhrungsKostenFaktor;
+	unsigned short int AusfuhrungsKostenFaktor;
 
 	// ein Faktor der zur Berrechnung der vorausichtlichen Zeit benoetigt wird und auf den die einzelnen Gebaude einen individuellen einfluss haben 
-	unsigned short int iGebaeudeEinflussZeitFaktor;
+	unsigned short int GebaeudeEinflussZeitFaktor;
 
 	//Speichert die Kosten der fuer die Upgrades 
-	float fUpgradeKosten[3];
+	float UpgradeKosten[3];
 
 private:
 
 	//Speichert die Array Position der Aufgaben Kachel des gebaudes 
-	short int iProzessHauptKachel;
+	short int ProzessHauptKachel;
 };
 
