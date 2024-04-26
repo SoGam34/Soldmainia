@@ -1,43 +1,4 @@
 #pragma once
-#include "Animationen.h"
-
-struct Einheit
-{
-	unsigned short int HP;
-	unsigned short int Moral;
-	unsigned short int Starke;
-	unsigned short int Grosse;
-	bool Einsatzbereit;
-	std::string sName;
-	unsigned int XP;
-	unsigned int Level;
-
-	Einheit(std::string name, unsigned short int hp = 100, unsigned short int moral = 10, unsigned short int starke = 1, bool einsatzbereit = true, unsigned short int grosse=1, unsigned int xp=1)
-	{
-		sName = name;
-		HP = hp;
-		Moral = moral;
-		Starke = starke;
-		Einsatzbereit = einsatzbereit;
-		Grosse = grosse;
-		XP = xp;
-		Level = 0;
-	}
-
-	void XPHinzufugen(unsigned int newXP)
-	{
-		XP+=newXP;
-		if(XP/100>0)
-		{
-			Level+=XP/100;
-		}
-	}
-
-	inline const std::string getName() const
-	{
-		return sName;
-	}
-};
 
 
 class Data
