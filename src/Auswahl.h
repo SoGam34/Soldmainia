@@ -1,5 +1,10 @@
 #pragma once
 #include "Data/Data.h"
+#include "Einheit.h"
+
+#include<iterator> // for iterators
+
+#include <memory>
 
 class Auswahl
 {
@@ -9,22 +14,27 @@ public:
 	~Auswahl();
 
 	// Such Allgerhytmen
-	void SucheNachEinsetzbarenEinheiten();
+	void sucheNachEinsetzbarenEinheiten();
 
-	void SucheNachVerletzten();
+	void sucheNachVerletzten();
 
-	void SucheNachTruppenmoral();
+	void sucheNachTruppenmoral();
 
-	void SucheNachStarke(int min);
-
-	void SucheEinsetzbare_UND_GesundeEinheiten();
+	void sucheNachStarke(int min);
 
 	void leeren();
 	// Sortieren
-	void SortiereNachStarke();
+	void sortiereNachStarke(); //TODO Upgrade: Auf- und Absteigend sortieren
+
+	void sortiereNachVerletzten();	//TODO Upgrade: Auf- und Absteigend sortieren
+
+	void sortiereNachTruppenmoral();	//TODO Upgrade: Auf- und Absteigend sortieren
 
 private:
-	std::vector <int> vAusgewahlteEinheiten;
+
+	void entferneDopplungen();
+
+	std::vector <int> AusgewahlteEinheiten;
 	std::shared_ptr<Data> Daten;
 
 };

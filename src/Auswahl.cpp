@@ -1,10 +1,9 @@
-#include "PreHeader.h"
 #include "Auswahl.h"
 
 Auswahl::Auswahl(std::shared_ptr<Data> data)
 {
 	Daten = data;
-	vAusgewahlteEinheiten.clear();
+	AusgewahlteEinheiten.clear();
 }
 
 Auswahl::~Auswahl()
@@ -12,95 +11,128 @@ Auswahl::~Auswahl()
 	leeren();
 }
 
-void Auswahl::SucheNachEinsetzbarenEinheiten()
+void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
-	vAusgewahlteEinheiten.clear();
-	for (int i = 0; i < Daten->getEinheiten().size(); i++)
+	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].Einsatzbereit)
+		if (Daten->getEinheiten()[i].getEinsatzbereit())
 		{
-			vAusgewahlteEinheiten.emplace_back(i);
+			AusgewahlteEinheiten.emplace_back(i);
+		}
+	}
+
+	entferneDopplungen();
+}
+
+void Auswahl::entferneDopplungen()
+{
+	for (std::vector<int>::iterator i = AusgewahlteEinheiten.begin(); 0 < AusgewahlteEinheiten.size(); i++)
+	{
+		for (std::vector<int>::iterator j = AusgewahlteEinheiten.begin(); j < AusgewahlteEinheiten.size(); j++)
+		{
+			if(AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
+			{
+				AusgewahlteEinheiten.erase(j);
+			}
 		}
 	}
 }
 
-void Auswahl::SucheNachVerletzten()
+void Auswahl::sucheNachVerletzten()
 {
-	/*vAusgewahlteEinheiten.clear();
-	for (int i = 0; i < myData->getEinheiten().size(); i++)
+	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].HP != 100)
+		if (Daten->getEinheiten()[i].getLeben() < 100)
 		{
-			vAusgewahlteEinheiten.emplace_back(i);
+			AusgewahlteEinheiten.emplace_back(i);
 		}
 	}
 
-	AnzeigeVorbereitung();
-	*/
+	entferneDopplungen();
 }
 
-void Auswahl::SucheNachTruppenmoral()
+void Auswahl::sucheNachTruppenmoral()
 {
-	/*vAusgewahlteEinheiten.clear();
-	for (int i = 0; i < myData->getEinheiten().size(); i++)
+	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].Moral != 10)
+		if (Daten->getEinheiten()[i].getMoral() < 10)
 		{
-			vAusgewahlteEinheiten.emplace_back(i);
+			AusgewahlteEinheiten.emplace_back(i);
 		}
 	}
 
-	AnzeigeVorbereitung();
-	*/
+	entferneDopplungen();
 }
 
-void Auswahl::SucheNachStarke(int min)
+void Auswahl::sucheNachStarke(int min)
 {
-	/*vAusgewahlteEinheiten.clear();
-	for (int i = 0; i < myData->getEinheiten().size(); i++)
+	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (myData->getEinheiten()[myData->getEinheitsnamen()[i]].HP >= min)
+		if (Daten->getEinheiten()[i].getStarke() >= min)
 		{
-			vAusgewahlteEinheiten.emplace_back(i);
+			AusgewahlteEinheiten.emplace_back(i);
 		}
 	}
-	*/
-}
 
-void Auswahl::SucheEinsetzbare_UND_GesundeEinheiten()
-{
-	vAusgewahlteEinheiten.clear();
-	for (int i = 0; i < Daten->getEinheiten().size(); i++)
-	{
-		if (Daten->getEinheiten()[i].Einsatzbereit && Daten->getEinheiten()[i].HP==100)
-		{
-			vAusgewahlteEinheiten.emplace_back(i);
-		}
-	}
+	entferneDopplungen();
 }
 
 void Auswahl::leeren()
 {
-	for (; 0 < vAusgewahlteEinheiten.size();)
-		{
-			vAusgewahlteEinheiten.erase(vAusgewahlteEinheiten.begin());
-		}
+	for (; 0 < AusgewahlteEinheiten.size();)
+	{
+		AusgewahlteEinheiten.erase(AusgewahlteEinheiten.begin());
+	}
 }
 
-void Auswahl::SortiereNachStarke()
+void Auswahl::sortiereNachStarke()
 {
-	/*for (int i = 0; i < vAusgewahlteEinheiten.size(); i++)
+	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 	{
-		for (int j = 0; j < vAusgewahlteEinheiten.size(); j++)
+		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (i > j)
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getStarke() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
 			{
-				std::string temp;
-				temp = vAusgewahlteEinheiten[j];
-				vAusgewahlteEinheiten[j] = vAusgewahlteEinheiten[i];
-				vAusgewahlteEinheiten[i] = temp;
+				size_t temp;
+				temp = AusgewahlteEinheiten[j];
+				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+				AusgewahlteEinheiten[i] = temp;
 			}
 		}
 	}
-	*/
 }
+
+void Auswahl::sortiereNachVerletzten()
+{
+	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+	{
+		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		{
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getLeben() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+			{
+				size_t temp;
+				temp = AusgewahlteEinheiten[j];
+				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+				AusgewahlteEinheiten[i] = temp;
+			}
+		}
+	}
+}
+
+void Auswahl::sortiereNachTruppenmoral()
+{
+	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+	{
+		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		{
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getMoral() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+			{
+				size_t temp;
+				temp = AusgewahlteEinheiten[j];
+				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+				AusgewahlteEinheiten[i] = temp;
+			}
+		}
+	}
+}
+
