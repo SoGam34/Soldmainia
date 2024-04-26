@@ -1,6 +1,12 @@
 #pragma once
 
 
+#include <vector>
+
+
+#include "../Einheit.h"
+#include "../Rendern/Kachel.h"
+
 class Data
 {
 public:
@@ -12,59 +18,27 @@ public:
 
 	Kachel& getKacheln(int pos);
 
-	Animationen& getAnimationen();
-
 	std::vector<Einheit>& getEinheiten();
 
-	const void addEinheit(const Einheit& const e);
+	void addEinheit(const Einheit& e);
 
 	unsigned int getBekanntheit();
 
 	void setBekanntheit(unsigned int value);
 
-	sf::Font* getFont();
+	int getKontostand();
 
-	int getiKontostand();
-
-	void setiKontostand(int kontostand);
-
-	void setBenarichtigungAktiv();
-
-	bool getBenarichtigungAktiv();
-
-	int getBreite();
-
-	void setBreite(int value);
-
-	int getHohe();
-
-	void setHohe(int value);
-
-	sf::Vector2f getWindowSize();
-
-	void setWindowSize(sf::Vector2f windowsize);
+	void setKontostand(int kontostand);
 
 private:
 
-	sf::Vector2f WindowSize;
-
-	//Kachel
-	int iBreite = 230;
-	int iHohe = 200;
-	int iAbstandthalter = 20;
-	sf::Font sfFont;
-
-	// Animationen
-	Animationen *cAnimationen;
-	bool bBenarichtigungAktiv = false;
-	bool bUpgradeAnimation = false;
 
 	//Geld
-	int iKontostand = 1000000000;
+	int Kontostand = 1000000000;
 
 	//Einheiten
-	unsigned int iBekanntheit;
-	std::vector<Einheit> umEinheiten;
+	unsigned int Bekantheit;
+	std::vector<Einheit> Einheiten;
 
 	Kachel aKacheln[28]
 	{

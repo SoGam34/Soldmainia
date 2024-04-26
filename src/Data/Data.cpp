@@ -2,11 +2,7 @@
 
 	Data::Data()
 	{
-		cAnimationen =  new Animationen(sfFont);
-		WindowSize.x = 1020;
-		WindowSize.y = 500;
 
-		sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
 
 		//BAZ
 		aKacheln[11].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 35, 2 * iHohe + 50, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[11].getGroese().x, aKacheln[11].getGroese().y);
@@ -36,7 +32,7 @@
 		aKacheln[26].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[26].getGroese().x, aKacheln[26].getGroese().y);
 		aKacheln[27].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[27].getGroese().x, aKacheln[27].getGroese().y);
 
-		umEinheiten.clear();
+		Einheiten.clear();
 
 		Einheit e("Kai");
 		Einheit r("Alina");
@@ -64,82 +60,32 @@
 		return aKacheln[pos];
 	}
 
-	Animationen& Data::getAnimationen()
-	{
-		return *cAnimationen;
-	}
-
 	std::vector<Einheit>& Data::getEinheiten()
 	{
-		return umEinheiten;
+		return Einheiten;
 	}
 
-	const void Data::addEinheit(const Einheit& const e)
+	void Data::addEinheit(const Einheit& e)
 	{
-		umEinheiten.emplace_back(e);
+		Einheiten.emplace_back(e);
 	}
 
 	unsigned int Data::getBekanntheit()
 	{
-		return iBekanntheit;
+		return Bekantheit;
 	}
 
 	void Data::setBekanntheit(unsigned int value)
 	{
-		iBekanntheit = value;
+		Bekantheit = value;
 	}
 
-	sf::Font* Data::getFont()
+	int Data::getKontostand()
 	{
-		return &sfFont;
+		return Kontostand;
 	}
 
-	int Data::getiKontostand()
+	void Data::setKontostand(int kontostand)
 	{
-		return iKontostand;
-	}
-
-	void Data::setiKontostand(int kontostand)
-	{
-		iKontostand = kontostand;
-	}
-
-	void Data::setBenarichtigungAktiv()
-	{
-		bBenarichtigungAktiv = true;
-	}
-
-	bool Data::getBenarichtigungAktiv()
-	{
-		return bBenarichtigungAktiv;
-	}
-
-	int Data::getBreite()
-	{
-		return iBreite;
-	}
-
-	void Data::setBreite(int value)
-	{
-		iBreite = value;
-	}
-
-	int Data::getHohe()
-	{
-		return iHohe;
-	}
-
-	void Data::setHohe(int value)
-	{
-		iHohe = value;
-	}
-
-	sf::Vector2f Data::getWindowSize()
-	{
-		return WindowSize;
-	}
-
-	void Data::setWindowSize(sf::Vector2f windowsize)
-	{
-		WindowSize = windowsize;
+		Kontostand = kontostand;
 	}
