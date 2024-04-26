@@ -1,8 +1,8 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 12, 400, 1, mutex), iRangmin(1)
+Scoutbuero::Scoutbuero(std::shared_ptr<Data> data) : Gebaeude(data, 400, 1), Rangmin(1)
 {
-	eRang = static_cast<Rang>(rand() % 2 + iRangmin);
+	Rang = static_cast<Range>(rand() % 2 + Rangmin);
 	//iLevel[0] = iLevel[1] = iLevel[2] = 0;
 }
 
@@ -12,7 +12,7 @@ Scoutbuero::~Scoutbuero()
 
 unsigned const int Scoutbuero::GebaeudeAusfuhrungskosten() const
 {
-	return (eRang * iAusfuhrungsKostenFaktor * (iVoraussichtlicheZeit + iZeitversatz));
+	return (Rang * AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz));
 }
 
 const std::stringstream Scoutbuero::GebaudeAktivText() const
@@ -28,32 +28,32 @@ void Scoutbuero::BeendenDerAusfuhrung()
 {
 	std::stringstream ssText;
 	ssText << "Staerke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
-	cData->getKacheln(12).neueAnzeige(ssText.str(), 160, 99, 1, 1);
-	cData->getKacheln(12).ButtonHinzufuegen(35, 400, 200, 30, 5, "Annehmen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
-	cData->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 6, "Ablehnen", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
+	Daten->getKacheln(12).neueAnzeige(ssText.str(), 160, 99, 1, 1);
+	Daten->getKacheln(12).ButtonHinzufuegen(35, 400, 200, 30, 5, "Annehmen", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, Data->getKacheln(12).getGroese().x, Data->getKacheln(12).getGroese().y);
+	Daten->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 6, "Ablehnen", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255,150,0), sf::Color::White, Data->getKacheln(12).getGroese().x, Data->getKacheln(12).getGroese().y);
 
 	
-	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
-	cData->getAnimationen().startBenarichtigung(true, "Suche erfolgreich abgeschlossen");
+	ProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
+	//Daten->getAnimationen().startBenarichtigung(true, "Suche erfolgreich abgeschlossen");	TODO UI Animation
 }
 
 void Scoutbuero::Annehmen()
 {
 	// EM dauerhaft in Data speichern
-	cData->getKacheln(12).neueAnzeige("Error in Annehmen", 160, 99, 1, 1);
+	Daten->getKacheln(12).neueAnzeige("Error in Annehmen", 160, 99, 1, 1);
 	aktualisierenInformationsText();
-	cData->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 1, "Starten", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
-	cData->getAnimationen().startBenarichtigung(true, "EM Angenomen");
+	Daten->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 1, "Starten", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, Data->getKacheln(12).getGroese().x, Data->getKacheln(12).getGroese().y);
+	//Daten->getAnimationen().startBenarichtigung(true, "EM Angenomen");	TODO UI Animation
 }
 
 void Scoutbuero::Ablehnen()
 {
 	//EM = nullptr
-	cData->getKacheln(12).neueAnzeige("Error in Ablehnen", 160, 99, 1, 1);
+	Daten->getKacheln(12).neueAnzeige("Error in Ablehnen", 160, 99, 1, 1);
 	aktualisierenInformationsText();
-	cData->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 1, "Starten", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(12).getGroese().x, cData->getKacheln(12).getGroese().y);
-	cData->getAnimationen().startBenarichtigung(false, "EM Abgelehnt");
-	bProzessAktiv = false;
+	Daten->getKacheln(12).ButtonHinzufuegen(35, 450, 200, 30, 1, "Starten", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, Data->getKacheln(12).getGroese().x, Data->getKacheln(12).getGroese().y);
+	//Daten->getAnimationen().startBenarichtigung(false, "EM Abgelehnt");	TODO UI Animation
+	ProzessAktiv = false;
 }
 
 inline void Scoutbuero::aktualisierenInformationsText()
@@ -61,84 +61,84 @@ inline void Scoutbuero::aktualisierenInformationsText()
 	std::stringstream ssText;
 	ssText << "Einselkaempfer rekutieren\n(EM)\nEin EM bekommt\nein Teil der finanzellen\nBelohnung und hat\neine Affinitaet.\nDie Affinitaet erlaubt\ndie Ausstatung spezieller\nWaffen und bringt\nVorteile bei bestimmten\nAuftraegen."; //\nSuchkosten: " << eRang * iKostenmitarbeiter * iVoraussichtlicheZeit << "\nVoraussichtliche dauer: " << iVoraussichtlicheZeit;
 	
-	cData->getKacheln(12).TextAendern(ssText.str(), 200);
+	Daten->getKacheln(12).TextAendern(ssText.str(), 200);
 }
 
 void Scoutbuero::ErhohenDesMoeglichenRanges()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[1] && iRangmin<6)								// �berpr�fen ob die Ausbildung bezahlt werden kann
+	if (Daten->getKontostand() > UpgradeKosten[1] && Rangmin<6)								// �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
-		iRangmin++;																							// Durchf�ren der Verbesserung 
-		fUpgradeKosten[1] *= 1.6;								// Speichern der neuen Verbesserungskosten
+		Rangmin++;																							// Durchf�ren der Verbesserung
+		UpgradeKosten[1] *= 1.6;								// Speichern der neuen Verbesserungskosten
 		std::stringstream ss;
-		ss << -fUpgradeKosten[1];
-		eRang = static_cast<Rang>(rand() % 2 + iRangmin);
-		iGebaeudeEinflussZeitFaktor = eRang;
+		ss << -UpgradeKosten[1];
+		Rang = static_cast<Range>(rand() % 2 + Rangmin);
+		GebaeudeEinflussZeitFaktor = Rang;
 		
-		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]);					// Abziehn der Verbesserungskosten
-		cData->getAnimationen().startBenarichtigung(false, ss.str());
+		Daten->setKontostand(Daten->getKontostand() - UpgradeKosten[1]);					// Abziehn der Verbesserungskosten
+		//Daten->getAnimationen().startBenarichtigung(false, ss.str());	TODO UI Animation
 		//cData->getAnimationen().startUpgradeAnimation(3);
 
 		
 		//Erzeugen eines EM Objektes
-		switch (eRang)
+		switch (Rang)
 		{
 		case S:
 		{
-			iZeitversatz = rand() % 20 + 7;
+			Zeitversatz = rand() % 20 + 7;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case A:
 		{
-			iZeitversatz = rand() % 20 + 9;
+			Zeitversatz = rand() % 20 + 9;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case B:
 		{
-			iZeitversatz = rand() % 20 + 11;
+			Zeitversatz = rand() % 20 + 11;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case C:
 		{
-			iZeitversatz = rand() % 20 + 13;
+			Zeitversatz = rand() % 20 + 13;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case D:
 		{
-			iZeitversatz = rand() % 20 + 15;
+			Zeitversatz = rand() % 20 + 15;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case E:
 		{
-			iZeitversatz = rand() % 20 + 17;
+			Zeitversatz = rand() % 20 + 17;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		case F:
 		{
-			iZeitversatz = rand() % 20 + 19;
+			Zeitversatz = rand() % 20 + 19;
 			BerrechnungVoraussichtlicheZeit();
 		}break;
 		}
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!ProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			BerrechnungVoraussichtlicheZeit();
 			aktualisierenInformationsText();
 		}
 
-		if (iRangmin == 6)
+		if (Rangmin == 6)
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(14).neueAnzeige(ss.str(), 350, 1, 535, 95);
+			Daten->getKacheln(14).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Das Scoutbuero\nfindet Einzelkaempfer die\neinen hoeheren Rang\nund Potenzial haben\nKosten: " << fUpgradeKosten[1];
-			cData->getKacheln(14).TextAendern(ss.str(), 320);
+			ss << "Das Scoutbuero\nfindet Einzelkaempfer die\neinen hoeheren Rang\nund Potenzial haben\nKosten: " << UpgradeKosten[1];
+			Daten->getKacheln(14).TextAendern(ss.str(), 320);
 		}
 	}	
 }

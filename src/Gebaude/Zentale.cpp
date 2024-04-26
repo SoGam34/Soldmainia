@@ -1,8 +1,7 @@
 #include "Zentale.h"
 
-Zentale::Zentale(std::shared_ptr<Data> data, std::mutex& mutex)
+Zentale::Zentale(std::shared_ptr<Data> data)
 {
-	cData = data;
 }
 
 Zentale::~Zentale()

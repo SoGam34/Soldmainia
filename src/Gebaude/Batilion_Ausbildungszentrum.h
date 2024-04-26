@@ -1,6 +1,5 @@
 #pragma once
 #include "Gebaeude.h"
-#include "Data.h"
 
 class Batillion_Ausbildungszentrum : public Gebaeude
 {
@@ -9,7 +8,7 @@ public:
 	Batillion_Ausbildungszentrum()=delete;
 
 	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung 
-	Batillion_Ausbildungszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
+	Batillion_Ausbildungszentrum(std::shared_ptr<Data> data);
 	~Batillion_Ausbildungszentrum();
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -21,7 +20,7 @@ public:
 	Retrun: Die Funktion gibt die kosten als int zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
-	unsigned const int GebaeudeAusfuhrungskosten() const;
+	unsigned const int getGebaeudeAusfuhrungskosten() const;
 
 	/*
 	Name: GebaudeAktivText
@@ -87,6 +86,6 @@ public:
 	void ErhohenDerGrundstarke();
 
 private:
-	unsigned short int iBatillionsgroesse = 10;
-	float fGrundstaerke = 10;
+	unsigned short int Batillionsgroesse = 10;
+	float Grundstaerke = 10;
 };

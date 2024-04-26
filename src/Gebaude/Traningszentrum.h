@@ -1,6 +1,6 @@
 #pragma once
 #include "Gebaeude.h"
-#include "Auswahl.h"
+#include "../Auswahl.h"
 
 class Traningszentrum : public Gebaeude, public Auswahl
 {
@@ -9,7 +9,7 @@ public:
 	Traningszentrum()=delete;
 
 	//Konstrucktor mit allen informationen fuer eine vollstandige Initzialisierung
-	Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex);
+	Traningszentrum(std::shared_ptr<Data> data);
 	~Traningszentrum();
 	
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -21,7 +21,7 @@ public:
 	Retrun: Die Funktion gibt die kosten als int zurueck
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
-	unsigned const int GebaeudeAusfuhrungskosten() const;
+	unsigned const int getGebaeudeAusfuhrungskosten() const;
 
 	/*
 	Name: LangeTrainingsDauer
@@ -53,7 +53,7 @@ public:
 	Aufgabe: Die Funktion speichert den Namen der Ausgewahlten Einheit und startet die Ausbildung 
 	Retrun: keine
 	*/
-	void AuswahlZuOrdnen(int Position, std::mutex& mutex);
+	void AuswahlZuOrdnen(int Position);
 	
 	/*
 	Name: GebaudeAktivText
@@ -99,6 +99,6 @@ private:
 	int EinheitsVPosition;
 
 	//Speichert den Wirksamkeitsgrad und ist damit ein wichtiger Faktor in der Berrechnung der Xp die die Einheit bekommt und kann vom Spieler veraendert werden
-	unsigned short int iWirksamkeitsgrad;
+	unsigned short int Wirksamkeitsgrad;
 };
 

@@ -3,6 +3,12 @@
 
 View::View(std::shared_ptr<Data> data, std::mutex& mutex)
 {
+	cAnimationen =  new Animationen(sfFont);
+			WindowSize.x = 1020;
+			WindowSize.y = 500;
+
+			sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
+
 	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
 	window->setFramerateLimit(26);
 
@@ -175,7 +181,7 @@ void View::drawText(int start, int range, std::string titel, int iTag)
 	std::stringstream ssTitel;
 	float temp = 20;
 		
-	ssTitel << "Kontostand: " << cData->getiKontostand();
+	ssTitel << "Kontostand: " << cData->getKontostand();
 	sfText.setString(ssTitel.str());
 	sfText.setPosition(temp, sfText.getPosition().y);
 	window->draw(sfText);

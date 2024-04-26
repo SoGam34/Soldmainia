@@ -1,7 +1,7 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(std::shared_ptr<Data> data, std::mutex& mutex) : Gebaeude(data, 16,100,1, mutex), Auswahl(data, mutex),
-iWirksamkeitsgrad(1)
+Traningszentrum::Traningszentrum(std::shared_ptr<Data> data) : Gebaeude(data,100,1), Auswahl(data),
+Wirksamkeitsgrad(1)
 {
 }
 
@@ -10,64 +10,64 @@ Traningszentrum::~Traningszentrum()
 }
 
 
-unsigned const int Traningszentrum::GebaeudeAusfuhrungskosten() const
+unsigned const int Traningszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	return iAusfuhrungsKostenFaktor *(iVoraussichtlicheZeit+iZeitversatz)*cData->getEinheiten()[EinheitsVPosition].Grosse;
+	return AusfuhrungsKostenFaktor *(VoraussichtlicheZeit+Zeitversatz)*Daten->getEinheiten()[EinheitsVPosition].Grosse;
 }
 
 void Traningszentrum::LangeTrainingsDauer()
 {
-	iGebaeudeEinflussZeitFaktor = 3;
+	GebaeudeEinflussZeitFaktor = 3;
 	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::MittlereTrainingsDauer()
 {
-	iGebaeudeEinflussZeitFaktor = 2;
+	GebaeudeEinflussZeitFaktor = 2;
 	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
 void Traningszentrum::KurzeTraningsDauer()
 {
-	iGebaeudeEinflussZeitFaktor = 1;
+	GebaeudeEinflussZeitFaktor = 1;
 	SucheEinsetzbare_UND_GesundeEinheiten();
 }
 
-void Traningszentrum::AuswahlZuOrdnen(int Position, std::mutex& mutex)
+void Traningszentrum::AuswahlZuOrdnen(int Position)
 {
 	EinheitsVPosition = Position;
 	leeren();
-	BeginnAufgabe(mutex);
+	BeginnAufgabe();
 }
 
 const std::stringstream Traningszentrum::GebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird 
 	std::stringstream ssText;
-	ssText << "Die Einheit "<<cData->getEinheiten()[EinheitsVPosition].sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<iVoraussichtlicheZeit<<"\nTagen abgeschlossen";
+	ssText << "Die Einheit "<<Daten->getEinheiten()[EinheitsVPosition].sName<<"\nwird gerade Trainiert\nDas Training ist\nvorausicht in "<<VoraussichtlicheZeit<<"\nTagen abgeschlossen";
 	return ssText;
 }
 
 void Traningszentrum::BeendenDerAusfuhrung()
 {
 	//neues Kachel Bild
-	iZeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batillions 
+	Zeitversatz = rand() % 5 + 3;		// Berechnung der Ausbildungsdauer des n�chsten Batillions
 	BerrechnungVoraussichtlicheZeit();
 	
-	bProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
+	ProzessAktiv = false;	// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
 	
 	std::stringstream ssText;			// Der Text der Angezeigt werden soll
 	ssText << "Neue Einheit Trainieren\nDie Einheit erhalt\nErfahrungspunkte was sie\nStarker macht und\ndie Erfolgsraten in\nEinsatzen verbessert.\nDie Menge der\nErfahrungspunkte hangt von\nder Dauer ab";
 
-	cData->getKacheln(16).neueAnzeige(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes 
+	Daten->getKacheln(16).neueAnzeige(ssText.str(), 200, 99, 1, 1);	// Akktualiesieren des Textes
 	//// Hinzuf�gen aller Notiger Buttens 
-	cData->getKacheln(16).ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit",		*cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
-	cData->getKacheln(16).ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
-	cData->getKacheln(16).ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", *cData->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, cData->getKacheln(16).getGroese().x, cData->getKacheln(16).getGroese().y);
+	Daten->getKacheln(16).ButtonHinzufuegen(45, 450, 200, 30, 5, "Lange Tranings Einheit",		*Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, Data->getKacheln(16).getGroese().x, Data->getKacheln(16).getGroese().y);
+	Daten->getKacheln(16).ButtonHinzufuegen(45, 350, 200, 30, 6, "Kurze Trainings Einheit", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, Data->getKacheln(16).getGroese().x, Data->getKacheln(16).getGroese().y);
+	Daten->getKacheln(16).ButtonHinzufuegen(45, 400, 200, 30, 7, "Mittlere trainings Einheit", *Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, Data->getKacheln(16).getGroese().x, Data->getKacheln(16).getGroese().y);
 	
-	cData->getAnimationen().startBenarichtigung(true, "Das Training ist beendet");
+	//Daten->getAnimationen().startBenarichtigung(true, "Das Training ist beendet");	TODO UI Animation
 
-	cData->getEinheiten()[EinheitsVPosition].XPHinzufugen(iWirksamkeitsgrad* iGebaeudeEinflussZeitFaktor);
+	Daten->getEinheiten()[EinheitsVPosition].XPHinzufugen(Wirksamkeitsgrad* GebaeudeEinflussZeitFaktor);
 }
 
 
@@ -76,41 +76,41 @@ inline void Traningszentrum::aktualisierenInformationsText()
 	std::stringstream ssText;
 	ssText << "Sie wahlen eine\nEinheit(Batillion/EM) aus,\nwelche im Zentrum\ntraniert wird,\ndadurch wird sie\nStarker und erhalt\nKampferfahrung was ein\nVorteil in Einsatzen\nist.";
 	
-	cData->getKacheln(16).TextAendern(ssText.str(), 200);
+	Daten->getKacheln(16).TextAendern(ssText.str(), 200);
 }
 
 void Traningszentrum::ErhohenDerTraningsWirksamkeit()
 {
-	if (cData->getiKontostand() > fUpgradeKosten[1] && iWirksamkeitsgrad < 25)	// �berpr�fen ob die Ausbildung bezahlt werden kann
+	if (Daten->getKontostand() > UpgradeKosten[1] && Wirksamkeitsgrad < 25)	// �berpr�fen ob die Ausbildung bezahlt werden kann
 	{
-		iWirksamkeitsgrad += 1;												// Durchf�ren der Verbesserung 
-		fUpgradeKosten[1] *= 1.6;											// Speichern der neuen Verbesserungskosten
-		cData->setiKontostand(cData->getiKontostand() - fUpgradeKosten[1]); // Abziehn der Verbesserungskosten
+		Wirksamkeitsgrad += 1;												// Durchf�ren der Verbesserung
+		UpgradeKosten[1] *= 1.6;											// Speichern der neuen Verbesserungskosten
+		Daten->setKontostand(Daten->getKontostand() - UpgradeKosten[1]); // Abziehn der Verbesserungskosten
 		
 		std::stringstream ss;
-		ss << -fUpgradeKosten[1];
-		cData->getAnimationen().startBenarichtigung(false, ss.str());
-		cData->getAnimationen().startUpgradeAnimation(3, cData->getBreite(), cData->getHohe());
+		ss << -UpgradeKosten[1];
+		//Daten->getAnimationen().startBenarichtigung(false, ss.str());	TODO UI Animation
+		//Daten->getAnimationen().startUpgradeAnimation(3, Data->getBreite(), Data->getHohe());	TODO UI Animation
 
 		ss.str("");
-		if (!bProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
+		if (!ProzessAktiv)	// �berpr�ft ob ein Batillion ausgebildet wird, wenn ja wird die Anzeige und  Uhr nicht aktualiesiert da dies zu Anzeigebugs f�hrt
 		{
 			aktualisierenInformationsText();
 			BerrechnungVoraussichtlicheZeit();
 		}
 
-		if (iWirksamkeitsgrad > 24)
+		if (Wirksamkeitsgrad > 24)
 		{
 			// Ausgabe des neuen Textes
 			ss << "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
-			cData->getKacheln(16).neueAnzeige(ss.str(), 350, 1, 535, 95);
+			Daten->getKacheln(16).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
-			ss << "Erhoehung der Grundstaerke\nKosten: " << fUpgradeKosten[1];
-			cData->getKacheln(16).TextAendern(ss.str(), 350);
+			ss << "Erhoehung der Grundstaerke\nKosten: " << UpgradeKosten[1];
+			Daten->getKacheln(16).TextAendern(ss.str(), 350);
 		}
 	}
 }

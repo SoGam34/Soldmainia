@@ -1,6 +1,5 @@
 #pragma once
 #include "Gebaeude.h"
-#include "Data.h"
 
 class Scoutbuero : public Gebaeude
 {
@@ -9,7 +8,7 @@ public:
 	Scoutbuero()=delete;
 
 	//Konstrucktor mit allen informationen für eine vollstandige Initzialisierung 
-	Scoutbuero(std::shared_ptr<Data> data, std::mutex& mutex);
+	Scoutbuero(std::shared_ptr<Data> data);
 	~Scoutbuero();		
 
 	//--------------------------------Aufgaben Ablauf----------------------------------------------//
@@ -21,7 +20,7 @@ public:
 	Retrun: Die Funktion gibt die kosten als int zurück
 	Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt 
 	*/
-	unsigned const int GebaeudeAusfuhrungskosten() const;
+	unsigned const int getGebaeudeAusfuhrungskosten() const;
 
 	/*
 	Name: GebaudeAktivText
@@ -79,10 +78,10 @@ public:
 
 private:
 	// Der mindest Rang den ein EM haben kann
-	int iRangmin;
+	int Rangmin;
 	// Fuer eine einfachere Verwaltung der Suche und Erzeugung
-	enum Rang { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
+	enum Range { S = 7, A = 6, B = 5, C = 4, D = 3, E = 2, F = 1 };
 	//Das Objekt in dem der aktuelle Rang gespeichrt wird 
-	Rang eRang;
+	Range Rang;
 };
 

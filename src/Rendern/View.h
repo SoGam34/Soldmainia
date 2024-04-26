@@ -35,6 +35,20 @@ private:
 	//window
 	sf::RenderWindow* window;
 	
+//Beginn. Die Nachfolgenden Variablen sind aus Data nach hier verschoben, da sie hier Inhaltlich deutlich besser passen.
+	sf::Vector2f WindowSize;
+
+	//Kachel
+	int iBreite = 230;
+	int iHohe = 200;
+	int iAbstandthalter = 20;
+	sf::Font sfFont;
+
+	// Animationen
+	Animationen *cAnimationen;
+	bool bBenarichtigungAktiv = false;
+	bool bUpgradeAnimation = false;
+	//Ende
 
 	// Data zeiger
 	std::shared_ptr<Data> cData;
