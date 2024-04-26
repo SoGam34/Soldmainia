@@ -3,7 +3,7 @@
 	Data::Data()
 	{
 
-
+/*
 		//BAZ
 		aKacheln[11].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 35, 2 * iHohe + 50, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[11].getGroese().x, aKacheln[11].getGroese().y);
 		aKacheln[10].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 35, 2 * iHohe + 50, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White, aKacheln[10].getGroese().x, aKacheln[10].getGroese().y);
@@ -31,7 +31,7 @@
 		aKacheln[25].ButtonHinzufuegen(1 * iAbstandthalter + 1 * iBreite + 45, 450, 200, 30, 2, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[25].getGroese().x, aKacheln[25].getGroese().y);
 		aKacheln[26].ButtonHinzufuegen(2 * iAbstandthalter + 2 * iBreite + 45, 450, 200, 30, 3, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[26].getGroese().x, aKacheln[26].getGroese().y);
 		aKacheln[27].ButtonHinzufuegen(3 * iAbstandthalter + 3 * iBreite + 45, 450, 200, 30, 4, "Upgrade", sfFont, sf::Color::Black, sf::Color(100, 100, 100), sf::Color(50, 50, 50), sf::Color::White, aKacheln[27].getGroese().x, aKacheln[27].getGroese().y);
-
+*/
 		Einheiten.clear();
 
 		Einheit e("Kai");

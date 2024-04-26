@@ -26,11 +26,13 @@ void Auswahl::sucheNachEinsetzbarenEinheiten()
 
 void Auswahl::entferneDopplungen()
 {
-	for (std::vector<int>::iterator i = AusgewahlteEinheiten.begin(); 0 < AusgewahlteEinheiten.size(); i++)
+	for (std::vector<int>::iterator i = AusgewahlteEinheiten.begin();
+			0 < AusgewahlteEinheiten.size(); i++)
 	{
-		for (std::vector<int>::iterator j = AusgewahlteEinheiten.begin(); j < AusgewahlteEinheiten.size(); j++)
+		for (std::vector<int>::iterator j = AusgewahlteEinheiten.begin();
+				j < AusgewahlteEinheiten.size(); j++)
 		{
-			if(AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
+			if (AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
 			{
 				AusgewahlteEinheiten.erase(j);
 			}
@@ -42,7 +44,7 @@ void Auswahl::sucheNachVerletzten()
 {
 	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getLeben() < 100)
+		if (Daten->getEinheiten()[i].getLeben() < MAX_LEBEN)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -55,7 +57,7 @@ void Auswahl::sucheNachTruppenmoral()
 {
 	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getMoral() < 10)
+		if (Daten->getEinheiten()[i].getMoral() < MAX_MORAL)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -91,7 +93,8 @@ void Auswahl::sortiereNachStarke()
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getStarke() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
+					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];
@@ -108,7 +111,8 @@ void Auswahl::sortiereNachVerletzten()
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getLeben() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
+					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];
@@ -125,7 +129,8 @@ void Auswahl::sortiereNachTruppenmoral()
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getMoral() > Daten->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
+					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];

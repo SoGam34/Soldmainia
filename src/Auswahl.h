@@ -9,7 +9,7 @@
 class Auswahl
 {
 public:
-	Auswahl()=delete;
+	Auswahl() = delete;
 	Auswahl(std::shared_ptr<Data> data);
 	~Auswahl();
 
@@ -26,16 +26,19 @@ public:
 	// Sortieren
 	void sortiereNachStarke(); //TODO Upgrade: Auf- und Absteigend sortieren
 
-	void sortiereNachVerletzten();	//TODO Upgrade: Auf- und Absteigend sortieren
+	void sortiereNachVerletzten(); //TODO Upgrade: Auf- und Absteigend sortieren
 
-	void sortiereNachTruppenmoral();	//TODO Upgrade: Auf- und Absteigend sortieren
+	void sortiereNachTruppenmoral(); //TODO Upgrade: Auf- und Absteigend sortieren
 
 private:
 
 	void entferneDopplungen();
 
-	std::vector <int> AusgewahlteEinheiten;
+	std::vector<int> AusgewahlteEinheiten;
 	std::shared_ptr<Data> Daten;
+
+	const int MAX_LEBEN = 100;
+	const int MAX_MORAL = 10;
 
 };
 
