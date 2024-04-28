@@ -9,6 +9,7 @@
 #include "View.h"
 #include <chrono>
 #include <memory>
+#include <chrono>
 
 class Game
 {
@@ -19,23 +20,35 @@ public:
 	//Update loop
 	void SpielLauft();
 
-
 	//Allgemein
 	enum Menus
 	{
-		Hauptmenu, zentrale, scoutbuero,
-		Batillionsausbildungsstate, traningszentrum,
-		Auftraege, AAuftraege, LogistikSystem,
-		erholungsresort, EinzelMitglieder, Batillione
+		Hauptmenu,
+		zentrale,
+		scoutbuero,
+		Batillionsausbildungsstate,
+		traningszentrum,
+		Auftraege,
+		AAuftraege,
+		LogistikSystem,
+		erholungsresort,
+		EinzelMitglieder,
+		Batillione
 	};
 	Menus AktuellesMenu;
 
 	/*sf::Vector2i vMauspos;
-	sf::Mouse cMouse;
-	sf::Keyboard cKeyboard;
+	 sf::Mouse cMouse;
+	 sf::Keyboard cKeyboard;
 
-	sf::Clock clTagesTimer;*/
+	 sf::Clock clTagesTimer;*/
 	int Tag;
+
+	std::chrono::time_point<std::chrono::steady_clock> LetzterTag;
+
+	float TagesDauer;
+
+	const int MONATS_DAUER = 30;
 
 	std::shared_ptr<Data> Daten;
 
@@ -45,19 +58,19 @@ public:
 
 	//Gebaude
 	//BAZ
-	Batillion_Ausbildungszentrum* BAZ;
+	Batillion_Ausbildungszentrum *BAZ;
 
 	//Scoutbuero
-	Scoutbuero* Scoutbueros;
+	Scoutbuero *Scoutbueros;
 
 	//Trainingzentrum 
-	Traningszentrum* Traningzentren;
+	Traningszentrum *Traningzentren;
 
 	//Zentrale
-	Zentale* Zentrale;
+	Zentale *Zentrale;
 
 	//Erholungsresort
-	Erholungsresort* Erholungsresorts;
+	Erholungsresort *Erholungsresorts;
 
 	//std::vector<void> test;
 	//Funktionen
@@ -65,6 +78,6 @@ public:
 	void update();
 	int updateButtons(int iOffset, int iAnzahlKacheln);
 	void checkSortcuts();
-	void Zeit();
+	void zeit();
 	void mahlen();
 };
