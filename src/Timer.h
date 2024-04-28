@@ -9,19 +9,19 @@ public:
 	void aktTimer();
 
 	//einzelTimer Funktion
-	 void neuerTimer(int Dauer);
-	 bool checkTimerAbgelaufen();
+	void neuerTimer(int dauer);
+	bool checkTimerAbgelaufen();
 
 	// Timer mit Id
-	 void neuerTimerMitID(int Dauer, int ID);
-	bool checkTimerAbgelaufenMitID(int ID);
+	void neuerTimerMitID(int dauer, int id);
+	bool checkTimerAbgelaufenMitID(int id);
 
 	//Get/set Funktionen
 	const int getTimerstand() const;
-	const int getTimerstandMitID(int ID) const;
+	const int getTimerstandMitID(int id) const;
 
 private:
 	int EinzelTimer; // Einzel
-    std::vector <std::pair<int,int>> IDTimer; // ID Timer
+	std::vector<std::pair<int, int>> IDTimer; // ID Timer
 };
 
