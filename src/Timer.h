@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 class Timer
 {
 public:
@@ -18,7 +20,7 @@ public:
 
 	//Get/set Funktionen
 	const int getTimerstand() const;
-	const int getTimerstandMitID(int id) const;
+	const std::optional<int> getTimerstandMitID(int id) const;
 
 private:
 	int EinzelTimer; // Einzel

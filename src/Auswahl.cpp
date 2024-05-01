@@ -87,7 +87,7 @@ void Auswahl::leeren()
 	}
 }
 
-void Auswahl::sortiereNachStarke()
+void Auswahl::sortiereNachStarke(bool aufsteigend)
 {
 	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 	{
@@ -105,7 +105,7 @@ void Auswahl::sortiereNachStarke()
 	}
 }
 
-void Auswahl::sortiereNachVerletzten()
+void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 {
 	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 	{
@@ -123,7 +123,7 @@ void Auswahl::sortiereNachVerletzten()
 	}
 }
 
-void Auswahl::sortiereNachTruppenmoral()
+void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 {
 	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 	{

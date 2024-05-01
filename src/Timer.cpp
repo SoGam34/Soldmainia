@@ -45,9 +45,12 @@ const int Timer::getTimerstand() const
 	return EinzelTimer;
 }
 
-const int Timer::getTimerstandMitID(int id) const
+const std::optional<int> Timer::getTimerstandMitID(int id) const
 {
 	for (int i = 0; i < IDTimer.size(); i++)
 		if (IDTimer[i].first == id)
 			return IDTimer[i].second;
+
+	return
+	{};
 }

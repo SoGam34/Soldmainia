@@ -2,7 +2,7 @@
 #include "Data/Data.h"
 #include "Einheit.h"
 
-#include<iterator> // for iterators
+#include <iterator> // for iterators
 
 #include <memory>
 
@@ -24,11 +24,11 @@ public:
 
 	void leeren();
 	// Sortieren
-	void sortiereNachStarke(); //TODO Upgrade: Auf- und Absteigend sortieren
+	void sortiereNachStarke(bool aufsteigend); //TODO Upgrade: Auf- und Absteigend sortieren
 
-	void sortiereNachVerletzten(); //TODO Upgrade: Auf- und Absteigend sortieren
+	void sortiereNachVerletzten(bool aufsteigend); //TODO Upgrade: Auf- und Absteigend sortieren
 
-	void sortiereNachTruppenmoral(); //TODO Upgrade: Auf- und Absteigend sortieren
+	void sortiereNachTruppenmoral(bool aufsteigend); //TODO Upgrade: Auf- und Absteigend sortieren
 
 private:
 
