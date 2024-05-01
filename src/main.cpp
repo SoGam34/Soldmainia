@@ -3,6 +3,6 @@
 int main()
 {
 	Game Spiel;
-	Spiel.SpielLauft();
+	Spiel.spielLauft();
 	return 0;
 }

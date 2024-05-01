@@ -3,13 +3,13 @@
 #include "Batilion_Ausbildungszentrum.h"
 #include "Scoutbuero.h"
 #include "Traningszentrum.h"
-#include "Zentale.h"
 #include "Erholungsresort.h"
 #include "Auswahl.h"
 #include "View.h"
 #include <chrono>
 #include <memory>
 #include <chrono>
+#include "Gebaude/Zentrale.h"
 
 class Game
 {
@@ -18,7 +18,7 @@ public:
 	Game();
 	~Game();
 	//Update loop
-	void SpielLauft();
+	void spielLauft();
 
 	//Allgemein
 	enum Menus
@@ -74,7 +74,7 @@ public:
 
 	//std::vector<void> test;
 	//Funktionen
-	void TextAnzeigeinitzaliesieren();
+	void textAnzeigeinitzaliesieren();
 	void update();
 	int updateButtons(int iOffset, int iAnzahlKacheln);
 	void checkSortcuts();

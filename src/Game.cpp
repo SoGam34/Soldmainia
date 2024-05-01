@@ -34,7 +34,7 @@ Game::~Game()
 	delete Erholungsresorts;
 }
 
-void Game::SpielLauft()
+void Game::spielLauft()
 {
 	while (View->getWindow().isOpen())
 	{
@@ -53,7 +53,7 @@ void Game::SpielLauft()
 	}
 }
 
-void Game::TextAnzeigeinitzaliesieren()
+void Game::textAnzeigeinitzaliesieren()
 {
 	//Hauptmenu erste Zeile
 	Daten->getKacheln(0).TextAendern("Zentrale", 250);
