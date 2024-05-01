@@ -1,83 +1,56 @@
 #pragma once
-#include "Data.h"
-#include "Batilion_Ausbildungszentrum.h"
-#include "Scoutbuero.h"
-#include "Traningszentrum.h"
-#include "Erholungsresort.h"
+#include "Gebaude/Batilion_Ausbildungszentrum.h"
+#include "Gebaude/Scoutbuero.h"
+#include "Gebaude/Traningszentrum.h"
+#include "Gebaude/Erholungsresort.h"
 #include "Auswahl.h"
-#include "View.h"
+#include "Rendern/View.h"
 #include <chrono>
 #include <memory>
-#include <chrono>
 #include "Gebaude/Zentrale.h"
+#include "Menus.cpp"
 
 class Game
 {
 public:
-	//Konstruktor 
 	Game();
 	~Game();
-	//Update loop
-	void spielLauft();
 
-	//Allgemein
-	enum Menus
-	{
-		Hauptmenu,
-		zentrale,
-		scoutbuero,
-		Batillionsausbildungsstate,
-		traningszentrum,
-		Auftraege,
-		AAuftraege,
-		LogistikSystem,
-		erholungsresort,
-		EinzelMitglieder,
-		Batillione
-	};
+	void spielLauft();
+private:
+
+	void textAnzeigeinitzaliesieren();
+		void update();
+		int updateButtons(int iOffset, int iAnzahlKacheln);
+		void checkSortcuts();
+		void zeit();
+		void mahlen();
+
 	Menus AktuellesMenu;
 
-	/*sf::Vector2i vMauspos;
-	 sf::Mouse cMouse;
-	 sf::Keyboard cKeyboard;
+	int AnzahlTage;
 
-	 sf::Clock clTagesTimer;*/
-	int Tag;
-
-	std::chrono::time_point<std::chrono::steady_clock> LetzterTag;
+	std::chrono::time_point<std::chrono::steady_clock> ZeitpunktDesLetztenTages;
 
 	float TagesDauer;
 
 	const int MONATS_DAUER = 30;
 
-	std::shared_ptr<Data> Daten;
+	bool ImEinheitsAuswahlMenu;
 
 	std::unique_ptr<View> View;
 
-	bool Auswahl;
+	std::shared_ptr<Data> Daten;
 
-	//Gebaude
-	//BAZ
 	Batillion_Ausbildungszentrum *BAZ;
 
-	//Scoutbuero
 	Scoutbuero *Scoutbueros;
 
-	//Trainingzentrum 
 	Traningszentrum *Traningzentren;
 
-	//Zentrale
-	Zentale *Zentrale;
+	Zentrale *Hauptquatier;
 
-	//Erholungsresort
 	Erholungsresort *Erholungsresorts;
 
-	//std::vector<void> test;
-	//Funktionen
-	void textAnzeigeinitzaliesieren();
-	void update();
-	int updateButtons(int iOffset, int iAnzahlKacheln);
-	void checkSortcuts();
-	void zeit();
-	void mahlen();
+
 };
