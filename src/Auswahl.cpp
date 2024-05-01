@@ -2,7 +2,7 @@
 
 Auswahl::Auswahl(std::shared_ptr<Data> data)
 {
-	Daten = data;
+	DatenAuswahl = data;
 	AusgewahlteEinheiten.clear();
 }
 
@@ -13,9 +13,23 @@ Auswahl::~Auswahl()
 
 void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
-	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getEinsatzbereit())
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
+				&& DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
+		{
+			AusgewahlteEinheiten.emplace_back(i);
+		}
+	}
+
+	entferneDopplungen();
+}
+
+void Auswahl::sucheNachEinsetzbarenEinheiten()
+{
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	{
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit())
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -42,9 +56,9 @@ void Auswahl::entferneDopplungen()
 
 void Auswahl::sucheNachVerletzten()
 {
-	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getLeben() < MAX_LEBEN)
+		if (DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -55,9 +69,9 @@ void Auswahl::sucheNachVerletzten()
 
 void Auswahl::sucheNachTruppenmoral()
 {
-	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getMoral() < MAX_MORAL)
+		if (DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -68,9 +82,9 @@ void Auswahl::sucheNachTruppenmoral()
 
 void Auswahl::sucheNachStarke(int min)
 {
-	for (size_t i = 0; i < Daten->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (Daten->getEinheiten()[i].getStarke() >= min)
+		if (DatenAuswahl->getEinheiten()[i].getStarke() >= min)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -93,8 +107,8 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
-					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
+					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];
@@ -111,8 +125,8 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
-					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
+					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];
@@ -129,8 +143,8 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (Daten->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
-					> Daten->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
+					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
 			{
 				size_t temp;
 				temp = AusgewahlteEinheiten[j];

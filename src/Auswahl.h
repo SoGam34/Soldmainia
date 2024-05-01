@@ -16,6 +16,8 @@ public:
 	// Such Allgerhytmen
 	void sucheNachEinsetzbarenEinheiten();
 
+	void sucheNachUnverletztenEinsetzbarenEinheiten();
+
 	void sucheNachVerletzten();
 
 	void sucheNachTruppenmoral();
@@ -35,7 +37,7 @@ private:
 	void entferneDopplungen();
 
 	std::vector<int> AusgewahlteEinheiten;
-	std::shared_ptr<Data> Daten;
+	std::shared_ptr<Data> DatenAuswahl;
 
 	const int MAX_LEBEN = 100;
 	const int MAX_MORAL = 10;
