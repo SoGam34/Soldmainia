@@ -18,11 +18,7 @@ public:
 
 	void spielLauft();
 private:
-
-	void textAnzeigeinitzaliesieren();
 		void update();
-		int updateButtons(int iOffset, int iAnzahlKacheln);
-		void checkSortcuts();
 		void zeit();
 		void mahlen();
 
