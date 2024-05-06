@@ -4,6 +4,7 @@
 #include "../Timer.h"
 
 #include <memory>
+#include <sstream>
 
 class Gebaeude: public Timer
 {
@@ -101,7 +102,7 @@ public:
 	 Retrun: kein
 	 */
 	void aktualisierenTimer();
-
+protected:
 	// Daten zeiger
 	std::shared_ptr<Data> Daten;
 

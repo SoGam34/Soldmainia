@@ -12,17 +12,17 @@ Game::Game()
 
 	Traningzentren = new Traningszentrum(Daten);
 
-	Zentrale = new Hauptquatier(Daten);
+	Hauptquatier = new Zentrale(Daten);
 
 	Erholungsresorts = new Erholungsresort(Daten);
 
-	//Auswahl
-	AnzahlTage = 0;
-	ImEinheitsAuswahlMenu = false;
-
-	View = std::make_unique<View>(Daten);
+	view = std::make_unique<View>(Daten);
 
 	ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
+
+	AktuellesMenu = hauptmenu;
+
+	Stats = GebaeudeStats();
 }
 
 Game::~Game()
@@ -36,130 +36,82 @@ Game::~Game()
 
 void Game::spielLauft()
 {
-	while (View->getWindow().isOpen())
+	while (view->getSpielIstAktiv())
 	{
 		update();
 
-		checkSortcuts();
-
 		zeit();
 
-		if (View->getWindow().isOpen())
-		{
-			//Daten->getAnimationen().Aktualisieren(View->getMousPos());	TODO UI Animation
-
-			mahlen();
-		}
+		view->ausgabe(AktuellesMenu, Stats);
 	}
+
+	Daten->saveGameToFile();
 }
 
 void Game::update()
 {
-	vMauspos = View->getMousPos();
+	int eingabe = view->getLetzteNutzerEingabe();
+
+	if (eingabe == AUSWAHL_SPEICHERN)
+	{
+		Daten->saveGameToFile();
+	}
 
 	switch (AktuellesMenu)
 	{
 
 	case hauptmenu:
 	{
-		int temp = 1;
-		//std::lock_guard<std::mutex> lock(mSicherung);
-		for (int i = 0; i < 8; i++)
+
+		switch (eingabe)
 		{
-			if (Daten->getHauptmenu(i).MausSchwebtDrueber(vMauspos))
-			{
-				if (Daten->getHauptmenu(i).getTextureGroessenSkalierungsFaktor()
-						< 1.1)
-				{
-					Daten->getHauptmenu(i).setTextureGroessenSkalierungsFaktor(
-							Daten->getKacheln(i).getTextureGroessenSkalierungsFaktor()
-									+ 0.01);
-					Daten->getHauptmenu(i).setTexturePosition(
-							sf::Vector2f(
-									Daten->getKacheln(i).getTexturePosition().x
-											- 1,
-									Daten->getKacheln(i).getTexturePosition().y
-											- 2));
-				}
-
-				if (Daten->getHauptmenu(i).wirdGedruedckt())
-				{
-					Daten->getHauptmenu(i).setKachel_Gedruecktfarbe();
-					switch (Daten->getHauptmenu(i).getID())
-					{
-					case 1:
-					{
-						AktuellesMenu = zentrale;
-					}
-						break;
-					case 2:
-					{
-						AktuellesMenu = batillionsausbildungsstate;
-					}
-						break;
-					case 3:
-					{
-						AktuellesMenu = traningszentrum;
-					}
-						break;
-					case 4:
-					{
-						AktuellesMenu = scoutbuero;
-					}
-						break;
-					case 5:
-					{
-						AktuellesMenu = erholungsresort;
-					}
-						break;
-					case 6:
-					{
-						AktuellesMenu = auftraege;
-					}
-						break;
-					case 7:
-					{
-						AktuellesMenu = aauftraege;
-					}
-						break;
-					case 8:
-					{
-						AktuellesMenu = logistikSystem;
-					}
-						break;
-					default:
-					{
-						AktuellesMenu = hauptmenu;
-					}
-						break;
-					}
-				}
-				else
-					Daten->getHauptmenu(i).setKachel_Schwebefarbe();
-
-			}
-			else
-			{
-				Daten->getHauptmenu(i).setTextureGroessenSkalierungsFaktor(1);
-				Daten->getHauptmenu(i).setKachel_Hintergrundfarbe();
-				if (i < 4)
-					Daten->getHauptmenu(i).setTexturePosition(
-							sf::Vector2f(
-									i * Daten->getBreite() + (i + 1) * 20 + 15,
-									70));
-
-				else
-				{
-					Daten->getHauptmenu(i).setTexturePosition(
-							sf::Vector2f(
-									temp * Daten->getBreite() + (temp + 1) * 20
-											+ 15, Daten->getHohe() + 90));
-				}
-			}
-
-			if (i > 3)
-				temp++;
+		case AUSWAHL_MENU_ZENTRALE:
+		{
+			AktuellesMenu = zentrale;
 		}
+			break;
+		case AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM:
+		{
+			AktuellesMenu = batillionsausbildungsstate;
+		}
+			break;
+		case AUSWAHL_MENU_TRANINGSZENTRUM:
+		{
+			AktuellesMenu = traningszentrum;
+		}
+			break;
+		case AUSWAHL_MENU_SCOUTBUERO:
+		{
+			AktuellesMenu = scoutbuero;
+		}
+			break;
+		case AUSWAHL_MENU_ERHOLUNGSRESORT:
+		{
+			AktuellesMenu = erholungsresort;
+		}
+			break;
+		case AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE:
+		{
+			AktuellesMenu = auftraege;
+		}
+			break;
+		case AUSWAHL_MENU_LAUFENDE_AUFTRAGE:
+		{
+			AktuellesMenu = aauftraege;
+		}
+			break;
+		case AUSWAHL_MENU_LOGISTIK_SYSTEM:
+		{
+			AktuellesMenu = logistikSystem;
+		}
+			break;
+		default:
+		{
+			AktuellesMenu = hauptmenu;
+		}
+			break;
+		}
+
 	}
 		break;
 
@@ -171,56 +123,42 @@ void Game::update()
 
 	case batillionsausbildungsstate:
 	{
-		int temp = 0;
-		temp = (Daten->getAnimationen().getKeineBenarichtigung()) ?
-				99 : updateButtons(8, 4);
-		switch (temp)
-		// Bestimmen welcher Butten gedr�ckt wurde
+
+		switch (eingabe)
 		{
-		case 1:
+		case AUSWAHL_AKTION_1:
 		{
 			BAZ->beginneAufgabe();	//starten Gedr�kt
 		}
 			break;
-		case 11:
+		case AUSWAHL_AKTION_2:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			BAZ->erhoheEinheitsGrosse();		//Anzahl Mitglieder wird erh�ht
 		}
 			break;
-		case 12:
+		case AUSWAHL_AKTION_3:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			BAZ->reduziereEinheitsGrosse();	//Anzahl der Mitglieder wird gesengt
 		}
 			break;
-		case 2:
+		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			BAZ->beschleunigungDerAufgabenDurchfuehrung();//Upgrade Geschwindikeit
 		}
 			break;
-		case 3:
+		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			BAZ->erhohenDerGrundstarke();	 //Upgrade Grundst�rke
 		}
 			break;
-		case 4:
+		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			BAZ->reduzierenDerAusfuhrungsKosten();//Upgrade zur kosten Reduzierung
-		}
-			break;
-		case 5:
-		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
-			BAZ->vorbereiten_neueAusbildung();
 		}
 			break;
 		default:
 		{
-			//TODO Fehlermeldung das etwas schiefgelaufen ist.
+			view->ungueltigeEingabe();
 		}
 			break;
 		}
@@ -229,51 +167,41 @@ void Game::update()
 
 	case scoutbuero:
 	{
-		int temp = 0;
+		switch (eingabe)
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
-			temp = updateButtons(12, 4);
-		}
-		switch (temp)
-		{
-		case 1:
+		case AUSWAHL_AKTION_1:
 		{
 			Scoutbueros->beginneAufgabe();				// Suche Starten
 		}
 			break;
-		case 2:
+		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			Scoutbueros->beschleunigungDerAufgabenDurchfuehrung();// Beschleunigt die Suche
 		}
 			break;
-		case 3:
+		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			Scoutbueros->erhohenDesMoeglichenRanges();// Erh�ht den mindest Rang
 		}
 			break;
-		case 4:
+		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			Scoutbueros->reduzierenDerAusfuhrungsKosten();// Reduzierung der Suchkosten
 		}
 			break;
 		case 5:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			Scoutbueros->annehmenDerEinheit();					// Annehmen
 		}
 			break;
 		case 6:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
 			Scoutbueros->ablehnenDerEinheit();					// Ablehnen
 		}
 			break;
 		default:
 		{
-			//TODO Fehlermeldung das etwas schiefgelaufen ist.
+			view->ungueltigeEingabe();
 		}
 			break;
 		}
@@ -282,116 +210,88 @@ void Game::update()
 
 	case traningszentrum:
 	{
-		if (ImEinheitsAuswahlMenu)
+		switch (eingabe)
 		{
-			auto temp = Traningzentren->updateAuswahl(vMauspos);
-			if (temp.has_value())
-			{
-				Traningzentren->AuswahlZuOrdnen(temp.value());
-				ImEinheitsAuswahlMenu = false;
-			}
+		case AUSWAHL_UPGRADE_ZEIT:
+		{
+			Traningzentren->beschleunigungDerAufgabenDurchfuehrung();
 		}
-
-		else
+			break;
+		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
-			switch (updateButtons(16, 4))
-			{
-			case 2:
-			{
-				Traningzentren->beschleunigungDerAufgabenDurchfuehrung();
-			}
-				break;
-			case 3:
-			{
-				Traningzentren->erhohenDerTraningsWirksamkeit();
-			}
-				break;
-			case 4:
-			{
-				Traningzentren->reduzierenDerAusfuhrungsKosten();
-			}
-				break;
-			case 5:
-			{
-				Traningzentren->langeTrainingsDauer();
-				ImEinheitsAuswahlMenu = true;
-			}
-				break;
-			case 6:
-			{
-				Traningzentren->kurzeTraningsDauer();
-				ImEinheitsAuswahlMenu = true;
-			}
-				break;
-			case 7:
-			{
-				Traningzentren->mittlereTrainingsDauer();
-				ImEinheitsAuswahlMenu = true;
-			}
-				break;
-			default:
-			{
-				//TODO Fehlermeldung das etwas schiefgelaufen ist.
-			}
-				break;
-			}
+			Traningzentren->erhohenDerTraningsWirksamkeit();
+		}
+			break;
+		case AUSWAHL_UPGRADE_KOSTEN:
+		{
+			Traningzentren->reduzierenDerAusfuhrungsKosten();
+		}
+			break;
+		case AUSWAHL_AKTION_1:
+		{
+			Traningzentren->langeTrainingsDauer();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+		}
+			break;
+		case AUSWAHL_AKTION_3:
+		{
+			Traningzentren->kurzeTraningsDauer();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+		}
+			break;
+		case AUSWAHL_AKTION_2:
+		{
+			Traningzentren->mittlereTrainingsDauer();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+		}
+			break;
+		default:
+		{
+			view->ungueltigeEingabe();
+		}
+			break;
 		}
 	}
 		break;
 
 	case erholungsresort:
 	{
-		if (ImEinheitsAuswahlMenu)
+		switch (eingabe)
 		{
-			auto temp = Erholungsresorts->updateAuswahl();
-			if (temp.has_value())
-			{
-				Erholungsresorts->AuswahlZuOrdnen(temp.value());
-				ImEinheitsAuswahlMenu = false;
-			}
+		case AUSWAHL_AKTION_1:
+		{
+			Erholungsresorts->leeren();
+			Erholungsresorts->sucheNachEinsetzbarenEinheiten();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
 		}
-
-		else
+		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			//std::lock_guard<std::mutex> lock(mSicherung);
-			switch (updateButtons(24, 4))
-			{
-			case 2:
-			{
-				Erholungsresorts->beschleunigungDerAufgabenDurchfuehrung();
-			}
-				break;
-			case 3:
-			{
-				Erholungsresorts->erhohenDerTraningsWirksamkeit();
-			}
-				break;
-			case 4:
-			{
-				Erholungsresorts->reduzierenDerAusfuhrungsKosten();
-			}
-				break;
+			Erholungsresorts->beschleunigungDerAufgabenDurchfuehrung();
+		}
+			break;
+		case AUSWAHL_UPGRADE_SPEZIFISCH:
+		{
+			Erholungsresorts->erhohenDerTraningsWirksamkeit();
+		}
+			break;
+		case AUSWAHL_UPGRADE_KOSTEN:
+		{
+			Erholungsresorts->reduzierenDerAusfuhrungsKosten();
+		}
+			break;
 
-			case 5:
-			{
-				Erholungsresorts->leeren();
-				Erholungsresorts->sucheNachEinsetzbarenEinheiten();
-				ImEinheitsAuswahlMenu = true;
-			}
-				break;
-			default:
-			{
-				//TODO Fehlermeldung das etwas schiefgelaufen ist.
-			}
-				break;
-			}
+			break;
+		default:
+		{
+			view->ungueltigeEingabe();
+		}
+			break;
 		}
 	}
 		break;
 	default:
 	{
-		//TODO Fehlermeldung das etwas schiefgelaufen ist.
+		view->ungueltigeEingabe();
 	}
 		break;
 
@@ -404,63 +304,20 @@ void Game::zeit()
 	{ std::chrono::duration_cast<std::chrono::seconds>(
 			std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };
 
-	if (delta_time >= TagesDauer)
+	if (delta_time >= Daten->getTagesDauer())
 	{
-		AnzahlTage++;
+		Daten->erhoheAnzahlTage();
 
 		BAZ->aktualisierenTimer();
 		Scoutbueros->aktualisierenTimer();
 		Traningzentren->aktualisierenTimer();
 		Erholungsresorts->aktualisierenTimer();
 
-		if (AnzahlTage % MONATS_DAUER == 0)
+		if (Daten->getAnzahlTage() % Daten->getMONATS_DAUER() == 0)
 		{
 			//Sold auszahlen
 		}
 
 		ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
-	}
-}
-
-void Game::mahlen()
-{
-	switch (AktuellesMenu)
-	{
-	case hauptmenu:
-	{
-		View->DrawHauptmenu(AnzahlTage);
-	}
-		break;
-	case batillionsausbildungsstate:
-	{
-		View->DrawBAZ(AnzahlTage);
-	}
-		break;
-	case scoutbuero:
-	{
-		View->DrawScoutbuero(AnzahlTage);
-	}
-		break;
-	case traningszentrum:
-	{
-		if (!ImEinheitsAuswahlMenu)
-			View->DrawTraningszentrum(AnzahlTage);
-		else
-			View->DrawDiffrent(*Traningzentren);
-	}
-		break;
-	case erholungsresort:
-	{
-		if (!ImEinheitsAuswahlMenu)
-			View->DrawErholungsresort(AnzahlTage);
-		else
-			View->DrawDiffrent(*Erholungsresorts);
-	}
-		break;
-	default:
-	{
-		View->DrawNichtVerfuegbar();
-	}
-		break;
 	}
 }

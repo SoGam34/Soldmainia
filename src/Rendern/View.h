@@ -1,79 +1,38 @@
 #pragma once
-#include "Data.h"
-#include "Traningszentrum.h"
-#include "Erholungsresort.h"
+#include "../Data/Data.h"
+#include "../Menus.cpp"
 
-class View 
+class View
 {
 public:
 	//De/Konstrucktor
 	View() = delete;
-	View(std::shared_ptr<Data> data, std::mutex& mutex);
+	View(std::shared_ptr<Data> data);
 	~View();
-	
-	void DrawHauptmenu(int iTage);
-	void DrawBAZ(int iTage);
-	void DrawScoutbuero(int iTage);
-	void DrawTraningszentrum(int iTage);
-	void DrawErholungsresort(int iTage);
 
-	void DrawNichtVerfuegbar();
+	bool getSpielIstAktiv();
 
-	void DrawDiffrent(Traningszentrum& e);
-	void DrawDiffrent(Erholungsresort& e);
+	int getLetzteNutzerEingabe();
 
-	void ReSize();
+	void ausgabe(Menus aktuellesMenu, GebaeudeStats stats);
 
-	sf::RenderWindow& getWindow();
-	sf::Vector2i getMousPos();
+	int einheitsAuswahlMenu();
+
+	void ungueltigeEingabe(); //TODO: implementieren
 
 private:
-	void drawFenster(int start, int range);
-	void drawSprite(int start, int range);
-	void drawText(int start, int range, std::string titel, int iTag);
-	
-	//window
-	sf::RenderWindow* window;
-	
-//Beginn. Die Nachfolgenden Variablen sind aus Data nach hier verschoben, da sie hier Inhaltlich deutlich besser passen.
-	sf::Vector2f WindowSize;
 
-	//Kachel
-	int iBreite = 230;
-	int iHohe = 200;
-	int iAbstandthalter = 20;
-	sf::Font sfFont;
+	void hilfsDialog();
 
-	// Animationen
-	Animationen *cAnimationen;
-	bool bBenarichtigungAktiv = false;
-	bool bUpgradeAnimation = false;
-	//Ende
+	void printKopfZeile(std::string titel);
 
-	// Data zeiger
-	std::shared_ptr<Data> cData;
-	
-	sf::Texture tTexture;
-	sf::Sprite sSprite;
-	
-	std::string Addressen[16]
-	{
-		"Texturen/Pfeil.png",
-		"Texturen/Haken.png",
-		"Texturen/AktiveAuftrage2.png",
-		"Texturen/Auftrage.png",
-		"Texturen/ArbeitBeschleunigen.png",
-		"Texturen/BessereRang.png",
-		"Texturen/ErhohungGrundstarke.png",
-		"Texturen/Erholungsresort.png",
-		"Texturen/Kaserne.png",
-		"Texturen/Logistik System.png",
-		"Texturen/Scoutbuero.png",
-		"Texturen/Tranigszentrum.png",
-		"Texturen/WarteAusbildung.png",
-		"Texturen/WarteScoutb�ro.png",
-		"Texturen/WenigerKosten.png",
-		"Texturen/Zentrale.png"
-	};
-	sf::Text sfText;
+	void printFussZeile();
+
+	void printGebaeudeStats(GebaeudeStats stats, std::string zeitText, std::string spzifischText, std::string kostenText);
+
+	Menus ZuRenderndesMenu;
+
+	int Eingabe;
+
+	std::shared_ptr<Data> Daten;
 };

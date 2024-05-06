@@ -1,207 +1,170 @@
 #include "PreHeader.h"
 #include "View.h"
 
-View::View(std::shared_ptr<Data> data, std::mutex& mutex)
+View::View(std::shared_ptr<Data> data)
 {
-	cAnimationen =  new Animationen(sfFont);
-			WindowSize.x = 1020;
-			WindowSize.y = 500;
-
-			sfFont.loadFromFile("Texturen/ArialCEMTBlack.ttf");
-
-	window = new sf::RenderWindow(sf::VideoMode(1020, 500), "Soldmainia", sf::Style::Resize | sf::Style::Close);
-	window->setFramerateLimit(26);
-
-	cData = data;
-	
-	tTexture.loadFromFile(Addressen[0]);
-	sSprite.setTexture(tTexture);
-
-	sfText.setPosition(20, 10);
-	sfText.setCharacterSize(20);
-
-	std::lock_guard<std::mutex> lock(mutex);
-	sfText.setFont(*cData->getFont());
-
-	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
+	Daten = data;
+	Eingabe = 0;
+	ZuRenderndesMenu = hauptmenu;
 }
 
 View::~View()
 {
-	delete window;
 }
 
-void View::DrawHauptmenu(int iTage)
+bool View::getSpielIstAktiv()
 {
-	cData->getAnimationen().clearWindow(window);
-	drawSprite(0, 8);
-	drawText(0, 8, "Hauptmenue", iTage);
-	cData->getAnimationen().draw(*window);
-	window->display();
+	return (Eingabe == AUSWAHL_BEENDEN) ? false : true;
 }
 
-void View::DrawBAZ(int iTage)
+void View::printKopfZeile(std::string titel)
 {
-	cData->getAnimationen().clearWindow(window);
-	drawFenster(8, 4);
-	drawSprite(8, 4);
-	drawText(8, 4, "BAZ", iTage);
-	cData->getAnimationen().draw(*window);
-	window->display();
+	std::cout << "Kontostand: " << Daten->getKontostand() << "\t Menu: "
+			<< titel << "\t Tag: " << Daten->getAnzahlTage();
 }
 
-void View::DrawScoutbuero(int iTage)
+void View::printFussZeile()
 {
-	cData->getAnimationen().clearWindow(window);
-	drawFenster(12, 4);
-	drawSprite(12, 4);
-	cData->getAnimationen().draw(*window);
-	drawText(12, 4, "Scout Buero", iTage);
-	window->display();
+	std::cout << "\n\n\n" << "Um das Spiel zu beenden " << AUSWAHL_BEENDEN
+			<< "\n" << "Um zu Speichern " << AUSWAHL_SPEICHERN << "\n";
 }
 
-void View::DrawNichtVerfuegbar()
+void View::printGebaeudeStats(GebaeudeStats stats, std::string zeitText,
+		std::string spzifischText, std::string kostenText)
 {
-	cData->getAnimationen().clearWindow(window);
-	sf::Text Warnung;
-	Warnung.setFont(*cData->getFont());
-	Warnung.setPosition(window->getPosition().x / 2 - 20, window->getPosition().y / 2);
-	Warnung.setCharacterSize(30);
-	Warnung.setString("Dieses Menu ist zur Zeit nicht Verfuegbar");
-	window->draw(Warnung);
-	window->display();
+	std::cout << "(" << AUSWAHL_UPGRADE_ZEIT << ") " << zeitText << "(Kostet:"
+			<< stats.BeschlaunigunsKosten << ", Effekt: "
+			<< stats.BeschlaunigungsFaktor << "% schneller)\n" << "("
+			<< AUSWAHL_UPGRADE_SPEZIFISCH << ") " << spzifischText << "(Kostet:"
+			<< stats.GebaudeSpezielleKosten << ", Effekt: "
+			<< stats.GebaudeSpezielleFaktor << "% schneller)\n" << "("
+			<< AUSWAHL_UPGRADE_KOSTEN << ") " << kostenText << "(Kostet:"
+			<< stats.AusführungsReduzierungsKosten << ", Effekt: "
+			<< stats.AusführungsReduzierungsFaktor << "% schneller)\n";
 }
 
-void View::DrawTraningszentrum(int iTage)
+int View::einheitsAuswahlMenu()
 {
-		cData->getAnimationen().clearWindow(window);
-		drawFenster(16, 4);
-		drawSprite(16, 4);
-		cData->getAnimationen().draw(*window);
-		drawText(16, 4, "Trainingszentrum", iTage);
-		window->display();
+	//TODO: EinheitsAuswahlMenu anzeigen und den User auswahlen lassen
+	return 0;
 }
 
-void View::DrawErholungsresort(int iTage)
+void View::ausgabe(Menus aktuellesMenu, GebaeudeStats stats)
 {
-	cData->getAnimationen().clearWindow(window);
-	drawFenster(24, 4);
-	drawSprite(24, 4);
-	cData->getAnimationen().draw(*window);
-	drawText(24, 4, "Erholungsresort", iTage);
-	window->display();
-}
+	ZuRenderndesMenu = aktuellesMenu;
+	std::system("clear");
 
-void View::DrawDiffrent(Traningszentrum& e)
-{
-	cData->getAnimationen().clearWindow(window);
-	e.Mahlen(*window);
-	cData->getAnimationen().draw(*window);
-	window->display();
-}
-
-void View::DrawDiffrent(Erholungsresort& e)
-{
-	cData->getAnimationen().clearWindow(window);
-	e.Mahlen(*window);
-	cData->getAnimationen().draw(*window);
-	window->display();
-}
-
-sf::Vector2i View::getMousPos()
-{
-	return sf::Mouse::getPosition(*window);
-}
-
-sf::RenderWindow& View::getWindow()
-{
-	return *window;
-}
-
-void View::ReSize()
-{
-	cData->setBreite((window->getSize().x -100)/ 4);
-	cData->setHohe((window->getSize().y - 30 - 70) / 2);
-	cData->setWindowSize(static_cast<sf::Vector2f>(window->getSize()));
-
-	int temp=0;
-	for (int i = 0; i < 16; i++)
+	switch (ZuRenderndesMenu)
 	{
-		if (temp % 4 == 0)
-			temp = 0;
+	case hauptmenu:
+	{
+		printKopfZeile("Hauptmenu");
 
-		if (i > 7)
-		{
-			cData->getKacheln(i).aktualisierenPosition((temp * cData->getBreite() + (temp + 1) * 20), 70, cData->getBreite(), 2 * cData->getHohe() + 20);	//1 * iBreite + 2 * iAbstandthalter+15
-		}
+		std::cout << "Was möchten Sie machen? \n\n" << "("
+				<< AUSWAHL_MENU_ZENTRALE << ") Die Zentrale betreten\n" << "("
+				<< AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM
+				<< ") Das Batillion Ausbildungszentrum betreten" << "("
+				<< AUSWAHL_MENU_SCOUTBUERO << ") Das Scoutbuero betreten\n"
+				<< "(" << AUSWAHL_MENU_ERHOLUNGSRESORT
+				<< ") Das Erholungsresort betreten\n" << "("
+				<< AUSWAHL_MENU_TRANINGSZENTRUM
+				<< ") Das Traningszentrum betreten\n" << "("
+				<< AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE
+				<< ") Die Verfuegbare Auftraege betreten\n" << "("
+				<< AUSWAHL_MENU_LAUFENDE_AUFTRAGE
+				<< ") Die Angenohmmenen Auftragsuebersicht betreten\n" << "("
+				<< AUSWAHL_MENU_LOGISTIK_SYSTEM
+				<< ") Das Logistik System betreten\n";
 
-		else
-		{
-			if (i < 4)
-				cData->getKacheln(i).aktualisierenPosition(temp * cData->getBreite() + (temp + 1) * 20 + 15, 70, cData->getBreite(), cData->getHohe());
+		printFussZeile();
 
-			else if (i < 8&&i>3)
-				cData->getKacheln(i).aktualisierenPosition(temp * cData->getBreite() + (temp + 1) * 20 + 15, 90 + cData->getHohe(), cData->getBreite(), cData->getHohe());
-		}
-		temp++;
+		std::cin >> Eingabe;
+	}
+		break;
+	case batillionsausbildungsstate:
+	{
+		printKopfZeile("Batilionsausbildungszentrum");
+
+		std::cout << "Was möchten Sie machen? \n\n"
+				<< "(" << AUSWAHL_AKTION_1	<< ") Ausbildung der Einheit starten\n"
+				<< "(" << AUSWAHL_AKTION_2	<< ") Mehr Truppenmitglieder ausbilden"
+				<< "(" << AUSWAHL_AKTION_3	<< ") Weniger Truppenmitglieder ausbilden\n";
+
+		printGebaeudeStats(stats,
+				"[Upgrade] Verkürzung der Ausbildungsdauer",
+				"[Upgrade] Die Grundstaerke der Truppe verbessern",
+				"[Upgrade] Ausbildungskosten reduzierung");
+
+		//XXX: Ausgabe der aktuellen Werte, wie ein Batelion aussieht wenn sie jetz ausgebildet wird
+
+		printFussZeile();
+
+		std::cin >> Eingabe;
+	}
+		break;
+	case scoutbuero:
+	{
+		printKopfZeile("Scoutbüro");
+
+		std::cout << "Was möchten Sie machen? \n\n"
+				<< "(" << AUSWAHL_AKTION_1	<< ") Suche nach einen guten Kämpfer starten)\n";
+
+		printGebaeudeStats(stats,
+				"[Upgrade] Verkürzen der Suchdauer",
+				"[Upgrade] Bessere Kämpfer finden und anwerben(Höhere Rang)",
+				"[Upgrade] Die Kosten für die Suche reduzieren");
+
+		//XXX: Ausgabe der aktuellen Werte, wie die Suche aussieht wenn sie jetz gestartet wird
+
+		printFussZeile();
+
+		std::cin >> Eingabe;
+	}
+		break;
+	case traningszentrum:
+	{
+		printKopfZeile("Traningszentrum");
+
+		std::cout << "Was möchten Sie machen? \n\n"
+				<< "(" << AUSWAHL_AKTION_1	<< ") Ein intensiv Traening starten\n"
+				<< "(" << AUSWAHL_AKTION_2	<< ") Ein gutes grundlagen Traning starten"
+				<< "(" << AUSWAHL_AKTION_3	<< ") Einmal kurz ins Gym\n";
+
+		printGebaeudeStats(stats,
+				"[Upgrade] Verkürzung der Traningsdauer",
+				"[Upgrade] Die Traningsmethoden verbessern",
+				"[Upgrade] Die Kosten fuer ein Traning senken");
+
+		printFussZeile();
+
+		std::cin >> Eingabe;
+	}
+		break;
+	case erholungsresort:
+	{
+		printKopfZeile("Erholungsresort");
+
+		std::cout << "Was möchten Sie machen? \n\n"
+				<< "(" << AUSWAHL_AKTION_1	<< ") Eine Einheit zum erholen(HP und Moral) auswahlen";
+
+		printGebaeudeStats(stats,
+				"[Upgrade] Verkürzung der Erholngsdauer",
+				"[Upgrade] Die Resort Qualität verbessern",
+				"[Upgrade] Resortkosten reduzieren");
+
+		printFussZeile();
+
+		std::cin >> Eingabe;
+	}
+		break;
+	default:
+	{
+	}
+		break;
 	}
 
-	cData->getAnimationen().updateKachelPos(static_cast<int>(1.5 * cData->getBreite()), 70, cData->getBreite(), cData->getHohe());
-	
-}
-
-void View::drawFenster(int start, int range)
-{
-	for (int i = start; i < start + range; i++)
+	if (Eingabe == AUSWAHL_HILFE)
 	{
-		cData->getKacheln(i).drawFenster(*window);
-	}
-}
-
-void View::drawSprite(int start, int range)
-{
-	for (int i = start; i < start + range; i++)
-	{
-		if (cData->getKacheln(i).getTextureID() != 99)
-		{
-			tTexture.loadFromFile(Addressen[cData->getKacheln(i).getTextureID()]);
-			sSprite.setTexture(tTexture);
-			sSprite.setPosition(cData->getKacheln(i).getTexturePosition());
-
-			sSprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
-			sSprite.setScale(static_cast<float>(cData->getBreite() / 200) + (cData->getKacheln(i).getTextureGroessenSkalierungsFaktor() - 1), static_cast<float>(cData->getHohe() / 200)+(cData->getKacheln(i).getTextureGroessenSkalierungsFaktor() - 1));
-			
-			window->draw(sSprite);
-		}
-	}
-}
-
-void View::drawText(int start, int range, std::string titel, int iTag)
-{
-	std::stringstream ssTitel;
-	float temp = 20;
-		
-	ssTitel << "Kontostand: " << cData->getKontostand();
-	sfText.setString(ssTitel.str());
-	sfText.setPosition(temp, sfText.getPosition().y);
-	window->draw(sfText);
-	
-	ssTitel.str("");
-	ssTitel<< titel;
-	temp = static_cast<float>(window->getSize().x) * 0.45;
-	sfText.setString(ssTitel.str());
-	sfText.setPosition(temp, sfText.getPosition().y);
-	window->draw(sfText);
-	
-	ssTitel.str("");
-	ssTitel  << "Tag: " << iTag;
-	temp = static_cast<float>(window->getSize().x) * 0.9;
-	sfText.setString(ssTitel.str());
-	sfText.setPosition(temp, sfText.getPosition().y);
-	window->draw(sfText);
-
-	for (int i = start; i < start + range; i++)
-	{
-		cData->getKacheln(i).drawText(*window);
+		hilfsDialog();
 	}
 }

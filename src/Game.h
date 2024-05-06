@@ -23,18 +23,11 @@ private:
 		void mahlen();
 
 	Menus AktuellesMenu;
-
-	int AnzahlTage;
+	GebaeudeStats Stats;
 
 	std::chrono::time_point<std::chrono::steady_clock> ZeitpunktDesLetztenTages;
 
-	float TagesDauer;
-
-	const int MONATS_DAUER = 30;
-
-	bool ImEinheitsAuswahlMenu;
-
-	std::unique_ptr<View> View;
+	std::unique_ptr<View> view;
 
 	std::shared_ptr<Data> Daten;
 
@@ -47,6 +40,4 @@ private:
 	Zentrale *Hauptquatier;
 
 	Erholungsresort *Erholungsresorts;
-
-
 };
