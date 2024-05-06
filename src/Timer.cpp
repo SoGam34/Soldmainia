@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "Timer.h"
 
 Timer::Timer()
@@ -40,12 +39,12 @@ bool Timer::checkTimerAbgelaufenMitID(int id)
 	return false;
 }
 
-const int Timer::getTimerstand() const
+int Timer::getTimerstand() const
 {
 	return EinzelTimer;
 }
 
-const std::optional<int> Timer::getTimerstandMitID(int id) const
+std::optional<int> Timer::getTimerstandMitID(int id) const
 {
 	for (int i = 0; i < IDTimer.size(); i++)
 		if (IDTimer[i].first == id)

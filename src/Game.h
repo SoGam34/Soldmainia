@@ -8,7 +8,8 @@
 #include <chrono>
 #include <memory>
 #include "Gebaude/Zentrale.h"
-#include "Menus.cpp"
+#include "Menus.h"
+#include "Data/Data.h"
 
 class Game
 {

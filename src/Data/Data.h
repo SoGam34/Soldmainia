@@ -33,7 +33,7 @@ public:
 
 	void setTagesDauer(float neueDauer);
 
-	const int getMONATS_DAUER() const;
+	int getMONATS_DAUER() const;
 
 	bool getImEinheitsAuswahlMenu();
 

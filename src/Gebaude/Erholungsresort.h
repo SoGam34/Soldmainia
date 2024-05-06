@@ -1,7 +1,11 @@
 #pragma once
 #include "Gebaeude.h"
 #include "../Auswahl.h"
+#include "../Data/Data.h"
+#include "../Timer.h"
 
+#include <memory>
+#include <sstream>
 class Erholungsresort: public Gebaeude, public Auswahl
 {
 public:
@@ -21,7 +25,7 @@ public:
 	 Retrun: Die Funktion gibt die kosten als int zurueck
 	 Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	unsigned const int getGebaeudeAusfuhrungskosten() const;
+	unsigned int getGebaeudeAusfuhrungskosten() const;
 
 	/*
 	 Name: AuswahlZuOrdnen

@@ -65,7 +65,7 @@ int Data::getAnzahlTage()
 	return AnzahlTage;
 }
 
-const int Data::getMONATS_DAUER() const
+int Data::getMONATS_DAUER() const
 {
 	return MONATS_DAUER;
 }

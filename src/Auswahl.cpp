@@ -11,7 +11,7 @@ Auswahl::~Auswahl()
 	leeren();
 }
 
-void Auswahl::sucheNachEinsetzbarenEinheiten()
+void Auswahl::sucheNachUnverletztenEinsetzbarenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
@@ -40,15 +40,15 @@ void Auswahl::sucheNachEinsetzbarenEinheiten()
 
 void Auswahl::entferneDopplungen()
 {
-	for (std::vector<int>::iterator i = AusgewahlteEinheiten.begin();
+	for (size_t i = 0;
 			0 < AusgewahlteEinheiten.size(); i++)
 	{
-		for (std::vector<int>::iterator j = AusgewahlteEinheiten.begin();
+		for (size_t j = 0;
 				j < AusgewahlteEinheiten.size(); j++)
 		{
 			if (AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
 			{
-				AusgewahlteEinheiten.erase(j);
+				//AusgewahlteEinheiten[j].pop_back();  TODO: Remove the Element on position j
 			}
 		}
 	}

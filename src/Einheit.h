@@ -26,49 +26,49 @@ class Einheit
 
 public:
 	Einheit() = delete;
-	Einheit(std::string name, unsigned short int hp = 100,
-			unsigned short int moral = 10, unsigned short int starke = 1,
-			bool einsatzbereit = true, unsigned short int grosse = 1,
-			unsigned int xp = 1);
+	Einheit(std::string name, unsigned short int hp,
+			unsigned short int moral, unsigned short int starke,
+			bool einsatzbereit, unsigned short int grosse,
+			unsigned int xp);
 
 	virtual ~Einheit();
 
-	inline const std::string getName() const
+	inline std::string getName() const
 	{
 		return Name;
 	}
 
-	inline const int getLeben() const
+	inline int getLeben() const
 	{
 		return HP;
 	}
 
-	inline const int getMoral() const
+	inline int getMoral() const
 	{
 		return Moral;
 	}
 
-	inline const int getStarke() const
+	inline int getStarke() const
 	{
 		return Starke;
 	}
 
-	inline const int getAnzahl() const
+	inline int getAnzahl() const
 	{
 		return Grosse;
 	}
 
-	inline const bool getEinsatzbereit() const
+	inline bool getEinsatzbereit() const
 	{
 		return Einsatzbereit;
 	}
 
-	inline const int getErfahrung() const
+	inline int getErfahrung() const
 	{
 		return XP;
 	}
 
-	inline const int getLevel() const
+	inline int getLevel() const
 	{
 		return Level;
 	}

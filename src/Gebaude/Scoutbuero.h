@@ -1,5 +1,10 @@
 #pragma once
 #include "Gebaeude.h"
+#include "../Data/Data.h"
+#include "../Timer.h"
+
+#include <memory>
+#include <sstream>
 
 class Scoutbuero: public Gebaeude
 {
@@ -20,7 +25,7 @@ public:
 	 Retrun: Die Funktion gibt die kosten als int zurück
 	 Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	unsigned const int getGebaeudeAusfuhrungskosten() const;
+	unsigned int getGebaeudeAusfuhrungskosten() const;
 
 	/*
 	 Name: GebaudeAktivText

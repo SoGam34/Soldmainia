@@ -25,7 +25,7 @@ public:
 	 Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung kostet
 	 Retrun: Die Funktion gibt die kosten als int zurueck
 	 */
-	virtual unsigned const int getGebaeudeAusfuhrungskosten() const = 0;
+	virtual unsigned int getGebaeudeAusfuhrungskosten() const = 0;
 
 	/*
 	 Name: BeginnAufgabe

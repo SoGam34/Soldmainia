@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "Game.h"
 
 Game::Game()
@@ -264,6 +263,7 @@ void Game::update()
 			Erholungsresorts->sucheNachEinsetzbarenEinheiten();
 			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
 		}
+			break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
 			Erholungsresorts->beschleunigungDerAufgabenDurchfuehrung();
@@ -300,9 +300,8 @@ void Game::update()
 
 void Game::zeit()
 {
-	float delta_time
-	{ std::chrono::duration_cast<std::chrono::seconds>(
-			std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };
+	float delta_time = 1;
+	//{ std::chrono::duration_cast<std::chrono::seconds>( std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };	FIXME: make time comparison possible
 
 	if (delta_time >= Daten->getTagesDauer())
 	{

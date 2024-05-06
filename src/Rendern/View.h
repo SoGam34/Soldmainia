@@ -1,6 +1,6 @@
 #pragma once
 #include "../Data/Data.h"
-#include "../Menus.cpp"
+#include "../Menus.h"
 
 class View
 {

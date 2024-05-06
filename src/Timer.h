@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <vector>
 
 class Timer
 {
@@ -19,8 +20,8 @@ public:
 	bool checkTimerAbgelaufenMitID(int id);
 
 	//Get/set Funktionen
-	const int getTimerstand() const;
-	const std::optional<int> getTimerstandMitID(int id) const;
+	int getTimerstand() const;
+	std::optional<int> getTimerstandMitID(int id) const;
 
 private:
 	int EinzelTimer; // Einzel

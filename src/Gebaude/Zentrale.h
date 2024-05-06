@@ -1,5 +1,10 @@
 #pragma once
 #include "Gebaeude.h"
+#include "../Data/Data.h"
+#include "../Timer.h"
+
+#include <memory>
+#include <sstream>
 
 class Zentrale
 {
