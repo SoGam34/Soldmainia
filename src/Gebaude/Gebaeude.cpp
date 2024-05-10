@@ -5,9 +5,7 @@ Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor,
 		Daten(data), ProzessAktiv(false), AufgabenDurchfuehrungZeitFaktor(1), AusfuhrungsKostenFaktor(
 				KostenFaktor), GebaeudeEinflussZeitFaktor(ZeitFaktor)
 {
-	UpgradeKosten[0] = 100;
-	UpgradeKosten[1] = 100;
-	UpgradeKosten[2] = 100;
+	UpgradeStats = GebaeudeStats();
 
 	Zeitversatz = rand() % 5 + 3;	// Festlegen des neuen Zeitversatzes mit dem
 
@@ -16,6 +14,11 @@ Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor,
 
 Gebaeude::~Gebaeude()
 {
+}
+
+GebaeudeStats Gebaeude::getUpgradeStats()
+{
+	return UpgradeStats;
 }
 
 void Gebaeude::beginneAufgabe()
@@ -28,10 +31,10 @@ void Gebaeude::beginneAufgabe()
 		//Daten->getAnimationen().startBenarichtigung(false, ss.str()); TODO UI Animation
 
 		neuerTimer(VoraussichtlicheZeit);					// Start des Timers
-		Daten->abziehnVonKontostand(getGebaeudeAusfuhrungskosten());// Abziehn der gesamten Ausbildungskosten
+		Daten->abziehnVonKontostand(temp));// Abziehn der gesamten Ausbildungskosten
 		ProzessAktiv = true;// Auf true gesetzt damit der Ausbildungsvortschrit angezietgt wird
 		Daten->getKacheln(ProzessHauptKachel).neueAnzeige(
-				GebaudeAktivText().str(), 200, 99, 1, 1);	//neues Kachel Bild
+				getGebaudeAktivText().str(), 200, 99, 1, 1);	//neues Kachel Bild
 	}
 }
 

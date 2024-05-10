@@ -11,7 +11,7 @@ Batillion_Ausbildungszentrum::~Batillion_Ausbildungszentrum()
 {
 }
 
-unsigned const int Batillion_Ausbildungszentrum::getGebaeudeAusfuhrungskosten() const
+unsigned int Batillion_Ausbildungszentrum::getGebaeudeAusfuhrungskosten() const
 {
 	return AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz);
 }
@@ -46,7 +46,7 @@ void Batillion_Ausbildungszentrum::reduziereEinheitsGrosse()
 }
 
 void Batillion_Ausbildungszentrum::beendenDerAusfuhrung()
-{
+{/*
 	Daten->getKacheln(8).neueAnzeige(
 			"Die Ausblidung ist\nbeendet, wie wollen\nsie das Batiliion\nnennen?",
 			100, 99, 1, 1);	// Akktualiesieren des Textes
@@ -59,7 +59,7 @@ void Batillion_Ausbildungszentrum::beendenDerAusfuhrung()
 			Data->getKacheln(8).getGroese().y);
 	ProzessAktiv = false;// Auf False setzen damit nicht der andere Text ausgegeben wird von aktAusbildung
 	//Generierung eines Batillions
-	//Daten->getAnimationen().startBenarichtigung(true,"Ausbildung Batillion beendet");	TODO UI Animation
+	//Daten->getAnimationen().startBenarichtigung(true,"Ausbildung Batillion beendet");	TODO UI Animation*/
 }
 
 void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
@@ -74,7 +74,7 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 			<< "\nKosten: " << AusfuhrungsKostenFaktor * VoraussichtlicheZeit
 			<< "\nVoraussichtlich fertig in: " << VoraussichtlicheZeit;
 
-	Daten->getKacheln(8).neueAnzeige(ssText.str(), 200, 99, 1, 1);// Akktualiesieren des Textes
+	/*Daten->getKacheln(8).neueAnzeige(ssText.str(), 200, 99, 1, 1);// Akktualiesieren des Textes
 	// Hinzuf�gen aller Notiger Buttens 
 	Daten->getKacheln(8).ButtonHinzufuegen(35, 450, 200, 30, 1, "Starten",
 			*Daten->getFont(), sf::Color::Black, sf::Color(100, 100, 100),
@@ -90,7 +90,7 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 			"Weniger Mitglieder", *Daten->getFont(), sf::Color::Black,
 			sf::Color(100, 100, 100), sf::Color(255, 150, 0), sf::Color::White,
 			Data->getKacheln(8).getGroese().x,
-			Data->getKacheln(8).getGroese().y);
+			Data->getKacheln(8).getGroese().y);*/
 }
 
 inline void Batillion_Ausbildungszentrum::aktualisierenInformationsText()
@@ -102,7 +102,7 @@ inline void Batillion_Ausbildungszentrum::aktualisierenInformationsText()
 			<< "\nKosten: " << AusfuhrungsKostenFaktor * VoraussichtlicheZeit
 			<< "\nVoraussichtlich fertig in: " << VoraussichtlicheZeit;
 
-	Daten->getKacheln(8).TextAendern(ssText.str(), 200);
+	//Daten->getKacheln(8).TextAendern(ssText.str(), 200);
 }
 
 void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
@@ -136,14 +136,14 @@ void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
 			// Ausgabe des neuen Textes
 			ss
 					<< "Die Maximale Stufe\nwuerde erreicht.\nSie koennen diesen\nPrarameter nicht mehr\noprimieren";
-			Daten->getKacheln(10).neueAnzeige(ss.str(), 350, 1, 535, 95);
+			//Daten->getKacheln(10).neueAnzeige(ss.str(), 350, 1, 535, 95);
 		}
 
 		else
 		{
 			// Ausgabe des neuen Textes
 			ss << "Erhoehung der Grundstaerke\nKosten: " << UpgradeKosten[1];
-			Daten->getKacheln(10).TextAendern(ss.str(), 350);
+			//Daten->getKacheln(10).TextAendern(ss.str(), 350);
 		}
 
 		ss.clear();

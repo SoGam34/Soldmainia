@@ -2,6 +2,7 @@
 
 #include "../Data/Data.h"
 #include "../Timer.h"
+#include "../Menus.h"
 
 #include <memory>
 #include <sstream>
@@ -102,6 +103,8 @@ public:
 	 Retrun: kein
 	 */
 	void aktualisierenTimer();
+
+	GebaeudeStats getUpgradeStats();
 protected:
 	// Daten zeiger
 	std::shared_ptr<Data> Daten;
@@ -125,9 +128,10 @@ protected:
 	unsigned short int GebaeudeEinflussZeitFaktor;
 
 	//Speichert die Kosten der fuer die Upgrades 
-	float UpgradeKosten[3]; // @suppress("Avoid magic numbers")
+	GebaeudeStats UpgradeStats;
 
 private:
+
 
 	//Speichert die Array Position der Aufgaben Kachel des gebaudes 
 	short int ProzessHauptKachel;

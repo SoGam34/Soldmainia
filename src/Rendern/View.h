@@ -2,6 +2,9 @@
 #include "../Data/Data.h"
 #include "../Menus.h"
 
+#include <iostream>
+#include <memory>
+
 class View
 {
 public:
@@ -16,9 +19,9 @@ public:
 
 	void ausgabe(Menus aktuellesMenu, GebaeudeStats stats);
 
-	int einheitsAuswahlMenu();
+	int einheitsAuswahlMenu(std::vector<int> anzuzeigendeEinheiten);
 
-	void ungueltigeEingabe(); //TODO: implementieren
+	void ungueltigeEingabe();
 
 private:
 

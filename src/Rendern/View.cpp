@@ -1,4 +1,3 @@
-#include "PreHeader.h"
 #include "View.h"
 
 View::View(std::shared_ptr<Data> data)
@@ -15,6 +14,21 @@ View::~View()
 bool View::getSpielIstAktiv()
 {
 	return (Eingabe == AUSWAHL_BEENDEN) ? false : true;
+}
+
+int View::getLetzteNutzerEingabe()
+{
+	return Eingabe;
+}
+
+void View::ungueltigeEingabe()
+{
+	std::system("clear");
+
+	std::cout
+			<< "Deine Letzte Eingabe ist ungultig!"
+			<< "\n BITTE gib eine von den Zahlen ein die zwischen den ( Zahl ) steht um die dahinter stehende Aktion auszuführen."
+			<< "Die Einzige Auszahme sind die Zahlen 1-9 die für bestimmte Menus reserviert sind und von überall als Shortcut verfügbar sind.";
 }
 
 void View::printKopfZeile(std::string titel)
@@ -43,10 +57,25 @@ void View::printGebaeudeStats(GebaeudeStats stats, std::string zeitText,
 			<< stats.AusführungsReduzierungsFaktor << "% schneller)\n";
 }
 
-int View::einheitsAuswahlMenu()
+int View::einheitsAuswahlMenu(std::vector<int> anzuzeigendeEinheiten)
 {
-	//TODO: EinheitsAuswahlMenu anzeigen und den User auswahlen lassen
-	return 0;
+	std::cout << "Bitte wahle eine der nachfolgenden Einheiten aus:\n";
+
+	for(size_t i; i<anzuzeigendeEinheiten.size(); i++)
+	{
+		std::cout
+			<< "\n -------------" << i << "-------------- \n"
+			<< "Name: " << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getName()
+			<< "Anzahl an Lebenspunkte: " << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getLeben()
+			<< "Die Truppenmoral: " << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getMoral()
+			<< "Die Truppenstarke: " << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getStarke()
+			<< "Das Erfahrungslevel: " << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getLevel();
+	}
+
+	int ausgewählteEinheit = 0;
+	std::cin >> ausgewählteEinheit;
+
+	return anzuzeigendeEinheiten[ausgewählteEinheit];
 }
 
 void View::ausgabe(Menus aktuellesMenu, GebaeudeStats stats)
@@ -167,4 +196,9 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeStats stats)
 	{
 		hilfsDialog();
 	}
+}
+
+void hilfsDialog()
+{
+	std::cout << "Wilkommen im Hilfsmenu. \n Aktuell gibt es keine Eintrage zum Menu in dem du dich befindest, daher kann ich dir leider nicht helfen :( . ";
 }
