@@ -32,7 +32,7 @@ void Timer::neuerTimerMitID(int dauer, int id)
 
 bool Timer::checkTimerAbgelaufenMitID(int id)
 {
-	for (int i = 0; i < IDTimer.size(); i++)
+	for (size_t i = 0; i < IDTimer.size(); i++)
 		if (IDTimer[i].first == id)
 			if (IDTimer[i].second == 0)
 				return true;
@@ -46,7 +46,7 @@ int Timer::getTimerstand() const
 
 std::optional<int> Timer::getTimerstandMitID(int id) const
 {
-	for (int i = 0; i < IDTimer.size(); i++)
+	for (size_t i = 0; i < IDTimer.size(); i++)
 		if (IDTimer[i].first == id)
 			return IDTimer[i].second;
 

@@ -1,5 +1,20 @@
 #pragma once
 
+/**
+ * @file Timer.h
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2024-05-10
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
+/**
+ * @brief Speichert in welchem Menu sich der Spieler gerade befindet
+ * 
+ */
 enum Menus
 {
 	hauptmenu = 1,
@@ -15,8 +30,24 @@ enum Menus
 	batillione = 12
 };
 
-struct GebaeudeStats
+/**
+ * @brief Speichert die Aktuellen Upgrade Werte einer Einrichtung 
+ * 
+ */
+struct GebaeudeUpgradeStats
 {
+	GebaeudeStats()
+	{
+		 BeschlaunigunsKosten = 100;
+		 BeschlaunigungsFaktor = 0;
+
+		 GebaudeSpezielleKosten = 100;
+		 GebaudeSpezielleFaktor = 0;
+
+		 AusführungsReduzierungsKosten = 100;
+		 AusführungsReduzierungsFaktor = 0;
+	}
+
 	int BeschlaunigunsKosten;
 	int BeschlaunigungsFaktor;
 
@@ -48,5 +79,4 @@ const int AUSWAHL_UPGRADE_KOSTEN = 15;
 const int AUSWAHL_SPEICHERN = 16;
 const int AUSWAHL_BEENDEN = 17;
 const int AUSWAHL_HILFE = 18;
-
 

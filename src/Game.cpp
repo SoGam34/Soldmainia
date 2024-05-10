@@ -56,64 +56,8 @@ void Game::update()
 		Daten->saveGameToFile();
 	}
 
-	switch (AktuellesMenu)
+	switch (AktuellesMenu) // @suppress("Missing cases in switch")  @suppress("Missing default in switch")     Unterdrücken beider Sachen da das Einzige nicht entahltene hauptmenu ist was danach bearbeitet wird und es keinen sinnvollen defult gibt.
 	{
-
-	case hauptmenu:
-	{
-
-		switch (eingabe)
-		{
-		case AUSWAHL_MENU_ZENTRALE:
-		{
-			AktuellesMenu = zentrale;
-		}
-			break;
-		case AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM:
-		{
-			AktuellesMenu = batillionsausbildungsstate;
-		}
-			break;
-		case AUSWAHL_MENU_TRANINGSZENTRUM:
-		{
-			AktuellesMenu = traningszentrum;
-		}
-			break;
-		case AUSWAHL_MENU_SCOUTBUERO:
-		{
-			AktuellesMenu = scoutbuero;
-		}
-			break;
-		case AUSWAHL_MENU_ERHOLUNGSRESORT:
-		{
-			AktuellesMenu = erholungsresort;
-		}
-			break;
-		case AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE:
-		{
-			AktuellesMenu = auftraege;
-		}
-			break;
-		case AUSWAHL_MENU_LAUFENDE_AUFTRAGE:
-		{
-			AktuellesMenu = aauftraege;
-		}
-			break;
-		case AUSWAHL_MENU_LOGISTIK_SYSTEM:
-		{
-			AktuellesMenu = logistikSystem;
-		}
-			break;
-		default:
-		{
-			AktuellesMenu = hauptmenu;
-		}
-			break;
-		}
-
-	}
-		break;
-
 	case zentrale:
 	{
 
@@ -161,6 +105,8 @@ void Game::update()
 		}
 			break;
 		}
+
+		Stats = BAZ->getUpgradeStats();
 	}
 		break;
 
@@ -188,12 +134,12 @@ void Game::update()
 			Scoutbueros->reduzierenDerAusfuhrungsKosten();// Reduzierung der Suchkosten
 		}
 			break;
-		case 5:
+		case 25:
 		{
 			Scoutbueros->annehmenDerEinheit();					// Annehmen
 		}
 			break;
-		case 6:
+		case 26:
 		{
 			Scoutbueros->ablehnenDerEinheit();					// Ablehnen
 		}
@@ -204,6 +150,8 @@ void Game::update()
 		}
 			break;
 		}
+
+		Stats = Scoutbueros->getUpgradeStats();
 	}
 		break;
 
@@ -229,19 +177,21 @@ void Game::update()
 		case AUSWAHL_AKTION_1:
 		{
 			Traningzentren->langeTrainingsDauer();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+			Traningzentren->leeren();
+			Traningzentren->sucheNachEinsetzbarenEinheiten();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
 		}
 			break;
 		case AUSWAHL_AKTION_3:
 		{
 			Traningzentren->kurzeTraningsDauer();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
 		}
 			break;
 		case AUSWAHL_AKTION_2:
 		{
 			Traningzentren->mittlereTrainingsDauer();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
 		}
 			break;
 		default:
@@ -250,6 +200,8 @@ void Game::update()
 		}
 			break;
 		}
+
+		Stats = Traningzentren->getUpgradeStats();
 	}
 		break;
 
@@ -261,7 +213,8 @@ void Game::update()
 		{
 			Erholungsresorts->leeren();
 			Erholungsresorts->sucheNachEinsetzbarenEinheiten();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu();
+			Erholungsresorts->sucheNachVerletzten();
+			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Erholungsresorts->getAusgewahlteEinheiten());
 		}
 			break;
 		case AUSWAHL_UPGRADE_ZEIT:
@@ -287,15 +240,62 @@ void Game::update()
 		}
 			break;
 		}
+
+		Stats = Erholungsresorts->getUpgradeStats();
+	}
+		break;
+	}
+
+	//Das Switch Statement ist zum einen das Hauptmenu zum andern ermöglicht es 'Shortcuts' sodass man immer die Zahl für AUSWAHL_MENU_ZENTRALE eingeben kann und im nächsten frame sich in der Zentrale befindet.
+	switch (eingabe)
+	{
+	case AUSWAHL_MENU_ZENTRALE:
+	{
+		AktuellesMenu = zentrale;
+	}
+		break;
+	case AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM:
+	{
+		AktuellesMenu = batillionsausbildungsstate;
+	}
+		break;
+	case AUSWAHL_MENU_TRANINGSZENTRUM:
+	{
+		AktuellesMenu = traningszentrum;
+	}
+		break;
+	case AUSWAHL_MENU_SCOUTBUERO:
+	{
+		AktuellesMenu = scoutbuero;
+	}
+		break;
+	case AUSWAHL_MENU_ERHOLUNGSRESORT:
+	{
+		AktuellesMenu = erholungsresort;
+	}
+		break;
+	case AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE:
+	{
+		AktuellesMenu = auftraege;
+	}
+		break;
+	case AUSWAHL_MENU_LAUFENDE_AUFTRAGE:
+	{
+		AktuellesMenu = aauftraege;
+	}
+		break;
+	case AUSWAHL_MENU_LOGISTIK_SYSTEM:
+	{
+		AktuellesMenu = logistikSystem;
 	}
 		break;
 	default:
 	{
-		view->ungueltigeEingabe();
+		AktuellesMenu = hauptmenu;
 	}
 		break;
-
 	}
+
 }
 
 void Game::zeit()

@@ -11,20 +11,6 @@ Auswahl::~Auswahl()
 	leeren();
 }
 
-void Auswahl::sucheNachUnverletztenEinsetzbarenEinheiten()
-{
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
-	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
-				&& DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
-		{
-			AusgewahlteEinheiten.emplace_back(i);
-		}
-	}
-
-	entferneDopplungen();
-}
-
 void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
@@ -40,11 +26,9 @@ void Auswahl::sucheNachEinsetzbarenEinheiten()
 
 void Auswahl::entferneDopplungen()
 {
-	for (size_t i = 0;
-			0 < AusgewahlteEinheiten.size(); i++)
+	for (size_t i = 0; 0 < AusgewahlteEinheiten.size(); i++)
 	{
-		for (size_t j = 0;
-				j < AusgewahlteEinheiten.size(); j++)
+		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
 			if (AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
 			{
@@ -54,11 +38,26 @@ void Auswahl::entferneDopplungen()
 	}
 }
 
+void Auswahl::sucheNachUnverletztenEinheiten()
+{
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	{
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
+				&& DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
+		{
+			AusgewahlteEinheiten.emplace_back(i);
+		}
+	}
+
+	entferneDopplungen();
+}
+
 void Auswahl::sucheNachVerletzten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
+				&& DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -71,7 +70,8 @@ void Auswahl::sucheNachTruppenmoral()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
+				&& DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -84,7 +84,8 @@ void Auswahl::sucheNachStarke(int min)
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getStarke() >= min)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
+				&& DatenAuswahl->getEinheiten()[i].getStarke() >= min)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -103,17 +104,38 @@ void Auswahl::leeren()
 
 void Auswahl::sortiereNachStarke(bool aufsteigend)
 {
-	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+	if (aufsteigend)
 	{
-		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 		{
-			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
-					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				size_t temp;
-				temp = AusgewahlteEinheiten[j];
-				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
-				AusgewahlteEinheiten[i] = temp;
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
+						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
+			}
+		}
+	}
+
+	else if (!aufsteigend)
+	{
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		{
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+			{
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
+						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
 			}
 		}
 	}
@@ -121,17 +143,38 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 
 void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 {
-	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+	if (aufsteigend)
 	{
-		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 		{
-			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
-					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				size_t temp;
-				temp = AusgewahlteEinheiten[j];
-				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
-				AusgewahlteEinheiten[i] = temp;
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
+						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
+			}
+		}
+	}
+
+	else if (!aufsteigend)
+	{
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		{
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+			{
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
+						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
 			}
 		}
 	}
@@ -139,17 +182,38 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 
 void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 {
-	for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+	if (aufsteigend)
 	{
-		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
 		{
-			if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
-					> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				size_t temp;
-				temp = AusgewahlteEinheiten[j];
-				AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
-				AusgewahlteEinheiten[i] = temp;
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
+						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
+			}
+		}
+	}
+
+	else if (!aufsteigend)
+	{
+		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		{
+			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+			{
+				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
+						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+				{
+					size_t temp;
+					temp = AusgewahlteEinheiten[j];
+					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[i] = temp;
+				}
 			}
 		}
 	}

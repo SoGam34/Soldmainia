@@ -26,10 +26,10 @@ class Einheit
 
 public:
 	Einheit() = delete;
-	Einheit(std::string name, unsigned short int hp,
-			unsigned short int moral, unsigned short int starke,
-			bool einsatzbereit, unsigned short int grosse,
-			unsigned int xp);
+	Einheit(std::string name, unsigned short int hp = 100,
+		unsigned short int moral = 10, unsigned short int starke = 1,
+		bool einsatzbereit = true, unsigned short int grosse = 1,
+		unsigned int xp = 1);
 
 	virtual ~Einheit();
 

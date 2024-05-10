@@ -31,9 +31,5 @@ executable('Soldmania',
 #Seting up the BOOST Debendency 
 testdep = dependency('boost', modules : ['unit_test_framework'])
 
-#Erstellen des Ersten Tests
-unitexe = executable('utf', 'test/unit_test.cpp', dependencies: testdep)
-test('Boost UTF test', unitexe, timeout: 60)
-
-unitexe = executable('test_timer', 'test/test_Timer.cpp', dependencies: testdep)
-test('Timer Unit Test', unitexe, timeout: 60)
+unittimer = executable('unit_timer', files('test/unit_Timer.cpp', 'Timer.cpp'), dependencies: testdep, cpp_pch : 'pch/cpp_pch.h')
+test('Timer Unit Test', unittimer, timeout: 60)
