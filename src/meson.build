@@ -14,7 +14,7 @@ sources = files(
            'main.cpp',
            'Game.cpp',
            'Einheit.cpp',
-           'Auswahl.cpp',
+           'Rendern/Auswahl.cpp',
            'Timer.cpp')
 
 executable('Soldmania',
