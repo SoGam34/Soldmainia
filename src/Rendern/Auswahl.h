@@ -20,7 +20,7 @@
 
 /**
  * @brief Die Klasse sucht Einheiten mit bestimmten Kriterien und Bereitet sie für die weitere Bearbeitung vor. 
- * 
+ * @todo Unterscheiden zwischen Battilion und Einzelkampfer 
  */
 class Auswahl
 {

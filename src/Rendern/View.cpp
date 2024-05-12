@@ -21,6 +21,11 @@ int View::getLetzteNutzerEingabe()
 	return Eingabe;
 }
 
+void View::addBenarichtigung(std::string benarichtigungsText, int benarichtigungsArt, bool gutfuerSpieler)
+{
+
+}
+
 void View::ungueltigeEingabe()
 {
 	std::system("clear");
@@ -43,7 +48,7 @@ void View::printFussZeile()
 			<< "\n" << "Um zu Speichern " << AUSWAHL_SPEICHERN << "\n";
 }
 
-void View::printGebaeudeStats(GebaeudeStats stats, std::string zeitText,
+void View::printGebaeudeStats(GebaeudeUpgradeStats stats, std::string zeitText,
 		std::string spzifischText, std::string kostenText)
 {
 	std::cout << "(" << AUSWAHL_UPGRADE_ZEIT << ") " << zeitText << "(Kostet:"
@@ -57,8 +62,112 @@ void View::printGebaeudeStats(GebaeudeStats stats, std::string zeitText,
 			<< stats.AusführungsReduzierungsFaktor << "% schneller)\n";
 }
 
-int View::einheitsAuswahlMenu(std::vector<int> anzuzeigendeEinheiten)
+int View::dialogAuswahlEinheit(std::string verwendungszweck)
 {
+	std::system("clear");
+	printKopfZeile("Einheits Auswahlmenu");
+
+	std::cout << "Sie wollen ein Einheit auswählen für "<<verwendungszweck
+			<<"\n << Bitte geben Sie ein nach welchen Kriterien die Einheiten Gefiltert und Angezeigt werden sollen: "
+			<<" u für Unverletzte Einheiten,\n"
+			<<" v für Verletzte Einheiten "
+			<<" t für nicht volle truppenmoral,\n"
+			<<" s für Einheiten mit einer min. Starke(in einem zeiten schritt werden sie gebeten diese Anzugeben) "
+			<<"Sie können mehrere Kriterien gleichzeitig Angeben z. B. vs für Verletzte Einheiten mit einer bestimmten mindest Starke.";
+	std::string suchKriterien = "";
+	std::cin >> suchKriterien;
+
+	leeren();
+
+	/********************************************
+	 * Ab hier werden die Einheiten heraus gesucht *
+	 ********************************************/
+	
+	bool verletzte = false;
+	bool gesunde = false;
+
+	for (size_t i = 0; i < suchKriterien.size(); i++)
+	{
+		if (suchKriterien[i] == "t")
+		{
+			sucheNachTruppenmoral();
+		}
+
+		if (suchKriterien[i] == "s")
+		{
+			std::cout << "Was ist die mindest Starke?\n";
+
+			int min = 0;
+			std::cin >> min;
+			sucheNachStarke(min);
+		}
+
+		if (suchKriterien[i] == "u")
+		{
+			gesunde = true;
+		}
+		if (suchKriterien[i] == "v")
+		{
+			verletzte = true;
+		}
+	}
+
+	if (gesunde && verletzte)
+	{
+		std::cout << "Es gibt keine Einheit die gesund und verletzt gleichzeitig ist.";
+		return dialogAuswahlEinheit("Erneute Einheits Auswahl");
+	}
+
+	if (gesunde)
+	{
+		sucheNachUnverletztenEinheiten();
+	}
+
+	if (verletzte)
+	{
+		sucheNachVerletzten();
+	}
+
+	/******************************************
+	 * Ab hier werden die Einheiten sortiert. *
+	 ******************************************/
+
+	std::cout << "Wie sollen die Einheiten sortiert werden? \n"
+			<< "n für nicht sortieren, \n"
+			<< "s für nach Starke sortieren,\n"
+			<< "v für nach den Grad der Verletzung, \n"
+			<< "t für nach Moral sortieren.\n";
+
+	char sortierKriterium;
+	bool aufsteigen = false;
+
+	std::cin >> sortierKriterium;
+
+
+	if (sortierKriterium != 'n')
+	{
+		std::cout << "Soll Auf(1) oder Absteigend(0) sortiert werden.";
+		std::cin >> aufsteigen;
+	}
+	if (sortierKriterium == 's')
+	{
+		sortiereNachStarke(aufsteigen);
+	}
+	if (sortierKriterium == 'v')
+	{
+		sortiereNachVerletzten(aufsteigen);
+	}
+	if (sortierKriterium == 't')
+	{
+		sortiereNachTruppenmoral(aufsteigen);
+	}
+
+	/******************************************
+	 * Ab hier werden die Einheiten Angezeigt *
+	 ******************************************/
+
+	std::vector<int> anzuzeigendeEinheiten = getAusgewahlteEinheiten();
+
 	std::cout << "Bitte wahle eine der nachfolgenden Einheiten aus:\n";
 
 	for(size_t i; i<anzuzeigendeEinheiten.size(); i++)
@@ -78,7 +187,7 @@ int View::einheitsAuswahlMenu(std::vector<int> anzuzeigendeEinheiten)
 	return anzuzeigendeEinheiten[ausgewählteEinheit];
 }
 
-void View::ausgabe(Menus aktuellesMenu, GebaeudeStats stats)
+void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 {
 	ZuRenderndesMenu = aktuellesMenu;
 	std::system("clear");
@@ -194,11 +303,11 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeStats stats)
 
 	if (Eingabe == AUSWAHL_HILFE)
 	{
-		hilfsDialog();
+		dialogHilfe();
 	}
 }
 
-void hilfsDialog()
+void View::dialogHilfe()
 {
 	std::cout << "Wilkommen im Hilfsmenu. \n Aktuell gibt es keine Eintrage zum Menu in dem du dich befindest, daher kann ich dir leider nicht helfen :( . ";
 }

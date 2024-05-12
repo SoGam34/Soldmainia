@@ -21,7 +21,7 @@ Game::Game()
 
 	AktuellesMenu = hauptmenu;
 
-	Stats = GebaeudeStats();
+	Stats = GebaeudeUpgradeStats();
 }
 
 Game::~Game()
@@ -177,21 +177,19 @@ void Game::update()
 		case AUSWAHL_AKTION_1:
 		{
 			Traningzentren->langeTrainingsDauer();
-			Traningzentren->leeren();
-			Traningzentren->sucheNachEinsetzbarenEinheiten();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
+			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein langes Traning");
 		}
 			break;
 		case AUSWAHL_AKTION_3:
 		{
 			Traningzentren->kurzeTraningsDauer();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
+			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein kurzes Traning");
 		}
 			break;
 		case AUSWAHL_AKTION_2:
 		{
 			Traningzentren->mittlereTrainingsDauer();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Traningzentren->getAusgewahlteEinheiten());
+			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein mittellanges Traning");
 		}
 			break;
 		default:
@@ -211,10 +209,7 @@ void Game::update()
 		{
 		case AUSWAHL_AKTION_1:
 		{
-			Erholungsresorts->leeren();
-			Erholungsresorts->sucheNachEinsetzbarenEinheiten();
-			Erholungsresorts->sucheNachVerletzten();
-			int ausgewaelteEinheit = view->einheitsAuswahlMenu(Erholungsresorts->getAusgewahlteEinheiten());
+			int ausgewaelteEinheit = view->dialogAuswahlEinheit("eine Erholung");
 		}
 			break;
 		case AUSWAHL_UPGRADE_ZEIT:
