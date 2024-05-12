@@ -36,25 +36,54 @@ enum Menus
  */
 struct GebaeudeUpgradeStats
 {
-	GebaeudeStats()
+
+	/**
+	 * @brief Construct a new Gebaeude Stats object
+	 *
+	 */
+	GebaeudeUpgradeStats()
 	{
-		 BeschlaunigunsKosten = 100;
-		 BeschlaunigungsFaktor = 0;
+		BeschlaunigunsKosten = 0;
+		BeschlaunigungsFaktor = 0;
 
-		 GebaudeSpezielleKosten = 100;
-		 GebaudeSpezielleFaktor = 0;
+		GebaudeSpezielleKosten = 0;
+		GebaudeSpezielleFaktor = 0;
 
-		 AusführungsReduzierungsKosten = 100;
-		 AusführungsReduzierungsFaktor = 0;
+		AusführungsReduzierungsKosten = 0;
+		AusführungsReduzierungsFaktor = 0;
 	}
 
+	/**
+	 * @brief Speichert wie viel das Zeit Upgrade Kostet
+	 *
+	 */
 	int BeschlaunigunsKosten;
+	/**
+	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent 
+	 * 
+	 */
 	int BeschlaunigungsFaktor;
 
+	/**
+	 * @brief Speichert wie viel das Zeit Upgrade Kostet
+	 *
+	 */
 	int GebaudeSpezielleKosten;
+	/**
+	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent 
+	 * 
+	 */
 	int GebaudeSpezielleFaktor;
 
+	/**
+	 * @brief Speichert wie viel das Zeit Upgrade Kostet
+	 *
+	 */
 	int AusführungsReduzierungsKosten;
+	/**
+	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent 
+	 * 
+	 */
 	int AusführungsReduzierungsFaktor;
 };
 

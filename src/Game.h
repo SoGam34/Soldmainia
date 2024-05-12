@@ -74,7 +74,7 @@ private:
 	 * @brief Speichert die Upgrade Informationen des Akteuellen Gebaudes. 
 	 * 
 	 */
-	GebaeudeStats Stats;
+	GebaeudeUpgradeStats Stats;
 
 	/**
 	 * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die Tage alle gleichlang und FPS unabhängig sind. 

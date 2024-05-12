@@ -25,7 +25,7 @@ public:
 	 * 
 	 */
 	Timer();
-	
+
 	/**
 	 * @brief Aktualisieren aller aktiven Timer, dabei werden die Timer um eins nach unten gezahlt 
 	 * 
@@ -63,7 +63,7 @@ public:
 	 * @return false Der Timer lauft noch, er ist bereits vor mindestens einem Tag abgelaufen (Timer < 0) oder es wurde kein Timer mit der angegebenen ID gefunden.
 	 */
 	bool checkTimerAbgelaufenMitID(int id);
-	
+
 	/**
 	 * @brief Get the Timerstand object
 	 * 
@@ -85,12 +85,12 @@ private:
 	 * @brief Ein einzelner Timer 
 	 * 
 	 */
-	int EinzelTimer; 
+	int EinzelTimer;
 
 	/**
 	 * @brief Eine Sammlung von mehreren Timern. Die mit einer ID und der noch verbleibenden Zeit gespeichert werden. 
 	 * 
 	 */
-	std::vector<std::pair<int, int>> IDTimer; 
+	std::vector<std::pair<int, int>> IDTimer;
 };
 
