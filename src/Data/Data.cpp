@@ -3,17 +3,6 @@
 Data::Data()
 {
 	Einheiten.clear();
-
-	Einheit e("Kai");
-	Einheit r("Alina");
-	Einheit d("Samantha");
-	Einheit f("Lars");
-	Einheit g("Tina");
-	addEinheit(e);
-	addEinheit(r);
-	addEinheit(d);
-	addEinheit(f);
-	addEinheit(g);
 }
 Data::~Data()
 {
@@ -68,16 +57,6 @@ int Data::getAnzahlTage()
 int Data::getMONATS_DAUER() const
 {
 	return MONATS_DAUER;
-}
-
-bool Data::getImEinheitsAuswahlMenu()
-{
-	return ImEinheitsAuswahlMenu;
-}
-
-void Data::setEinheitsAuswahlMenu(bool neuerStatus)
-{
-	ImEinheitsAuswahlMenu = neuerStatus;
 }
 
 float Data::getTagesDauer()
