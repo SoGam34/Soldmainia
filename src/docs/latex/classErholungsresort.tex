@@ -1,0 +1,144 @@
+\doxysection{Erholungsresort Klassenreferenz}
+\hypertarget{classErholungsresort}{}\label{classErholungsresort}\index{Erholungsresort@{Erholungsresort}}
+Klassendiagramm für Erholungsresort\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classErholungsresort}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classErholungsresort_a8b0ce43e593643dcdb8dac737fc13e62}\label{classErholungsresort_a8b0ce43e593643dcdb8dac737fc13e62} 
+{\bfseries Erholungsresort} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$ data)
+\item 
+unsigned int \mbox{\hyperlink{classErholungsresort_a8c876adc520bec53883157a3dd824dd7}{get\+Gebaeude\+Ausfuhrungskosten}} () const
+\item 
+\Hypertarget{classErholungsresort_acc01724c1bd8b7029f1bfd6645701c60}\label{classErholungsresort_acc01724c1bd8b7029f1bfd6645701c60} 
+void {\bfseries auswahl\+Zu\+Ordnen} (int Position)
+\item 
+const std\+::stringstream \mbox{\hyperlink{classErholungsresort_a66d91bc1ee1633989ac3d7f596ad0b17}{get\+Gebaude\+Aktiv\+Text}} () const
+\item 
+void \mbox{\hyperlink{classErholungsresort_a80b0908d8f04b8e53a71174b77a3e326}{beenden\+Der\+Ausfuhrung}} ()
+\item 
+void \mbox{\hyperlink{classErholungsresort_a50192324c4f706a4796ce245c106f06b}{aktualisieren\+Informations\+Text}} ()
+\item 
+\Hypertarget{classErholungsresort_aecce34932e59d6e85d22733c48257a9d}\label{classErholungsresort_aecce34932e59d6e85d22733c48257a9d} 
+void {\bfseries erhohen\+Der\+Tranings\+Wirksamkeit} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Öffentliche Methoden geerbt von \mbox{\hyperlink{classGebaeude}{Gebaeude}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Gebaeude} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$ data, unsigned short int Kosten\+Faktor, unsigned short int Zeit\+Faktor)
+\item 
+void {\bfseries beginne\+Aufgabe} ()
+\item 
+void {\bfseries aktualisieren\+Prozess\+Zustand} ()
+\item 
+void {\bfseries beschleunigung\+Der\+Aufgaben\+Durchfuehrung} ()
+\item 
+void {\bfseries reduzieren\+Der\+Ausfuhrungs\+Kosten} ()
+\item 
+void {\bfseries berrechnung\+Voraussichtliche\+Zeit} ()
+\item 
+void {\bfseries aktualisieren\+Timer} ()
+\item 
+Gebaeude\+Stats {\bfseries get\+Upgrade\+Stats} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Öffentliche Methoden geerbt von \mbox{\hyperlink{classTimer}{Timer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Timer} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classTimer}{Timer} object. \end{DoxyCompactList}\item 
+void {\bfseries akt\+Timer} ()
+\begin{DoxyCompactList}\small\item\em Aktualisieren aller aktiven \doxylink{classTimer}{Timer}, dabei werden die \doxylink{classTimer}{Timer} um eins nach unten gezahlt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTimer_a569507649a81495739122d9aa96478a5}{neuer\+Timer}} (int dauer)
+\begin{DoxyCompactList}\small\item\em Startet einen neuen \doxylink{classTimer}{Timer}. Lauft bereits ein Einzel\+Timer wird er überschrieben. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTimer_a9ff08bd36cdba811f807b9c3cbdc8b76}{check\+Timer\+Abgelaufen}} ()
+\begin{DoxyCompactList}\small\item\em Überprüft ob die zu wartene Zeit, von dem Einzel\+Timer, um ist. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classTimer_abc15906ebedbad04deaa7b82540e518c}{neuer\+Timer\+Mit\+ID}} (int id, int dauer)
+\begin{DoxyCompactList}\small\item\em Legt einen neuen \doxylink{classTimer}{Timer} an der unabhangig von anderen ist und andere nicht in die Quere kommt. Wenn diese Funktion verwendet wird können mehrere \doxylink{classTimer}{Timer} gleichzeitig laufen. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classTimer_a8ca73d579d0d8b4be3c4543839f0b01b}{check\+Timer\+Abgelaufen\+Mit\+ID}} (int id)
+\begin{DoxyCompactList}\small\item\em Überprüft ob die zu wartene Zeit, von dem angegebenen \doxylink{classTimer}{Timer}, um ist. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classTimer_ac2ac208dceea8ec894ce05e8461be89f}{get\+Timerstand}} () const
+\begin{DoxyCompactList}\small\item\em Get the Timerstand object. \end{DoxyCompactList}\item 
+std\+::optional$<$ int $>$ \mbox{\hyperlink{classTimer_a377f5064238bfac39ae601a35bb9521f}{get\+Timerstand\+Mit\+ID}} (int id) const
+\begin{DoxyCompactList}\small\item\em Get the Timerstand Mit id object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attribute}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classErholungsresort_aa55057719ceb2234588eeb65628f605c}\label{classErholungsresort_aa55057719ceb2234588eeb65628f605c} 
+int {\bfseries Einheits\+VPosition}
+\item 
+\Hypertarget{classErholungsresort_af7b4e91414737b6fee1a14f80fe781a4}\label{classErholungsresort_af7b4e91414737b6fee1a14f80fe781a4} 
+unsigned short int {\bfseries Wirksamkeitsgrad}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Weitere Geerbte Elemente}
+\doxysubsection*{Geschützte Attribute geerbt von \mbox{\hyperlink{classGebaeude}{Gebaeude}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$ {\bfseries Daten}
+\item 
+bool {\bfseries Prozess\+Aktiv}
+\item 
+unsigned short int {\bfseries Voraussichtliche\+Zeit}
+\item 
+unsigned short int {\bfseries Zeitversatz}
+\item 
+float {\bfseries Aufgaben\+Durchfuehrung\+Zeit\+Faktor}
+\item 
+unsigned short int {\bfseries Ausfuhrungs\+Kosten\+Faktor}
+\item 
+unsigned short int {\bfseries Gebaeude\+Einfluss\+Zeit\+Faktor}
+\item 
+Gebaeude\+Stats {\bfseries Upgrade\+Stats}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Dokumentation der Elementfunktionen}
+\Hypertarget{classErholungsresort_a50192324c4f706a4796ce245c106f06b}\label{classErholungsresort_a50192324c4f706a4796ce245c106f06b} 
+\index{Erholungsresort@{Erholungsresort}!aktualisierenInformationsText@{aktualisierenInformationsText}}
+\index{aktualisierenInformationsText@{aktualisierenInformationsText}!Erholungsresort@{Erholungsresort}}
+\doxysubsubsection{\texorpdfstring{aktualisierenInformationsText()}{aktualisierenInformationsText()}}
+{\footnotesize\ttfamily void Erholungsresort\+::aktualisieren\+Informations\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implementiert \mbox{\hyperlink{classGebaeude}{Gebaeude}}.
+
+\Hypertarget{classErholungsresort_a80b0908d8f04b8e53a71174b77a3e326}\label{classErholungsresort_a80b0908d8f04b8e53a71174b77a3e326} 
+\index{Erholungsresort@{Erholungsresort}!beendenDerAusfuhrung@{beendenDerAusfuhrung}}
+\index{beendenDerAusfuhrung@{beendenDerAusfuhrung}!Erholungsresort@{Erholungsresort}}
+\doxysubsubsection{\texorpdfstring{beendenDerAusfuhrung()}{beendenDerAusfuhrung()}}
+{\footnotesize\ttfamily void Erholungsresort\+::beenden\+Der\+Ausfuhrung (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implementiert \mbox{\hyperlink{classGebaeude}{Gebaeude}}.
+
+\Hypertarget{classErholungsresort_a8c876adc520bec53883157a3dd824dd7}\label{classErholungsresort_a8c876adc520bec53883157a3dd824dd7} 
+\index{Erholungsresort@{Erholungsresort}!getGebaeudeAusfuhrungskosten@{getGebaeudeAusfuhrungskosten}}
+\index{getGebaeudeAusfuhrungskosten@{getGebaeudeAusfuhrungskosten}!Erholungsresort@{Erholungsresort}}
+\doxysubsubsection{\texorpdfstring{getGebaeudeAusfuhrungskosten()}{getGebaeudeAusfuhrungskosten()}}
+{\footnotesize\ttfamily unsigned const int Erholungsresort\+::get\+Gebaeude\+Ausfuhrungskosten (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implementiert \mbox{\hyperlink{classGebaeude}{Gebaeude}}.
+
+\Hypertarget{classErholungsresort_a66d91bc1ee1633989ac3d7f596ad0b17}\label{classErholungsresort_a66d91bc1ee1633989ac3d7f596ad0b17} 
+\index{Erholungsresort@{Erholungsresort}!getGebaudeAktivText@{getGebaudeAktivText}}
+\index{getGebaudeAktivText@{getGebaudeAktivText}!Erholungsresort@{Erholungsresort}}
+\doxysubsubsection{\texorpdfstring{getGebaudeAktivText()}{getGebaudeAktivText()}}
+{\footnotesize\ttfamily const std\+::stringstream Erholungsresort\+::get\+Gebaude\+Aktiv\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Implementiert \mbox{\hyperlink{classGebaeude}{Gebaeude}}.
+
+
+
+Die Dokumentation für diese Klasse wurde erzeugt aufgrund der Dateien\+:\begin{DoxyCompactItemize}
+\item 
+Gebaude/Erholungsresort.\+h\item 
+Gebaude/Erholungsresort.\+cpp\end{DoxyCompactItemize}

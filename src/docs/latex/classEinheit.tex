@@ -1,0 +1,215 @@
+\doxysection{Einheit Klassenreferenz}
+\hypertarget{classEinheit}{}\label{classEinheit}\index{Einheit@{Einheit}}
+
+
+Eine Baseis Klasse für die Batilione und Einzelkämpfer.  
+
+
+
+
+{\ttfamily \#include $<$Einheit.\+h$>$}
+
+\doxysubsubsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEinheit_adc71170df80bf6b4e0667122d3c0af29}{Einheit}} (std\+::string name, unsigned short int hp=100, unsigned short int moral=10, unsigned short int starke=1, bool einsatzbereit=true, unsigned short int grosse=1, unsigned int xp=1)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classEinheit}{Einheit} object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classEinheit_a50b87f9f662fe9d94b54f5e9a16eddb2}{get\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Get the Name object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classEinheit_aecea58a03e21bb7230338bdcc2e2e7c3}{get\+Leben}} () const
+\begin{DoxyCompactList}\small\item\em Get the Leben object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classEinheit_a62c739aa8763c08fc465d79e0bb7d5c5}{get\+Moral}} () const
+\begin{DoxyCompactList}\small\item\em Get the Moral object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classEinheit_aa9252b0093ef778f51024d4ca2dbf4a3}{get\+Starke}} () const
+\begin{DoxyCompactList}\small\item\em Get the Starke object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classEinheit_a9721066531d442d36ebe49ae8d6f72a2}{get\+Einsatzbereit}} () const
+\begin{DoxyCompactList}\small\item\em Get the Einsatzbereit object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classEinheit_a29c16f070c34e0e6f3c5ad7a31b29bf3}{get\+Erfahrung}} () const
+\begin{DoxyCompactList}\small\item\em Get the Erfahrung object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classEinheit_aad11a0e1969941f9cdd367c9e505e607}{get\+Level}} () const
+\begin{DoxyCompactList}\small\item\em Get the Level object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classEinheit_a63e9874fc10ad2fff4b301d87fb39070}{xp\+Hinzufugen}} (unsigned int new\+XP)
+\begin{DoxyCompactList}\small\item\em Fügt die Angebene Menge an Erfahrung der \doxylink{classEinheit}{Einheit} inzu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attribute}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classEinheit_ad3848a8e141fc6c6021d03c147990350}\label{classEinheit_ad3848a8e141fc6c6021d03c147990350} 
+unsigned short int {\bfseries HP}
+\begin{DoxyCompactList}\small\item\em Gibt an wie viel Leben eine \doxylink{classEinheit}{Einheit} hat. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_aba538ebee19f3bf74867b5c4a39c0afd}\label{classEinheit_aba538ebee19f3bf74867b5c4a39c0afd} 
+unsigned short int {\bfseries Moral}
+\begin{DoxyCompactList}\small\item\em Gibt an wie die Truppenmoral ist gut gelaunt oder ehr weniger. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_ad3dd7da4a1c747bd76d7bb9d976e44e0}\label{classEinheit_ad3dd7da4a1c747bd76d7bb9d976e44e0} 
+unsigned short int {\bfseries Starke}
+\begin{DoxyCompactList}\small\item\em Wie Stark bzw. wie viel Kraft eine \doxylink{classEinheit}{Einheit} hat. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_aee2e47aa1b64619f794f3c1bb439604f}\label{classEinheit_aee2e47aa1b64619f794f3c1bb439604f} 
+bool {\bfseries Einsatzbereit}
+\begin{DoxyCompactList}\small\item\em Ob die \doxylink{classEinheit}{Einheit} bereits Beschäftigt ist. True, die \doxylink{classEinheit}{Einheit} ist Beschäftigt. False, die \doxylink{classEinheit}{Einheit} ist frei. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_a2600a9028f227d0165046e3779ffa7b8}\label{classEinheit_a2600a9028f227d0165046e3779ffa7b8} 
+std\+::string {\bfseries Name}
+\begin{DoxyCompactList}\small\item\em Der Name der \doxylink{classEinheit}{Einheit}. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_a391190a3420b04939958104ac0a21e72}\label{classEinheit_a391190a3420b04939958104ac0a21e72} 
+unsigned int {\bfseries XP}
+\begin{DoxyCompactList}\small\item\em Wie viel Erfahrung die \doxylink{classEinheit}{Einheit} im aktuellen Level hat. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_a14fb9201def6bdee3f37232a71ee6885}\label{classEinheit_a14fb9201def6bdee3f37232a71ee6885} 
+unsigned int {\bfseries Level}
+\begin{DoxyCompactList}\small\item\em Auf welchem Level die \doxylink{classEinheit}{Einheit} ist, je hoher das Level desto starker die \doxylink{classEinheit}{Einheit}. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_a605e2f89923f25d7a72d8e9bec18c11a}\label{classEinheit_a605e2f89923f25d7a72d8e9bec18c11a} 
+int {\bfseries Hauptwaffe}
+\begin{DoxyCompactList}\small\item\em Mit welcher Waffe die \doxylink{classEinheit}{Einheit} Hauptsächlich ausgerustet ist. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_ac3df2997ebf3baf0ec803a977893ba39}\label{classEinheit_ac3df2997ebf3baf0ec803a977893ba39} 
+int {\bfseries Nebenwaffe}
+\begin{DoxyCompactList}\small\item\em Eine Nebenwaffe die gelegentlich Benutzt wird. \end{DoxyCompactList}\item 
+\Hypertarget{classEinheit_a7f202e8ef01d3228f9c7479b33717a7a}\label{classEinheit_a7f202e8ef01d3228f9c7479b33717a7a} 
+int {\bfseries Rüstung}
+\begin{DoxyCompactList}\small\item\em Was für eine Rüstung die \doxylink{classEinheit}{Einheit} hat. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Ausführliche Beschreibung}
+Eine Baseis Klasse für die Batilione und Einzelkämpfer. 
+
+\doxysubsection{Beschreibung der Konstruktoren und Destruktoren}
+\Hypertarget{classEinheit_adc71170df80bf6b4e0667122d3c0af29}\label{classEinheit_adc71170df80bf6b4e0667122d3c0af29} 
+\index{Einheit@{Einheit}!Einheit@{Einheit}}
+\index{Einheit@{Einheit}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{Einheit()}{Einheit()}}
+{\footnotesize\ttfamily Einheit\+::\+Einheit (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{unsigned short int}]{hp = {\ttfamily 100},  }\item[{unsigned short int}]{moral = {\ttfamily 10},  }\item[{unsigned short int}]{starke = {\ttfamily 1},  }\item[{bool}]{einsatzbereit = {\ttfamily true},  }\item[{unsigned short int}]{grosse = {\ttfamily 1},  }\item[{unsigned int}]{xp = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classEinheit}{Einheit} object. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em name} & Der Name der \doxylink{classEinheit}{Einheit}. \\
+\hline
+{\em hp} & Wie viel Leben Sie hat. \\
+\hline
+{\em moral} & Die Moral der \doxylink{classEinheit}{Einheit}. \\
+\hline
+{\em starke} & Wie Stark sie ist. \\
+\hline
+{\em einsatzbereit} & Ob die \doxylink{classEinheit}{Einheit} Einsatzbereit ist. \\
+\hline
+{\em grosse} & Aus wie vielen Personen die \doxylink{classEinheit}{Einheit} besteht. \\
+\hline
+{\em xp} & Wie viel XP die \doxylink{classEinheit}{Einheit} hat. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Dokumentation der Elementfunktionen}
+\Hypertarget{classEinheit_a9721066531d442d36ebe49ae8d6f72a2}\label{classEinheit_a9721066531d442d36ebe49ae8d6f72a2} 
+\index{Einheit@{Einheit}!getEinsatzbereit@{getEinsatzbereit}}
+\index{getEinsatzbereit@{getEinsatzbereit}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getEinsatzbereit()}{getEinsatzbereit()}}
+{\footnotesize\ttfamily bool Einheit\+::get\+Einsatzbereit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Einsatzbereit object. 
+
+\begin{DoxyReturn}{Rückgabe}
+true 
+
+false 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_a29c16f070c34e0e6f3c5ad7a31b29bf3}\label{classEinheit_a29c16f070c34e0e6f3c5ad7a31b29bf3} 
+\index{Einheit@{Einheit}!getErfahrung@{getErfahrung}}
+\index{getErfahrung@{getErfahrung}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getErfahrung()}{getErfahrung()}}
+{\footnotesize\ttfamily int Einheit\+::get\+Erfahrung (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Erfahrung object. 
+
+\begin{DoxyReturn}{Rückgabe}
+int 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_aecea58a03e21bb7230338bdcc2e2e7c3}\label{classEinheit_aecea58a03e21bb7230338bdcc2e2e7c3} 
+\index{Einheit@{Einheit}!getLeben@{getLeben}}
+\index{getLeben@{getLeben}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getLeben()}{getLeben()}}
+{\footnotesize\ttfamily int Einheit\+::get\+Leben (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Leben object. 
+
+\begin{DoxyReturn}{Rückgabe}
+int 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_aad11a0e1969941f9cdd367c9e505e607}\label{classEinheit_aad11a0e1969941f9cdd367c9e505e607} 
+\index{Einheit@{Einheit}!getLevel@{getLevel}}
+\index{getLevel@{getLevel}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getLevel()}{getLevel()}}
+{\footnotesize\ttfamily int Einheit\+::get\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Level object. 
+
+\begin{DoxyReturn}{Rückgabe}
+int 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_a62c739aa8763c08fc465d79e0bb7d5c5}\label{classEinheit_a62c739aa8763c08fc465d79e0bb7d5c5} 
+\index{Einheit@{Einheit}!getMoral@{getMoral}}
+\index{getMoral@{getMoral}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getMoral()}{getMoral()}}
+{\footnotesize\ttfamily int Einheit\+::get\+Moral (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Moral object. 
+
+\begin{DoxyReturn}{Rückgabe}
+int 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_a50b87f9f662fe9d94b54f5e9a16eddb2}\label{classEinheit_a50b87f9f662fe9d94b54f5e9a16eddb2} 
+\index{Einheit@{Einheit}!getName@{getName}}
+\index{getName@{getName}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getName()}{getName()}}
+{\footnotesize\ttfamily std\+::string Einheit\+::get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Name object. 
+
+\begin{DoxyReturn}{Rückgabe}
+std\+::string 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_aa9252b0093ef778f51024d4ca2dbf4a3}\label{classEinheit_aa9252b0093ef778f51024d4ca2dbf4a3} 
+\index{Einheit@{Einheit}!getStarke@{getStarke}}
+\index{getStarke@{getStarke}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{getStarke()}{getStarke()}}
+{\footnotesize\ttfamily int Einheit\+::get\+Starke (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Starke object. 
+
+\begin{DoxyReturn}{Rückgabe}
+int 
+\end{DoxyReturn}
+\Hypertarget{classEinheit_a63e9874fc10ad2fff4b301d87fb39070}\label{classEinheit_a63e9874fc10ad2fff4b301d87fb39070} 
+\index{Einheit@{Einheit}!xpHinzufugen@{xpHinzufugen}}
+\index{xpHinzufugen@{xpHinzufugen}!Einheit@{Einheit}}
+\doxysubsubsection{\texorpdfstring{xpHinzufugen()}{xpHinzufugen()}}
+{\footnotesize\ttfamily void Einheit\+::xp\+Hinzufugen (\begin{DoxyParamCaption}\item[{unsigned int}]{new\+XP }\end{DoxyParamCaption})}
+
+
+
+Fügt die Angebene Menge an Erfahrung der \doxylink{classEinheit}{Einheit} inzu. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em new\+XP} & Wie viel Erfahrung die \doxylink{classEinheit}{Einheit} erhalt. \\
+\hline
+\end{DoxyParams}
+
+
+Die Dokumentation für diese Klasse wurde erzeugt aufgrund der Dateien\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Einheit_8h}{Einheit.\+h}}\item 
+Einheit.\+cpp\end{DoxyCompactItemize}

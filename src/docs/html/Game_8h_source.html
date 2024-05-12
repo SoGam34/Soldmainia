@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Soldmania: Game.h Quellcode</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript" src="darkmode_toggle.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Soldmania<span id="projectnumber">&#160;0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Erzeugt von Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Suchen');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Lade ...</div>
+<div class="SRStatus" id="Searching">Suche ...</div>
+<div class="SRStatus" id="NoMatches">Keine Treffer</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Game.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;Gebaude/Batilion_Ausbildungszentrum.h&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;Gebaude/Scoutbuero.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;Gebaude/Traningszentrum.h&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;Gebaude/Erholungsresort.h&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;Gebaude/Zentrale.h&quot;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="View_8h.html">Rendern/View.h</a>&quot;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="Data_8h.html">Data/Data.h</a>&quot;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="Auswahl_8h.html">Auswahl.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;Menus.h&quot;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classGame.html">   34</a></span><span class="keyword">class </span><a class="code hl_class" href="classGame.html">Game</a></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_function" href="classGame.html#ad59df6562a58a614fda24622d3715b65">Game</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_function" href="classGame.html#ae3d112ca6e0e55150d2fdbc704474530">~Game</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGame.html#a3527e8a12fd28b0d5aaed9ca35714891">spielLauft</a>();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGame.html#a79df6376b332d63c9eca0dcee30305c3">update</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classGame.html#a0c56800bd037a66a654679fa332ed1de">zeit</a>();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classGame.html#a2355e1ef9fada0e83756436c1f7e6ba4">   71</a></span>    Menus <a class="code hl_variable" href="classGame.html#a2355e1ef9fada0e83756436c1f7e6ba4">AktuellesMenu</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classGame.html#aad319acfaff18c241841281a166a5207">   77</a></span>    <a class="code hl_struct" href="structGebaeudeUpgradeStats.html">GebaeudeUpgradeStats</a> <a class="code hl_variable" href="classGame.html#aad319acfaff18c241841281a166a5207">Stats</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="classGame.html#a9f43f5e848fefdc175d6a2e6daecfd17">   83</a></span>    std::chrono::time_point&lt;std::chrono::steady_clock&gt; <a class="code hl_variable" href="classGame.html#a9f43f5e848fefdc175d6a2e6daecfd17">ZeitpunktDesLetztenTages</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    std::unique_ptr&lt;View&gt; view;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    std::shared_ptr&lt;Data&gt; Daten;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="classBatillion__Ausbildungszentrum.html">Batillion_Ausbildungszentrum</a> *BAZ;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_class" href="classScoutbuero.html">Scoutbuero</a> *Scoutbueros;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_class" href="classTraningszentrum.html">Traningszentrum</a> *Traningzentren;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="classZentrale.html">Zentrale</a> *Hauptquatier;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_class" href="classErholungsresort.html">Erholungsresort</a> *Erholungsresorts;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
+</div>
+<div class="ttc" id="aAuswahl_8h_html"><div class="ttname"><a href="Auswahl_8h.html">Auswahl.h</a></div></div>
+<div class="ttc" id="aData_8h_html"><div class="ttname"><a href="Data_8h.html">Data.h</a></div></div>
+<div class="ttc" id="aView_8h_html"><div class="ttname"><a href="View_8h.html">View.h</a></div></div>
+<div class="ttc" id="aclassBatillion__Ausbildungszentrum_html"><div class="ttname"><a href="classBatillion__Ausbildungszentrum.html">Batillion_Ausbildungszentrum</a></div><div class="ttdef"><b>Definition</b> Batilion_Ausbildungszentrum.h:11</div></div>
+<div class="ttc" id="aclassErholungsresort_html"><div class="ttname"><a href="classErholungsresort.html">Erholungsresort</a></div><div class="ttdef"><b>Definition</b> Erholungsresort.h:9</div></div>
+<div class="ttc" id="aclassGame_html"><div class="ttname"><a href="classGame.html">Game</a></div><div class="ttdoc">Die Klasse verwaltet alles generelles und koordiniert die alle anderen Klassen.</div><div class="ttdef"><b>Definition</b> Game.h:35</div></div>
+<div class="ttc" id="aclassGame_html_a0c56800bd037a66a654679fa332ed1de"><div class="ttname"><a href="classGame.html#a0c56800bd037a66a654679fa332ed1de">Game::zeit</a></div><div class="ttdeci">void zeit()</div><div class="ttdoc">Die Ingame Zeit wird aktualliesert und alles was davon abhangig ist.</div><div class="ttdef"><b>Definition</b> Game.cpp:296</div></div>
+<div class="ttc" id="aclassGame_html_a2355e1ef9fada0e83756436c1f7e6ba4"><div class="ttname"><a href="classGame.html#a2355e1ef9fada0e83756436c1f7e6ba4">Game::AktuellesMenu</a></div><div class="ttdeci">Menus AktuellesMenu</div><div class="ttdoc">Speichert das Aktuelle Menu in dem sich der Spieler befindet.</div><div class="ttdef"><b>Definition</b> Game.h:71</div></div>
+<div class="ttc" id="aclassGame_html_a3527e8a12fd28b0d5aaed9ca35714891"><div class="ttname"><a href="classGame.html#a3527e8a12fd28b0d5aaed9ca35714891">Game::spielLauft</a></div><div class="ttdeci">void spielLauft()</div><div class="ttdoc">Eine Funktion die solange ausgeführt wird bis das Spiel vorbei ist. Die Funktion triggert allmögliche...</div><div class="ttdef"><b>Definition</b> Game.cpp:36</div></div>
+<div class="ttc" id="aclassGame_html_a79df6376b332d63c9eca0dcee30305c3"><div class="ttname"><a href="classGame.html#a79df6376b332d63c9eca0dcee30305c3">Game::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Die neuste User eingabe wird überprüft. Bei Input wird die dazugehorige Aktion ausgefürt.</div><div class="ttdef"><b>Definition</b> Game.cpp:50</div></div>
+<div class="ttc" id="aclassGame_html_a9f43f5e848fefdc175d6a2e6daecfd17"><div class="ttname"><a href="classGame.html#a9f43f5e848fefdc175d6a2e6daecfd17">Game::ZeitpunktDesLetztenTages</a></div><div class="ttdeci">std::chrono::time_point&lt; std::chrono::steady_clock &gt; ZeitpunktDesLetztenTages</div><div class="ttdoc">Speichert wann der letzte ingame Tag begonnen hat, damit die Tage alle gleichlang und FPS unabhängig ...</div><div class="ttdef"><b>Definition</b> Game.h:83</div></div>
+<div class="ttc" id="aclassGame_html_aad319acfaff18c241841281a166a5207"><div class="ttname"><a href="classGame.html#aad319acfaff18c241841281a166a5207">Game::Stats</a></div><div class="ttdeci">GebaeudeUpgradeStats Stats</div><div class="ttdoc">Speichert die Upgrade Informationen des Akteuellen Gebaudes.</div><div class="ttdef"><b>Definition</b> Game.h:77</div></div>
+<div class="ttc" id="aclassGame_html_ad59df6562a58a614fda24622d3715b65"><div class="ttname"><a href="classGame.html#ad59df6562a58a614fda24622d3715b65">Game::Game</a></div><div class="ttdeci">Game()</div><div class="ttdoc">Construct a new Game object.</div><div class="ttdef"><b>Definition</b> Game.cpp:3</div></div>
+<div class="ttc" id="aclassGame_html_ae3d112ca6e0e55150d2fdbc704474530"><div class="ttname"><a href="classGame.html#ae3d112ca6e0e55150d2fdbc704474530">Game::~Game</a></div><div class="ttdeci">~Game()</div><div class="ttdoc">Destroy the Game object.</div><div class="ttdef"><b>Definition</b> Game.cpp:27</div></div>
+<div class="ttc" id="aclassScoutbuero_html"><div class="ttname"><a href="classScoutbuero.html">Scoutbuero</a></div><div class="ttdef"><b>Definition</b> Scoutbuero.h:10</div></div>
+<div class="ttc" id="aclassTraningszentrum_html"><div class="ttname"><a href="classTraningszentrum.html">Traningszentrum</a></div><div class="ttdef"><b>Definition</b> Traningszentrum.h:10</div></div>
+<div class="ttc" id="aclassZentrale_html"><div class="ttname"><a href="classZentrale.html">Zentrale</a></div><div class="ttdef"><b>Definition</b> Zentrale.h:10</div></div>
+<div class="ttc" id="astructGebaeudeUpgradeStats_html"><div class="ttname"><a href="structGebaeudeUpgradeStats.html">GebaeudeUpgradeStats</a></div><div class="ttdoc">Speichert die Aktuellen Upgrade Werte einer Einrichtung.</div><div class="ttdef"><b>Definition</b> Menus.h:38</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Erzeugt von&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
+</small></address>
+</body>
+</html>

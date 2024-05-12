@@ -1,0 +1,101 @@
+\doxysection{Scoutbuero.\+h}
+\hypertarget{Scoutbuero_8h_source}{}\label{Scoutbuero_8h_source}\index{Gebaude/Scoutbuero.h@{Gebaude/Scoutbuero.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}Gebaeude.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Data_8h}{../Data/Data.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{Timer_8h}{../Timer.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classScoutbuero}{Scoutbuero}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classGebaeude}{Gebaeude}}}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Konstruktoren-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{classScoutbuero}{Scoutbuero}}()\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//Konstrucktor\ mit\ allen\ informationen\ für\ eine\ vollstandige\ Initzialisierung\ }}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classScoutbuero}{Scoutbuero}}(std::shared\_ptr<Data>\ data);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{classScoutbuero}{\string~Scoutbuero}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Aufgaben\ Ablauf-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ \ \ \ Name:\ GebaeudeAusfuhrungskosten}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ berechnet\ wie\ viel\ die\ Ausfuhrung\ kostet}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \ Retrun:\ Die\ Funktion\ gibt\ die\ kosten\ als\ int\ zurück}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ \ Zu\ Beachten:\ Die\ Funktion\ ist\ in\ gebaude\ als\ virtuell\ deklarirt}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getGebaeudeAusfuhrungskosten()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ Name:\ GebaudeAktivText}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ erstellt\ den\ Text\ der\ Angezeigt\ wird\ wenn\ das\ Gebaude\ aktiv\ ist}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \ Retrun:\ Die\ Funktion\ gibt\ den\ Text\ als\ stringstram\ zurück}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ \ Zu\ Beachten:\ Die\ Funktion\ ist\ in\ gebaude\ als\ virtuell\ deklarirt}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ std::stringstream\ getGebaudeAktivText()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ \ Name:\ BeendenDerAusfuhrung}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ sorgt\ für\ ein\ geregeltes\ Ende\ der\ Ausfuhrung}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ Retrun:\ keine}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ \ Zu\ Beachten:\ Die\ Funktion\ ist\ in\ gebaude\ als\ virtuell\ deklarirt}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ beendenDerAusfuhrung();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ \ \ \ Name:\ Annehmen}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ \ Funktion\ fuegt\ das\ EM\ hinzu\ und\ stellt\ die\ Aufgaben\ anzige\ auf\ Informationtext\ um\ Anzeige}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ \ \ Retrun:\ keine}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ annehmenDerEinheit();}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ \ Name:\ Ablehnen}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ loescht\ das\ EM\ und\ stellt\ die\ Aufgaben\ anzige\ auf\ Informationtext\ um\ Anzeige}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ \ Retrun:\ keine}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ ablehnenDerEinheit();}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Allgemeine\ Funktionen\ Gebaeudes-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ Name:\ aktualisierenInformationsText}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ aktualisiert\ den\ Informationstext\ sodass\ der\ Spieler\ weis\ was\ die\ Aufgabe\ des\ gebaudes\ ist\ und\ unter\ welchen\ Bedingungen\ diese\ Erfullt\ wird}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ Retrun:\ kein}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ Zu\ Beachten:\ Die\ Funktion\ ist\ in\ gebaude\ als\ virtuell\ deklarirt}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ aktualisierenInformationsText();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Upgraden\ des\ Gebaeudes-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\///}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ \ \ Name:\ ErhohenDesMoeglichenRanges}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ \ \ param:\ keine}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ \ Aufgabe:\ Die\ Funktion\ modifiziert\ iRangmin,\ so\ das\ die\ Em`s\ die\ gefunden\ werden\ einen\ hoheren\ Rang\ haben\ und\ passt\ den\ Kontostand\ sowie\ die\ Kacheln\ an}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ \ Retrun:\ keine}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{void}\ erhohenDesMoeglichenRanges();}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Der\ mindest\ Rang\ den\ ein\ EM\ haben\ kann}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ Rangmin;}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ Fuer\ eine\ einfachere\ Verwaltung\ der\ Suche\ und\ Erzeugung}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{enum}\ Range}
+\DoxyCodeLine{00089\ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ S\ =\ 7,\ A\ =\ 6,\ B\ =\ 5,\ C\ =\ 4,\ D\ =\ 3,\ E\ =\ 2,\ F\ =\ 1}
+\DoxyCodeLine{00091\ \ \ \ \ \};}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//Das\ Objekt\ in\ dem\ der\ aktuelle\ Rang\ gespeichrt\ wird\ }}
+\DoxyCodeLine{00093\ \ \ \ \ Range\ Rang;}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+
+\end{DoxyCode}

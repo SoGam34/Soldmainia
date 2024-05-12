@@ -1,0 +1,192 @@
+\doxysection{Auswahl Klassenreferenz}
+\hypertarget{classAuswahl}{}\label{classAuswahl}\index{Auswahl@{Auswahl}}
+
+
+Die Klasse sucht Einheiten mit bestimmten Kriterien und Bereitet sie für die weitere Bearbeitung vor.  
+
+
+
+
+{\ttfamily \#include $<$Auswahl.\+h$>$}
+
+Klassendiagramm für Auswahl\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classAuswahl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Öffentliche Methoden}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAuswahl_a6c1155b28b467624ae15d5a0017b6ef0}{Auswahl}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$ data)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{classAuswahl}{Auswahl} object. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a5845030d2048ef0dbe5fcf5c5faa4970}\label{classAuswahl_a5845030d2048ef0dbe5fcf5c5faa4970} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Auswahl} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{classAuswahl}{Auswahl} object. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_ae06fd1c78ac473984deffbc0605b0949}\label{classAuswahl_ae06fd1c78ac473984deffbc0605b0949} 
+void {\bfseries suche\+Nach\+Einsetzbaren\+Einheiten} ()
+\begin{DoxyCompactList}\small\item\em Sucht alle einheiten raus die Eingesetzt werden können. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a71de13dc28333563b859a0c83ef44285}\label{classAuswahl_a71de13dc28333563b859a0c83ef44285} 
+void {\bfseries suche\+Nach\+Unverletzten\+Einheiten} ()
+\begin{DoxyCompactList}\small\item\em Sucht alle Einsetzbaren und Unverletzen Einheiten raus. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a73687614fb6aa46bc1bbe741c4f7d67d}\label{classAuswahl_a73687614fb6aa46bc1bbe741c4f7d67d} 
+void {\bfseries suche\+Nach\+Verletzten} ()
+\begin{DoxyCompactList}\small\item\em Sucht alle Einsetzbaren und Verletzten(\+Hp $<$ MAX\+\_\+\+LEBEN) Einheiten raus. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a23a0c22bd06738c3b7bcf2010660fa02}\label{classAuswahl_a23a0c22bd06738c3b7bcf2010660fa02} 
+void {\bfseries suche\+Nach\+Truppenmoral} ()
+\begin{DoxyCompactList}\small\item\em Sucht alle Einsetzbaren Einheiten mit geringere Truppenmoral(\+Moral $<$ MAX\+\_\+\+MORAL) raus. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAuswahl_a36c2de88890ec928d528b6531013139c}{suche\+Nach\+Starke}} (int min)
+\begin{DoxyCompactList}\small\item\em Sucht alle Einsetzbaren Einheiten raus die Starker sind als min raus. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAuswahl_a60cb3cc05b94b91a2fafbcc6b524ef8f}{leeren}} ()
+\begin{DoxyCompactList}\small\item\em Leert das interne Objekt in dem die herausgesuchten einheiten gespeichert werden. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAuswahl_ac5a2d99af09e762dc94173959c653ce9}{sortiere\+Nach\+Starke}} (bool aufsteigend)
+\begin{DoxyCompactList}\small\item\em Sortiert die herausgesuchten Einheiten nach der Starke. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAuswahl_a7c8a9f611c04522ff51fd2bbe67ac2bb}{sortiere\+Nach\+Verletzten}} (bool aufsteigend)
+\begin{DoxyCompactList}\small\item\em Sortiert die herausgesuchten Einheiten nach der schwere der Verletzung. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAuswahl_aa6f6ceee5781c4f2fbd2c33f463c895f}{sortiere\+Nach\+Truppenmoral}} (bool aufsteigend)
+\begin{DoxyCompactList}\small\item\em Sortiert die herausgesuchten Einheiten nach der Truppenmoral. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{classAuswahl_a7a2329e7ae695977a6b79240f259394b}{get\+Ausgewahlte\+Einheiten}} ()
+\begin{DoxyCompactList}\small\item\em Get the Ausgewahlte Einheiten object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Methoden}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classAuswahl_ae99cc960b918e2c9c6c8802ea7e0ad4e}\label{classAuswahl_ae99cc960b918e2c9c6c8802ea7e0ad4e} 
+void {\bfseries entferne\+Dopplungen} ()
+\begin{DoxyCompactList}\small\item\em Bei der suche nach mehreren Eigenschaften kann es dazu kommen das eine \doxylink{classEinheit}{Einheit} mehrfach ausgewahtl wird. Die Funktion erkennt die Dopplungen und entfernt Sie. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attribute}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classAuswahl_aaf85036d0f9da469b9ceb33555c17f1d}\label{classAuswahl_aaf85036d0f9da469b9ceb33555c17f1d} 
+std\+::vector$<$ int $>$ {\bfseries Ausgewahlte\+Einheiten}
+\begin{DoxyCompactList}\small\item\em Der Vektor speichert die Einheiten die bei der suche Ausgewählt werden da sie das Suchkriterieum erfüllen. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a5124cc5136119abddaecb224e3545722}\label{classAuswahl_a5124cc5136119abddaecb224e3545722} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$ {\bfseries Daten\+Auswahl}
+\begin{DoxyCompactList}\small\item\em Ein Kopie des \doxylink{classData}{Data} Pointers mit dem auf die Einheiten und ihre Eigenschaften zugegriffen wird. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_a491deff22067bc1c36a1f94e42ba245a}\label{classAuswahl_a491deff22067bc1c36a1f94e42ba245a} 
+const int {\bfseries MAX\+\_\+\+LEBEN} = 100
+\begin{DoxyCompactList}\small\item\em Das Maximale Leben das eine \doxylink{classEinheit}{Einheit} haben kann ohne Effekte. \end{DoxyCompactList}\item 
+\Hypertarget{classAuswahl_ae1de4c1f86bde06334681d36a16ee393}\label{classAuswahl_ae1de4c1f86bde06334681d36a16ee393} 
+const int {\bfseries MAX\+\_\+\+MORAL} = 10
+\begin{DoxyCompactList}\small\item\em Die Maximale Moral die eine \doxylink{classEinheit}{Einheit} haben kann. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Ausführliche Beschreibung}
+Die Klasse sucht Einheiten mit bestimmten Kriterien und Bereitet sie für die weitere Bearbeitung vor. 
+
+\begin{DoxyRefDesc}{Noch zu erledigen}
+\item[\mbox{\hyperlink{todo__todo000001}{Noch zu erledigen}}]Unterscheiden zwischen Battilion und Einzelkampfer \end{DoxyRefDesc}
+
+
+\doxysubsection{Beschreibung der Konstruktoren und Destruktoren}
+\Hypertarget{classAuswahl_a6c1155b28b467624ae15d5a0017b6ef0}\label{classAuswahl_a6c1155b28b467624ae15d5a0017b6ef0} 
+\index{Auswahl@{Auswahl}!Auswahl@{Auswahl}}
+\index{Auswahl@{Auswahl}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{Auswahl()}{Auswahl()}}
+{\footnotesize\ttfamily Auswahl\+::\+Auswahl (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classData}{Data}} $>$}]{data }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{classAuswahl}{Auswahl} object. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em data} & Eine Kopie des \doxylink{classData}{Data} Pointers \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Dokumentation der Elementfunktionen}
+\Hypertarget{classAuswahl_a7a2329e7ae695977a6b79240f259394b}\label{classAuswahl_a7a2329e7ae695977a6b79240f259394b} 
+\index{Auswahl@{Auswahl}!getAusgewahlteEinheiten@{getAusgewahlteEinheiten}}
+\index{getAusgewahlteEinheiten@{getAusgewahlteEinheiten}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{getAusgewahlteEinheiten()}{getAusgewahlteEinheiten()}}
+{\footnotesize\ttfamily std\+::vector$<$ int $>$ Auswahl\+::get\+Ausgewahlte\+Einheiten (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Ausgewahlte Einheiten object. 
+
+\begin{DoxyReturn}{Rückgabe}
+std\+::vector$<$int$>$ Gibt die Indexe der Einheiten zurück. Wenn man nach der Starke absteigen sortiert hat erhalt man mit get\+Einheit()\mbox{[}\doxylink{classAuswahl_a7a2329e7ae695977a6b79240f259394b}{get\+Ausgewahlte\+Einheiten()}\mbox{[}1\mbox{]}\mbox{]}; die Starkste \doxylink{classEinheit}{Einheit} aus den Ausgesuchten Einheiten. ~\newline
+ 
+\end{DoxyReturn}
+\Hypertarget{classAuswahl_a60cb3cc05b94b91a2fafbcc6b524ef8f}\label{classAuswahl_a60cb3cc05b94b91a2fafbcc6b524ef8f} 
+\index{Auswahl@{Auswahl}!leeren@{leeren}}
+\index{leeren@{leeren}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{leeren()}{leeren()}}
+{\footnotesize\ttfamily void Auswahl\+::leeren (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Leert das interne Objekt in dem die herausgesuchten einheiten gespeichert werden. 
+
+\begin{DoxyAttention}{Achtung}
+Die Funktion sollte vor jeder suche Aufgerufen werden! Die Einige Ausnahme ist das man nach mehreren Eigenschaften suchen will wie verlete und geringe Truppenmoral. 
+\end{DoxyAttention}
+\Hypertarget{classAuswahl_ac5a2d99af09e762dc94173959c653ce9}\label{classAuswahl_ac5a2d99af09e762dc94173959c653ce9} 
+\index{Auswahl@{Auswahl}!sortiereNachStarke@{sortiereNachStarke}}
+\index{sortiereNachStarke@{sortiereNachStarke}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{sortiereNachStarke()}{sortiereNachStarke()}}
+{\footnotesize\ttfamily void Auswahl\+::sortiere\+Nach\+Starke (\begin{DoxyParamCaption}\item[{bool}]{aufsteigend }\end{DoxyParamCaption})}
+
+
+
+Sortiert die herausgesuchten Einheiten nach der Starke. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em aufsteigend} & Bei false wird Absteigend(Starkste -\/\texorpdfstring{$>$}{>} Schwachste) sortiert und bei true Aufsteigend(Schwachste -\/\texorpdfstring{$>$}{>} Starkste). ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classAuswahl_aa6f6ceee5781c4f2fbd2c33f463c895f}\label{classAuswahl_aa6f6ceee5781c4f2fbd2c33f463c895f} 
+\index{Auswahl@{Auswahl}!sortiereNachTruppenmoral@{sortiereNachTruppenmoral}}
+\index{sortiereNachTruppenmoral@{sortiereNachTruppenmoral}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{sortiereNachTruppenmoral()}{sortiereNachTruppenmoral()}}
+{\footnotesize\ttfamily void Auswahl\+::sortiere\+Nach\+Truppenmoral (\begin{DoxyParamCaption}\item[{bool}]{aufsteigend }\end{DoxyParamCaption})}
+
+
+
+Sortiert die herausgesuchten Einheiten nach der Truppenmoral. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em aufsteigend} & Bei false wird Absteigend(Motiviertesten -\/\texorpdfstring{$>$}{>} niedergeschlagen) sortiert und bei true Aufsteigend(niedergeschlagen -\/\texorpdfstring{$>$}{>} Motiviertesten). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classAuswahl_a7c8a9f611c04522ff51fd2bbe67ac2bb}\label{classAuswahl_a7c8a9f611c04522ff51fd2bbe67ac2bb} 
+\index{Auswahl@{Auswahl}!sortiereNachVerletzten@{sortiereNachVerletzten}}
+\index{sortiereNachVerletzten@{sortiereNachVerletzten}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{sortiereNachVerletzten()}{sortiereNachVerletzten()}}
+{\footnotesize\ttfamily void Auswahl\+::sortiere\+Nach\+Verletzten (\begin{DoxyParamCaption}\item[{bool}]{aufsteigend }\end{DoxyParamCaption})}
+
+
+
+Sortiert die herausgesuchten Einheiten nach der schwere der Verletzung. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em aufsteigend} & Bei false wird Absteigend(leicht Verletzt(99 HP) -\/\texorpdfstring{$>$}{>} halb Tot (20 HP)) sortiert und bei true Aufsteigend(halb Tot (20 HP) -\/\texorpdfstring{$>$}{>} leicht Verletzt(99 HP)). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classAuswahl_a36c2de88890ec928d528b6531013139c}\label{classAuswahl_a36c2de88890ec928d528b6531013139c} 
+\index{Auswahl@{Auswahl}!sucheNachStarke@{sucheNachStarke}}
+\index{sucheNachStarke@{sucheNachStarke}!Auswahl@{Auswahl}}
+\doxysubsubsection{\texorpdfstring{sucheNachStarke()}{sucheNachStarke()}}
+{\footnotesize\ttfamily void Auswahl\+::suche\+Nach\+Starke (\begin{DoxyParamCaption}\item[{int}]{min }\end{DoxyParamCaption})}
+
+
+
+Sucht alle Einsetzbaren Einheiten raus die Starker sind als min raus. 
+
+
+\begin{DoxyParams}{Parameter}
+{\em min} & Die Mindest Starke die eine \doxylink{classEinheit}{Einheit} haben muss. \\
+\hline
+\end{DoxyParams}
+
+
+Die Dokumentation für diese Klasse wurde erzeugt aufgrund der Dateien\+:\begin{DoxyCompactItemize}
+\item 
+Rendern/\mbox{\hyperlink{Auswahl_8h}{Auswahl.\+h}}\item 
+Rendern/Auswahl.\+cpp\end{DoxyCompactItemize}
