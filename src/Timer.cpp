@@ -50,6 +50,5 @@ std::optional<int> Timer::getTimerstandMitID(int id) const
 		if (IDTimer[i].first == id)
 			return IDTimer[i].second;
 
-	return
-	{};
+	return {};
 }

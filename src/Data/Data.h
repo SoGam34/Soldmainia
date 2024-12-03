@@ -3,24 +3,25 @@
 /**
  * @file Data.h
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-05-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include <vector>
 
 #include "../Einheit.h"
 
 /**
- * @brief Die Klasse speichert alle Informationen die von mehreren Klassen benötigt werden. 
- * 
+ * @brief Die Klasse speichert alle Informationen die von mehreren Klassen
+ * benötigt werden.
+ *
  */
 class Data
 {
-public:
+	public:
 	/**
 	 * @brief Construct a new Data object
 	 *
@@ -45,7 +46,7 @@ public:
 	 *
 	 * @param e Die Einheit die hinzugefügt werden soll.
 	 */
-	void addEinheit(const Einheit &e);
+	void addEinheit(const Einheit& e);
 
 	/**
 	 * @brief Get the Bekanntheit object
@@ -76,7 +77,8 @@ public:
 	void hinzufuegenZuKontostand(int betrag);
 
 	/**
-	 * @brief Es beginnt ein neuer Tag und der Zahler der die insgesamte Anzahl an Tagen Zahlt wird um eins erhöt.
+	 * @brief Es beginnt ein neuer Tag und der Zahler der die insgesamte
+	 * Anzahl an Tagen Zahlt wird um eins erhöt.
 	 *
 	 */
 	void erhoheAnzahlTage();
@@ -117,41 +119,40 @@ public:
 	 */
 	void saveGameToFile();
 
-private:
-
+	private:
 	/**
 	 * @brief Speichert den Aktuellen Kontostand des Spielers.
-	 * 
+	 *
 	 */
 	int Kontostand = 1000000000;
 
 	/**
-	 * @brief Die Anzalhl an Tagen die im gesamten Spiel vergangen sind. 
-	 * 
+	 * @brief Die Anzalhl an Tagen die im gesamten Spiel vergangen sind.
+	 *
 	 */
 	int AnzahlTage = 0;
 
 	/**
-	 * @brief Wie lange ein Tag in der Echten Welt dauert. 
-	 * 
+	 * @brief Wie lange ein Tag in der Echten Welt dauert.
+	 *
 	 */
 	float TagesDauer = 1.2;
 
 	/**
 	 * @brief Die Dauer eines Monats.
-	 * 
+	 *
 	 */
 	const int MONATS_DAUER = 30;
 
 	/**
 	 * @brief Wie bekannt ein Spieler im spiel ist.
-	 * 
+	 *
 	 */
 	unsigned int Bekantheit = 0;
 
 	/**
-	 * @brief Ein Vector der alle Einheiten des Spielers speichert. 
-	 * 
+	 * @brief Ein Vector der alle Einheiten des Spielers speichert.
+	 *
 	 */
 	std::vector<Einheit> Einheiten;
 };

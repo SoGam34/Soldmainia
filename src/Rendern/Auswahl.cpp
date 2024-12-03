@@ -30,9 +30,12 @@ void Auswahl::entferneDopplungen()
 	{
 		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 		{
-			if (AusgewahlteEinheiten[i] == AusgewahlteEinheiten[j] && i != j)
+			if (AusgewahlteEinheiten[i] ==
+				AusgewahlteEinheiten[j] &&
+			    i != j)
 			{
-				//AusgewahlteEinheiten[j].pop_back();  TODO: Remove the Element on position j
+				// AusgewahlteEinheiten[j].pop_back();  TODO:
+				// Remove the Element on position j
 			}
 		}
 	}
@@ -42,8 +45,8 @@ void Auswahl::sucheNachUnverletztenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
-				&& DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
+		    DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -56,8 +59,8 @@ void Auswahl::sucheNachVerletzten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
-				&& DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
+		    DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -70,8 +73,8 @@ void Auswahl::sucheNachTruppenmoral()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
-				&& DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
+		    DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -84,8 +87,8 @@ void Auswahl::sucheNachStarke(int min)
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit()
-				&& DatenAuswahl->getEinheiten()[i].getStarke() >= min)
+		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
+		    DatenAuswahl->getEinheiten()[i].getStarke() >= min)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -110,12 +113,19 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
-						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getStarke() >
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getStarke())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
@@ -128,12 +138,19 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getStarke()
-						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getStarke())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getStarke() <
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getStarke())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
@@ -149,12 +166,19 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
-						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getLeben() >
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getLeben())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
@@ -167,12 +191,19 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getLeben()
-						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getLeben())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getLeben() <
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getLeben())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
@@ -188,12 +219,19 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
-						> DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getMoral() >
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getMoral())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
@@ -206,16 +244,22 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 		{
 			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
 			{
-				if (DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[i]].getMoral()
-						< DatenAuswahl->getEinheiten()[AusgewahlteEinheiten[j]].getMoral())
+				if (DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[i]]
+					.getMoral() <
+				    DatenAuswahl
+					->getEinheiten()
+					    [AusgewahlteEinheiten[j]]
+					.getMoral())
 				{
 					size_t temp;
 					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] = AusgewahlteEinheiten[i];
+					AusgewahlteEinheiten[j] =
+					    AusgewahlteEinheiten[i];
 					AusgewahlteEinheiten[i] = temp;
 				}
 			}
 		}
 	}
 }
-

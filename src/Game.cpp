@@ -4,7 +4,7 @@ Game::Game()
 {
 	Daten = std::make_shared<Data>();
 
-	//Gebaude
+	// Gebaude
 	BAZ = new Batillion_Ausbildungszentrum(Daten);
 
 	Scoutbueros = new Scoutbuero(Daten);
@@ -56,13 +56,17 @@ void Game::update()
 		Daten->saveGameToFile();
 	}
 
-	switch (AktuellesMenu) // @suppress("Missing cases in switch")  @suppress("Missing default in switch")     Unterdrücken beider Sachen da das Einzige nicht entahltene hauptmenu ist was danach bearbeitet wird und es keinen sinnvollen defult gibt.
+	switch (
+	    AktuellesMenu) // @suppress("Missing cases in switch")
+			   // @suppress("Missing default in switch")
+			   // Unterdrücken beider Sachen da das Einzige nicht
+			   // entahltene hauptmenu ist was danach bearbeitet
+			   // wird und es keinen sinnvollen defult gibt.
 	{
 	case zentrale:
 	{
-
 	}
-		break;
+	break;
 
 	case batillionsausbildungsstate:
 	{
@@ -71,44 +75,49 @@ void Game::update()
 		{
 		case AUSWAHL_AKTION_1:
 		{
-			BAZ->beginneAufgabe();	//starten Gedr�kt
+			BAZ->beginneAufgabe(); // starten Gedr�kt
 		}
-			break;
+		break;
 		case AUSWAHL_AKTION_2:
 		{
-			BAZ->erhoheEinheitsGrosse();		//Anzahl Mitglieder wird erh�ht
+			BAZ->erhoheEinheitsGrosse(); // Anzahl Mitglieder wird
+						     // erh�ht
 		}
-			break;
+		break;
 		case AUSWAHL_AKTION_3:
 		{
-			BAZ->reduziereEinheitsGrosse();	//Anzahl der Mitglieder wird gesengt
+			BAZ->reduziereEinheitsGrosse(); // Anzahl der Mitglieder
+							// wird gesengt
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			BAZ->beschleunigungDerAufgabenDurchfuehrung();//Upgrade Geschwindikeit
+			BAZ->beschleunigungDerAufgabenDurchfuehrung(); // Upgrade
+								       // Geschwindikeit
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			BAZ->erhohenDerGrundstarke();	 //Upgrade Grundst�rke
+			BAZ->erhohenDerGrundstarke(); // Upgrade Grundst�rke
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			BAZ->reduzierenDerAusfuhrungsKosten();//Upgrade zur kosten Reduzierung
+			BAZ->reduzierenDerAusfuhrungsKosten(); // Upgrade zur
+							       // kosten
+							       // Reduzierung
 		}
-			break;
+		break;
 		default:
 		{
 			view->ungueltigeEingabe();
 		}
-			break;
+		break;
 		}
 
 		Stats = BAZ->getUpgradeStats();
 	}
-		break;
+	break;
 
 	case scoutbuero:
 	{
@@ -116,44 +125,52 @@ void Game::update()
 		{
 		case AUSWAHL_AKTION_1:
 		{
-			Scoutbueros->beginneAufgabe();				// Suche Starten
+			Scoutbueros->beginneAufgabe(); // Suche Starten
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			Scoutbueros->beschleunigungDerAufgabenDurchfuehrung();// Beschleunigt die Suche
+			Scoutbueros
+			    ->beschleunigungDerAufgabenDurchfuehrung(); // Beschleunigt
+									// die
+									// Suche
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			Scoutbueros->erhohenDesMoeglichenRanges();// Erh�ht den mindest Rang
+			Scoutbueros
+			    ->erhohenDesMoeglichenRanges(); // Erh�ht den
+							    // mindest Rang
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			Scoutbueros->reduzierenDerAusfuhrungsKosten();// Reduzierung der Suchkosten
+			Scoutbueros
+			    ->reduzierenDerAusfuhrungsKosten(); // Reduzierung
+								// der
+								// Suchkosten
 		}
-			break;
+		break;
 		case 25:
 		{
-			Scoutbueros->annehmenDerEinheit();					// Annehmen
+			Scoutbueros->annehmenDerEinheit(); // Annehmen
 		}
-			break;
+		break;
 		case 26:
 		{
-			Scoutbueros->ablehnenDerEinheit();					// Ablehnen
+			Scoutbueros->ablehnenDerEinheit(); // Ablehnen
 		}
-			break;
+		break;
 		default:
 		{
 			view->ungueltigeEingabe();
 		}
-			break;
+		break;
 		}
 
 		Stats = Scoutbueros->getUpgradeStats();
 	}
-		break;
+	break;
 
 	case traningszentrum:
 	{
@@ -161,47 +178,51 @@ void Game::update()
 		{
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			Traningzentren->beschleunigungDerAufgabenDurchfuehrung();
+			Traningzentren
+			    ->beschleunigungDerAufgabenDurchfuehrung();
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
 			Traningzentren->erhohenDerTraningsWirksamkeit();
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
 			Traningzentren->reduzierenDerAusfuhrungsKosten();
 		}
-			break;
+		break;
 		case AUSWAHL_AKTION_1:
 		{
 			Traningzentren->langeTrainingsDauer();
-			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein langes Traning");
+			int ausgewaelteEinheit =
+			    view->dialogAuswahlEinheit("ein langes Traning");
 		}
-			break;
+		break;
 		case AUSWAHL_AKTION_3:
 		{
 			Traningzentren->kurzeTraningsDauer();
-			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein kurzes Traning");
+			int ausgewaelteEinheit =
+			    view->dialogAuswahlEinheit("ein kurzes Traning");
 		}
-			break;
+		break;
 		case AUSWAHL_AKTION_2:
 		{
 			Traningzentren->mittlereTrainingsDauer();
-			int ausgewaelteEinheit = view->dialogAuswahlEinheit("ein mittellanges Traning");
+			int ausgewaelteEinheit = view->dialogAuswahlEinheit(
+			    "ein mittellanges Traning");
 		}
-			break;
+		break;
 		default:
 		{
 			view->ungueltigeEingabe();
 		}
-			break;
+		break;
 		}
 
 		Stats = Traningzentren->getUpgradeStats();
 	}
-		break;
+	break;
 
 	case erholungsresort:
 	{
@@ -209,94 +230,100 @@ void Game::update()
 		{
 		case AUSWAHL_AKTION_1:
 		{
-			int ausgewaelteEinheit = view->dialogAuswahlEinheit("eine Erholung");
+			int ausgewaelteEinheit =
+			    view->dialogAuswahlEinheit("eine Erholung");
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			Erholungsresorts->beschleunigungDerAufgabenDurchfuehrung();
+			Erholungsresorts
+			    ->beschleunigungDerAufgabenDurchfuehrung();
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
 			Erholungsresorts->erhohenDerTraningsWirksamkeit();
 		}
-			break;
+		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
 			Erholungsresorts->reduzierenDerAusfuhrungsKosten();
 		}
-			break;
+		break;
 
 			break;
 		default:
 		{
 			view->ungueltigeEingabe();
 		}
-			break;
+		break;
 		}
 
 		Stats = Erholungsresorts->getUpgradeStats();
 	}
-		break;
+	break;
 	}
 
-	//Das Switch Statement ist zum einen das Hauptmenu zum andern ermöglicht es 'Shortcuts' sodass man immer die Zahl für AUSWAHL_MENU_ZENTRALE eingeben kann und im nächsten frame sich in der Zentrale befindet.
+	// Das Switch Statement ist zum einen das Hauptmenu zum andern
+	// ermöglicht es 'Shortcuts' sodass man immer die Zahl für
+	// AUSWAHL_MENU_ZENTRALE eingeben kann und im nächsten frame sich in der
+	// Zentrale befindet.
 	switch (eingabe)
 	{
 	case AUSWAHL_MENU_ZENTRALE:
 	{
 		AktuellesMenu = zentrale;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM:
 	{
 		AktuellesMenu = batillionsausbildungsstate;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_TRANINGSZENTRUM:
 	{
 		AktuellesMenu = traningszentrum;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_SCOUTBUERO:
 	{
 		AktuellesMenu = scoutbuero;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_ERHOLUNGSRESORT:
 	{
 		AktuellesMenu = erholungsresort;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE:
 	{
 		AktuellesMenu = auftraege;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_LAUFENDE_AUFTRAGE:
 	{
 		AktuellesMenu = aauftraege;
 	}
-		break;
+	break;
 	case AUSWAHL_MENU_LOGISTIK_SYSTEM:
 	{
 		AktuellesMenu = logistikSystem;
 	}
-		break;
+	break;
 	default:
 	{
 		AktuellesMenu = hauptmenu;
 	}
-		break;
+	break;
 	}
-
 }
 
 void Game::zeit()
 {
 	float delta_time = 1;
-	//{ std::chrono::duration_cast<std::chrono::seconds>( std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };	FIXME: make time comparison possible
+	//{ std::chrono::duration_cast<std::chrono::seconds>(
+	// std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };
+	// FIXME: make time comparison possible
 
 	if (delta_time >= Daten->getTagesDauer())
 	{
@@ -309,7 +336,7 @@ void Game::zeit()
 
 		if (Daten->getAnzahlTage() % Daten->getMONATS_DAUER() == 0)
 		{
-			//Sold auszahlen
+			// Sold auszahlen
 		}
 
 		ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();

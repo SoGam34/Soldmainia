@@ -1,19 +1,17 @@
 #pragma once
-#include "Gebaeude.h"
 #include "../Data/Data.h"
 #include "../Timer.h"
+#include "Gebaeude.h"
 
 #include <memory>
 #include <sstream>
 
 class Zentrale
 {
-public:
+	public:
 	Zentrale() = delete;
 	Zentrale(std::shared_ptr<Data> data);
 	~Zentrale();
 
-private:
-
+	private:
 };
-

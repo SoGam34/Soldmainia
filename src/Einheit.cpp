@@ -8,18 +8,17 @@
 #include "Einheit.h"
 
 Einheit::Einheit(std::string name, unsigned short int hp,
-			unsigned short int moral, unsigned short int starke,
-			bool einsatzbereit, unsigned short int grosse,
-			unsigned int xp)
+		 unsigned short int moral, unsigned short int starke,
+		 bool einsatzbereit, unsigned short int grosse, unsigned int xp)
 {
-	Name = name;
-	HP = hp;
-	Moral = moral;
-	Starke = starke;
+	Name	      = name;
+	HP	      = hp;
+	Moral	      = moral;
+	Starke	      = starke;
 	Einsatzbereit = einsatzbereit;
-	Grosse = grosse;
-	XP = xp;
-	Level = 0;
+	Grosse	      = grosse;
+	XP	      = xp;
+	Level	      = 0;
 }
 
 Einheit::~Einheit()

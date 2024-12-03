@@ -13,24 +13,20 @@ project(
 #                           PROGRAM FILES                                 #
 ##########################################################################
 programm_files = files(
-		   'Data/Data.cpp',
-		   'Gebaude/Batilion_Ausbildungszentrum.cpp',
-		   'Gebaude/Erholungsresort.cpp',
-		   'Gebaude/Gebaeude.cpp',
-		   'Gebaude/Traningszentrum.cpp',
-		   'Gebaude/Scoutbüro.cpp',
-		   'Gebaude/Zentrale.cpp',
-		   'Rendern/View.cpp',
-           'main.cpp',
-           'Game.cpp',
-           'Einheit.cpp',
-           'Rendern/Auswahl.cpp',
-           'Timer.cpp')
-
-executable('Soldmania',
-		   sources,
-           install : true, 
-           cpp_pch : 'pch/cpp_pch.h')
+    'src/Data/Data.cpp',
+    'src/Einheit.cpp',
+    'src/Game.cpp',
+    'src/Gebaude/Batilion_Ausbildungszentrum.cpp',
+    'src/Gebaude/Erholungsresort.cpp',
+    'src/Gebaude/Gebaeude.cpp',
+    'src/Gebaude/Scoutbüro.cpp',
+    'src/Gebaude/Traningszentrum.cpp',
+    'src/Gebaude/Zentrale.cpp',
+    'src/Rendern/Auswahl.cpp',
+    'src/Rendern/View.cpp',
+    'src/Timer.cpp',
+    'src/main.cpp',
+)
 
 ##########################################################################
 #                           DEPENDENCIES                                 #
@@ -47,7 +43,7 @@ build_target(
     programm_files,
     dependencies: [deb_cli, deb_logs],
     install: true,
-cpp_pch : 'pch/cpp_pch.h'
+    cpp_pch: 'pch/cpp_pch.h',
     target_type: 'executable',
     override_options: [
         'buildtype=debug',
@@ -62,7 +58,7 @@ build_target(
     programm_files,
     dependencies: [deb_cli, deb_logs],
     install: true,
-cpp_pch : 'pch/cpp_pch.h'
+    cpp_pch: 'pch/cpp_pch.h',
     target_type: 'executable',
     override_options: [
         'buildtype=release',
@@ -112,7 +108,7 @@ foreach test : test_files
             dependencies: deb_test,
             install: true,
             target_type: 'executable',
-cpp_pch : 'pch/cpp_pch.h'
+            cpp_pch: 'pch/cpp_pch.h',
             override_options: [
                 'buildtype=debug',
                 'werror=false',

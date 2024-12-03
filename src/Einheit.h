@@ -1,12 +1,12 @@
 /**
  * @file Einheit.h
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-05-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #ifndef EINHEIT_H_
@@ -16,7 +16,7 @@
 
 /**
  * @brief Eine Baseis Klasse für die Batilione und Einzelkämpfer.
- * 
+ *
  */
 class Einheit
 {
@@ -40,7 +40,8 @@ class Einheit
 	unsigned short int Starke;
 
 	/**
-	 * @brief Ob die Einheit bereits Beschäftigt ist. True, die Einheit ist Beschäftigt. False, die Einheit ist frei.
+	 * @brief Ob die Einheit bereits Beschäftigt ist. True, die Einheit ist
+	 * Beschäftigt. False, die Einheit ist frei.
 	 *
 	 */
 	bool Einsatzbereit;
@@ -58,7 +59,8 @@ class Einheit
 	unsigned int XP;
 
 	/**
-	 * @brief Auf welchem Level die Einheit ist, je hoher das Level desto starker die Einheit.
+	 * @brief Auf welchem Level die Einheit ist, je hoher das Level desto
+	 * starker die Einheit.
 	 *
 	 */
 	unsigned int Level;
@@ -80,24 +82,25 @@ class Einheit
 	 *
 	 */
 	int Rüstung;
-public:
+
+	public:
 	Einheit() = delete;
 
 	/**
 	 * @brief Construct a new Einheit object
-	 * 
+	 *
 	 * @param name Der Name der Einheit.
 	 * @param hp Wie viel Leben Sie hat.
 	 * @param moral Die Moral der Einheit.
 	 * @param starke Wie Stark sie ist.
 	 * @param einsatzbereit Ob die Einheit Einsatzbereit ist.
 	 * @param grosse Aus wie vielen Personen die Einheit besteht.
-	 * @param xp Wie viel XP die Einheit hat. 
+	 * @param xp Wie viel XP die Einheit hat.
 	 */
 	Einheit(std::string name, unsigned short int hp = 100,
-			unsigned short int moral = 10, unsigned short int starke = 1,
-			bool einsatzbereit = true, unsigned short int grosse = 1,
-			unsigned int xp = 1);
+		unsigned short int moral = 10, unsigned short int starke = 1,
+		bool einsatzbereit = true, unsigned short int grosse = 1,
+		unsigned int xp = 1);
 
 	virtual ~Einheit();
 

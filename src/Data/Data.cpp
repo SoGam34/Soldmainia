@@ -6,7 +6,6 @@ Data::Data()
 }
 Data::~Data()
 {
-
 }
 
 std::vector<Einheit>& Data::getEinheiten()
@@ -14,7 +13,7 @@ std::vector<Einheit>& Data::getEinheiten()
 	return Einheiten;
 }
 
-void Data::addEinheit(const Einheit &e)
+void Data::addEinheit(const Einheit& e)
 {
 	Einheiten.emplace_back(e);
 }

@@ -3,18 +3,18 @@
 /**
  * @file Timer.h
  * @author your name (you@domain.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-05-10
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #include "Gebaude/Batilion_Ausbildungszentrum.h"
+#include "Gebaude/Erholungsresort.h"
 #include "Gebaude/Scoutbuero.h"
 #include "Gebaude/Traningszentrum.h"
-#include "Gebaude/Erholungsresort.h"
 #include "Gebaude/Zentrale.h"
 
 #include "Rendern/View.h"
@@ -28,12 +28,13 @@
 #include <memory>
 
 /**
- * @brief Die Klasse verwaltet alles generelles und koordiniert die alle anderen Klassen.
- * 
+ * @brief Die Klasse verwaltet alles generelles und koordiniert die alle anderen
+ * Klassen.
+ *
  */
 class Game
 {
-public:
+	public:
 	/**
 	 * @brief Construct a new Game object
 	 *
@@ -42,57 +43,64 @@ public:
 
 	/**
 	 * @brief Destroy the Game object
-	 * 
+	 *
 	 */
 	~Game();
 
 	/**
-	 * @brief Eine Funktion die solange ausgeführt wird bis das Spiel vorbei ist. Die Funktion triggert allmöglichen anderen Events und ist der Kern des Spiels.
+	 * @brief Eine Funktion die solange ausgeführt wird bis das Spiel vorbei
+	 * ist. Die Funktion triggert allmöglichen anderen Events und ist der
+	 * Kern des Spiels.
 	 *
 	 */
 	void spielLauft();
-private:
+
+	private:
 	/**
-	 * @brief Die neuste User eingabe wird überprüft. Bei Input wird die dazugehorige Aktion ausgefürt. 
+	 * @brief Die neuste User eingabe wird überprüft. Bei Input wird die
+	 * dazugehorige Aktion ausgefürt.
 	 *
 	 */
 	void update();
 
 	/**
-	 * @brief Die Ingame Zeit wird aktualliesert und alles was davon abhangig ist. 
+	 * @brief Die Ingame Zeit wird aktualliesert und alles was davon
+	 * abhangig ist.
 	 *
 	 */
 	void zeit();
 
 	/**
 	 * @brief Speichert das Aktuelle Menu in dem sich der Spieler befindet.
-	 * 
+	 *
 	 */
 	Menus AktuellesMenu;
 
 	/**
-	 * @brief Speichert die Upgrade Informationen des Akteuellen Gebaudes. 
-	 * 
+	 * @brief Speichert die Upgrade Informationen des Akteuellen Gebaudes.
+	 *
 	 */
 	GebaeudeUpgradeStats Stats;
 
 	/**
-	 * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die Tage alle gleichlang und FPS unabhängig sind. 
-	 * 
+	 * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die
+	 * Tage alle gleichlang und FPS unabhängig sind.
+	 *
 	 */
-	std::chrono::time_point<std::chrono::steady_clock> ZeitpunktDesLetztenTages;
+	std::chrono::time_point<std::chrono::steady_clock>
+	    ZeitpunktDesLetztenTages;
 
 	std::unique_ptr<View> view;
 
 	std::shared_ptr<Data> Daten;
 
-	Batillion_Ausbildungszentrum *BAZ;
+	Batillion_Ausbildungszentrum* BAZ;
 
-	Scoutbuero *Scoutbueros;
+	Scoutbuero* Scoutbueros;
 
-	Traningszentrum *Traningzentren;
+	Traningszentrum* Traningzentren;
 
-	Zentrale *Hauptquatier;
+	Zentrale* Hauptquatier;
 
-	Erholungsresort *Erholungsresorts;
+	Erholungsresort* Erholungsresorts;
 };
