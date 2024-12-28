@@ -15,8 +15,7 @@ class Batillion_Ausbildungszentrum : public Gebaeude
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	Batillion_Ausbildungszentrum(std::shared_ptr<Data> data);
-	~Batillion_Ausbildungszentrum();
+	explicit Batillion_Ausbildungszentrum(std::shared_ptr<Data> data);
 
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//
@@ -28,7 +27,7 @@ class Batillion_Ausbildungszentrum : public Gebaeude
 	 kostet Retrun: Die Funktion gibt die kosten als int zurueck Zu
 	 Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	unsigned int getGebaeudeAusfuhrungskosten() const;
+	unsigned int getGebaeudeAusfuhrungskosten() const override;
 
 	/*
 	 Name: GebaudeAktivText
@@ -38,7 +37,7 @@ class Batillion_Ausbildungszentrum : public Gebaeude
 	 stringstram zurueck Zu Beachten: Die Funktion ist in gebaude als
 	 virtuell deklarirt
 	 */
-	const std::stringstream getGebaudeAktivText() const;
+	const std::stringstream getGebaudeAktivText() const override;
 
 	/*
 	 Name: AnzahlErhohen
@@ -72,19 +71,6 @@ class Batillion_Ausbildungszentrum : public Gebaeude
 	 Retrun: keine
 	 */
 	void vorbereiten_neueAusbildung();
-
-	//--------------------------------Allgemeine Funktionen
-	// Gebaeudes----------------------------------------------//
-
-	/*
-	 Name: aktualisierenInformationsText
-	 param: keine
-	 Aufgabe: Die Funktion aktualisiert den Informationstext sodass der
-	 Spieler weis was die Aufgabe des gebaudes ist und unter welchen
-	 Bedingungen diese Erfullt wird Retrun: kein Zu Beachten: Die Funktion
-	 ist in gebaude als virtuell deklarirt
-	 */
-	inline void aktualisierenInformationsText();
 
 	//--------------------------------Upgraden des
 	// Gebaeudes----------------------------------------------//

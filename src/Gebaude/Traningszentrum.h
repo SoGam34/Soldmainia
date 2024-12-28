@@ -1,12 +1,13 @@
 #pragma once
 #include "../Data/Data.h"
+#include "../Rendern/Auswahl.h"
 #include "../Timer.h"
 #include "Gebaeude.h"
 
 #include <memory>
 #include <sstream>
 
-class Traningszentrum : public Gebaeude
+class Traningszentrum : public Gebaeude, Auswahl
 {
 	public:
 	//--------------------------------Konstruktoren----------------------------------------------//

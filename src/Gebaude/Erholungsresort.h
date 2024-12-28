@@ -1,11 +1,12 @@
 #pragma once
 #include "../Data/Data.h"
+#include "../Rendern/Auswahl.h"
 #include "../Timer.h"
 #include "Gebaeude.h"
 
 #include <memory>
 #include <sstream>
-class Erholungsresort : public Gebaeude
+class Erholungsresort : public Gebaeude, Auswahl
 {
 	public:
 	//--------------------------------Konstruktoren----------------------------------------------//
@@ -14,7 +15,6 @@ class Erholungsresort : public Gebaeude
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
 	Erholungsresort(std::shared_ptr<Data> data);
-	~Erholungsresort();
 
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//
@@ -53,19 +53,6 @@ class Erholungsresort : public Gebaeude
 	 Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
 	void beendenDerAusfuhrung();
-
-	//--------------------------------Allgemeine Funktionen
-	// Gebaeudes----------------------------------------------//
-
-	/*
-	 Name: aktualisierenInformationsText
-	 param: keine
-	 Aufgabe: Die Funktion aktualisiert den Informationstext sodass der
-	 Spieler weis was die Aufgabe des gebaudes ist und unter welchen
-	 Bedingungen diese Erfullt wird Retrun: kein Zu Beachten: Die Funktion
-	 ist in gebaude als virtuell deklarirt
-	 */
-	inline void aktualisierenInformationsText();
 
 	//--------------------------------Upgraden des
 	// Gebaeudes----------------------------------------------//
