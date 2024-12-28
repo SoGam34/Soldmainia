@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 /**
  * @file Timer.h
  * @author your name (you@domain.com)
@@ -30,61 +30,57 @@ enum Menus
 	batillione		   = 12
 };
 
+struct InProgressStats
+{
+	std::string ProgressText;
+	bool hasProgress{false};
+
+};
+
 /**
  * @brief Speichert die Aktuellen Upgrade Werte einer Einrichtung
  *
  */
 struct GebaeudeUpgradeStats
 {
-
 	/**
-	 * @brief Construct a new Gebaeude Stats object
+	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	GebaeudeUpgradeStats()
-	{
-		BeschlaunigunsKosten  = 0;
-		BeschlaunigungsFaktor = 0;
+	int BeschlaunigunsKosten{0};
+	/**
+	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
+	 *
+	 */
+	int BeschlaunigungsFaktor{0};
 
-		GebaudeSpezielleKosten = 0;
-		GebaudeSpezielleFaktor = 0;
-
-		AusführungsReduzierungsKosten = 0;
-		AusführungsReduzierungsFaktor = 0;
-	}
+	bool BeschlaunigungsUpgradeMaxLevel{false};
 
 	/**
 	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	int BeschlaunigunsKosten;
+	int GebaudeSpezielleKosten{0};
 	/**
 	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
 	 *
 	 */
-	int BeschlaunigungsFaktor;
+	int GebaudeSpezielleFaktor{0};
+
+	bool GebaudeSpezielleUpgradeMaxLevel{false};
 
 	/**
 	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	int GebaudeSpezielleKosten;
+	int AusführungsReduzierungsKosten{0};
 	/**
 	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
 	 *
 	 */
-	int GebaudeSpezielleFaktor;
+	int AusführungsReduzierungsFaktor{0};
 
-	/**
-	 * @brief Speichert wie viel das Zeit Upgrade Kostet
-	 *
-	 */
-	int AusführungsReduzierungsKosten;
-	/**
-	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
-	 *
-	 */
-	int AusführungsReduzierungsFaktor;
+	bool AusführungsReduzierungsUpgradeMaxLevel{false};
 };
 
 const int AUSWAHL_MENU_ZENTRALE			  = 1;

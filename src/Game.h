@@ -21,7 +21,7 @@
 
 #include "Data/Data.h"
 
-#include "Auswahl.h"
+#include "Rendern/Auswahl.h"
 #include "Menus.h"
 
 #include <chrono>
@@ -82,12 +82,14 @@ class Game
 	 */
 	GebaeudeUpgradeStats Stats;
 
+	InProgressStats Progress;
+
 	/**
 	 * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die
 	 * Tage alle gleichlang und FPS unabhängig sind.
 	 *
 	 */
-	std::chrono::time_point<std::chrono::steady_clock>
+	std::chrono::time_point<std::chrono::steady_clock> 
 	    ZeitpunktDesLetztenTages;
 
 	std::unique_ptr<View> view;

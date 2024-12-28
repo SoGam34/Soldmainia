@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Menus.h"
+#include <sstream>
 
 Game::Game()
 {
@@ -17,11 +19,13 @@ Game::Game()
 
 	view = std::make_unique<View>(Daten);
 
+	//XXX(Time): Initilize Timer
 	ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
 
 	AktuellesMenu = hauptmenu;
 
 	Stats = GebaeudeUpgradeStats();
+	Progress = InProgressStats();
 }
 
 Game::~Game()
@@ -41,7 +45,7 @@ void Game::spielLauft()
 
 		zeit();
 
-		view->ausgabe(AktuellesMenu, Stats);
+		view->ausgabe(AktuellesMenu, Stats, Progress);
 	}
 
 	Daten->saveGameToFile();
@@ -49,19 +53,16 @@ void Game::spielLauft()
 
 void Game::update()
 {
-	int eingabe = view->getLetzteNutzerEingabe();
+	int const eingabe = view->getLetzteNutzerEingabe();
 
 	if (eingabe == AUSWAHL_SPEICHERN)
 	{
 		Daten->saveGameToFile();
+		return;
 	}
 
 	switch (
-	    AktuellesMenu) // @suppress("Missing cases in switch")
-			   // @suppress("Missing default in switch")
-			   // Unterdrücken beider Sachen da das Einzige nicht
-			   // entahltene hauptmenu ist was danach bearbeitet
-			   // wird und es keinen sinnvollen defult gibt.
+	    AktuellesMenu) 
 	{
 	case zentrale:
 	{
@@ -75,37 +76,39 @@ void Game::update()
 		{
 		case AUSWAHL_AKTION_1:
 		{
-			BAZ->beginneAufgabe(); // starten Gedr�kt
+			BAZ->beginneAufgabe();
+			std::stringstream temp;
+			temp << "Kosten: "
+			     << BAZ->getGebaeudeAusfuhrungskosten();
+			view->addBenarichtigung(temp.str(), 0, false);
 		}
 		break;
 		case AUSWAHL_AKTION_2:
 		{
-			BAZ->erhoheEinheitsGrosse(); // Anzahl Mitglieder wird
-						     // erh�ht
+			BAZ->erhoheEinheitsGrosse();
 		}
 		break;
 		case AUSWAHL_AKTION_3:
 		{
-			BAZ->reduziereEinheitsGrosse(); // Anzahl der Mitglieder
-							// wird gesengt
+			BAZ->reduziereEinheitsGrosse();
 		}
 		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			BAZ->beschleunigungDerAufgabenDurchfuehrung(); // Upgrade
-								       // Geschwindikeit
+			// TODO(Kosten): Benarichtigung
+			BAZ->beschleunigungDerAufgabenDurchfuehrung();
 		}
 		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			BAZ->erhohenDerGrundstarke(); // Upgrade Grundst�rke
+			// TODO(Kosten): Benarichtigung
+			BAZ->erhohenDerGrundstarke();
 		}
 		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			BAZ->reduzierenDerAusfuhrungsKosten(); // Upgrade zur
-							       // kosten
-							       // Reduzierung
+			// TODO(Kosten): Benarichtigung
+			BAZ->reduzierenDerAusfuhrungsKosten();
 		}
 		break;
 		default:
@@ -115,7 +118,8 @@ void Game::update()
 		break;
 		}
 
-		Stats = BAZ->getUpgradeStats();
+		Stats	 = BAZ->getUpgradeStats();
+		Progress = BAZ->getProgressStats();
 	}
 	break;
 
@@ -130,34 +134,31 @@ void Game::update()
 		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
-			Scoutbueros
-			    ->beschleunigungDerAufgabenDurchfuehrung(); // Beschleunigt
-									// die
-									// Suche
+			// TODO(Kosten): Benarichtigung
+			Scoutbueros->beschleunigungDerAufgabenDurchfuehrung();
 		}
 		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
-			Scoutbueros
-			    ->erhohenDesMoeglichenRanges(); // Erh�ht den
-							    // mindest Rang
+			// TODO(Kosten): Benarichtigung
+			Scoutbueros->erhohenDesMoeglichenRanges();
 		}
 		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
-			Scoutbueros
-			    ->reduzierenDerAusfuhrungsKosten(); // Reduzierung
-								// der
-								// Suchkosten
+			// TODO(Kosten): Benarichtigung
+			Scoutbueros->reduzierenDerAusfuhrungsKosten();
 		}
 		break;
 		case 25:
 		{
+			// TODO(Einheit): Benarichtigung
 			Scoutbueros->annehmenDerEinheit(); // Annehmen
 		}
 		break;
 		case 26:
 		{
+			// TODO(Einheit): Benarichtigung
 			Scoutbueros->ablehnenDerEinheit(); // Ablehnen
 		}
 		break;
@@ -168,7 +169,8 @@ void Game::update()
 		break;
 		}
 
-		Stats = Scoutbueros->getUpgradeStats();
+		Stats	 = Scoutbueros->getUpgradeStats();
+		Progress = Scoutbueros->getProgressStats();
 	}
 	break;
 
@@ -178,25 +180,29 @@ void Game::update()
 		{
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
+			// TODO(Kosten): Benarichtigung
 			Traningzentren
 			    ->beschleunigungDerAufgabenDurchfuehrung();
 		}
 		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
+			// TODO(Kosten): Benarichtigung
 			Traningzentren->erhohenDerTraningsWirksamkeit();
 		}
 		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
+			// TODO(Kosten): Benarichtigung
 			Traningzentren->reduzierenDerAusfuhrungsKosten();
 		}
 		break;
 		case AUSWAHL_AKTION_1:
 		{
 			Traningzentren->langeTrainingsDauer();
-			int ausgewaelteEinheit =
-			    view->dialogAuswahlEinheit("ein langes Traning");
+			int ausgewaelteEinheit 
+			    {view->dialogAuswahlEinheit("ein langes Traning")};
+			Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
 		}
 		break;
 		case AUSWAHL_AKTION_3:
@@ -204,6 +210,7 @@ void Game::update()
 			Traningzentren->kurzeTraningsDauer();
 			int ausgewaelteEinheit =
 			    view->dialogAuswahlEinheit("ein kurzes Traning");
+			Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
 		}
 		break;
 		case AUSWAHL_AKTION_2:
@@ -211,6 +218,7 @@ void Game::update()
 			Traningzentren->mittlereTrainingsDauer();
 			int ausgewaelteEinheit = view->dialogAuswahlEinheit(
 			    "ein mittellanges Traning");
+			Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
 		}
 		break;
 		default:
@@ -220,7 +228,8 @@ void Game::update()
 		break;
 		}
 
-		Stats = Traningzentren->getUpgradeStats();
+		Stats	 = Traningzentren->getUpgradeStats();
+		Progress = Traningzentren->getProgressStats();
 	}
 	break;
 
@@ -232,26 +241,28 @@ void Game::update()
 		{
 			int ausgewaelteEinheit =
 			    view->dialogAuswahlEinheit("eine Erholung");
+			Erholungsresorts->auswahlZuOrdnen(ausgewaelteEinheit);
 		}
 		break;
 		case AUSWAHL_UPGRADE_ZEIT:
 		{
+			// TODO(Kosten): Benarichtigung
 			Erholungsresorts
 			    ->beschleunigungDerAufgabenDurchfuehrung();
 		}
 		break;
 		case AUSWAHL_UPGRADE_SPEZIFISCH:
 		{
+			// TODO(Kosten): Benarichtigung
 			Erholungsresorts->erhohenDerTraningsWirksamkeit();
 		}
 		break;
 		case AUSWAHL_UPGRADE_KOSTEN:
 		{
+			// TODO(Kosten): Benarichtigung
 			Erholungsresorts->reduzierenDerAusfuhrungsKosten();
 		}
 		break;
-
-			break;
 		default:
 		{
 			view->ungueltigeEingabe();
@@ -259,7 +270,8 @@ void Game::update()
 		break;
 		}
 
-		Stats = Erholungsresorts->getUpgradeStats();
+		Stats	 = Erholungsresorts->getUpgradeStats();
+		Progress = Erholungsresorts->getProgressStats();
 	}
 	break;
 	}
@@ -338,7 +350,7 @@ void Game::zeit()
 		{
 			// Sold auszahlen
 		}
-
+		//TODO(Time): Akktualisieren bzw. zurücksetzen des Timers
 		ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
 	}
 }
