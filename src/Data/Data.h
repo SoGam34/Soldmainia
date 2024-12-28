@@ -22,17 +22,12 @@
 class Data
 {
 	public:
+	// TODO(SoGam34): Making get Functions const and set parameters const
 	/**
 	 * @brief Construct a new Data object
 	 *
 	 */
 	Data();
-
-	/**
-	 * @brief Destroy the Data object
-	 *
-	 */
-	~Data();
 
 	/**
 	 * @brief Get the Einheiten object
@@ -68,6 +63,8 @@ class Data
 	 * @return int Das aktuelle Vermögen des Spielers.
 	 */
 	int getKontostand();
+
+	void abziehnVonKontostand(int betrag);
 
 	/**
 	 * @brief 'Überweisung' zum Spieler. Der Spieler erhalt Geld.

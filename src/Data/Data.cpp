@@ -4,9 +4,6 @@ Data::Data()
 {
 	Einheiten.clear();
 }
-Data::~Data()
-{
-}
 
 std::vector<Einheit>& Data::getEinheiten()
 {
