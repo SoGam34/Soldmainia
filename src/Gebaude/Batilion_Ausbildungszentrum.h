@@ -15,7 +15,7 @@ class Batillion_Ausbildungszentrum : public Gebaeude
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	explicit Batillion_Ausbildungszentrum(std::shared_ptr<Data> data);
+	explicit Batillion_Ausbildungszentrum(std::shared_ptr<Data>& data);
 
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//

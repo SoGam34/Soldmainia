@@ -15,7 +15,7 @@ class Gebaeude : public Timer
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor,
+	Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor,
 		 unsigned short int ZeitFaktor);
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//

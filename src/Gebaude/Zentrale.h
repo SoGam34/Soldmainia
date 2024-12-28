@@ -10,8 +10,9 @@ class Zentrale
 {
 	public:
 	Zentrale() = delete;
-	Zentrale(std::shared_ptr<Data> data);
-	~Zentrale();
+	Zentrale(std::shared_ptr<Data>& data);
 
 	private:
+	std::shared_ptr<Data> Daten;
+
 };

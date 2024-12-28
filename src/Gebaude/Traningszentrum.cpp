@@ -1,12 +1,8 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(std::shared_ptr<Data> data)
-    : Gebaeude(data, 100, 1), Auswahl(data), Wirksamkeitsgrad(1)
-{
-	EinheitsVPosition = 0;
-}
-
-Traningszentrum::~Traningszentrum()
+Traningszentrum::Traningszentrum(std::shared_ptr<Data>& data)
+    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0),
+      Wirksamkeitsgrad(1)
 {
 }
 
@@ -14,31 +10,6 @@ unsigned int Traningszentrum::getGebaeudeAusfuhrungskosten() const
 {
 	return AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz) *
 	       Daten->getEinheiten()[EinheitsVPosition].getGrosse();
-}
-
-void Traningszentrum::langeTrainingsDauer()
-{
-	GebaeudeEinflussZeitFaktor = 3;
-	//sucheNachUnverletztenEinsetzbarenEinheiten();
-}
-
-void Traningszentrum::mittlereTrainingsDauer()
-{
-	GebaeudeEinflussZeitFaktor = 2;
-	//sucheNachUnverletztenEinsetzbarenEinheiten();
-}
-
-void Traningszentrum::kurzeTraningsDauer()
-{
-	GebaeudeEinflussZeitFaktor = 1;
-	//sucheNachUnverletztenEinsetzbarenEinheiten();
-}
-
-void Traningszentrum::auswahlZuOrdnen(int Position)
-{
-	EinheitsVPosition = Position;
-	leeren();
-	beginneAufgabe();
 }
 
 const std::stringstream Traningszentrum::getGebaudeAktivText() const
@@ -52,13 +23,42 @@ const std::stringstream Traningszentrum::getGebaudeAktivText() const
 	return ssText;
 }
 
+void Traningszentrum::langeTrainingsDauer()
+{
+	GebaeudeEinflussZeitFaktor = 3;
+	// sucheNachUnverletztenEinsetzbarenEinheiten();
+}
+
+void Traningszentrum::mittlereTrainingsDauer()
+{
+	GebaeudeEinflussZeitFaktor = 2;
+	// sucheNachUnverletztenEinsetzbarenEinheiten();
+}
+
+void Traningszentrum::kurzeTraningsDauer()
+{
+	GebaeudeEinflussZeitFaktor = 1;
+	// sucheNachUnverletztenEinsetzbarenEinheiten();
+}
+
+void Traningszentrum::auswahlZuOrdnen(int Position)
+{
+	EinheitsVPosition = Position;
+	leeren();
+	beginneAufgabe();
+}
+
 void Traningszentrum::beendenDerAusfuhrung()
 {
-	//TODO(Einheit): Benarichtigung Traningsende
+	// TODO(Einheit): Benarichtigung Traningsende
+
 	Zeitversatz = rand() % 5 + 3;
 	berrechnungVoraussichtlicheZeit();
 
 	ProzessAktiv = false;
+
+	ProgressStats.hasProgress  = false;
+	ProgressStats.ProgressText = "";
 
 	Daten->getEinheiten()[EinheitsVPosition].xpHinzufugen(
 	    Wirksamkeitsgrad * GebaeudeEinflussZeitFaktor);
@@ -66,23 +66,24 @@ void Traningszentrum::beendenDerAusfuhrung()
 
 void Traningszentrum::erhohenDerTraningsWirksamkeit()
 {
-	if (Daten->getKontostand() > UpgradeStats.GebaudeSpezielleKosten &&
-	    Wirksamkeitsgrad < 25)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
-		Wirksamkeitsgrad += 1;
-		UpgradeStats.GebaudeSpezielleKosten *= 1.6;
+		return;
+	}
 
-		Daten->abziehnVonKontostand(
-		    UpgradeStats.GebaudeSpezielleKosten);
+	Wirksamkeitsgrad += 1;
+	UpgradeStats.GebaudeSpezielleKosten *= 1.6;
 
-		if (!ProzessAktiv)
-		{
-			berrechnungVoraussichtlicheZeit();
-		}
+	Daten->abziehnVonKontostand(UpgradeStats.GebaudeSpezielleKosten);
 
-		if (Wirksamkeitsgrad > 24)
-		{
-			UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
-		}
+	if (!ProzessAktiv)
+	{
+		berrechnungVoraussichtlicheZeit();
+	}
+
+	if (Wirksamkeitsgrad > 24)
+	{
+		UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 	}
 }

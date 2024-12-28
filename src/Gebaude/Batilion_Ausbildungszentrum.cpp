@@ -1,7 +1,7 @@
 #include "Batilion_Ausbildungszentrum.h"
 
 Batillion_Ausbildungszentrum::Batillion_Ausbildungszentrum(
-    std::shared_ptr<Data> data)
+    std::shared_ptr<Data>& data)
     : Gebaeude(data, 70, 10)
 {
 }
@@ -44,16 +44,18 @@ void Batillion_Ausbildungszentrum::reduziereEinheitsGrosse()
 
 void Batillion_Ausbildungszentrum::beendenDerAusfuhrung()
 {
-	ProzessAktiv = false;
 	// TODO(): Generierung eines Batillions
+
+	ProzessAktiv = false;
+
+	ProgressStats.hasProgress  = false;
+	ProgressStats.ProgressText = "";
 }
 
 void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 {
 	// neues Kachel Bild
-	Zeitversatz =
-	    rand() % 5 +
-	    3; // Berechnung der Ausbildungsdauer des n�chsten Batillions
+	Zeitversatz = rand() % 5 + 3;
 	berrechnungVoraussichtlicheZeit();
 
 	std::stringstream ssText; // Der Text der Angezeigt werden soll
@@ -65,24 +67,24 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 
 void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
 {
-	if (Daten->getKontostand() > UpgradeStats.GebaudeSpezielleKosten &&
-	    Grundstaerke < 25)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
-		Grundstaerke += 1;
+		return;
+	}
 
-		Daten->abziehnVonKontostand(
-		    UpgradeStats.GebaudeSpezielleKosten); 
-		UpgradeStats.GebaudeSpezielleKosten *=
-		    1.6; 
-		    
-		if (!ProzessAktiv)
-		{
-			berrechnungVoraussichtlicheZeit();
-		}
+	Daten->abziehnVonKontostand(UpgradeStats.GebaudeSpezielleKosten);
 
-		if (Grundstaerke > 24)
-		{
-			UpgradeStats.GebaudeSpezielleUpgradeMaxLevel=true;
-		}
+	UpgradeStats.GebaudeSpezielleKosten *= 1.6;
+	Grundstaerke += 1;
+
+	if (!ProzessAktiv)
+	{
+		berrechnungVoraussichtlicheZeit();
+	}
+
+	if (Grundstaerke > 24)
+	{
+		UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 	}
 }

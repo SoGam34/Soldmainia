@@ -1,14 +1,9 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(std::shared_ptr<Data> data)
+Scoutbuero::Scoutbuero(std::shared_ptr<Data>& data)
     : Gebaeude(data, 400, 1), Rangmin(1)
 {
-	Rang = static_cast<Range>(rand() % 2 + Rangmin);
-	// iLevel[0] = iLevel[1] = iLevel[2] = 0;
-}
-
-Scoutbuero::~Scoutbuero()
-{
+	Rang = static_cast<Range>(rand() % 2 + Rangmin); // NOLINT
 }
 
 unsigned int Scoutbuero::getGebaeudeAusfuhrungskosten() const
@@ -29,25 +24,12 @@ const std::stringstream Scoutbuero::getGebaudeAktivText() const
 
 void Scoutbuero::beendenDerAusfuhrung()
 {
-	std::stringstream ssText;
-	ssText << "Staerke:Test\nAffinitaet: Test\nProzentualer Anteil: Test";
-	/*Daten->getKacheln(12).neueAnzeige(ssText.str(), 160, 99, 1, 1);
-	Daten->getKacheln(12).ButtonHinzufuegen(
-	    35, 400, 200, 30, 5, "Annehmen", *Daten->getFont(),
-	sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0),
-	sf::Color::White, Data->getKacheln(12).getGroese().x,
-	Data->getKacheln(12).getGroese().y);
-	Daten->getKacheln(12).ButtonHinzufuegen(
-	    35, 450, 200, 30, 6, "Ablehnen", *Daten->getFont(),
-	sf::Color::Black, sf::Color(100, 100, 100), sf::Color(255, 150, 0),
-	sf::Color::White, Data->getKacheln(12).getGroese().x,
-	Data->getKacheln(12).getGroese().y);*/
+	//TODO(Einheit): Benarichtigung suche beendet
 
-	ProzessAktiv =
-	    false; // Auf False setzen damit nicht der andere Text
-		   // ausgegeben wird von aktAusbildung
-		   // Daten->getAnimationen().startBenarichtigung(true, "Suche
-		   // erfolgreich abgeschlossen");	TODO UI Animation
+	ProzessAktiv		   = false;
+
+	ProgressStats.hasProgress  = false;
+	ProgressStats.ProgressText = "";
 }
 
 void Scoutbuero::annehmenDerEinheit()
@@ -72,8 +54,8 @@ void Scoutbuero::ablehnenDerEinheit()
 
 void Scoutbuero::erhohenDesMoeglichenRanges()
 {
-	if (Daten->getKontostand() > UpgradeStats.GebaudeSpezielleKosten &&
-	    Rangmin < 6)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		Rangmin++;
 		UpgradeStats.GebaudeSpezielleKosten *= 1.6;

@@ -15,8 +15,7 @@ class Traningszentrum : public Gebaeude, Auswahl
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	Traningszentrum(std::shared_ptr<Data> data);
-	~Traningszentrum();
+	Traningszentrum(std::shared_ptr<Data>& data);
 
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//

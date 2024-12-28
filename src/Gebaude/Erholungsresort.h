@@ -14,7 +14,7 @@ class Erholungsresort : public Gebaeude, Auswahl
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	Erholungsresort(std::shared_ptr<Data> data);
+	Erholungsresort(std::shared_ptr<Data>& data);
 
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//

@@ -1,7 +1,7 @@
 #include "Gebaeude.h"
 #include <sstream>
 
-Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor,
+Gebaeude::Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor,
 		   unsigned short int ZeitFaktor)
     : Daten(data), ProzessAktiv(false), AufgabenDurchfuehrungZeitFaktor(1),
       AusfuhrungsKostenFaktor(KostenFaktor),
@@ -10,8 +10,7 @@ Gebaeude::Gebaeude(std::shared_ptr<Data> data, unsigned short int KostenFaktor,
 	UpgradeStats  = GebaeudeUpgradeStats();
 	ProgressStats = InProgressStats();
 
-	Zeitversatz =
-	    rand() % 5 + 3; // Festlegen des neuen Zeitversatzes mit dem
+	Zeitversatz = rand() % 5 + 3;
 
 	berrechnungVoraussichtlicheZeit(); // hier gearbeitet wird
 }
@@ -27,15 +26,17 @@ InProgressStats Gebaeude::getProgressStats()
 
 void Gebaeude::beginneAufgabe()
 {
-	if (Daten->getKontostand() > getGebaeudeAusfuhrungskosten())
+	if (Daten->getKontostand() < getGebaeudeAusfuhrungskosten())
 	{
-		neuerTimer(VoraussichtlicheZeit);
-		Daten->abziehnVonKontostand(getGebaeudeAusfuhrungskosten());
-		ProzessAktiv		   = true;
-		std::stringstream temp	   = getGebaudeAktivText();
-		ProgressStats.ProgressText = temp.str();
-		ProgressStats.hasProgress  = true;
+		return;
 	}
+
+	neuerTimer(VoraussichtlicheZeit);
+	Daten->abziehnVonKontostand(getGebaeudeAusfuhrungskosten());
+	ProzessAktiv		   = true;
+	std::stringstream temp	   = getGebaudeAktivText();
+	ProgressStats.ProgressText = temp.str();
+	ProgressStats.hasProgress  = true;
 }
 
 inline void Gebaeude::aktualisierenProzessZustand()
@@ -46,48 +47,50 @@ inline void Gebaeude::aktualisierenProzessZustand()
 
 void Gebaeude::beschleunigungDerAufgabenDurchfuehrung()
 {
-	if (Daten->getKontostand() > UpgradeStats.BeschlaunigunsKosten &&
-	    AufgabenDurchfuehrungZeitFaktor >= 0.1)
+	if (Daten->getKontostand() < UpgradeStats.BeschlaunigunsKosten &&
+	    UpgradeStats.BeschlaunigungsUpgradeMaxLevel)
 	{
-		Daten->abziehnVonKontostand(UpgradeStats.BeschlaunigunsKosten);
+		return;
+	}
 
-		UpgradeStats.BeschlaunigunsKosten *= 1.2;
-		AufgabenDurchfuehrungZeitFaktor -= 0.05;
+	Daten->abziehnVonKontostand(UpgradeStats.BeschlaunigunsKosten);
 
-		if (!ProzessAktiv)
-		{
-			berrechnungVoraussichtlicheZeit();
-		}
+	UpgradeStats.BeschlaunigunsKosten *= 1.2;
+	AufgabenDurchfuehrungZeitFaktor -= 0.05;
 
-		if (AufgabenDurchfuehrungZeitFaktor < 0.10)
-		{
-			UpgradeStats.BeschlaunigungsUpgradeMaxLevel = true;
-		}
+	if (!ProzessAktiv)
+	{
+		berrechnungVoraussichtlicheZeit();
+	}
+
+	if (AufgabenDurchfuehrungZeitFaktor < 0.10)
+	{
+		UpgradeStats.BeschlaunigungsUpgradeMaxLevel = true;
 	}
 }
 
 void Gebaeude::reduzierenDerAusfuhrungsKosten()
 {
-	if (Daten->getKontostand() >
+	if (Daten->getKontostand() <
 		UpgradeStats.AusführungsReduzierungsKosten &&
-	    AusfuhrungsKostenFaktor > 10)
+	    UpgradeStats.AusführungsReduzierungsUpgradeMaxLevel)
 	{
-		Daten->abziehnVonKontostand(
-		    UpgradeStats.AusführungsReduzierungsKosten);
+		return;
+	}
 
-		UpgradeStats.AusführungsReduzierungsKosten *= 1.4;
-		AusfuhrungsKostenFaktor -= 10;
+	Daten->abziehnVonKontostand(UpgradeStats.AusführungsReduzierungsKosten);
 
-		if (!ProzessAktiv)
-		{
-			berrechnungVoraussichtlicheZeit();
-		}
+	UpgradeStats.AusführungsReduzierungsKosten *= 1.4;
+	AusfuhrungsKostenFaktor -= 10;
 
-		if (AusfuhrungsKostenFaktor == 10)
-		{
-			UpgradeStats.AusführungsReduzierungsUpgradeMaxLevel =
-			    false;
-		}
+	if (!ProzessAktiv)
+	{
+		berrechnungVoraussichtlicheZeit();
+	}
+
+	if (AusfuhrungsKostenFaktor <= 10)
+	{
+		UpgradeStats.AusführungsReduzierungsUpgradeMaxLevel = true;
 	}
 }
 
