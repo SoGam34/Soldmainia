@@ -1,1 +1,1 @@
-Checks: '*, -llvm-*, -llvmlibc-*'
+Checks: '*, -llvm-*, -llvmlibc-*, -modernize-use-trailing-return-type, -altera-unroll-loops, -readability-avoid-const-params-in-decls, -google-global-names-in-headers, -bugprone-easily-swappable-parameters, -readability-convert-member-functions-to-static'
