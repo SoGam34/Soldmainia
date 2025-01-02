@@ -4,15 +4,16 @@ project(
     version: '0.1',
     default_options: [
         'warning_level=3',
-        'cpp_std=c++14',
+        'cpp_std=c++17',
         'b_coverage=true',
         'werror=false',
     ],
+    
 )
 ##########################################################################
 #                           PROGRAM FILES                                 #
 ##########################################################################
-programm_files = files(
+programm_files_without_main = files(
     'src/Data/Data.cpp',
     'src/Einheit.cpp',
     'src/Game.cpp',
@@ -25,7 +26,11 @@ programm_files = files(
     'src/Rendern/Auswahl.cpp',
     'src/Rendern/View.cpp',
     'src/Timer.cpp',
-    'src/main.cpp',
+
+    )
+    
+main_file = files(
+        'src/main.cpp',
 )
 
 ##########################################################################
@@ -34,16 +39,16 @@ programm_files = files(
 deb_test = dependency('catch2-with-main')
 deb_cli = dependency('cxxopts')
 deb_logs = dependency('spdlog')
+deb_config = dependency('nlohmann_json')
 
 ##########################################################################
 #                         EXECUTEBLES                                    #
 ##########################################################################
 build_target(
     'debug',
-    programm_files,
+[programm_files_without_main, main_file],
     dependencies: [deb_cli, deb_logs],
     install: true,
-    cpp_pch: 'pch/cpp_pch.h',
     target_type: 'executable',
     override_options: [
         'buildtype=debug',
@@ -51,14 +56,14 @@ build_target(
         'b_coverage=true',
         'b_sanitize=none',  #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
     ],
+    cpp_pch: 'pch/pre.h',
 )
 
 build_target(
     'release',
-    programm_files,
+[programm_files_without_main, main_file],
     dependencies: [deb_cli, deb_logs],
     install: true,
-    cpp_pch: 'pch/cpp_pch.h',
     target_type: 'executable',
     override_options: [
         'buildtype=release',
@@ -66,6 +71,7 @@ build_target(
         'b_coverage=false',
         'b_sanitize=none',  #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
     ],
+    cpp_pch: 'pch/pre.h',
 )
 
 ##########################################################################
@@ -73,7 +79,7 @@ build_target(
 ##########################################################################
 doxygen = find_program('doxygen', required: false)
 if doxygen.found()
-    message('Doxygen found')
+    message('\n\nDoxygen found\n\n')
 
     cdata = configuration_data()
     cdata.set('VERSION', meson.project_version())
@@ -90,7 +96,7 @@ if doxygen.found()
 
     run_target('docs', command: [doxygen, doxyfile])
 else
-    warning('Documentation disabled without doxygen')
+    warning('\n\nDocumentation disabled without doxygen\n\n')
 endif
 
 ##########################################################################
@@ -98,24 +104,26 @@ endif
 ##########################################################################
 
 test_files = ['test1.cpp', 'test2.cpp']
-test_sanitizer = ['address', 'thread', 'undefined', 'leak', 'address,undefined']  # 'memory',
+test_sanitizer = ['none', 'address', 'undefined', 'leak', 'address,undefined']  # 'memory', 'thread'
 
 foreach test : test_files
     foreach sanitizer : test_sanitizer
+        name = 'TSuit ' + test.split('.')[0] + ' with ' + sanitizer
         test_exe = build_target(
-            'TSuit:' + test + ' with ' + sanitizer,
-            'tests/' + test,
+            name,
+            ['tests/' + test, programm_files_without_main],
             dependencies: deb_test,
             install: true,
             target_type: 'executable',
-            cpp_pch: 'pch/cpp_pch.h',
             override_options: [
                 'buildtype=debug',
                 'werror=false',
                 'b_coverage=true',
                 'b_sanitize=' + sanitizer,
             ],
+            cpp_pch: 'pch/pre.h',
+            
         )
-        test('Testsuit in ' + test, test_exe)
+        test(name, test_exe, suite: test.split('.')[0])
     endforeach
 endforeach

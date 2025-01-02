@@ -2,5 +2,6 @@ docs/**
 subprojects/cxxopts-*/**
 subprojects/spdlog-*/**
 subprojects/catch2-*/**
+subprojects/nlohmann_json-*/**
 subprojects/packagecache/**
 .cache/**
