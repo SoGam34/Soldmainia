@@ -13,7 +13,7 @@ View::~View()
 
 bool View::getSpielIstAktiv()
 {
-	return (Eingabe == AUSWAHL_BEENDEN) ? false : true;
+	return Eingabe != AUSWAHL_BEENDEN;
 }
 
 int View::getLetzteNutzerEingabe()
@@ -85,7 +85,7 @@ int View::dialogAuswahlEinheit(std::string verwendungszweck)
 	       "werden sie gebeten diese Anzugeben) "
 	    << "Sie können mehrere Kriterien gleichzeitig Angeben z. B. vs für "
 	       "Verletzte Einheiten mit einer bestimmten mindest Starke.";
-	std::string suchKriterien = "";
+	std::string suchKriterien;
 	std::cin >> suchKriterien;
 
 	leeren();
@@ -97,14 +97,14 @@ int View::dialogAuswahlEinheit(std::string verwendungszweck)
 	bool verletzte = false;
 	bool gesunde   = false;
 
-	for (size_t i = 0; i < suchKriterien.size(); i++)
+	for (char& i : suchKriterien)
 	{
-		if (suchKriterien[i] == "t")
+		if (i == 't')
 		{
 			sucheNachTruppenmoral();
 		}
 
-		if (suchKriterien[i] == "s")
+		if (i == 's')
 		{
 			std::cout << "Was ist die mindest Starke?\n";
 
@@ -113,11 +113,11 @@ int View::dialogAuswahlEinheit(std::string verwendungszweck)
 			sucheNachStarke(min);
 		}
 
-		if (suchKriterien[i] == "u")
+		if (i == 'u')
 		{
 			gesunde = true;
 		}
-		if (suchKriterien[i] == "v")
+		if (i == 'v')
 		{
 			verletzte = true;
 		}

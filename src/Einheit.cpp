@@ -7,18 +7,16 @@
 
 #include "Einheit.h"
 
-Einheit::Einheit(std::string name, unsigned short int hp,
+#include <utility>
+
+Einheit::Einheit(std::string& name, unsigned short int hp,
 		 unsigned short int moral, unsigned short int starke,
 		 bool einsatzbereit, unsigned short int grosse, unsigned int xp)
+    : HP(hp), Moral(moral), Starke(starke), Einsatzbereit(einsatzbereit),
+      Name(name), XP(xp), Level(0)
 {
-	Name	      = name;
-	HP	      = hp;
-	Moral	      = moral;
-	Starke	      = starke;
-	Einsatzbereit = einsatzbereit;
-	Grosse	      = grosse;
-	XP	      = xp;
-	Level	      = 0;
+
+	grosse = grosse;
 }
 
 Einheit::~Einheit()

@@ -33,13 +33,10 @@ class Auswahl
 	 *
 	 * @param data Eine Kopie des Data Pointers
 	 */
-	Auswahl(std::shared_ptr<Data> data);
+	Auswahl(std::shared_ptr<Data>& data);
+~Auswahl();	
 
-	/**
-	 * @brief Destroy the Auswahl object
-	 *
-	 */
-	~Auswahl();
+	void sucheNachUnverletztenEinsetzbarenEinheiten();
 
 	// Such Allgerhytmen
 	/**

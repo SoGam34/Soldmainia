@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <memory>
+#include <utility>
 #include <vector>
 
 /**
@@ -71,7 +72,7 @@ class View : public Auswahl
 	 * @param stats Die Upgrade informationen des Gebaudes in dem der
 	 * Spieler sich gerade befindet.
 	 */
-	void ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats);
+	void ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats, InProgressStats progress);
 
 	/**
 	 * @brief Ein Interaktives Sondermenu bei dem der Spieler eine Einheit
@@ -171,7 +172,8 @@ class View : public Auswahl
 	 * der Benarichtigung und der bool ob diese Gut für den Spieler ist.
 	 *
 	 */
-	std::vector<std::string, std::pair<int, bool>> Benarichtigungen;
+	std::vector<std::pair<std::string, std::pair<int, bool>>>
+	    Benarichtigungen;
 
 	/**
 	 * @brief Eine Kopie des Data Pointers.

@@ -20,9 +20,7 @@ void Timer::neuerTimer(int dauer)
 
 bool Timer::checkTimerAbgelaufen()
 {
-	if (EinzelTimer == 0)
-		return true;
-	return false;
+	return EinzelTimer == 0;
 }
 
 void Timer::neuerTimerMitID(int dauer, int id)
@@ -32,10 +30,16 @@ void Timer::neuerTimerMitID(int dauer, int id)
 
 bool Timer::checkTimerAbgelaufenMitID(int id)
 {
-	for (size_t i = 0; i < IDTimer.size(); i++)
-		if (IDTimer[i].first == id)
-			if (IDTimer[i].second == 0)
+	for (auto& i : IDTimer)
+	{
+		if (i.first == id)
+		{
+			if (i.second == 0)
+			{
 				return true;
+			}
+		}
+	}
 	return false;
 }
 

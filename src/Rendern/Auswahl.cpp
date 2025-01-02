@@ -1,8 +1,9 @@
 #include "Auswahl.h"
+#include <cstddef>
 
-Auswahl::Auswahl(std::shared_ptr<Data> data)
+Auswahl::Auswahl(std::shared_ptr<Data>& data) : DatenAuswahl(data)
 {
-	DatenAuswahl = data;
+
 	AusgewahlteEinheiten.clear();
 }
 
@@ -10,7 +11,17 @@ Auswahl::~Auswahl()
 {
 	leeren();
 }
-
+void Auswahl::sucheNachUnverletztenEinsetzbarenEinheiten()
+{
+	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	{
+		if (DatenAuswahl->getEinheiten().at(i).getEinsatzbereit() &&
+		    DatenAuswahl->getEinheiten().at(i).getLeben() == MAX_LEBEN)
+		{
+			AusgewahlteEinheiten.push_back(i);
+		}
+	}
+}
 void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
@@ -26,16 +37,19 @@ void Auswahl::sucheNachEinsetzbarenEinheiten()
 
 void Auswahl::entferneDopplungen()
 {
-	for (size_t i = 0; 0 < AusgewahlteEinheiten.size(); i++)
+	for (auto i = AusgewahlteEinheiten.begin();
+	     i != AusgewahlteEinheiten.end(); i++)
 	{
-		for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
+		for (auto j = AusgewahlteEinheiten.begin();
+		     j != AusgewahlteEinheiten.end(); j++)
 		{
-			if (AusgewahlteEinheiten[i] ==
-				AusgewahlteEinheiten[j] &&
+			if (AusgewahlteEinheiten.at(i) ==
+				AusgewahlteEinheiten.at(j) &&
+				AusgewahlteEinheiten.
 			    i != j)
 			{
-				// AusgewahlteEinheiten[j].pop_back();  TODO:
-				// Remove the Element on position j
+
+				AusgewahlteEinheiten.erase(j);
 			}
 		}
 	}

@@ -26,19 +26,19 @@ const std::stringstream Traningszentrum::getGebaudeAktivText() const
 void Traningszentrum::langeTrainingsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 3;
-	// sucheNachUnverletztenEinsetzbarenEinheiten();
+	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::mittlereTrainingsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 2;
-	// sucheNachUnverletztenEinsetzbarenEinheiten();
+	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::kurzeTraningsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 1;
-	// sucheNachUnverletztenEinsetzbarenEinheiten();
+	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::auswahlZuOrdnen(int Position)

@@ -58,6 +58,9 @@ class Einheit
 	 */
 	unsigned int XP;
 
+	unsigned int XPfuerLevelAufstieg;
+	float const XP_FACTOR = 1.1;
+
 	/**
 	 * @brief Auf welchem Level die Einheit ist, je hoher das Level desto
 	 * starker die Einheit.
@@ -83,6 +86,8 @@ class Einheit
 	 */
 	int Rüstung;
 
+	int Grosse;
+
 	public:
 	Einheit() = delete;
 
@@ -97,7 +102,7 @@ class Einheit
 	 * @param grosse Aus wie vielen Personen die Einheit besteht.
 	 * @param xp Wie viel XP die Einheit hat.
 	 */
-	Einheit(std::string name, unsigned short int hp = 100,
+	Einheit(std::string& name, unsigned short int hp = 100,
 		unsigned short int moral = 10, unsigned short int starke = 1,
 		bool einsatzbereit = true, unsigned short int grosse = 1,
 		unsigned int xp = 1);
@@ -122,6 +127,11 @@ class Einheit
 	inline int getLeben() const
 	{
 		return HP;
+	}
+
+	inline int getGrosse() const
+	{
+		return Grosse;
 	}
 
 	/**
