@@ -1,14 +1,15 @@
 #include "Scoutbuero.h"
 
-Scoutbuero::Scoutbuero(std::shared_ptr<Data>& data)
-    : Gebaeude(data, 400, 1), Rangmin(1)
+Scoutbuero::Scoutbuero(std::shared_ptr<Data>& data) : Gebaeude(data, 400, 1)
 {
-	Rang = static_cast<Range>(rand() % 2 + Rangmin); // NOLINT
+	UpgradeStats.GebaudeSpezielleFaktor = 1;
+	Rang				    = static_cast<Range>( // NOLINT
+		   rand() % 2 + UpgradeStats.GebaudeSpezielleFaktor); // NOLINT
 }
 
 unsigned int Scoutbuero::getGebaeudeAusfuhrungskosten() const
 {
-	return (Rang * AusfuhrungsKostenFaktor *
+	return (Rang * UpgradeStats.AusführungsReduzierungsKosten *
 		(VoraussichtlicheZeit + Zeitversatz));
 }
 
@@ -24,9 +25,7 @@ const std::stringstream Scoutbuero::getGebaudeAktivText() const
 
 void Scoutbuero::beendenDerAusfuhrung()
 {
-	//TODO(Einheit): Benarichtigung suche beendet
-
-	ProzessAktiv		   = false;
+	// TODO(Einheit): Benarichtigung suche beendet
 
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
@@ -38,8 +37,6 @@ void Scoutbuero::annehmenDerEinheit()
 
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
-
-	ProzessAktiv = false;
 }
 
 void Scoutbuero::ablehnenDerEinheit()
@@ -48,19 +45,18 @@ void Scoutbuero::ablehnenDerEinheit()
 
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
-
-	ProzessAktiv = false;
 }
 
 void Scoutbuero::erhohenDesMoeglichenRanges()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
 	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
-		Rangmin++;
+		UpgradeStats.GebaudeSpezielleFaktor++;
 		UpgradeStats.GebaudeSpezielleKosten *= 1.6;
 
-		Rang = static_cast<Range>(rand() % 2 + Rangmin);
+		Rang			   = static_cast<Range>(rand() % 2 +
+								UpgradeStats.GebaudeSpezielleFaktor);
 		GebaeudeEinflussZeitFaktor = Rang;
 
 		Daten->abziehnVonKontostand(
@@ -112,12 +108,12 @@ void Scoutbuero::erhohenDesMoeglichenRanges()
 		break;
 		}
 
-		if (!ProzessAktiv)
+		if (!ProgressStats.hasProgress)
 		{
 			berrechnungVoraussichtlicheZeit();
 		}
 
-		if (Rangmin == 6)
+		if (UpgradeStats.GebaudeSpezielleFaktor == 6)
 		{
 			UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 		}

@@ -4,11 +4,12 @@ Batillion_Ausbildungszentrum::Batillion_Ausbildungszentrum(
     std::shared_ptr<Data>& data)
     : Gebaeude(data, 70, 10)
 {
+	UpgradeStats.GebaudeSpezielleFaktor=1;
 }
 
 unsigned int Batillion_Ausbildungszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	return AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz);
+	return UpgradeStats.AusführungsReduzierungsKosten * (VoraussichtlicheZeit + Zeitversatz);
 }
 
 const std::stringstream
@@ -46,8 +47,6 @@ void Batillion_Ausbildungszentrum::beendenDerAusfuhrung()
 {
 	// TODO(): Generierung eines Batillions
 
-	ProzessAktiv = false;
-
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 }
@@ -60,14 +59,16 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 
 	std::stringstream ssText; // Der Text der Angezeigt werden soll
 	ssText << "Neues Batillion ausbilden\nGroesse: " << Batillionsgroesse
-	       << "\nKampfkraft: " << Batillionsgroesse * 10 * Grundstaerke
-	       << "\nKosten: " << AusfuhrungsKostenFaktor * VoraussichtlicheZeit
+	       << "\nKampfkraft: " << Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor
+	       << "\nKosten: "
+	       << UpgradeStats.AusführungsReduzierungsKosten *
+		      VoraussichtlicheZeit
 	       << "\nVoraussichtlich fertig in: " << VoraussichtlicheZeit;
 }
 
 void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
 	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
@@ -76,14 +77,14 @@ void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
 	Daten->abziehnVonKontostand(UpgradeStats.GebaudeSpezielleKosten);
 
 	UpgradeStats.GebaudeSpezielleKosten *= 1.6;
-	Grundstaerke += 1;
+	UpgradeStats.GebaudeSpezielleFaktor += 1;
 
-	if (!ProzessAktiv)
+	if (!ProgressStats.hasProgress)
 	{
 		berrechnungVoraussichtlicheZeit();
 	}
 
-	if (Grundstaerke > 24)
+	if (UpgradeStats.GebaudeSpezielleFaktor > 24)
 	{
 		UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 	}

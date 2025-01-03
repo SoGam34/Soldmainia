@@ -109,25 +109,12 @@ class Gebaeude : public Timer
 	// Daten zeiger
 	std::shared_ptr<Data> Daten; // NOLINT
 
-	// Wenn true dann wird die Aufgabe Ausgefuhrt der Prozess ist am
-	// laufen/aktiv
-	bool ProzessAktiv; // NOLINT
-
 	// Gibt an wie lange die Ausbildung vorausichtlich dauert
 	unsigned short int VoraussichtlicheZeit; // NOLINT
 
 	// Zeit versatz der mit der Vorausichtlichen addiert wird was die
 	// tatsachliche benoetigte Zeit ergibt
 	unsigned short int Zeitversatz; // NOLINT
-
-	// ein Faktor der zur Berrechnung der vorausichtlichen Zeit benoetigt
-	// wird und der einzige auf den der Spieler einen direkten einfluss hat
-	// ueber die Upgrades
-	float AufgabenDurchfuehrungZeitFaktor; // NOLINT
-
-	// ein Faktor der zur Berrechnung der Ausfuhrungs Kosten benoetigt wird,
-	// der Spieler hat auf ihn einen direkten einfluss ueber die Upgrades
-	unsigned short int AusfuhrungsKostenFaktor; // NOLINT
 
 	// ein Faktor der zur Berrechnung der vorausichtlichen Zeit benoetigt
 	// wird und auf den die einzelnen Gebaude einen individuellen einfluss
@@ -138,8 +125,4 @@ class Gebaeude : public Timer
 	GebaeudeUpgradeStats UpgradeStats; // NOLINT
 
 	InProgressStats ProgressStats; // NOLINT
-
-	private:
-	// Speichert die Array Position der Aufgaben Kachel des gebaudes
-	short int ProzessHauptKachel;
 };

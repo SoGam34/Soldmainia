@@ -1,14 +1,15 @@
 #include "Traningszentrum.h"
 
 Traningszentrum::Traningszentrum(std::shared_ptr<Data>& data)
-    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0),
-      Wirksamkeitsgrad(1)
-{
+    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0)
+    {
+	    UpgradeStats.GebaudeSpezielleFaktor=1;
 }
 
 unsigned int Traningszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	return AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz) *
+	return UpgradeStats.AusführungsReduzierungsKosten *
+	       (VoraussichtlicheZeit + Zeitversatz) *
 	       Daten->getEinheiten()[EinheitsVPosition].getGrosse();
 }
 
@@ -55,34 +56,32 @@ void Traningszentrum::beendenDerAusfuhrung()
 	Zeitversatz = rand() % 5 + 3;
 	berrechnungVoraussichtlicheZeit();
 
-	ProzessAktiv = false;
-
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 
 	Daten->getEinheiten()[EinheitsVPosition].xpHinzufugen(
-	    Wirksamkeitsgrad * GebaeudeEinflussZeitFaktor);
+	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor);
 }
 
 void Traningszentrum::erhohenDerTraningsWirksamkeit()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
 	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
 	}
 
-	Wirksamkeitsgrad += 1;
+	UpgradeStats.GebaudeSpezielleFaktor += 1;
 	UpgradeStats.GebaudeSpezielleKosten *= 1.6;
 
 	Daten->abziehnVonKontostand(UpgradeStats.GebaudeSpezielleKosten);
 
-	if (!ProzessAktiv)
+	if (!ProgressStats.hasProgress)
 	{
 		berrechnungVoraussichtlicheZeit();
 	}
 
-	if (Wirksamkeitsgrad > 24)
+	if (UpgradeStats.GebaudeSpezielleFaktor > 24)
 	{
 		UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 	}

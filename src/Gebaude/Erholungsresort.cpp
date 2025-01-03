@@ -1,14 +1,15 @@
 ﻿#include "Erholungsresort.h"
 
 Erholungsresort::Erholungsresort(std::shared_ptr<Data>& data)
-    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0),
-      Wirksamkeitsgrad(1)
+    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0)
 {
+	UpgradeStats.GebaudeSpezielleFaktor=1;
 }
 
 unsigned int Erholungsresort::getGebaeudeAusfuhrungskosten() const
 {
-	return AusfuhrungsKostenFaktor * (VoraussichtlicheZeit + Zeitversatz) *
+	return UpgradeStats.AusführungsReduzierungsKosten *
+	       (VoraussichtlicheZeit + Zeitversatz) *
 	       Daten->getEinheiten()[EinheitsVPosition].getGrosse();
 }
 
@@ -37,18 +38,16 @@ void Erholungsresort::beendenDerAusfuhrung()
 	Zeitversatz = rand() % 5 + 3;
 	berrechnungVoraussichtlicheZeit();
 
-	ProzessAktiv = false;
-
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 
 	Daten->getEinheiten()[EinheitsVPosition].xpHinzufugen(
-	    Wirksamkeitsgrad * GebaeudeEinflussZeitFaktor);
+	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor);
 }
 
 void Erholungsresort::erhohenDerTraningsWirksamkeit()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten &&
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
 	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
@@ -56,15 +55,15 @@ void Erholungsresort::erhohenDerTraningsWirksamkeit()
 
 	Daten->abziehnVonKontostand(UpgradeStats.GebaudeSpezielleKosten);
 
-	Wirksamkeitsgrad += 1;
+	UpgradeStats.GebaudeSpezielleFaktor += 1;
 	UpgradeStats.GebaudeSpezielleKosten *= 1.6;
 
-	if (!ProzessAktiv)
+	if (!ProgressStats.hasProgress)
 	{
 		berrechnungVoraussichtlicheZeit();
 	}
 
-	if (Wirksamkeitsgrad > 26)
+	if (UpgradeStats.GebaudeSpezielleFaktor > 26)
 	{
 		UpgradeStats.GebaudeSpezielleUpgradeMaxLevel = true;
 	}
