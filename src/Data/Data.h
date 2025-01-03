@@ -22,7 +22,6 @@
 class Data
 {
 	public:
-	// TODO(SoGam34): Making get Functions const and set parameters const
 	/**
 	 * @brief Construct a new Data object
 	 *
@@ -48,30 +47,30 @@ class Data
 	 *
 	 * @return unsigned int Wie bekannt der Spieler aktuell ist.
 	 */
-	unsigned int getBekanntheit();
+	unsigned int getBekanntheit() const;
 
 	/**
 	 * @brief Set the Bekanntheit object
 	 *
 	 * @param value Die neue ablsolute Bekanntheit.
 	 */
-	void setBekanntheit(unsigned int value);
+	void setBekanntheit(unsigned int const value);
 
 	/**
 	 * @brief Get the Kontostand object
 	 *
 	 * @return int Das aktuelle Vermögen des Spielers.
 	 */
-	int getKontostand();
+	float getKontostand() const;
 
-	void abziehnVonKontostand(int betrag);
+	void abziehnVonKontostand(float const betrag);
 
 	/**
 	 * @brief 'Überweisung' zum Spieler. Der Spieler erhalt Geld.
 	 *
 	 * @param betrag Der Betrag den der Spieler erhalt.
 	 */
-	void hinzufuegenZuKontostand(int betrag);
+	void hinzufuegenZuKontostand(float const betrag);
 
 	/**
 	 * @brief Es beginnt ein neuer Tag und der Zahler der die insgesamte
@@ -85,21 +84,21 @@ class Data
 	 *
 	 * @return int Die Anzahl an Tagen die vergangen sind.
 	 */
-	int getAnzahlTage();
+	int getAnzahlTage() const;
 
 	/**
 	 * @brief Get the Tages Dauer object
 	 *
 	 * @return float Wie lange ein Tag aktuell ist.
 	 */
-	float getTagesDauer();
+	double getTagesDauer() const;
 
 	/**
 	 * @brief Set the Tages Dauer object
 	 *
 	 * @param neueDauer Die neue lange eines Tages.
 	 */
-	void setTagesDauer(float neueDauer);
+	void setTagesDauer(float const neueDauer);
 
 	/**
 	 * @brief Gibt den Wert von MONATS_DAUER zurück.
@@ -121,7 +120,7 @@ class Data
 	 * @brief Speichert den Aktuellen Kontostand des Spielers.
 	 *
 	 */
-	int Kontostand = 1000000000;
+	float Kontostand = 10000;
 
 	/**
 	 * @brief Die Anzalhl an Tagen die im gesamten Spiel vergangen sind.
@@ -133,7 +132,7 @@ class Data
 	 * @brief Wie lange ein Tag in der Echten Welt dauert.
 	 *
 	 */
-	float TagesDauer = 1.2;
+	double TagesDauer = 1.2;
 
 	/**
 	 * @brief Die Dauer eines Monats.

@@ -1,8 +1,20 @@
 #include "Data.h"
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 Data::Data()
 {
 	Einheiten.clear();
+
+	std::ifstream file("savegame.json");
+	nlohmann::json data;
+	file >> data;
+
+	//Kontostand = data["Kontostand"];
+	//AnzahlTage = data["AnzahlTage"];
+	//TagesDauer = data["TagesDauer"];
+	//Bekantheit = data["Bekantheit"];
+	//TODO(Data): Einlesen der Inforationen
 }
 
 std::vector<Einheit>& Data::getEinheiten()
@@ -10,32 +22,32 @@ std::vector<Einheit>& Data::getEinheiten()
 	return Einheiten;
 }
 
-void Data::addEinheit(const Einheit& e)
+void Data::addEinheit(const Einheit& e) 
 {
 	Einheiten.emplace_back(e);
 }
 
-unsigned int Data::getBekanntheit()
+unsigned int Data::getBekanntheit() const
 {
 	return Bekantheit;
 }
 
-void Data::setBekanntheit(unsigned int value)
+void Data::setBekanntheit(unsigned int const value)
 {
 	Bekantheit = value;
 }
 
-int Data::getKontostand()
+float Data::getKontostand() const
 {
 	return Kontostand;
 }
 
-void Data::abziehnVonKontostand(int betrag)
+void Data::abziehnVonKontostand(float const betrag)
 {
 	Kontostand -= betrag;
 }
 
-void Data::hinzufuegenZuKontostand(int betrag)
+void Data::hinzufuegenZuKontostand(float const betrag)
 {
 	Kontostand += betrag;
 }
@@ -45,7 +57,7 @@ void Data::erhoheAnzahlTage()
 	AnzahlTage++;
 }
 
-int Data::getAnzahlTage()
+int Data::getAnzahlTage() const
 {
 	return AnzahlTage;
 }
@@ -55,12 +67,38 @@ int Data::getMONATS_DAUER() const
 	return MONATS_DAUER;
 }
 
-float Data::getTagesDauer()
+double Data::getTagesDauer() const
 {
 	return TagesDauer;
 }
 
-void Data::setTagesDauer(float neueDauer)
+void Data::setTagesDauer(float const neueDauer)
 {
 	TagesDauer = neueDauer;
+}
+
+void Data::saveGameToFile()
+{
+	nlohmann::json data = {{"Kontostand", Kontostand},
+			    {"AnzahlTage", AnzahlTage},
+			    {"TagesDauer", TagesDauer},
+			    {"Bekantheit", Bekantheit},
+			    {"Einheiten"}};
+
+	for (const auto& e : Einheiten)
+	{
+		data["Einheiten"][e.getName()] = {
+		    {"Hp", e.getLeben()},
+		    {"Moral", e.getMoral()},
+		    {"Starke", e.getStarke()},
+		    {"Einsatzbereit", e.getEinsatzbereit()},
+		    {"Xp", e.getErfahrung()},
+		    {"Level", e.getLevel()},
+		    {"Anzahl", e.getGrosse()}
+
+		};
+	}
+
+	std::ofstream out("savegame.json");
+	out << std::setw(4) << data << std::endl;
 }
