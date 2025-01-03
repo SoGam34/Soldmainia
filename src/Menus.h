@@ -47,12 +47,12 @@ struct GebaeudeUpgradeStats
 	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	int BeschlaunigunsKosten{0};
+	float BeschlaunigunsKosten{1};
 	/**
 	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
 	 *
 	 */
-	int BeschlaunigungsFaktor{0};
+	float BeschlaunigungsFaktor{0};
 
 	bool BeschlaunigungsUpgradeMaxLevel{false};
 
@@ -60,12 +60,12 @@ struct GebaeudeUpgradeStats
 	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	int GebaudeSpezielleKosten{0};
+	float GebaudeSpezielleKosten{1};
 	/**
 	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
 	 *
 	 */
-	int GebaudeSpezielleFaktor{0};
+	float GebaudeSpezielleFaktor{0};
 
 	bool GebaudeSpezielleUpgradeMaxLevel{false};
 
@@ -73,12 +73,12 @@ struct GebaeudeUpgradeStats
 	 * @brief Speichert wie viel das Zeit Upgrade Kostet
 	 *
 	 */
-	int AusführungsReduzierungsKosten{0};
+	float AusführungsReduzierungsKosten{1};
 	/**
 	 * @brief Speichert welchen Effekt das Upgrade hat in Prozent
 	 *
 	 */
-	int AusführungsReduzierungsFaktor{0};
+	float AusführungsReduzierungsFaktor{0};
 
 	bool AusführungsReduzierungsUpgradeMaxLevel{false};
 };

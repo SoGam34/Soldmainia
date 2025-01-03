@@ -21,11 +21,16 @@
 
 #include "Data/Data.h"
 
-#include "Rendern/Auswahl.h"
 #include "Menus.h"
+#include "Rendern/Auswahl.h"
 
 #include <chrono>
 #include <memory>
+
+#include <spdlog/logger.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/stopwatch.h>
+#include <spdlog/formatter.h>
 
 /**
  * @brief Die Klasse verwaltet alles generelles und koordiniert die alle anderen
@@ -89,8 +94,10 @@ class Game
 	 * Tage alle gleichlang und FPS unabhängig sind.
 	 *
 	 */
-	std::chrono::time_point<std::chrono::steady_clock> 
+	std::chrono::time_point<std::chrono::steady_clock>
 	    ZeitpunktDesLetztenTages;
+
+	std::shared_ptr<spdlog::logger> log;
 
 	std::unique_ptr<View> view;
 

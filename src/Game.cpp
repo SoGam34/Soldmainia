@@ -1,5 +1,8 @@
 #include "Game.h"
 #include "Menus.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include <spdlog/common.h>
+#include <spdlog/formatter.h>
 #include <sstream>
 
 Game::Game()
@@ -19,13 +22,23 @@ Game::Game()
 
 	view = std::make_unique<View>(Daten);
 
-	//XXX(Time): Initilize Timer
 	ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
 
 	AktuellesMenu = hauptmenu;
 
-	Stats = GebaeudeUpgradeStats();
+	Stats	 = GebaeudeUpgradeStats();
 	Progress = InProgressStats();
+
+	try
+	{
+		log = spdlog::basic_logger_mt("basic_logger",
+					      "progam/basic-log.txt");
+	}
+	catch (const spdlog::spdlog_ex& ex)
+	{
+		std::cout << "Log init failed: " << ex.what() << std::endl;
+		return;
+	}
 }
 
 Game::~Game()
@@ -41,12 +54,16 @@ void Game::spielLauft()
 {
 	while (view->getSpielIstAktiv())
 	{
+		// log->info("starting new GameLoop");
+
 		update();
 
 		zeit();
 
 		view->ausgabe(AktuellesMenu, Stats, Progress);
 	}
+
+	log->flush();
 
 	Daten->saveGameToFile();
 }
@@ -61,11 +78,11 @@ void Game::update()
 		return;
 	}
 
-	switch (
-	    AktuellesMenu) 
+	switch (AktuellesMenu)
 	{
 	case zentrale:
 	{
+		return;
 	}
 	break;
 
@@ -77,6 +94,7 @@ void Game::update()
 		case AUSWAHL_AKTION_1:
 		{
 			BAZ->beginneAufgabe();
+			
 			std::stringstream temp;
 			temp << "Kosten: "
 			     << BAZ->getGebaeudeAusfuhrungskosten();
@@ -200,8 +218,8 @@ void Game::update()
 		case AUSWAHL_AKTION_1:
 		{
 			Traningzentren->langeTrainingsDauer();
-			int ausgewaelteEinheit 
-			    {view->dialogAuswahlEinheit("ein langes Traning")};
+			int ausgewaelteEinheit{
+			    view->dialogAuswahlEinheit("ein langes Traning")};
 			Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
 		}
 		break;
@@ -322,22 +340,26 @@ void Game::update()
 		AktuellesMenu = logistikSystem;
 	}
 	break;
-	default:
-	{
-		AktuellesMenu = hauptmenu;
-	}
-	break;
+		// default:
+		//{
+		//	AktuellesMenu = hauptmenu;
+		// }
+		// break;
 	}
 }
 
 void Game::zeit()
 {
-	float delta_time = 1;
-	//{ std::chrono::duration_cast<std::chrono::seconds>(
-	// std::chrono::steady_clock::now() - ZeitpunktDesLetztenTages) };
-	// FIXME: make time comparison possible
+	std::chrono::time_point<std::chrono::steady_clock> aktuellerZeitpunkt =
+	    std::chrono::steady_clock::now();
 
-	if (delta_time >= Daten->getTagesDauer())
+	std::chrono::duration<double> vergangeneZeit =
+	    aktuellerZeitpunkt - ZeitpunktDesLetztenTages;
+
+	int daycount = static_cast<double>(vergangeneZeit.count()) /
+		       Daten->getTagesDauer();
+
+	while (daycount-- > 0)
 	{
 		Daten->erhoheAnzahlTage();
 
@@ -348,9 +370,17 @@ void Game::zeit()
 
 		if (Daten->getAnzahlTage() % Daten->getMONATS_DAUER() == 0)
 		{
-			// Sold auszahlen
+			int totalSold =0;
+			for (auto e : Daten->getEinheiten()) {
+				totalSold+=e.getSold();
+			}
+			Daten->abziehnVonKontostand(totalSold);
+
+			std::stringstream temp;
+			temp << "Sold wird ausgezahlt! Insgesamt werden deswegen " << totalSold<<" abgezogen."; 
+			view->addBenarichtigung(temp.str(), 0, false);
 		}
-		//TODO(Time): Akktualisieren bzw. zurücksetzen des Timers
+
 		ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
 	}
 }

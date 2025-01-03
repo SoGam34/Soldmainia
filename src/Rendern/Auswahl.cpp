@@ -1,5 +1,8 @@
 #include "Auswahl.h"
+#include <algorithm>
 #include <cstddef>
+#include <functional>
+#include <utility>
 
 Auswahl::Auswahl(std::shared_ptr<Data>& data) : DatenAuswahl(data)
 {
@@ -43,12 +46,8 @@ void Auswahl::entferneDopplungen()
 		for (auto j = AusgewahlteEinheiten.begin();
 		     j != AusgewahlteEinheiten.end(); j++)
 		{
-			if (AusgewahlteEinheiten.at(i) ==
-				AusgewahlteEinheiten.at(j) &&
-				AusgewahlteEinheiten.
-			    i != j)
+			if (*i == *j && i != j)
 			{
-
 				AusgewahlteEinheiten.erase(j);
 			}
 		}
@@ -123,52 +122,26 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 {
 	if (aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getStarke() >
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getStarke())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			return DatenAuswahl->getEinheiten()[i].getStarke() <
+			       DatenAuswahl->getEinheiten()[j].getStarke();
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 
-	else if (!aufsteigend)
+	if (!aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getStarke() <
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getStarke())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			return DatenAuswahl->getEinheiten()[i].getStarke() >
+			       DatenAuswahl->getEinheiten()[j].getStarke();
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 }
 

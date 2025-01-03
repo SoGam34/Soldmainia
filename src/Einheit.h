@@ -88,6 +88,8 @@ class Einheit
 
 	int Grosse;
 
+	int sold=10;
+
 	public:
 	Einheit() = delete;
 
@@ -129,6 +131,11 @@ class Einheit
 		return HP;
 	}
 
+	inline int getSold() const
+	{
+		return sold;
+	}
+
 	inline int getGrosse() const
 	{
 		return Grosse;
@@ -149,7 +156,10 @@ class Einheit
 	 *
 	 * @return int
 	 */
-	inline int getStarke() const;
+	inline int getStarke() const
+	{
+		return Starke;
+	}
 
 	/**
 	 * @brief Get the Einsatzbereit object
@@ -167,7 +177,7 @@ class Einheit
 	 *
 	 * @return int
 	 */
-	inline int getErfahrung() const
+	inline unsigned int getErfahrung() const
 	{
 		return XP;
 	}
@@ -177,7 +187,7 @@ class Einheit
 	 *
 	 * @return int
 	 */
-	inline int getLevel() const
+	inline unsigned int getLevel() const
 	{
 		return Level;
 	}
