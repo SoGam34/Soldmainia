@@ -1,13 +1,9 @@
 #include "View.h"
+#include "Auswahl.h"
+// NOLINTBEGIN(fuchsia-default-arguments-calls)
 
 View::View(std::shared_ptr<Data> data)
-{
-	Daten		 = data;
-	Eingabe		 = 0;
-	ZuRenderndesMenu = hauptmenu;
-}
-
-View::~View()
+    : ZuRenderndesMenu(hauptmenu), Eingabe(0), Daten(data), Auswahl(data)
 {
 }
 
@@ -42,14 +38,19 @@ void View::printKopfZeile(std::string titel)
 {
 	std::cout << "Kontostand: " << Daten->getKontostand()
 		  << "\t Menu: " << titel
-		  << "\t Tag: " << Daten->getAnzahlTage();
+		  << "\t Tag: " << Daten->getAnzahlTage() << "\n\n";
+}
+void View::printProgress(InProgressStats& stats)
+{
+	std::cout << "\n"<<stats.ProgressText<<"\n";
 }
 
 void View::printFussZeile()
 {
 	std::cout << "\n\n\n"
 		  << "Um das Spiel zu beenden " << AUSWAHL_BEENDEN << "\n"
-		  << "Um zu Speichern " << AUSWAHL_SPEICHERN << "\n";
+		  << "Um zu Speichern " << AUSWAHL_SPEICHERN << "\n"
+		  << "Um das Hilfsmenu zu öffnen " << AUSWAHL_HILFE;
 }
 
 void View::printGebaeudeStats(GebaeudeUpgradeStats stats, std::string zeitText,
@@ -207,7 +208,8 @@ int View::dialogAuswahlEinheit(std::string verwendungszweck)
 	return anzuzeigendeEinheiten[ausgewählteEinheit];
 }
 
-void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
+void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats,
+		   InProgressStats progress)
 {
 	ZuRenderndesMenu = aktuellesMenu;
 	std::system("clear");
@@ -222,7 +224,7 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 			  << "(" << AUSWAHL_MENU_ZENTRALE
 			  << ") Die Zentrale betreten\n"
 			  << "(" << AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM
-			  << ") Das Batillion Ausbildungszentrum betreten"
+			  << ") Das Batillion Ausbildungszentrum betreten\n"
 			  << "(" << AUSWAHL_MENU_SCOUTBUERO
 			  << ") Das Scoutbuero betreten\n"
 			  << "(" << AUSWAHL_MENU_ERHOLUNGSRESORT
@@ -245,22 +247,29 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 	{
 		printKopfZeile("Batilionsausbildungszentrum");
 
-		std::cout << "Was möchten Sie machen? \n\n"
-			  << "(" << AUSWAHL_AKTION_1
-			  << ") Ausbildung der Einheit starten\n"
-			  << "(" << AUSWAHL_AKTION_2
-			  << ") Mehr Truppenmitglieder ausbilden"
-			  << "(" << AUSWAHL_AKTION_3
-			  << ") Weniger Truppenmitglieder ausbilden\n";
+		if (progress.hasProgress)
+		{
+			printProgress(progress);
+		}
 
-		printGebaeudeStats(
-		    stats, "[Upgrade] Verkürzung der Ausbildungsdauer",
-		    "[Upgrade] Die Grundstaerke der Truppe verbessern",
-		    "[Upgrade] Ausbildungskosten reduzierung");
+		else
+		{
+			std::cout << "Was möchten Sie machen? \n\n"
+				  << "(" << AUSWAHL_AKTION_1
+				  << ") Ausbildung der Einheit starten\n"
+				  << "(" << AUSWAHL_AKTION_2
+				  << ") Mehr Truppenmitglieder ausbilden\n"
+				  << "(" << AUSWAHL_AKTION_3
+				  << ") Weniger Truppenmitglieder ausbilden\n";
 
-		// XXX: Ausgabe der aktuellen Werte, wie ein Batelion aussieht
-		// wenn sie jetz ausgebildet wird
+			printGebaeudeStats(
+			    stats, "[Upgrade] Verkürzung der Ausbildungsdauer",
+			    "[Upgrade] Die Grundstaerke der Truppe verbessern",
+			    "[Upgrade] Ausbildungskosten reduzierung");
 
+			// XXX: Ausgabe der aktuellen Werte, wie ein Batelion
+			// aussieht wenn sie jetz ausgebildet wird
+		}
 		printFussZeile();
 
 		std::cin >> Eingabe;
@@ -270,19 +279,28 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 	{
 		printKopfZeile("Scoutbüro");
 
-		std::cout << "Was möchten Sie machen? \n\n"
-			  << "(" << AUSWAHL_AKTION_1
-			  << ") Suche nach einen guten Kämpfer starten)\n";
+		if (progress.hasProgress)
+		{
+			printProgress(progress);
+		}
 
-		printGebaeudeStats(
-		    stats, "[Upgrade] Verkürzen der Suchdauer",
-		    "[Upgrade] Bessere Kämpfer finden und anwerben(Höhere "
-		    "Rang)",
-		    "[Upgrade] Die Kosten für die Suche reduzieren");
+		else
+		{
+			std::cout
+			    << "Was möchten Sie machen? \n\n"
+			    << "(" << AUSWAHL_AKTION_1
+			    << ") Suche nach einen guten Kämpfer starten)\n";
 
-		// XXX: Ausgabe der aktuellen Werte, wie die Suche aussieht wenn
-		// sie jetz gestartet wird
+			printGebaeudeStats(
+			    stats, "[Upgrade] Verkürzen der Suchdauer",
+			    "[Upgrade] Bessere Kämpfer finden und "
+			    "anwerben(Höhere "
+			    "Rang)",
+			    "[Upgrade] Die Kosten für die Suche reduzieren");
 
+			// XXX: Ausgabe der aktuellen Werte, wie die Suche
+			// aussieht wenn sie jetz gestartet wird
+		}
 		printFussZeile();
 
 		std::cin >> Eingabe;
@@ -292,19 +310,26 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 	{
 		printKopfZeile("Traningszentrum");
 
-		std::cout << "Was möchten Sie machen? \n\n"
-			  << "(" << AUSWAHL_AKTION_1
-			  << ") Ein intensiv Traening starten\n"
-			  << "(" << AUSWAHL_AKTION_2
-			  << ") Ein gutes grundlagen Traning starten"
-			  << "(" << AUSWAHL_AKTION_3
-			  << ") Einmal kurz ins Gym\n";
+		if (progress.hasProgress)
+		{
+			printProgress(progress);
+		}
 
-		printGebaeudeStats(
-		    stats, "[Upgrade] Verkürzung der Traningsdauer",
-		    "[Upgrade] Die Traningsmethoden verbessern",
-		    "[Upgrade] Die Kosten fuer ein Traning senken");
+		else
+		{
+			std::cout << "Was möchten Sie machen? \n\n"
+				  << "(" << AUSWAHL_AKTION_1
+				  << ") Ein intensiv Traening starten\n"
+				  << "(" << AUSWAHL_AKTION_2
+				  << ") Ein gutes grundlagen Traning starten\n"
+				  << "(" << AUSWAHL_AKTION_3
+				  << ") Einmal kurz ins Gym\n";
 
+			printGebaeudeStats(
+			    stats, "[Upgrade] Verkürzung der Traningsdauer",
+			    "[Upgrade] Die Traningsmethoden verbessern",
+			    "[Upgrade] Die Kosten fuer ein Traning senken");
+		}
 		printFussZeile();
 
 		std::cin >> Eingabe;
@@ -314,16 +339,23 @@ void View::ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats)
 	{
 		printKopfZeile("Erholungsresort");
 
-		std::cout
-		    << "Was möchten Sie machen? \n\n"
-		    << "(" << AUSWAHL_AKTION_1
-		    << ") Eine Einheit zum erholen(HP und Moral) auswahlen";
+		if (progress.hasProgress)
+		{
+			printProgress(progress);
+		}
 
-		printGebaeudeStats(stats,
-				   "[Upgrade] Verkürzung der Erholngsdauer",
-				   "[Upgrade] Die Resort Qualität verbessern",
-				   "[Upgrade] Resortkosten reduzieren");
+		else
+		{
+			std::cout << "Was möchten Sie machen? \n\n"
+				  << "(" << AUSWAHL_AKTION_1
+				  << ") Eine Einheit zum erholen(HP und Moral) "
+				     "auswahlen\n";
 
+			printGebaeudeStats(
+			    stats, "[Upgrade] Verkürzung der Erholngsdauer",
+			    "[Upgrade] Die Resort Qualität verbessern",
+			    "[Upgrade] Resortkosten reduzieren");
+		}
 		printFussZeile();
 
 		std::cin >> Eingabe;
@@ -345,5 +377,7 @@ void View::dialogHilfe()
 {
 	std::cout << "Wilkommen im Hilfsmenu. \n Aktuell gibt es keine "
 		     "Eintrage zum Menu in dem du dich befindest, daher kann "
-		     "ich dir leider nicht helfen :( . ";
+		     "ich dir leider nicht helfen :( . \n";
 }
+
+// NOLINTEND(fuchsia-default-arguments-calls)

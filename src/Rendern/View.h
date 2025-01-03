@@ -39,12 +39,6 @@ class View : public Auswahl
 	View(std::shared_ptr<Data> data);
 
 	/**
-	 * @brief Destroy the View object
-	 *
-	 */
-	~View();
-
-	/**
 	 * @brief Die Funktion gibt an ob der Spieler das Spiel beendet hat oder
 	 * nicht.
 	 *
@@ -137,6 +131,8 @@ class View : public Auswahl
 	 *
 	 */
 	void printFussZeile();
+
+	void printProgress(InProgressStats& stats);
 
 	/**
 	 * @brief Gibt die Upgrade Informationen eines Gebaudes aus.
