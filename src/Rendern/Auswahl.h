@@ -12,7 +12,8 @@
  */
 
 #include "../Data/Data.h"
-#include "../Einheit.h"
+#include "../Einheiten/Battelion.h"
+#include "../Einheiten/Einzelkampfer.h"
 
 #include <iterator>
 
@@ -34,7 +35,7 @@ class Auswahl
 	 * @param data Eine Kopie des Data Pointers
 	 */
 	Auswahl(std::shared_ptr<Data>& data);
-~Auswahl();	
+	~Auswahl();
 
 	void sucheNachUnverletztenEinsetzbarenEinheiten();
 

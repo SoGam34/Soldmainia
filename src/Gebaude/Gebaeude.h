@@ -26,7 +26,7 @@ class Gebaeude : public Timer
 	 Aufgabe: Die virtuelle Funktion berechnet wie viel die Ausfuhrung
 	 kostet Retrun: Die Funktion gibt die kosten als int zurueck
 	 */
-	virtual unsigned int getGebaeudeAusfuhrungskosten() const = 0; //NOLINT
+	virtual unsigned int getGebaeudeAusfuhrungskosten() const = 0; // NOLINT
 
 	/*
 	 Name: BeginnAufgabe
@@ -51,7 +51,8 @@ class Gebaeude : public Timer
 	 wenn das Gebaude aktiv ist Retrun: Die Funktion gibt den Text als
 	 stringstram zurueck
 	 */
-	virtual const std::stringstream getGebaudeAktivText() const = 0; //NOLINT
+	virtual const std::stringstream
+	getGebaudeAktivText() const = 0; // NOLINT
 
 	/*
 	 Name: BeendenDerAusfuhrung

@@ -1,30 +1,41 @@
 #include "Data.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <utility>
 
 Data::Data()
 {
-	Einheiten.clear();
+	Members.clear();
 
-	std::ifstream file("savegame.json");
-	nlohmann::json data;
-	file >> data;
+	// std::ifstream file("savegame.json");
+	// nlohmann::json data;
+	// file >> data;
 
-	//Kontostand = data["Kontostand"];
-	//AnzahlTage = data["AnzahlTage"];
-	//TagesDauer = data["TagesDauer"];
-	//Bekantheit = data["Bekantheit"];
-	//TODO(Data): Einlesen der Inforationen
+	// Kontostand = data["Kontostand"];
+	// AnzahlTage = data["AnzahlTage"];
+	// TagesDauer = data["TagesDauer"];
+	// Bekantheit = data["Bekantheit"];
+	// TODO(Data): Einlesen der Inforationen
 }
 
-std::vector<Einheit>& Data::getEinheiten()
+std::vector<std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>&
+Data::getMembers()
 {
-	return Einheiten;
+	return Members;
 }
 
-void Data::addEinheit(const Einheit& e) 
+void Data::addBattiliion(const Battilion& e)
 {
-	Einheiten.emplace_back(e);
+	std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>> d = {
+	    e, {}};
+	Members.push_back(d);
+}
+
+void Data::addEinzelkampfer(const Einzelkampfer& e)
+{
+	std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>> d = {
+	    {}, e};
+	Members.push_back(d);
 }
 
 unsigned int Data::getBekanntheit() const
@@ -79,26 +90,26 @@ void Data::setTagesDauer(float const neueDauer)
 
 void Data::saveGameToFile()
 {
-	nlohmann::json data = {{"Kontostand", Kontostand},
-			    {"AnzahlTage", AnzahlTage},
-			    {"TagesDauer", TagesDauer},
-			    {"Bekantheit", Bekantheit},
-			    {"Einheiten"}};
-
-	for (const auto& e : Einheiten)
-	{
-		data["Einheiten"][e.getName()] = {
-		    {"Hp", e.getLeben()},
-		    {"Moral", e.getMoral()},
-		    {"Starke", e.getStarke()},
-		    {"Einsatzbereit", e.getEinsatzbereit()},
-		    {"Xp", e.getErfahrung()},
-		    {"Level", e.getLevel()},
-		    {"Anzahl", e.getGrosse()}
-
-		};
-	}
-
-	std::ofstream out("savegame.json");
-	out << std::setw(4) << data << std::endl;
+	// nlohmann::json data ={"Kontostand", Kontostand},
+	//		       {"AnzahlTage", AnzahlTage},
+	//		       {"TagesDauer", TagesDauer},
+	//		       {"Bekantheit", Bekantheit},
+	//		       {"Einheiten"};
+	//
+	// for (const auto& e : Einheiten)
+	//{
+	//	data["Einheiten"][e.getName()] = {
+	//	    {"Hp", e.getLeben()},
+	//	    {"Moral", e.getMoral()},
+	//	    {"Starke", e.getStarke()},
+	//	    {"Einsatzbereit", e.getEinsatzbereit()},
+	//	    {"Xp", e.getErfahrung()},
+	//	    {"Level", e.getLevel()},
+	//	    {"Anzahl", e.getGrosse()}
+	//
+	//	};
+	//}
+	//
+	// std::ofstream out("savegame.json");
+	// out << std::setw(4) << data << std::endl;
 }

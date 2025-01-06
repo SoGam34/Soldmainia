@@ -9,9 +9,10 @@ Timer::Timer()
 void Timer::aktTimer()
 {
 	EinzelTimer--;
-	for (auto &e : IDTimer) {
+	for (auto& e : IDTimer)
+	{
 		e.second--;
-}
+	}
 }
 
 void Timer::neuerTimer(int dauer)

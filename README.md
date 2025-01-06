@@ -1,3 +1,0 @@
-# Setup 
-- Lade die Datein herunter und konfiguriere meson.build und gitlab-ci.yml und passe die Konfigurationen dem Projekt entsprechend an. Es sollte in wenigen Minuten gehen und im gitlab-ci.yml sollten es nur nötig sein die Variablen am Anfang der Datei anzupassen. 
-- Als nächstes muss in den Einstellungen unter Einstellung > Acces Tokens ein Acces Token mit schreibrechten für das Repository erstellt werden und dann unter Einstellungen > CI/CD > Varibles als neu Variable inzugefügt werden. **!!Das Token muss CI_JOB_TOKEN heißen!!!** Ansonsten werden die anderungen von clang-format und clang-tidy nicht zurück ins Repo gehen. 

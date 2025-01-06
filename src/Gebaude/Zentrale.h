@@ -14,5 +14,4 @@ class Zentrale
 
 	private:
 	std::shared_ptr<Data> Daten;
-
 };

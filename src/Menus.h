@@ -34,7 +34,6 @@ struct InProgressStats
 {
 	std::string ProgressText;
 	bool hasProgress{false};
-
 };
 
 /**

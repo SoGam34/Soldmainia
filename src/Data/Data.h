@@ -10,9 +10,14 @@
  * @copyright Copyright (c) 2024
  *
  */
+#include <memory>
+#include <optional>
+#include <utility>
+#include <variant>
 #include <vector>
 
-#include "../Einheit.h"
+#include "../Einheiten/Battelion.h"
+#include "../Einheiten/Einzelkampfer.h"
 
 /**
  * @brief Die Klasse speichert alle Informationen die von mehreren Klassen
@@ -33,14 +38,18 @@ class Data
 	 *
 	 * @return std::vector<Einheit>& Alle Einheiten.
 	 */
-	std::vector<Einheit>& getEinheiten();
+	std::vector<
+	    std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>&
+	getMembers();
 
 	/**
 	 * @brief Hinzufügen einer neuen Einheit.
 	 *
 	 * @param e Die Einheit die hinzugefügt werden soll.
 	 */
-	void addEinheit(const Einheit& e);
+	void addBattiliion(const Battilion& e);
+
+	void addEinzelkampfer(const Einzelkampfer& e);
 
 	/**
 	 * @brief Get the Bekanntheit object
@@ -150,5 +159,7 @@ class Data
 	 * @brief Ein Vector der alle Einheiten des Spielers speichert.
 	 *
 	 */
-	std::vector<Einheit> Einheiten;
+	std::vector<
+	    std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>
+	    Members;
 };

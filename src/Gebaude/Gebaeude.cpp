@@ -3,15 +3,14 @@
 
 Gebaeude::Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor,
 		   unsigned short int ZeitFaktor)
-    : Daten(data),
-      GebaeudeEinflussZeitFaktor(ZeitFaktor)
+    : Daten(data), GebaeudeEinflussZeitFaktor(ZeitFaktor)
 {
-	UpgradeStats  = GebaeudeUpgradeStats();
-	UpgradeStats.BeschlaunigungsFaktor = 1;
+	UpgradeStats				   = GebaeudeUpgradeStats();
+	UpgradeStats.BeschlaunigungsFaktor	   = 1;
 	UpgradeStats.AusführungsReduzierungsFaktor = KostenFaktor;
 
-	ProgressStats = InProgressStats();
-	ProgressStats.hasProgress =false;
+	ProgressStats		  = InProgressStats();
+	ProgressStats.hasProgress = false;
 
 	Zeitversatz = rand() % 5 + 3;
 

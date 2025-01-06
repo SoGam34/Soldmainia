@@ -42,7 +42,7 @@ void View::printKopfZeile(std::string titel)
 }
 void View::printProgress(InProgressStats& stats)
 {
-	std::cout << "\n"<<stats.ProgressText<<"\n";
+	std::cout << "\n" << stats.ProgressText << "\n";
 }
 
 void View::printFussZeile()
@@ -184,22 +184,21 @@ int View::dialogAuswahlEinheit(std::string verwendungszweck)
 
 	for (size_t i; i < anzuzeigendeEinheiten.size(); i++)
 	{
-		std::cout
-		    << "\n -------------" << i << "-------------- \n"
-		    << "Name: "
-		    << Daten->getEinheiten()[anzuzeigendeEinheiten[i]].getName()
-		    << "Anzahl an Lebenspunkte: "
-		    << Daten->getEinheiten()[anzuzeigendeEinheiten[i]]
-			   .getLeben()
-		    << "Die Truppenmoral: "
-		    << Daten->getEinheiten()[anzuzeigendeEinheiten[i]]
-			   .getMoral()
-		    << "Die Truppenstarke: "
-		    << Daten->getEinheiten()[anzuzeigendeEinheiten[i]]
-			   .getStarke()
-		    << "Das Erfahrungslevel: "
-		    << Daten->getEinheiten()[anzuzeigendeEinheiten[i]]
-			   .getLevel();
+		auto* e =
+		    (Daten->getMembers().at(i).first.has_value()
+			 ? dynamic_cast<Einheit*>(
+			       &Daten->getMembers().at(i).first.value())
+			 : dynamic_cast<Einheit*>(
+			       &Daten->getMembers().at(i).second.value()));
+
+		std::cout << "\n -------------" << i << "-------------- \n"
+			  << "Name: " << e->getName()
+			  << "Anzahl an Lebenspunkte: " << e->getHealth()
+			  << "Die Truppenmoral: " << e->getMental()
+			  << "Die Truppenstarke: "
+			  << e->getTotalAmountOfDealingDamage()
+			  << "Das Erfahrungslevel: " << e->getLevel();
+		delete e;
 	}
 
 	int ausgewählteEinheit = 0;

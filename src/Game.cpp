@@ -4,6 +4,7 @@
 #include <spdlog/common.h>
 #include <spdlog/formatter.h>
 #include <sstream>
+#include <variant>
 
 Game::Game()
 {
@@ -94,7 +95,7 @@ void Game::update()
 		case AUSWAHL_AKTION_1:
 		{
 			BAZ->beginneAufgabe();
-			
+
 			std::stringstream temp;
 			temp << "Kosten: "
 			     << BAZ->getGebaeudeAusfuhrungskosten();
@@ -370,14 +371,20 @@ void Game::zeit()
 
 		if (Daten->getAnzahlTage() % Daten->getMONATS_DAUER() == 0)
 		{
-			int totalSold =0;
-			for (auto e : Daten->getEinheiten()) {
-				totalSold+=e.getSold();
+			int totalSold = 0;
+			for (auto e : Daten->getMembers())
+			{
+				if (e.first.has_value())
+				{
+					totalSold += e.first->getSold();
+				}
 			}
 			Daten->abziehnVonKontostand(totalSold);
 
 			std::stringstream temp;
-			temp << "Sold wird ausgezahlt! Insgesamt werden deswegen " << totalSold<<" abgezogen."; 
+			temp << "Sold wird ausgezahlt! Insgesamt werden "
+				"deswegen "
+			     << totalSold << " abgezogen.";
 			view->addBenarichtigung(temp.str(), 0, false);
 		}
 

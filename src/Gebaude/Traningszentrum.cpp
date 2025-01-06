@@ -2,23 +2,26 @@
 
 Traningszentrum::Traningszentrum(std::shared_ptr<Data>& data)
     : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0)
-    {
-	    UpgradeStats.GebaudeSpezielleFaktor=1;
+{
+	UpgradeStats.GebaudeSpezielleFaktor = 1;
 }
 
 unsigned int Traningszentrum::getGebaeudeAusfuhrungskosten() const
 {
+	auto e = Daten->getMembers().at(EinheitsVPosition);
 	return UpgradeStats.AusführungsReduzierungsKosten *
 	       (VoraussichtlicheZeit + Zeitversatz) *
-	       Daten->getEinheiten()[EinheitsVPosition].getGrosse();
+	       (e.first.has_value() ? e.first->getMemeberCount() : 1);
 }
 
 const std::stringstream Traningszentrum::getGebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird
+	auto e = Daten->getMembers()[EinheitsVPosition];
 	std::stringstream ssText;
 	ssText << "Die Einheit "
-	       << Daten->getEinheiten()[EinheitsVPosition].getName()
+	       << (e.first.has_value() ? e.first->getName()
+				       : e.second->getName())
 	       << "\nwird gerade Trainiert\nDas Training ist\nvorausicht in "
 	       << VoraussichtlicheZeit << "\nTagen abgeschlossen";
 	return ssText;
@@ -27,25 +30,21 @@ const std::stringstream Traningszentrum::getGebaudeAktivText() const
 void Traningszentrum::langeTrainingsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 3;
-	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::mittlereTrainingsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 2;
-	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::kurzeTraningsDauer()
 {
 	GebaeudeEinflussZeitFaktor = 1;
-	 sucheNachUnverletztenEinsetzbarenEinheiten();
 }
 
 void Traningszentrum::auswahlZuOrdnen(int Position)
 {
 	EinheitsVPosition = Position;
-	leeren();
 	beginneAufgabe();
 }
 
@@ -59,8 +58,18 @@ void Traningszentrum::beendenDerAusfuhrung()
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 
-	Daten->getEinheiten()[EinheitsVPosition].xpHinzufugen(
-	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor);
+	auto e = Daten->getMembers().at(EinheitsVPosition);
+
+	int xp =
+	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor;
+
+	if (e.first.has_value())
+	{
+		e.first->addExpierience(xp);
+		return;
+	}
+
+	e.second->addExpierience(xp);
 }
 
 void Traningszentrum::erhohenDerTraningsWirksamkeit()

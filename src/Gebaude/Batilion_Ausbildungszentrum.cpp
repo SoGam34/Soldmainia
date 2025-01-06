@@ -4,12 +4,13 @@ Batillion_Ausbildungszentrum::Batillion_Ausbildungszentrum(
     std::shared_ptr<Data>& data)
     : Gebaeude(data, 70, 10)
 {
-	UpgradeStats.GebaudeSpezielleFaktor=1;
+	UpgradeStats.GebaudeSpezielleFaktor = 1;
 }
 
 unsigned int Batillion_Ausbildungszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	return UpgradeStats.AusführungsReduzierungsKosten * (VoraussichtlicheZeit + Zeitversatz);
+	return UpgradeStats.AusführungsReduzierungsKosten *
+	       (VoraussichtlicheZeit + Zeitversatz);
 }
 
 const std::stringstream
@@ -59,7 +60,8 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 
 	std::stringstream ssText; // Der Text der Angezeigt werden soll
 	ssText << "Neues Batillion ausbilden\nGroesse: " << Batillionsgroesse
-	       << "\nKampfkraft: " << Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor
+	       << "\nKampfkraft: "
+	       << Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor
 	       << "\nKosten: "
 	       << UpgradeStats.AusführungsReduzierungsKosten *
 		      VoraussichtlicheZeit

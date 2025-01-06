@@ -27,10 +27,10 @@
 #include <chrono>
 #include <memory>
 
+#include <spdlog/formatter.h>
 #include <spdlog/logger.h>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/stopwatch.h>
-#include <spdlog/formatter.h>
 
 /**
  * @brief Die Klasse verwaltet alles generelles und koordiniert die alle anderen

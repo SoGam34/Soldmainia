@@ -16,20 +16,31 @@ Auswahl::~Auswahl()
 }
 void Auswahl::sucheNachUnverletztenEinsetzbarenEinheiten()
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten().at(i).getEinsatzbereit() &&
-		    DatenAuswahl->getEinheiten().at(i).getLeben() == MAX_LEBEN)
-		{
-			AusgewahlteEinheiten.push_back(i);
-		}
+		// if (DatenAuswahl->getMembers().at(i).getEinsatzbereit() &&
+		//     DatenAuswahl->getMembers().at(i).getLeben() == MAX_LEBEN)
+		// {
+		// 	AusgewahlteEinheiten.push_back(i);
+		// }
 	}
 }
 void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit())
+		auto e	   = DatenAuswahl->getMembers().at(i);
+		bool ready = false;
+		if (e.first.has_value())
+		{
+			ready = e.first->getReady();
+		}
+		else
+		{
+			ready = e.second->getReady();
+		}
+
+		if (ready)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -56,10 +67,23 @@ void Auswahl::entferneDopplungen()
 
 void Auswahl::sucheNachUnverletztenEinheiten()
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
-		    DatenAuswahl->getEinheiten()[i].getLeben() == MAX_LEBEN)
+		auto e	   = DatenAuswahl->getMembers().at(i);
+		bool ready = false;
+		if (e.first.has_value())
+		{
+			ready = e.first->getReady() &&
+				e.first->getHealth() == MAX_LEBEN;
+		}
+		else
+		{
+			ready = e.second->getReady() &&
+				e.second->getHealth() == MAX_LEBEN;
+		}
+
+		if (ready)
+
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -70,10 +94,22 @@ void Auswahl::sucheNachUnverletztenEinheiten()
 
 void Auswahl::sucheNachVerletzten()
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
-		    DatenAuswahl->getEinheiten()[i].getLeben() < MAX_LEBEN)
+		auto e	   = DatenAuswahl->getMembers().at(i);
+		bool ready = false;
+		if (e.first.has_value())
+		{
+			ready = e.first->getReady() &&
+				e.first->getHealth() < MAX_LEBEN;
+		}
+		else
+		{
+			ready = e.second->getReady() &&
+				e.second->getHealth() < MAX_LEBEN;
+		}
+
+		if (ready)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -84,10 +120,23 @@ void Auswahl::sucheNachVerletzten()
 
 void Auswahl::sucheNachTruppenmoral()
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
-		    DatenAuswahl->getEinheiten()[i].getMoral() < MAX_MORAL)
+		auto e	   = DatenAuswahl->getMembers().at(i);
+		bool ready = false;
+		if (e.first.has_value())
+		{
+			ready = e.first->getReady() &&
+				e.first->getMental() < MAX_MORAL;
+		}
+		else
+		{
+			ready = e.second->getReady() &&
+				e.second->getMental() < MAX_MORAL;
+		}
+
+		if (ready)
+
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -98,10 +147,23 @@ void Auswahl::sucheNachTruppenmoral()
 
 void Auswahl::sucheNachStarke(int min)
 {
-	for (size_t i = 0; i < DatenAuswahl->getEinheiten().size(); i++)
+	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		if (DatenAuswahl->getEinheiten()[i].getEinsatzbereit() &&
-		    DatenAuswahl->getEinheiten()[i].getStarke() >= min)
+		auto e	   = DatenAuswahl->getMembers().at(i);
+		bool ready = false;
+		if (e.first.has_value())
+		{
+			ready = e.first->getReady() &&
+				e.first->getTotalAmountOfDealingDamage() >= min;
+		}
+		else
+		{
+			ready =
+			    e.second->getReady() &&
+			    e.second->getTotalAmountOfDealingDamage() >= min;
+		}
+
+		if (ready)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -114,6 +176,7 @@ void Auswahl::leeren()
 {
 	for (; 0 < AusgewahlteEinheiten.size();)
 	{
+
 		AusgewahlteEinheiten.erase(AusgewahlteEinheiten.begin());
 	}
 }
@@ -124,8 +187,19 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			return DatenAuswahl->getEinheiten()[i].getStarke() <
-			       DatenAuswahl->getEinheiten()[j].getStarke();
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value()
+				 ? J.first->getTotalAmountOfDealingDamage()
+				 : J.second->getTotalAmountOfDealingDamage());
+			int starkeI =
+			    (I.first.has_value()
+				 ? I.first->getTotalAmountOfDealingDamage()
+				 : I.second->getTotalAmountOfDealingDamage());
+
+			return starkeI < starkeJ;
 		};
 
 		std::sort(AusgewahlteEinheiten.begin(),
@@ -136,8 +210,19 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			return DatenAuswahl->getEinheiten()[i].getStarke() >
-			       DatenAuswahl->getEinheiten()[j].getStarke();
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value()
+				 ? J.first->getTotalAmountOfDealingDamage()
+				 : J.second->getTotalAmountOfDealingDamage());
+			int starkeI =
+			    (I.first.has_value()
+				 ? I.first->getTotalAmountOfDealingDamage()
+				 : I.second->getTotalAmountOfDealingDamage());
+
+			return starkeI > starkeJ;
 		};
 
 		std::sort(AusgewahlteEinheiten.begin(),
@@ -149,104 +234,89 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 {
 	if (aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getLeben() >
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getLeben())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value() ? J.first->getHealth()
+						 : J.second->getHealth());
+			int starkeI =
+			    (I.first.has_value() ? I.first->getHealth()
+						 : I.second->getHealth());
+
+			return starkeI < starkeJ;
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 
-	else if (!aufsteigend)
+	if (!aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getLeben() <
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getLeben())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value() ? J.first->getHealth()
+						 : J.second->getHealth());
+			int starkeI =
+			    (I.first.has_value() ? I.first->getHealth()
+						 : I.second->getHealth());
+
+			return starkeI > starkeJ;
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 }
 
 void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 {
+
 	if (aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getMoral() >
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getMoral())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value() ? J.first->getMental()
+						 : J.second->getMental());
+			int starkeI =
+			    (I.first.has_value() ? I.first->getMental()
+						 : I.second->getMental());
+
+			return starkeI < starkeJ;
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 
-	else if (!aufsteigend)
+	if (!aufsteigend)
 	{
-		for (size_t i = 0; i < AusgewahlteEinheiten.size(); i++)
+		auto comp = [this](int i, int j)
 		{
-			for (size_t j = 0; j < AusgewahlteEinheiten.size(); j++)
-			{
-				if (DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[i]]
-					.getMoral() <
-				    DatenAuswahl
-					->getEinheiten()
-					    [AusgewahlteEinheiten[j]]
-					.getMoral())
-				{
-					size_t temp;
-					temp = AusgewahlteEinheiten[j];
-					AusgewahlteEinheiten[j] =
-					    AusgewahlteEinheiten[i];
-					AusgewahlteEinheiten[i] = temp;
-				}
-			}
-		}
+			auto I = DatenAuswahl->getMembers().at(i);
+			auto J = DatenAuswahl->getMembers().at(j);
+
+			int starkeJ =
+			    (J.first.has_value() ? J.first->getMental()
+						 : J.second->getMental());
+			int starkeI =
+			    (I.first.has_value() ? I.first->getHealth()
+						 : I.second->getMental());
+
+			return starkeI > starkeJ;
+		};
+
+		std::sort(AusgewahlteEinheiten.begin(),
+			  AusgewahlteEinheiten.end(), comp);
 	}
 }
