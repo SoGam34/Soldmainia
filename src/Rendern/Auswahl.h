@@ -18,6 +18,7 @@
 #include <iterator>
 
 #include <memory>
+#include <variant>
 
 /**
  * @brief Die Klasse sucht Einheiten mit bestimmten Kriterien und Bereitet sie
@@ -124,6 +125,8 @@ class Auswahl
 	{
 		return AusgewahlteEinheiten;
 	}
+
+	Einheit* getAsEinheit(std::variant<Battilion, Einzelkampfer>& t);
 
 	private:
 	/**

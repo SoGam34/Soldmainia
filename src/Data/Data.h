@@ -38,9 +38,7 @@ class Data
 	 *
 	 * @return std::vector<Einheit>& Alle Einheiten.
 	 */
-	std::vector<
-	    std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>&
-	getMembers();
+	std::vector<std::variant<Battilion, Einzelkampfer>>& getMembers();
 
 	/**
 	 * @brief Hinzufügen einer neuen Einheit.
@@ -159,7 +157,7 @@ class Data
 	 * @brief Ein Vector der alle Einheiten des Spielers speichert.
 	 *
 	 */
-	std::vector<
-	    std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>
-	    Members;
+	
+
+	std::vector<std::variant<Battilion, Einzelkampfer>> Members;
 };

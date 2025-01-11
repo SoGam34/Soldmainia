@@ -45,7 +45,7 @@ class View : public Auswahl
 	 * @return true Das Spieler will weiter Spielen.
 	 * @return false Der Spieler will das Spiel beenden.
 	 */
-	bool getSpielIstAktiv();
+	bool getSpielIstAktiv() const;
 
 	/**
 	 * @brief Get the Eingabe object
@@ -57,7 +57,7 @@ class View : public Auswahl
 	 essentiel.
 	 * @link ungueltigeEingabe() @endlink
 	 */
-	int getLetzteNutzerEingabe();
+	int getLetzteNutzerEingabe() const;
 
 	/**
 	 * @brief Die Funktion rendert das Spiel.
@@ -66,8 +66,7 @@ class View : public Auswahl
 	 * @param stats Die Upgrade informationen des Gebaudes in dem der
 	 * Spieler sich gerade befindet.
 	 */
-	void ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats,
-		     InProgressStats progress);
+	void ausgabe(Menus aktuellesMenu, GebaeudeUpgradeStats stats, InProgressStats progress);
 
 	/**
 	 * @brief Ein Interaktives Sondermenu bei dem der Spieler eine Einheit
@@ -81,7 +80,7 @@ class View : public Auswahl
 	 *   @endcode
 	 *   gibt die vom Spieler gewählte Einheit zurück.
 	 */
-	int dialogAuswahlEinheit(std::string verwendungszweck);
+	int dialogAuswahlEinheit(std::string const& verwendungszweck);
 
 	/**
 	 * @brief Die Eingabe ist nicht richtig und kann keiner Aktion
@@ -101,8 +100,7 @@ class View : public Auswahl
 	 * nicht, z. B. ist der Auftrag erfolgreich Abgeschlossen oder
 	 * gescheitert.
 	 */
-	void addBenarichtigung(std::string benarichtigungsText,
-			       int benarichtigungsArt, bool gutfuerSpieler);
+	void addBenarichtigung(std::string const& benarichtigungsText, int benarichtigungsArt, bool gutfuerSpieler);
 
 	private:
 	/**
@@ -118,7 +116,7 @@ class View : public Auswahl
 	 *
 	 * @param titel Das Menu in dem sich der Spieler befindetet.
 	 */
-	void printKopfZeile(std::string titel);
+	void printKopfZeile(std::string const& titel);
 
 	/**
 	 * @brief Die Funktion Kummert sich um alle Benarichtigungen an den
@@ -146,9 +144,8 @@ class View : public Auswahl
 	 * @param kostenText Der Text der beim Kosten Upgrade angezeigt werden
 	 * soll.
 	 */
-	void printGebaeudeStats(GebaeudeUpgradeStats stats,
-				std::string zeitText, std::string spzifischText,
-				std::string kostenText);
+	void printGebaeudeStats(GebaeudeUpgradeStats const& stats, std::string const& zeitText,
+					std::string const& spzifischText, std::string const& kostenText) const;
 
 	/**
 	 * @brief Das Aktuelle Menu in dem sich der Spieler befindet.
@@ -169,8 +166,7 @@ class View : public Auswahl
 	 * der Benarichtigung und der bool ob diese Gut für den Spieler ist.
 	 *
 	 */
-	std::vector<std::pair<std::string, std::pair<int, bool>>>
-	    Benarichtigungen;
+	std::vector<std::pair<std::string, std::pair<int, bool>>> Benarichtigungen;
 
 	/**
 	 * @brief Eine Kopie des Data Pointers.

@@ -1,8 +1,8 @@
 #include "Auswahl.h"
 #include <algorithm>
-#include <cstddef>
-#include <functional>
-#include <utility>
+#include <iostream>
+#include <memory>
+#include <variant>
 
 Auswahl::Auswahl(std::shared_ptr<Data>& data) : DatenAuswahl(data)
 {
@@ -14,33 +14,29 @@ Auswahl::~Auswahl()
 {
 	leeren();
 }
-void Auswahl::sucheNachUnverletztenEinsetzbarenEinheiten()
+
+// NOLINTBEGIN(readability-identifier-length)
+
+Einheit* Auswahl::getAsEinheit(std::variant<Battilion, Einzelkampfer>& t)
 {
-	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
+	if (auto value = (std::get_if<Einzelkampfer>(&t)))
 	{
-		// if (DatenAuswahl->getMembers().at(i).getEinsatzbereit() &&
-		//     DatenAuswahl->getMembers().at(i).getLeben() == MAX_LEBEN)
-		// {
-		// 	AusgewahlteEinheiten.push_back(i);
-		// }
+		return value;
+	}
+
+	if (auto value = (std::get_if<Battilion>(&t)))
+	{
+		return value;
 	}
 }
+
 void Auswahl::sucheNachEinsetzbarenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		auto e	   = DatenAuswahl->getMembers().at(i);
-		bool ready = false;
-		if (e.first.has_value())
-		{
-			ready = e.first->getReady();
-		}
-		else
-		{
-			ready = e.second->getReady();
-		}
+		auto e = getAsEinheit(DatenAuswahl->getMembers().at(i));
 
-		if (ready)
+		if (e->getReady())
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -51,11 +47,9 @@ void Auswahl::sucheNachEinsetzbarenEinheiten()
 
 void Auswahl::entferneDopplungen()
 {
-	for (auto i = AusgewahlteEinheiten.begin();
-	     i != AusgewahlteEinheiten.end(); i++)
+	for (auto i = AusgewahlteEinheiten.begin(); i != AusgewahlteEinheiten.end(); i++)
 	{
-		for (auto j = AusgewahlteEinheiten.begin();
-		     j != AusgewahlteEinheiten.end(); j++)
+		for (auto j = AusgewahlteEinheiten.begin(); j != AusgewahlteEinheiten.end(); j++)
 		{
 			if (*i == *j && i != j)
 			{
@@ -69,21 +63,9 @@ void Auswahl::sucheNachUnverletztenEinheiten()
 {
 	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		auto e	   = DatenAuswahl->getMembers().at(i);
-		bool ready = false;
-		if (e.first.has_value())
-		{
-			ready = e.first->getReady() &&
-				e.first->getHealth() == MAX_LEBEN;
-		}
-		else
-		{
-			ready = e.second->getReady() &&
-				e.second->getHealth() == MAX_LEBEN;
-		}
+		auto e = getAsEinheit(DatenAuswahl->getMembers().at(i));
 
-		if (ready)
-
+		if (e->getReady() && e->getHealth() == MAX_HEALTH_POINTS)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -94,22 +76,13 @@ void Auswahl::sucheNachUnverletztenEinheiten()
 
 void Auswahl::sucheNachVerletzten()
 {
+	std::cout << "in  search"<<std::endl;
 	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		auto e	   = DatenAuswahl->getMembers().at(i);
-		bool ready = false;
-		if (e.first.has_value())
-		{
-			ready = e.first->getReady() &&
-				e.first->getHealth() < MAX_LEBEN;
-		}
-		else
-		{
-			ready = e.second->getReady() &&
-				e.second->getHealth() < MAX_LEBEN;
-		}
-
-		if (ready)
+		std::cout << "begin loob"<<std::endl;
+		auto e = getAsEinheit(DatenAuswahl->getMembers().at(i));
+		std::cout << "making comparison"<<std::endl;
+		if (e->getReady() && e->getHealth() < MAX_HEALTH_POINTS)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -122,21 +95,8 @@ void Auswahl::sucheNachTruppenmoral()
 {
 	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		auto e	   = DatenAuswahl->getMembers().at(i);
-		bool ready = false;
-		if (e.first.has_value())
-		{
-			ready = e.first->getReady() &&
-				e.first->getMental() < MAX_MORAL;
-		}
-		else
-		{
-			ready = e.second->getReady() &&
-				e.second->getMental() < MAX_MORAL;
-		}
-
-		if (ready)
-
+		auto e = getAsEinheit(DatenAuswahl->getMembers().at(i));
+		if (e->getReady() && e->getMental() < MAX_MORAL)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -149,21 +109,8 @@ void Auswahl::sucheNachStarke(int min)
 {
 	for (size_t i = 0; i < DatenAuswahl->getMembers().size(); i++)
 	{
-		auto e	   = DatenAuswahl->getMembers().at(i);
-		bool ready = false;
-		if (e.first.has_value())
-		{
-			ready = e.first->getReady() &&
-				e.first->getTotalAmountOfDealingDamage() >= min;
-		}
-		else
-		{
-			ready =
-			    e.second->getReady() &&
-			    e.second->getTotalAmountOfDealingDamage() >= min;
-		}
-
-		if (ready)
+		auto e = getAsEinheit(DatenAuswahl->getMembers().at(i));
+		if (e->getReady() && e->getTotalAmountOfDealingDamage() >= min)
 		{
 			AusgewahlteEinheiten.emplace_back(i);
 		}
@@ -187,46 +134,32 @@ void Auswahl::sortiereNachStarke(bool aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value()
-				 ? J.first->getTotalAmountOfDealingDamage()
-				 : J.second->getTotalAmountOfDealingDamage());
-			int starkeI =
-			    (I.first.has_value()
-				 ? I.first->getTotalAmountOfDealingDamage()
-				 : I.second->getTotalAmountOfDealingDamage());
+			int starkeJ = J->getTotalAmountOfDealingDamage();
+			int starkeI = I->getTotalAmountOfDealingDamage();
 
 			return starkeI < starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 
 	if (!aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value()
-				 ? J.first->getTotalAmountOfDealingDamage()
-				 : J.second->getTotalAmountOfDealingDamage());
-			int starkeI =
-			    (I.first.has_value()
-				 ? I.first->getTotalAmountOfDealingDamage()
-				 : I.second->getTotalAmountOfDealingDamage());
+			int starkeJ = J->getTotalAmountOfDealingDamage();
+			int starkeI = I->getTotalAmountOfDealingDamage();
 
 			return starkeI > starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 }
 
@@ -236,42 +169,32 @@ void Auswahl::sortiereNachVerletzten(bool aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value() ? J.first->getHealth()
-						 : J.second->getHealth());
-			int starkeI =
-			    (I.first.has_value() ? I.first->getHealth()
-						 : I.second->getHealth());
+			int starkeJ = J->getHealth();
+			int starkeI = I->getHealth();
 
 			return starkeI < starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 
 	if (!aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value() ? J.first->getHealth()
-						 : J.second->getHealth());
-			int starkeI =
-			    (I.first.has_value() ? I.first->getHealth()
-						 : I.second->getHealth());
+			int starkeJ = J->getHealth();
+			int starkeI = I->getHealth();
 
 			return starkeI > starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 }
 
@@ -282,41 +205,33 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value() ? J.first->getMental()
-						 : J.second->getMental());
-			int starkeI =
-			    (I.first.has_value() ? I.first->getMental()
-						 : I.second->getMental());
+			int starkeJ = J->getMental();
+			int starkeI = J->getMental();
 
 			return starkeI < starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 
 	if (!aufsteigend)
 	{
 		auto comp = [this](int i, int j)
 		{
-			auto I = DatenAuswahl->getMembers().at(i);
-			auto J = DatenAuswahl->getMembers().at(j);
+			auto I = getAsEinheit(DatenAuswahl->getMembers().at(i));
+			auto J = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
-			int starkeJ =
-			    (J.first.has_value() ? J.first->getMental()
-						 : J.second->getMental());
-			int starkeI =
-			    (I.first.has_value() ? I.first->getHealth()
-						 : I.second->getMental());
+			int starkeJ = J->getMental();
+			int starkeI = J->getMental();
 
 			return starkeI > starkeJ;
 		};
 
-		std::sort(AusgewahlteEinheiten.begin(),
-			  AusgewahlteEinheiten.end(), comp);
+		std::sort(AusgewahlteEinheiten.begin(), AusgewahlteEinheiten.end(), comp);
 	}
 }
+
+// NOLINTEND(readability-identifier-length)

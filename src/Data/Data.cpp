@@ -1,7 +1,5 @@
 #include "Data.h"
-#include <fstream>
 #include <nlohmann/json.hpp>
-#include <utility>
 
 Data::Data()
 {
@@ -18,24 +16,19 @@ Data::Data()
 	// TODO(Data): Einlesen der Inforationen
 }
 
-std::vector<std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>>>&
-Data::getMembers()
+std::vector<std::variant<Battilion, Einzelkampfer>>& Data::getMembers()
 {
 	return Members;
 }
 
 void Data::addBattiliion(const Battilion& e)
 {
-	std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>> d = {
-	    e, {}};
-	Members.push_back(d);
+	Members.emplace_back(e);
 }
 
 void Data::addEinzelkampfer(const Einzelkampfer& e)
 {
-	std::pair<std::optional<Battilion>, std::optional<Einzelkampfer>> d = {
-	    {}, e};
-	Members.push_back(d);
+	Members.emplace_back(e);
 }
 
 unsigned int Data::getBekanntheit() const
