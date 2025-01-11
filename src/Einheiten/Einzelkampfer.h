@@ -13,10 +13,12 @@ class Einzelkampfer : public Einheit
 	AbilityTyps Ability;
 
 	public:
+	Einzelkampfer() = delete;
+	Einzelkampfer(AbilityTyps const Ability, int const BasisDealingDamage, int const BasisProtaction,
+			  int const minExpierienceForLevelUpgrade, std::string const& name);
 	AbilityTyps getAbility() const;
 
-	bool checkIfWeaponCanBeEquipt(Waffen const& WeaponToCheck,
-				      int const Kontostand) const override;
+	bool checkIfWeaponCanBeEquipt(Waffen const& WeaponToCheck, int const Kontostand) const override;
 
 	int getSold(MissionTyps difficulty) const;
 

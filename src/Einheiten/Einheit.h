@@ -42,13 +42,16 @@ class Einheit
 	std::string OverviewText;
 
 	public:
+	Einheit() = delete;
+	Einheit(int const BasisDealingDamage, int const BasisProtaction, int const minExpierienceForLevelUpgrade,
+		  std::string const& name);
+
 	virtual ~Einheit() = default;
 	Waffen& getPrimaryWeapon();
 	Waffen& getSecondaryWeapon();
 	Rüstung& getArmor();
 
-	virtual bool checkIfWeaponCanBeEquipt(Waffen const& WeaponToCheck,
-					      int const Kontostand) const = 0;
+	virtual bool checkIfWeaponCanBeEquipt(Waffen const& WeaponToCheck, int const Kontostand) const = 0;
 
 	int getHealth() const;
 	int getMental() const;

@@ -1,5 +1,11 @@
 #include "Einheit.h"
 #include "Einheiten_CONST.h"
+Einheit::Einheit(int const BasisDealingDamage, int const BasisProtaction, int const minExpierienceForLevelUpgrade,
+		     std::string const& name)
+	: BasisDealingDamage(BasisDealingDamage), BasisProtaction(BasisProtaction),
+	  minExpierienceForLevelUpgrade(minExpierienceForLevelUpgrade), Name(name)
+{
+}
 
 Waffen& Einheit::getPrimaryWeapon()
 {
