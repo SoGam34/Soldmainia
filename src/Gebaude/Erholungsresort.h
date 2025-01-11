@@ -1,12 +1,11 @@
 #pragma once
 #include "../Data/Data.h"
-#include "../Rendern/Auswahl.h"
 #include "../Timer.h"
 #include "Gebaeude.h"
 
 #include <memory>
 #include <sstream>
-class Erholungsresort : public Gebaeude, Auswahl
+class Erholungsresort : public Gebaeude
 {
 	public:
 	//--------------------------------Konstruktoren----------------------------------------------//
@@ -26,7 +25,7 @@ class Erholungsresort : public Gebaeude, Auswahl
 	 Retrun: Die Funktion gibt die kosten als int zurueck
 	 Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	unsigned int getGebaeudeAusfuhrungskosten() const;
+	unsigned int getGebaeudeAusfuhrungskosten() const override;
 
 	/*
 	 Name: AuswahlZuOrdnen
@@ -43,7 +42,7 @@ class Erholungsresort : public Gebaeude, Auswahl
 	 Gebaude aktiv ist Retrun: Die Funktion gibt den Text als stringstram
 	 zurueck Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	const std::stringstream getGebaudeAktivText() const;
+	const std::stringstream getGebaudeAktivText() const override;
 
 	/*
 	 Name: BeendenDerAusfuhrung
@@ -52,7 +51,7 @@ class Erholungsresort : public Gebaeude, Auswahl
 	 Retrun: keine
 	 Zu Beachten: Die Funktion ist in gebaude als virtuell deklarirt
 	 */
-	void beendenDerAusfuhrung();
+	void beendenDerAusfuhrung() override;
 
 	//--------------------------------Upgraden des
 	// Gebaeudes----------------------------------------------//

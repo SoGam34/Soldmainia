@@ -1,12 +1,11 @@
 #include "Gebaeude.h"
 #include <sstream>
 
-Gebaeude::Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor,
-		   unsigned short int ZeitFaktor)
-    : Daten(data), GebaeudeEinflussZeitFaktor(ZeitFaktor)
+Gebaeude::Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor, unsigned short int ZeitFaktor)
+	: Daten(data), GebaeudeEinflussZeitFaktor(ZeitFaktor)
 {
-	UpgradeStats				   = GebaeudeUpgradeStats();
-	UpgradeStats.BeschlaunigungsFaktor	   = 1;
+	UpgradeStats					 = GebaeudeUpgradeStats();
+	UpgradeStats.BeschlaunigungsFaktor		 = 1;
 	UpgradeStats.AusführungsReduzierungsFaktor = KostenFaktor;
 
 	ProgressStats		  = InProgressStats();
@@ -24,6 +23,19 @@ GebaeudeUpgradeStats Gebaeude::getUpgradeStats()
 InProgressStats Gebaeude::getProgressStats()
 {
 	return ProgressStats;
+}
+
+Einheit* Gebaeude::getAsEinheit(std::variant<Battilion, Einzelkampfer>& t) const
+{
+	if (auto value = (std::get_if<Einzelkampfer>(&t)))
+	{
+		return value;
+	}
+
+	if (auto value = (std::get_if<Battilion>(&t)))
+	{
+		return value;
+	}
 }
 
 void Gebaeude::beginneAufgabe()
@@ -48,8 +60,7 @@ inline void Gebaeude::aktualisierenProzessZustand()
 
 void Gebaeude::beschleunigungDerAufgabenDurchfuehrung()
 {
-	if (Daten->getKontostand() < UpgradeStats.BeschlaunigunsKosten ||
-	    UpgradeStats.BeschlaunigungsUpgradeMaxLevel)
+	if (Daten->getKontostand() < UpgradeStats.BeschlaunigunsKosten || UpgradeStats.BeschlaunigungsUpgradeMaxLevel)
 	{
 		return;
 	}
@@ -72,8 +83,7 @@ void Gebaeude::beschleunigungDerAufgabenDurchfuehrung()
 
 void Gebaeude::reduzierenDerAusfuhrungsKosten()
 {
-	if (Daten->getKontostand() <
-		UpgradeStats.AusführungsReduzierungsKosten ||
+	if (Daten->getKontostand() < UpgradeStats.AusführungsReduzierungsKosten ||
 	    UpgradeStats.AusführungsReduzierungsUpgradeMaxLevel)
 	{
 		return;
@@ -97,18 +107,17 @@ void Gebaeude::reduzierenDerAusfuhrungsKosten()
 
 void Gebaeude::berrechnungVoraussichtlicheZeit()
 {
-	VoraussichtlicheZeit =
-	    (Zeitversatz * UpgradeStats.BeschlaunigungsFaktor *
-	     GebaeudeEinflussZeitFaktor * // Ermitteln der Zeit die
-					  // Vorausichtlich f�r die Ausbildung
-					  // gebraucht wird
-					  // Unterberucksichtigung von der eines
-					  // Faktors, der Gr��e, der
-					  // Grundgeschwindikeit, der
-					  // Bekanntheit
-	     ((Daten->getBekanntheit() < 1000)	  ? 3
-	      : (Daten->getBekanntheit() < 10000) ? 2
-						  : 1));
+	VoraussichtlicheZeit = (Zeitversatz * UpgradeStats.BeschlaunigungsFaktor *
+					GebaeudeEinflussZeitFaktor * // Ermitteln der Zeit die
+									     // Vorausichtlich f�r die Ausbildung
+									     // gebraucht wird
+									     // Unterberucksichtigung von der eines
+									     // Faktors, der Gr��e, der
+									     // Grundgeschwindikeit, der
+									     // Bekanntheit
+					((Daten->getBekanntheit() < 1000)	 ? 3
+					 : (Daten->getBekanntheit() < 10000) ? 2
+											 : 1));
 
 	neuerTimer(VoraussichtlicheZeit);
 }

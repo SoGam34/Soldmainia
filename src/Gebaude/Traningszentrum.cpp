@@ -1,29 +1,30 @@
 #include "Traningszentrum.h"
 
-Traningszentrum::Traningszentrum(std::shared_ptr<Data>& data)
-    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0)
+Traningszentrum::Traningszentrum(std::shared_ptr<Data>& data) : Gebaeude(data, 100, 1), EinheitsVPosition(0)
 {
 	UpgradeStats.GebaudeSpezielleFaktor = 1;
 }
 
 unsigned int Traningszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	auto e = Daten->getMembers().at(EinheitsVPosition);
-	return UpgradeStats.AusführungsReduzierungsKosten *
-	       (VoraussichtlicheZeit + Zeitversatz) *
-	       (e.first.has_value() ? e.first->getMemeberCount() : 1);
+	int soldierCount = 1;
+	if (auto e = std::get_if<Battilion>(&Daten->getMembers().at(EinheitsVPosition)))
+	{
+		soldierCount = e->getMemeberCount();
+	}
+	return UpgradeStats.AusführungsReduzierungsKosten * (VoraussichtlicheZeit + Zeitversatz) * soldierCount;
 }
 
 const std::stringstream Traningszentrum::getGebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird
-	auto e = Daten->getMembers()[EinheitsVPosition];
+	auto e = getAsEinheit(Daten->getMembers().at(EinheitsVPosition));
 	std::stringstream ssText;
 	ssText << "Die Einheit "
-	       << (e.first.has_value() ? e.first->getName()
-				       : e.second->getName())
-	       << "\nwird gerade Trainiert\nDas Training ist\nvorausicht in "
-	       << VoraussichtlicheZeit << "\nTagen abgeschlossen";
+		 // << (e.first.has_value() ? e.first->getName()
+		 //		       : e.second->getName())
+		 << "\nwird gerade Trainiert\nDas Training ist\nvorausicht in " << VoraussichtlicheZeit
+		 << "\nTagen abgeschlossen";
 	return ssText;
 }
 
@@ -58,24 +59,15 @@ void Traningszentrum::beendenDerAusfuhrung()
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 
-	auto e = Daten->getMembers().at(EinheitsVPosition);
+	auto e = getAsEinheit(Daten->getMembers().at(EinheitsVPosition));
+	int xp = UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor;
 
-	int xp =
-	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor;
-
-	if (e.first.has_value())
-	{
-		e.first->addExpierience(xp);
-		return;
-	}
-
-	e.second->addExpierience(xp);
+	e->addExpierience(xp);
 }
 
 void Traningszentrum::erhohenDerTraningsWirksamkeit()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
-	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten || UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
 	}

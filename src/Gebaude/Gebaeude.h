@@ -15,8 +15,7 @@ class Gebaeude : public Timer
 
 	// Konstrucktor mit allen informationen fuer eine vollstandige
 	// Initzialisierung
-	Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor,
-		 unsigned short int ZeitFaktor);
+	Gebaeude(std::shared_ptr<Data>& data, unsigned short int KostenFaktor, unsigned short int ZeitFaktor);
 	//--------------------------------Aufgaben
 	// Ablauf----------------------------------------------//
 
@@ -51,8 +50,7 @@ class Gebaeude : public Timer
 	 wenn das Gebaude aktiv ist Retrun: Die Funktion gibt den Text als
 	 stringstram zurueck
 	 */
-	virtual const std::stringstream
-	getGebaudeAktivText() const = 0; // NOLINT
+	virtual const std::stringstream getGebaudeAktivText() const = 0; // NOLINT
 
 	/*
 	 Name: BeendenDerAusfuhrung
@@ -107,6 +105,8 @@ class Gebaeude : public Timer
 	InProgressStats getProgressStats();
 
 	protected:
+	Einheit* getAsEinheit(std::variant<Battilion, Einzelkampfer>& t) const;
+
 	// Daten zeiger
 	std::shared_ptr<Data> Daten; // NOLINT
 

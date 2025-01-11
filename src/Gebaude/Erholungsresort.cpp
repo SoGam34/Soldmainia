@@ -1,38 +1,37 @@
 ﻿#include "Erholungsresort.h"
-#include <memory>
+#include "Gebaeude.h"
 
 Erholungsresort::Erholungsresort(std::shared_ptr<Data>& data)
-    : Gebaeude(data, 100, 1), Auswahl(data), EinheitsVPosition(0)
+	: Gebaeude(data, 100, 1), EinheitsVPosition(0), Wirksamkeitsgrad(1)
 {
 	UpgradeStats.GebaudeSpezielleFaktor = 1;
 }
 
 unsigned int Erholungsresort::getGebaeudeAusfuhrungskosten() const
 {
-	auto e = Daten->getMembers().at(EinheitsVPosition);
-	return UpgradeStats.AusführungsReduzierungsKosten *
-	       (VoraussichtlicheZeit + Zeitversatz) *
-	       (e.first.has_value() ? e.first->getMemeberCount() : 1);
+	int soldierCount = 1;
+	if (auto e = std::get_if<Battilion>(&Daten->getMembers().at(EinheitsVPosition)))
+	{
+		soldierCount = e->getMemeberCount();
+	}
+	return UpgradeStats.AusführungsReduzierungsKosten * (VoraussichtlicheZeit + Zeitversatz) * soldierCount;
 }
 
 const std::stringstream Erholungsresort::getGebaudeAktivText() const
 {
 	// Der Text der warend des Trainings angezeigt wird
-	auto e = Daten->getMembers()[EinheitsVPosition];
+	auto e = getAsEinheit(Daten->getMembers().at(EinheitsVPosition));
 	std::stringstream ssText;
-	ssText << "Die Einheit "
-	       << (e.first.has_value() ? e.first->getName()
-				       : e.second->getName())
-	       << "\nwird gerade Versorgen\nDie Versorgen ist\nvorausicht "
-		  "in "
-	       << VoraussichtlicheZeit << "\nTagen abgeschlosen";
+	ssText << "Die Einheit " << e->getName()
+		 << "\nwird gerade Versorgen\nDie Versorgen ist\nvorausicht "
+		    "in "
+		 << VoraussichtlicheZeit << "\nTagen abgeschlosen";
 	return ssText;
 }
 
 void Erholungsresort::auswahlZuOrdnen(int Position)
 {
 	EinheitsVPosition = Position;
-	leeren();
 	beginneAufgabe();
 }
 
@@ -46,23 +45,15 @@ void Erholungsresort::beendenDerAusfuhrung()
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
 
-	auto e = Daten->getMembers().at(EinheitsVPosition);
-	int xp =
-	    UpgradeStats.GebaudeSpezielleFaktor * GebaeudeEinflussZeitFaktor;
+	auto e = getAsEinheit(Daten->getMembers().at(EinheitsVPosition));
 
-	if (e.first.has_value())
-	{
-		e.first->addExpierience(xp);
-		return;
-	}
-
-	e.second->addExpierience(xp);
+	e->recoverHealth(UpgradeStats.GebaudeSpezielleFaktor);
+	e->recoverMental(UpgradeStats.GebaudeSpezielleFaktor);
 }
 
 void Erholungsresort::erhohenDerTraningsWirksamkeit()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
-	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten || UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
 	}

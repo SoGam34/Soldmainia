@@ -1,28 +1,26 @@
 #include "Batilion_Ausbildungszentrum.h"
+#include <iostream>
+#include <sstream>
 
-Batillion_Ausbildungszentrum::Batillion_Ausbildungszentrum(
-    std::shared_ptr<Data>& data)
-    : Gebaeude(data, 70, 10)
+Batillion_Ausbildungszentrum::Batillion_Ausbildungszentrum(std::shared_ptr<Data>& data) : Gebaeude(data, 70, 10)
 {
 	UpgradeStats.GebaudeSpezielleFaktor = 1;
 }
 
 unsigned int Batillion_Ausbildungszentrum::getGebaeudeAusfuhrungskosten() const
 {
-	return UpgradeStats.AusführungsReduzierungsKosten *
-	       (VoraussichtlicheZeit + Zeitversatz);
+	return UpgradeStats.AusführungsReduzierungsKosten * (VoraussichtlicheZeit + Zeitversatz);
 }
 
-const std::stringstream
-Batillion_Ausbildungszentrum::getGebaudeAktivText() const
+const std::stringstream Batillion_Ausbildungszentrum::getGebaudeAktivText() const
 {
 	// Der Text der warend der Ausbildung angezeigt wird
 	std::stringstream ssText;
 	ssText << "Ausbildung eines neuen \nBatillions ist im Gang.\n"
-	       << "Das Batillion wird aus\n"
-	       << Batillionsgroesse << " Mitgliedern bestehen.\n"
-	       << "Die Ausbildung wird in\n"
-	       << getTimerstand() << " Tagen vorausichtlich\nfertig sein.";
+		 << "Das Batillion wird aus\n"
+		 << Batillionsgroesse << " Mitgliedern bestehen.\n"
+		 << "Die Ausbildung wird in\n"
+		 << getTimerstand() << " Tagen vorausichtlich\nfertig sein.";
 	return ssText;
 }
 
@@ -46,7 +44,14 @@ void Batillion_Ausbildungszentrum::reduziereEinheitsGrosse()
 
 void Batillion_Ausbildungszentrum::beendenDerAusfuhrung()
 {
-	// TODO(): Generierung eines Batillions
+	// TODO(): Richtiges bennenungssystem
+	std::string name;
+	std::cout << "Die Ausbildung des Battilion ist beendet wie wollen sie das Battilion nennen? " << std::endl;
+	std::cin >> name;
+
+	Daten->addBattiliion(Battilion(Batillionsgroesse, Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor,
+						 Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor,
+						 Batillionsgroesse * 10, name));
 
 	ProgressStats.hasProgress  = false;
 	ProgressStats.ProgressText = "";
@@ -60,18 +65,14 @@ void Batillion_Ausbildungszentrum::vorbereiten_neueAusbildung()
 
 	std::stringstream ssText; // Der Text der Angezeigt werden soll
 	ssText << "Neues Batillion ausbilden\nGroesse: " << Batillionsgroesse
-	       << "\nKampfkraft: "
-	       << Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor
-	       << "\nKosten: "
-	       << UpgradeStats.AusführungsReduzierungsKosten *
-		      VoraussichtlicheZeit
-	       << "\nVoraussichtlich fertig in: " << VoraussichtlicheZeit;
+		 << "\nKampfkraft: " << Batillionsgroesse * 10 * UpgradeStats.GebaudeSpezielleFaktor
+		 << "\nKosten: " << UpgradeStats.AusführungsReduzierungsKosten * VoraussichtlicheZeit
+		 << "\nVoraussichtlich fertig in: " << VoraussichtlicheZeit;
 }
 
 void Batillion_Ausbildungszentrum::erhohenDerGrundstarke()
 {
-	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten ||
-	    UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
+	if (Daten->getKontostand() < UpgradeStats.GebaudeSpezielleKosten || UpgradeStats.GebaudeSpezielleUpgradeMaxLevel)
 	{
 		return;
 	}
