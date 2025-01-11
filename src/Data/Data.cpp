@@ -1,19 +1,43 @@
 #include "Data.h"
+#include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
+#include <string>
 
 Data::Data()
 {
 	Members.clear();
 
-	// std::ifstream file("savegame.json");
-	// nlohmann::json data;
-	// file >> data;
+	std::ifstream file("savegame.json");
+	nlohmann::json data;
+	file >> data;
 
-	// Kontostand = data["Kontostand"];
-	// AnzahlTage = data["AnzahlTage"];
-	// TagesDauer = data["TagesDauer"];
-	// Bekantheit = data["Bekantheit"];
-	// TODO(Data): Einlesen der Inforationen
+	Kontostand = data["Kontostand"];
+	AnzahlTage = data["AnzahlTage"];
+	TagesDauer = data["TagesDauer"];
+	Bekantheit = data["Bekantheit"];
+
+	if (!data.contains("Einheiten"))
+	{
+		return;
+	}
+	for (const auto& Einheit : data["Einheiten"].items())
+	{
+		std::string name = Einheit.key();
+
+		if (Einheit.value().at("Type") == "Ek")
+		{
+			Einzelkampfer e = Einzelkampfer(AbilityTyps::fire, Einheit.value().at("Starke"),
+								  Einheit.value().at("Starke"), 10, name);
+			addEinzelkampfer(e);
+		}
+
+		if (Einheit.value().at("Type") == "Ba")
+		{
+			Battilion e = Battilion(1, Einheit.value().at("Starke"), Einheit.value().at("Starke"), 10, name);
+			addBattiliion(e);
+		}
+	}
 }
 
 std::vector<std::variant<Battilion, Einzelkampfer>>& Data::getMembers()
@@ -23,7 +47,7 @@ std::vector<std::variant<Battilion, Einzelkampfer>>& Data::getMembers()
 
 void Data::addBattiliion(const Battilion& e)
 {
-	Members.emplace_back(e);
+	Members.push_back(e);
 }
 
 void Data::addEinzelkampfer(const Einzelkampfer& e)
@@ -83,26 +107,41 @@ void Data::setTagesDauer(float const neueDauer)
 
 void Data::saveGameToFile()
 {
-	// nlohmann::json data ={"Kontostand", Kontostand},
-	//		       {"AnzahlTage", AnzahlTage},
-	//		       {"TagesDauer", TagesDauer},
-	//		       {"Bekantheit", Bekantheit},
-	//		       {"Einheiten"};
-	//
-	// for (const auto& e : Einheiten)
-	//{
-	//	data["Einheiten"][e.getName()] = {
-	//	    {"Hp", e.getLeben()},
-	//	    {"Moral", e.getMoral()},
-	//	    {"Starke", e.getStarke()},
-	//	    {"Einsatzbereit", e.getEinsatzbereit()},
-	//	    {"Xp", e.getErfahrung()},
-	//	    {"Level", e.getLevel()},
-	//	    {"Anzahl", e.getGrosse()}
-	//
-	//	};
-	//}
-	//
-	// std::ofstream out("savegame.json");
-	// out << std::setw(4) << data << std::endl;
+	nlohmann::json data{{"Kontostand", Kontostand},
+				  {"AnzahlTage", AnzahlTage},
+				  {"TagesDauer", TagesDauer},
+				  {"Bekantheit", Bekantheit}};
+
+	for (auto k : Members)
+	{
+		if (auto e = (std::get_if<Einzelkampfer>(&k)))
+		{
+			data["Einheiten"][e->getName()] = {{"Type", "Ek"},
+								     {"Hp", e->getHealth()},
+								     {"Moral", e->getMental()},
+								     {"Starke", e->getTotalAmountOfDealingDamage()},
+								     {"Einsatzbereit", e->getReady()},
+								     {"Xp", e->getExpierience()},
+								     {"Level", e->getLevel()}
+
+			};
+		}
+
+		if (auto e = (std::get_if<Battilion>(&k)))
+		{
+			data["Einheiten"][e->getName()] = {{"Type", "Ba"},
+								     {"Hp", e->getHealth()},
+								     {"Moral", e->getMental()},
+								     {"Starke", e->getTotalAmountOfDealingDamage()},
+								     {"Einsatzbereit", e->getReady()},
+								     {"Xp", e->getExpierience()},
+								     {"Level", e->getLevel()},
+								     {"Anzahl", e->getMemeberCount()}
+
+			};
+		};
+	}
+
+	std::ofstream out("savegame.json");
+	out << std::setw(4) << data << std::endl;
 }
