@@ -17,17 +17,17 @@
  */
 enum Menus
 {
-	hauptmenu		   = 1,
-	zentrale		   = 2,
-	scoutbuero		   = 3,
+	hauptmenu			   = 1,
+	zentrale			   = 2,
+	scoutbuero			   = 3,
 	batillionsausbildungsstate = 4,
 	traningszentrum		   = 5,
-	auftraege		   = 6,
-	aauftraege		   = 7,
+	auftraege			   = 6,
+	aauftraege			   = 7,
 	logistikSystem		   = 8,
 	erholungsresort		   = 9,
-	einzelMitglieder	   = 11,
-	batillione		   = 12
+	einzelMitglieder		   = 11,
+	batillione			   = 12
 };
 
 struct InProgressStats
@@ -84,21 +84,21 @@ struct GebaeudeUpgradeStats
 
 const int AUSWAHL_MENU_ZENTRALE			  = 1;
 const int AUSWAHL_MENU_BATILIONAUSBILDUNGSZENTRUM = 2;
-const int AUSWAHL_MENU_SCOUTBUERO		  = 3;
+const int AUSWAHL_MENU_SCOUTBUERO			  = 3;
 const int AUSWAHL_MENU_ERHOLUNGSRESORT		  = 4;
 const int AUSWAHL_MENU_TRANINGSZENTRUM		  = 5;
 const int AUSWAHL_MENU_VERFUEGBARE_AUFTRAGE	  = 6;
-const int AUSWAHL_MENU_LAUFENDE_AUFTRAGE	  = 7;
+const int AUSWAHL_MENU_LAUFENDE_AUFTRAGE		  = 7;
 const int AUSWAHL_MENU_LOGISTIK_SYSTEM		  = 8;
-const int AUSWAHL_MENU_HAUPTMENU		  = 9;
+const int AUSWAHL_MENU_HAUPTMENU			  = 9;
 
 const int AUSWAHL_AKTION_1 = 10;
 const int AUSWAHL_AKTION_2 = 11;
 const int AUSWAHL_AKTION_3 = 12;
 
-const int AUSWAHL_UPGRADE_ZEIT	     = 13;
+const int AUSWAHL_UPGRADE_ZEIT	 = 13;
 const int AUSWAHL_UPGRADE_SPEZIFISCH = 14;
-const int AUSWAHL_UPGRADE_KOSTEN     = 15;
+const int AUSWAHL_UPGRADE_KOSTEN	 = 15;
 
 const int AUSWAHL_SPEICHERN = 16;
 const int AUSWAHL_BEENDEN   = 17;

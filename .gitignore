@@ -5,3 +5,4 @@ subprojects/catch2-*/**
 subprojects/nlohmann_json-*/**
 subprojects/packagecache/**
 .cache/**
+.vscode/** 

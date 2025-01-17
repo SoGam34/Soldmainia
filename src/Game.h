@@ -18,6 +18,7 @@
 #include "Gebaude/Zentrale.h"
 
 #include "Rendern/View.h"
+#include "Rendern/ViewIn.h"
 
 #include "Data/Data.h"
 
@@ -45,6 +46,8 @@ class Game
 	 *
 	 */
 	Game();
+
+	Game(ViewIn* v, std::shared_ptr<Data> daten);
 
 	/**
 	 * @brief Destroy the Game object
@@ -94,12 +97,11 @@ class Game
 	 * Tage alle gleichlang und FPS unabhängig sind.
 	 *
 	 */
-	std::chrono::time_point<std::chrono::steady_clock>
-	    ZeitpunktDesLetztenTages;
+	std::chrono::time_point<std::chrono::steady_clock> ZeitpunktDesLetztenTages;
 
 	std::shared_ptr<spdlog::logger> log;
 
-	std::unique_ptr<View> view;
+	std::unique_ptr<ViewIn> view;
 
 	std::shared_ptr<Data> Daten;
 

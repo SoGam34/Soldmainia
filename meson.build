@@ -51,6 +51,9 @@ programm_files_without_main = files(
   'src/Einheiten/Rüstung.cpp',
   'src/Einheiten/Waffen.h',
   'src/Einheiten/Waffen.cpp',
+    'src/Rendern/ViewIn.cpp',
+  'src/Rendern/ViewIn.h',
+
 )
 
 main_file = files(

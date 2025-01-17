@@ -6,12 +6,11 @@
 #include <memory>
 #include <sstream>
 
-class Zentrale
-{
-	public:
-	Zentrale() = delete;
-	Zentrale(std::shared_ptr<Data>& data);
+class Zentrale {
+     public:
+      Zentrale() = delete;
+      Zentrale(std::shared_ptr<Data>& data);
 
-	private:
-	std::shared_ptr<Data> Daten;
+     private:
+      std::shared_ptr<Data> Daten;
 };
