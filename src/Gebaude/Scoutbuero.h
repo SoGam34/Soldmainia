@@ -10,7 +10,7 @@ class Scoutbuero : public Gebaeude {
      public:
       //--------------------------------Konstruktoren----------------------------------------------//
       Scoutbuero() = delete;
-
+    
       // Konstrucktor mit allen informationen für eine vollstandige
       // Initzialisierung
       Scoutbuero(std::shared_ptr<Data>& data);
