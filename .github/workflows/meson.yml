@@ -52,9 +52,9 @@ jobs:
       - name: Upload Test Log
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}_MesonLogs
+          name: ${{ matrix.os }}_MesonLogsV${{ matrix.meson_version }}
           path: |
             ./builddir/meson-logs/**.*
-          if-no-files-found: error # optional, default is warn
+          if-no-files-found: error # optional, default is warn  
           retention-days: 7 # optional
           include-hidden-files: false # optional, default is false
