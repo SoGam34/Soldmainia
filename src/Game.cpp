@@ -21,7 +21,7 @@ Game::Game(View* v, std::shared_ptr<Data> daten)
       Erholungsresorts = std::make_unique<Erholungsresort>(Daten);
 
       view.reset(v);
-
+      
       ZeitpunktDesLetztenTages = std::chrono::steady_clock::now();
 
       Stats                    = GebaeudeUpgradeStats();
