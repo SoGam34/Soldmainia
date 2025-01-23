@@ -55,7 +55,7 @@ jobs:
         with:
           name: ${{ matrix.os }}_MesonLogsV${{ matrix.meson_version }}
           path: |
-            ./builddir/meson-logs/**.*
+            ./builddir/meson-logs/*/*.*
           if-no-files-found: error # optional, default is warn  
           retention-days: 7 # optional
           include-hidden-files: false # optional, default is false
@@ -75,10 +75,10 @@ jobs:
         run: python -m pip install clang-format clang-tidy
 
       - name: Formatting Codebase
-        run: clang-format -i ./src/**.* ./tests/**.* --Werror --verbose
+        run: clang-format -i ./src/*/*.* ./tests/*/*.* --Werror --verbose
     
       - name: Analyse Codebase
-        run: clang-tidy ./src/**.*
+        run: clang-tidy ./src/*/*.*
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
