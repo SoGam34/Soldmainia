@@ -14,7 +14,7 @@ class Scoutbuero : public Gebaeude {
       // Konstrucktor mit allen informationen für eine vollstandige
       // Initzialisierung
       Scoutbuero(std::shared_ptr<Data>& data);
-               
+                     
       //--------------------------------Aufgaben
       // Ablauf----------------------------------------------//
 
