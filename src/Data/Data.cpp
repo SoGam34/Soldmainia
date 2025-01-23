@@ -2,19 +2,32 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 #include <string>
 
 Data::Data() {
       Members.clear();
-
-      std::ifstream file("savegame.json");
       nlohmann::json data;
-      file >> data;
+      try {
+            std::ifstream file("savegame.json");
 
-      Kontostand = data["Kontostand"];
-      AnzahlTage = data["AnzahlTage"];
-      TagesDauer = data["TagesDauer"];
-      Bekantheit = data["Bekantheit"];
+            file >> data;
+      } catch (nlohmann::json::exception& e) {
+            return;
+      }
+
+      if (data.contains("Kontostand")) {
+            Kontostand = data["Kontostand"];
+      }
+      if (data.contains("AnzahlTage")) {
+            AnzahlTage = data["AnzahlTage"];
+      }
+      if (data.contains("TagesDauer")) {
+            TagesDauer = data["TagesDauer"];
+      }
+      if (data.contains("Bekantheit")) {
+            Bekantheit = data["Bekantheit"];
+      }
 
       if (!data.contains("Einheiten")) {
             return;
