@@ -47,8 +47,9 @@ jobs:
         run: meson test -C builddir/ -v --suite t_timer
            
       - name: Generating Coverage Report 
-        if: matrix.os !='windows-*'
+        
         run: ninja coverage-html -C builddir/
+        if: matrix.os !='windows-2022' || runner.name != 'windows-2022'
 
       - name: Upload Test Log
         uses: actions/upload-artifact@v4
@@ -56,6 +57,7 @@ jobs:
           name: ${{ matrix.os }}_MesonLogsV${{ matrix.meson_version }}
           path: |
             ./builddir/meson-logs/*/*.*
+            ./builddir/meson-logs/*.*
           if-no-files-found: error # optional, default is warn  
           retention-days: 7 # optional
           include-hidden-files: false # optional, default is false
@@ -75,12 +77,12 @@ jobs:
         run: python -m pip install clang-format clang-tidy
 
       - name: Formatting Codebase
-        run: clang-format -i ./src/*/*.* ./tests/*/*.* --Werror --verbose
+        run: clang-format -i ./src/*/*.* ./src/*.* ./tests/*.* --Werror --verbose
     
       - name: Analyse Codebase
-        run: clang-tidy ./src/*/*.*
+        run: clang-tidy ./src/*/*.* ./src/*.*
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: (CI-Bot) Updating Documantation and Formating Codebase 
+          commit_message: Formating Codebase 
       
