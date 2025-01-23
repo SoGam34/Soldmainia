@@ -1,10 +1,17 @@
+#include <spdlog/common.h>
+#include <spdlog/formatter.h>
+#include <spdlog/spdlog.h>
+#include <algorithm>
 #include <chrono>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <optional>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <variant>
 #include <vector>
+#include "spdlog/sinks/basic_file_sink.h"
