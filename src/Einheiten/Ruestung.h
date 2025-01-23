@@ -1,10 +1,10 @@
-#ifndef RÜSTUNG_H_
-#define RÜSTUNG_H_
+#ifndef Ruestung_H_
+#define Ruestung_H_
 
 #include <string>
 #include "Einheiten_CONST.h"
 #include "Gegenstand.h"
-class Rüstung : public Gegenstand {
+class Ruestung : public Gegenstand {
       int Protaction;
 
      public:

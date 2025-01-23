@@ -15,14 +15,14 @@
 #include <memory>
 #include <string>
 #include "Einheiten_CONST.h"
-#include "Rüstung.h"
+#include "Ruestung.h"
 #include "Waffen.h"
 
 class Einheit {
       Waffen PrimaryWeapon;
       Waffen SecondaryWeapon;
 
-      Rüstung Armor;
+      Ruestung Armor;
 
       int HealtPoints{MAX_HEALTH_POINTS};
       int MentalPoints{MAX_MENTAL_POINTS};
@@ -50,7 +50,7 @@ class Einheit {
       virtual ~Einheit() = default;
       Waffen& getPrimaryWeapon();
       Waffen& getSecondaryWeapon();
-      Rüstung& getArmor();
+      Ruestung& getArmor();
 
       virtual bool checkIfWeaponCanBeEquipt(Waffen const& WeaponToCheck,
                                             int const Kontostand) const = 0;
@@ -73,7 +73,7 @@ class Einheit {
 
       void equipPrimaryWeapon(Waffen const& WeaponToEquip);
       void equipSecondaryWeapon(Waffen const& WeaponToEquip);
-      void equipArmor(Rüstung const& ArmorToEquip);
+      void equipArmor(Ruestung const& ArmorToEquip);
 
       virtual std::string& getÜbersichtsText() = 0;
 };

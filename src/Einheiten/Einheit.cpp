@@ -15,7 +15,7 @@ Waffen& Einheit::getPrimaryWeapon() {
 Waffen& Einheit::getSecondaryWeapon() {
       return SecondaryWeapon;
 }
-Rüstung& Einheit::getArmor() {
+Ruestung& Einheit::getArmor() {
       return Armor;
 }
 std::string& Einheit::getName() {
@@ -85,7 +85,7 @@ void Einheit::reduceMentalPonitsBy(int const amountToReduce) {
       }
 }
 
-void Einheit::equipArmor(Rüstung const& ArmorToEquip) {
+void Einheit::equipArmor(Ruestung const& ArmorToEquip) {
       Armor = ArmorToEquip;
 }
 

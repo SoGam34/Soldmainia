@@ -4,7 +4,7 @@
 #include <string>
 #include "Einheit.h"
 #include "Einheiten_CONST.h"
-#include "Rüstung.h"
+#include "Ruestung.h"
 #include "Waffen.h"
 
 class Einzelkampfer : public Einheit {

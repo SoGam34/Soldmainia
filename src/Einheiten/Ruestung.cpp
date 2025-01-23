@@ -1,11 +1,11 @@
-#include "Rüstung.h"
+#include "Ruestung.h"
 #include <sstream>
 
-int Rüstung::getProtaction() const {
+int Ruestung::getProtaction() const {
       return Protaction;
 }
 
-std::string Rüstung::getDiscriptionText() {
+std::string Ruestung::getDiscriptionText() {
       std::stringstream sss;
       std::stringstream sab;
       if (Ability != AbilityTyps::none) {
