@@ -18,7 +18,6 @@
 #include "Gebaude/Zentrale.h"
 
 #include "Rendern/View.h"
-#include "Rendern/ViewIn.h"
 
 #include "Data/Data.h"
 
@@ -38,80 +37,81 @@
  * Klassen.
  *
  */
-class Game
-{
-	public:
-	/**
-	 * @brief Construct a new Game object
-	 *
-	 */
-	Game();
+class Game {
+     public:
+      /**
+       * @brief Construct a new Game object
+       *
+       */
+      Game();
 
-	Game(ViewIn* v, std::shared_ptr<Data> daten);
+      Game(View* v, std::shared_ptr<Data> daten);
 
-	/**
-	 * @brief Destroy the Game object
-	 *
-	 */
-	~Game();
+      /**
+       * @brief Eine Funktion die solange ausgeführt wird bis das Spiel vorbei
+       * ist. Die Funktion triggert allmöglichen anderen Events und ist der
+       * Kern des Spiels.
+       *
+       */
+      void spielLauft();
 
-	/**
-	 * @brief Eine Funktion die solange ausgeführt wird bis das Spiel vorbei
-	 * ist. Die Funktion triggert allmöglichen anderen Events und ist der
-	 * Kern des Spiels.
-	 *
-	 */
-	void spielLauft();
+     private:
+      void processBattilion(int const eingabe);
+      void processScoutbuero(int const eingabe);
+      void processTraningszentrum(int const eingabe);
+      void processErholungsresort(int const eingabe);
+      
+      bool changedMenu(int const eingabe);
 
-	private:
-	/**
-	 * @brief Die neuste User eingabe wird überprüft. Bei Input wird die
-	 * dazugehorige Aktion ausgefürt.
-	 *
-	 */
-	void update();
+      /**
+       * @brief Die neuste User eingabe wird überprüft. Bei Input wird die
+       * dazugehorige Aktion ausgefürt.
+       *
+       */
+      void update();
 
-	/**
-	 * @brief Die Ingame Zeit wird aktualliesert und alles was davon
-	 * abhangig ist.
-	 *
-	 */
-	void zeit();
+      /**
+       * @brief Die Ingame Zeit wird aktualliesert und alles was davon
+       * abhangig ist.
+       *
+       */
+      void zeit();
 
-	/**
-	 * @brief Speichert das Aktuelle Menu in dem sich der Spieler befindet.
-	 *
-	 */
-	Menus AktuellesMenu;
+      /**
+       * @brief Speichert das Aktuelle Menu in dem sich der Spieler befindet.
+       *
+       */
+      Menus AktuellesMenu;
 
-	/**
-	 * @brief Speichert die Upgrade Informationen des Akteuellen Gebaudes.
-	 *
-	 */
-	GebaeudeUpgradeStats Stats;
+      /**
+       * @brief Speichert die Upgrade Informationen des Akteuellen Gebaudes.
+       *
+       */
+      GebaeudeUpgradeStats Stats;
 
-	InProgressStats Progress;
+      InProgressStats Progress;
 
-	/**
-	 * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die
-	 * Tage alle gleichlang und FPS unabhängig sind.
-	 *
-	 */
-	std::chrono::time_point<std::chrono::steady_clock> ZeitpunktDesLetztenTages;
+      /**
+       * @brief Speichert wann der letzte ingame Tag begonnen hat, damit die
+       * Tage alle gleichlang und FPS unabhängig sind.
+       *
+       */
+      std::chrono::time_point<std::chrono::steady_clock>
+          ZeitpunktDesLetztenTages;
 
-	std::shared_ptr<spdlog::logger> log;
+      std::shared_ptr<spdlog::logger> log;
 
-	std::unique_ptr<ViewIn> view;
+      std::unique_ptr<View> view;
 
-	std::shared_ptr<Data> Daten;
+      std::shared_ptr<Data> Daten;
 
-	Batillion_Ausbildungszentrum* BAZ;
+      std::unique_ptr<Batillion_Ausbildungszentrum> BAZ;
 
-	Scoutbuero* Scoutbueros;
+      std::unique_ptr<Scoutbuero> Scoutbueros;
 
-	Traningszentrum* Traningzentren;
+      std::unique_ptr<Traningszentrum> Traningzentren;
 
-	Zentrale* Hauptquatier;
+      std::unique_ptr<Zentrale> Hauptquatier;
 
-	Erholungsresort* Erholungsresorts;
+      std::unique_ptr<Erholungsresort> Erholungsresorts;
 };
