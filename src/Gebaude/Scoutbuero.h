@@ -7,7 +7,7 @@
 #include <sstream>
 
 class Scoutbuero : public Gebaeude {
-     public:
+     public:   
       //--------------------------------Konstruktoren----------------------------------------------//
       Scoutbuero() = delete;
     
