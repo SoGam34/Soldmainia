@@ -1,63 +1,64 @@
 project(
-  'Soldmania',
-  'cpp',
-  version: '0.1',
-  default_options: [
-    'warning_level=3',
-    'cpp_std=c++17',
-    'b_coverage=true',
-    'werror=false',
-  ],
-
+    'Soldmania',
+    'cpp',
+    version: '0.1.0',
+    default_options: ['warning_level=3', 'cpp_std=c++17', 'b_coverage=true', 'werror=false'],
 )
 ##########################################################################
 #                           PROGRAM FILES                                 #
 ##########################################################################
 programm_files_without_main = files(
-  'src/Data/Data.h',
-  'src/Game.h',
-  'src/Gebaude/Batilion_Ausbildungszentrum.h',
-  'src/Gebaude/Erholungsresort.h',
-  'src/Gebaude/Gebaeude.h',
-  'src/Gebaude/Scoutbuero.h',
-  'src/Gebaude/Traningszentrum.h',
-  'src/Gebaude/Zentrale.h',
-  'src/Rendern/Auswahl.h',
-  'src/Rendern/View.h',
-  'src/Timer.h',
-
-  'src/Data/Data.cpp',
-  'src/Game.cpp',
-  'src/Gebaude/Batilion_Ausbildungszentrum.cpp',
-  'src/Gebaude/Erholungsresort.cpp',
-  'src/Gebaude/Gebaeude.cpp',
-  'src/Gebaude/Scoutbüro.cpp',
-  'src/Gebaude/Traningszentrum.cpp',
-  'src/Gebaude/Zentrale.cpp',
-  'src/Rendern/Auswahl.cpp',
-  'src/Rendern/View.cpp',
-  'src/Timer.cpp',
-
-  'src/Einheiten/Battelion.cpp',
-  'src/Einheiten/Battelion.h',
-  'src/Einheiten/Einheit.h',
-  'src/Einheiten/Einheit.cpp',
-  'src/Einheiten/Einheiten_CONST.h',
-  'src/Einheiten/Einzelkampfer.h',
-  'src/Einheiten/Einzelkampfer.cpp',
-  'src/Einheiten/Gegenstand.h',
-  'src/Einheiten/Gegenstand.cpp',
-  'src/Einheiten/Rüstung.h',
-  'src/Einheiten/Rüstung.cpp',
-  'src/Einheiten/Waffen.h',
-  'src/Einheiten/Waffen.cpp',
-    'src/Rendern/ViewIn.cpp',
-  'src/Rendern/ViewIn.h',
-
+    'src/Data/Data.cpp',
+    'src/Data/Data.h',
+    'src/Einheiten/Battelion.cpp',
+    'src/Einheiten/Battelion.h',
+    'src/Einheiten/Einheit.cpp',
+    'src/Einheiten/Einheit.h',
+    'src/Einheiten/Einheiten_CONST.h',
+    'src/Einheiten/Einzelkampfer.cpp',
+    'src/Einheiten/Einzelkampfer.h',
+    'src/Einheiten/Gegenstand.cpp',
+    'src/Einheiten/Gegenstand.h',
+    'src/Einheiten/Rüstung.cpp',
+    'src/Einheiten/Rüstung.h',
+    'src/Einheiten/Waffen.cpp',
+    'src/Einheiten/Waffen.h',
+    'src/Game.cpp',
+    'src/Game.h',
+    'src/Gebaude/Batilion_Ausbildungszentrum.cpp',
+    'src/Gebaude/Batilion_Ausbildungszentrum.h',
+    'src/Gebaude/Erholungsresort.cpp',
+    'src/Gebaude/Erholungsresort.h',
+    'src/Gebaude/Gebaeude.cpp',
+    'src/Gebaude/Gebaeude.h',
+    'src/Gebaude/Scoutbuero.h',
+    'src/Gebaude/Scoutbüro.cpp',
+    'src/Gebaude/Traningszentrum.cpp',
+    'src/Gebaude/Traningszentrum.h',
+    'src/Gebaude/Zentrale.cpp',
+    'src/Gebaude/Zentrale.h',
+    'src/Rendern/Auswahl.cpp',
+    'src/Rendern/Auswahl.h',
+    'src/Rendern/View.cpp',
+    'src/Rendern/View.h',
+    'src/Timer.cpp',
+    'src/Timer.h',
 )
 
-main_file = files(
-  'src/main.cpp',
+cli_files = files(
+    'src/Rendern/cli/Cli.cpp',
+    'src/Rendern/cli/Cli.h',
+    'src/Rendern/cli/mainCli.cpp',
+)
+gui_files = files(
+    'src/Rendern/gui/gui.cpp',
+    'src/Rendern/gui/gui.h',
+    'src/Rendern/gui/mainGui.cpp',
+)
+tui_files = files(
+    'src/Rendern/tui/mainTui.cpp',
+    'src/Rendern/tui/tui.cpp',
+    'src/Rendern/tui/tui.h',
 )
 
 ##########################################################################
@@ -71,34 +72,98 @@ deb_config = dependency('nlohmann_json').as_system()
 ##########################################################################
 #                         EXECUTEBLES                                    #
 ##########################################################################
+
+#Cli Targets
 build_target(
-  'debug',
-  [programm_files_without_main, main_file],
-  dependencies: [deb_cli, deb_logs, deb_config],
-  install: true,
-  target_type: 'executable',
-  override_options: [
-    'buildtype=debug',
-    'werror=false',
-    'b_coverage=true',
-    'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
-  ],
-  cpp_pch: 'pch/pre.h',
+    'cDebug',
+    [programm_files_without_main, cli_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=debug',
+        'werror=false',
+        'b_coverage=true',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
 )
 
 build_target(
-  'release',
-  [programm_files_without_main, main_file],
-  dependencies: [deb_cli, deb_logs, deb_config],
-  install: true,
-  target_type: 'executable',
-  override_options: [
-    'buildtype=release',
-    'werror=true',
-    'b_coverage=false',
-    'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
-  ],
-  cpp_pch: 'pch/pre.h',
+    'cRelease',
+    [programm_files_without_main, cli_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=release',
+        'werror=true',
+        'b_coverage=false',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
+)
+
+# Tui Targets
+build_target(
+    'tDebug',
+    [programm_files_without_main, tui_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=debug',
+        'werror=false',
+        'b_coverage=true',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
+)
+
+build_target(
+    'tRelease',
+    [programm_files_without_main, tui_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=release',
+        'werror=true',
+        'b_coverage=false',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
+)
+
+# Gui Targets
+build_target(
+    'gDebug',
+    [programm_files_without_main, gui_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=debug',
+        'werror=false',
+        'b_coverage=true',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
+)
+
+build_target(
+    'gRelease',
+    [programm_files_without_main, gui_files],
+    dependencies: [deb_cli, deb_logs, deb_config],
+    install: true,
+    target_type: 'executable',
+    override_options: [
+        'buildtype=release',
+        'werror=true',
+        'b_coverage=false',
+        'b_sanitize=none', #['address', 'thread', 'undefined', 'memory', 'leak', 'address,undefined'],
+    ],
+    cpp_pch: 'pch/pre.h',
 )
 
 ##########################################################################
@@ -106,51 +171,50 @@ build_target(
 ##########################################################################
 doxygen = find_program('doxygen', required: false)
 if doxygen.found()
-  message('\n\nDoxygen found\n\n')
+    message('\n\nDoxygen found\n\n')
 
-  cdata = configuration_data()
-  cdata.set('VERSION', meson.project_version())
-  cdata.set('PROJECT_NAME', meson.project_name())
-  cdata.set('INPUT_DIR', meson.project_source_root() + '/src/')
-  cdata.set('OUT_DIR', meson.project_source_root() + '/docs/')
+    cdata = configuration_data()
+    cdata.set('VERSION', meson.project_version())
+    cdata.set('PROJECT_NAME', meson.project_name())
+    cdata.set('INPUT_DIR', meson.project_source_root() + '/src/')
+    cdata.set('OUT_DIR', meson.project_source_root() + '/docs/')
 
-  doxyfile = configure_file(
-    input: 'doxyfile.in',
-    output: 'doxyfile',
-    configuration: cdata,
-    install: false,
-  )
+    doxyfile = configure_file(
+        input: 'doxyfile.in',
+        output: 'doxyfile',
+        configuration: cdata,
+        install: false,
+    )
 
-  run_target('docs', command: [doxygen, doxyfile])
+    run_target('docs', command: [doxygen, doxyfile])
 else
-  warning('\n\nDocumentation disabled without doxygen\n\n')
+    warning('\n\nDocumentation disabled without doxygen\n\n')
 endif
 
 ##########################################################################
 #                           TESTS                                      #
 ##########################################################################
 
-test_files = ['test1.cpp', 'test2.cpp']
-test_sanitizer = ['none', 'address', 'undefined', 'leak', 'address,undefined'] # 'memory', 'thread'
+test_files = ['t_auswahl.cpp', 't_timer.cpp']
+test_sanitizer = ['none'] #, 'address', 'undefined', 'leak', 'address,undefined'] # 'memory', 'thread'
 
 foreach test : test_files
-  foreach sanitizer : test_sanitizer
-    name = 'TSuit ' + test.split('.')[0] + ' with ' + sanitizer
-    test_exe = build_target(
-      name,
-      ['tests/' + test, programm_files_without_main],
-      dependencies: deb_test,
-      install: true,
-      target_type: 'executable',
-      override_options: [
-        'buildtype=debug',
-        'werror=false',
-        'b_coverage=true',
-        'b_sanitize=' + sanitizer,
-      ],
-      cpp_pch: 'pch/pre.h',
-
-    )
-    test(name, test_exe, suite: test.split('.')[0])
-  endforeach
+    foreach sanitizer : test_sanitizer
+        name = 'TSuit ' + test.split('.')[0] + ' with ' + sanitizer
+        test_exe = build_target(
+            name,
+            ['tests/' + test, programm_files_without_main],
+            dependencies: [deb_test, deb_cli, deb_config, deb_logs],
+            install: true,
+            target_type: 'executable',
+            override_options: [
+                'buildtype=debug',
+                'werror=false',
+                'b_coverage=true',
+                'b_sanitize=' + sanitizer,
+            ],
+            cpp_pch: 'pch/pre.h',
+        )
+        test(name, test_exe, suite: test.split('.')[0])
+    endforeach
 endforeach

@@ -11,10 +11,10 @@
  *
  */
 
-#include <spdlog/logger.h>
-#include "../Data/Data.h"
-#include "../Menus.h"
-#include "Auswahl.h"
+#include "../../Data/Data.h"
+#include "../../Menus.h"
+#include "../Auswahl.h"
+#include "../View.h"
 
 #include <iostream>
 #include <memory>
@@ -26,19 +26,17 @@
  * weiter.
  *
  */
-class View : public Auswahl {
+class Cli : public View {
      public:
       // De/Konstrucktor
-      View() = delete;
+      Cli() = delete;
 
       /**
        * @brief Construct a new View object
        *
        * @param data Eine Kopie des Data Pointers.
        */
-      View(std::shared_ptr<Data> data);
-
-      virtual ~View();
+      Cli(std::shared_ptr<Data> data);
 
       /**
        * @brief Die Funktion gibt an ob der Spieler das Spiel beendet hat oder
@@ -47,7 +45,7 @@ class View : public Auswahl {
        * @return true Das Spieler will weiter Spielen.
        * @return false Der Spieler will das Spiel beenden.
        */
-      virtual bool getSpielIstAktiv() const                                 = 0;
+      bool getSpielIstAktiv() const override;
 
       /**
        * @brief Get the Eingabe object
@@ -59,7 +57,7 @@ class View : public Auswahl {
        essentiel.
        * @link ungueltigeEingabe() @endlink
        */
-      virtual int getLetzteNutzerEingabe() const                            = 0;
+      int getLetzteNutzerEingabe() const override;
 
       /**
        * @brief Die Funktion rendert das Spiel.
@@ -68,9 +66,9 @@ class View : public Auswahl {
        * @param stats Die Upgrade informationen des Gebaudes in dem der
        * Spieler sich gerade befindet.
        */
-      virtual void ausgabe(Menus aktuellesMenu,
-                           GebaeudeUpgradeStats stats,
-                           InProgressStats progress)                        = 0;
+      void ausgabe(Menus aktuellesMenu,
+                   GebaeudeUpgradeStats stats,
+                   InProgressStats progress) override;
 
       /**
        * @brief Ein Interaktives Sondermenu bei dem der Spieler eine Einheit
@@ -84,14 +82,14 @@ class View : public Auswahl {
        *   @endcode
        *   gibt die vom Spieler gewählte Einheit zurück.
        */
-      virtual int dialogAuswahlEinheit(std::string const& verwendungszweck) = 0;
+      int dialogAuswahlEinheit(std::string const& verwendungszweck) override;
 
       /**
        * @brief Die Eingabe ist nicht richtig und kann keiner Aktion
        * zugeordnet werden.
        *
        */
-      virtual void ungueltigeEingabe()                                      = 0;
+      void ungueltigeEingabe() override;
 
       /**
        * @brief Starten einer neuen Benarichtigung. Lauft bereits eine
@@ -104,31 +102,59 @@ class View : public Auswahl {
        * nicht, z. B. ist der Auftrag erfolgreich Abgeschlossen oder
        * gescheitert.
        */
-      virtual void addBenarichtigung(std::string const& benarichtigungsText,
-                                     int benarichtigungsArt,
-                                     bool gutfuerSpieler)                   = 0;
+      void addBenarichtigung(std::string const& benarichtigungsText,
+                             int benarichtigungsArt,
+                             bool gutfuerSpieler) override;
 
-     protected:
+     private:
       /**
-       * @brief Das Aktuelle Menu in dem sich der Spieler befindet.
+       * @brief Wenn der Spieler weitere Informationen oder hilfe bei der
+       * bedinung braucht vergleichbar mit --help. Interaktiv gestaltet.
+       * @warning Die Funktion ist noch nicht implementiert.
        *
        */
-      Menus ZuRenderndesMenu;
+      void dialogHilfe();
 
       /**
-       * @brief Speichert alle Relevanten Informationen die zum Anzeigen einer
-       * Benarichtigung benötigt werden.
-       * @details Der String speichert den Anzuzeigenden Text, der int die Art
-       * der Benarichtigung und der bool ob diese Gut für den Spieler ist.
+       * @brief Gibt die Kopfzeile mit allgemeinen Informationen aus.
        *
+       * @param titel Das Menu in dem sich der Spieler befindetet.
        */
-      std::vector<std::pair<std::string, std::pair<int, bool>>>
-          Benarichtigungen;
+      void printKopfZeile(std::string const& titel);
 
       /**
-       * @brief Eine Kopie des Data Pointers.
+       * @brief Die Funktion Kummert sich um alle Benarichtigungen an den
+       * Spieler.
        *
        */
-      std::shared_ptr<Data> Daten;
-      std::shared_ptr<spdlog::logger> log;
+      void printBenarichtigung();
+
+      /**
+       * @brief Die Letzte Zeile bevor der Spieler wieder was eingeben kann.
+       *
+       */
+      void printFussZeile();
+
+      void printProgress(InProgressStats& stats);
+
+      /**
+       * @brief Gibt die Upgrade Informationen eines Gebaudes aus.
+       *
+       * @param stats Die genauen Zahlen zu den einzelnen Upgrades
+       * @param zeitText  Der Text der beim Zeit Upgrade angezeigt werden
+       * soll.
+       * @param spzifischText Der Text der beim Gebaeude spzifischen Upgrade
+       * angezeigt werden soll.
+       * @param kostenText Der Text der beim Kosten Upgrade angezeigt werden
+       * soll.
+       */
+      void printGebaeudeStats(GebaeudeUpgradeStats const& stats,
+                              std::string const& zeitText,
+                              std::string const& spzifischText,
+                              std::string const& kostenText) const;
+      /**
+       * @brief Die letzte Eingabe des Spielers.
+       *
+       */
+      int Eingabe;
 };

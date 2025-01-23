@@ -34,10 +34,7 @@ class Auswahl {
        *
        * @param data Eine Kopie des Data Pointers
        */
-      Auswahl(std::shared_ptr<Data>& data);
-      ~Auswahl();
-
-      void sucheNachUnverletztenEinsetzbarenEinheiten();
+      Auswahl(std::shared_ptr<Data> data);
 
       // Such Allgerhytmen
       /**
@@ -120,11 +117,11 @@ class Auswahl {
        * getEinheit()[getAusgewahlteEinheiten()[1]]; die Starkste Einheit aus
        * den Ausgesuchten Einheiten.
        */
-      std::vector<int> getAusgewahlteEinheiten() {
+      std::vector<int> getAusgewahlteEinheiten() const {
             return AusgewahlteEinheiten;
       }
 
-      Einheit* getAsEinheit(std::variant<Battilion, Einzelkampfer>& t);
+      Einheit* getAsEinheit(std::variant<Battilion, Einzelkampfer>& t) const;
 
      private:
       /**
@@ -148,16 +145,4 @@ class Auswahl {
        *
        */
       std::shared_ptr<Data> DatenAuswahl;
-
-      /**
-       * @brief Das Maximale Leben das eine Einheit haben kann ohne Effekte.
-       *
-       */
-      const int MAX_LEBEN = 100;
-
-      /**
-       * @brief Die Maximale Moral die eine Einheit haben kann.
-       *
-       */
-      const int MAX_MORAL = 10;
 };
