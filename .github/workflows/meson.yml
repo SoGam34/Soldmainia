@@ -68,7 +68,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: python -m pip install clang-format meson # ninja clang-tidy
+        run: python -m pip install clang-format meson ninja # clang-tidy
 
       - name: Configure Project
         run: meson setup builddir/
