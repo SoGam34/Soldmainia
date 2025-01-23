@@ -47,7 +47,7 @@ jobs:
         run: meson test -C builddir/ -v --suite t_time
            
       - name: Generating Coverage Report 
-        run: ninja coverage-html 
+        run: ninja coverage-html -C builddir/
 
       - name: Upload Test Log
         uses: actions/upload-artifact@v4
