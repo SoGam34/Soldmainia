@@ -2,7 +2,7 @@
 #include <iostream>
 #include <utility>
 #include "../View.h"
-
+     
 Cli::Cli(std::shared_ptr<Data> data) : Eingabe(0), View(std::move(data)) {}
 
 bool Cli::getSpielIstAktiv() const {
@@ -12,7 +12,7 @@ bool Cli::getSpielIstAktiv() const {
 int Cli::getLetzteNutzerEingabe() const {
       return Eingabe;
 }
-
+ 
 void Cli::addBenarichtigung(std::string const& benarichtigungsText,
                             int benarichtigungsArt,
                             bool gutfuerSpieler) {}
