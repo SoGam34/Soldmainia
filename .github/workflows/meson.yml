@@ -74,7 +74,7 @@ jobs:
         run: meson setup builddir/
 
       - name: Formatting Codebase
-        run: clang-format -i src/*/*/* src/*/* src/* tests/** --Werror --verbose
+        run: clang-format -i  src/* src/*/* src/*/*/* tests/** --Werror --verbose
     
      # - name: Analyse Codebase
      #   run: clang-tidy ./src/*/*.* ./src/*.* -p ./builddir/compile_commands.json --export-fixes=tidy-fixes.yml --use-color
