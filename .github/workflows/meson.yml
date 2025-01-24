@@ -74,8 +74,7 @@ jobs:
         run: meson setup builddir/
 
       - name: Formatting Codebase
-        run: ninja -C builddir clang-format
-        
+        run: clang-format src/**/* --verbose -i
      # - name: Analyse Codebase
      #   run: clang-tidy ./src/*/*.* ./src/*.* -p ./builddir/compile_commands.json --export-fixes=tidy-fixes.yml --use-color
 
