@@ -154,7 +154,7 @@ jobs:
       - name: Formatting Codebase
         run: |
           cd src/  
-          clang-format *.* Data/** Einheiten/** Gebaude/** Rendern/** --verbose -i
+          clang-format *.* Data/** Einheiten/** Gebaude/** Rendern/**/* --verbose -i
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
