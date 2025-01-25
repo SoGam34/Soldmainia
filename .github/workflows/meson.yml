@@ -103,7 +103,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2022, windows-2025]
+        os: [windows-2022]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -152,7 +152,9 @@ jobs:
         run: sudo apt update && sudo apt install clang-format 
 
       - name: Formatting Codebase
-        run: clang-format src/**/* --verbose -i
+        run: |
+          cd src/  
+          clang-format **/* --verbose -i
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
