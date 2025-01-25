@@ -1,27 +1,23 @@
-name: CI Meson
+name: Debug CI
 
 on:
-  
   workflow_dispatch:
-
   push:
     paths:
       - 'src/**'
       - 'tests/**'
-
   pull_request:
     paths:    
       - 'src/**'
       - 'tests/**'
 
 jobs:
-  build:
-    name: Build and Test on ${{ matrix.os }} with Meson v${{ matrix.meson_version }}
+  MacBuild:
+    name: Build and Test on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-13, macos-14]
-        meson_version: ["1.5.0", "1.6.0"]
+        os: [macos-13, macos-14]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,7 +27,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: python -m pip install meson==${{ matrix.meson_version }} ninja gcovr clang-format clang-tidy
+        run: python -m pip install meson==1.6 ninja gcovr
 
       - name: Configure Project
         run: meson setup builddir/
@@ -40,7 +36,7 @@ jobs:
         run: meson compile -C builddir/ -v cDebug tDebug gDebug
 
       - name: Run Tests
-        run: meson test -C builddir/ -v --suite t_timer
+        run: meson test -C builddir/ -v
            
       - name: Generating Coverage Report 
         run: ninja coverage-html -C builddir/
@@ -48,10 +44,95 @@ jobs:
       - name: Upload Test Log
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}_MesonLogsV${{ matrix.meson_version }}
+          name: ${{ matrix.os }}_Logs
           path: |
-            ./builddir/meson-logs/*/*.*
-            ./builddir/meson-logs/*.*
+            ./builddir/meson-logs/**/*
+            ./builddir/cDebug 
+            ./builddir/tDebug 
+            ./builddir/gDebug
+          if-no-files-found: error # optional, default is warn  
+          retention-days: 7 # optional
+          include-hidden-files: false # optional, default is false
+
+  LinuxBuild:
+    name: Build and Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install meson==1.6 ninja gcovr
+          sudo apt update && sudo apt install gcc
+
+      - name: Configure Project
+        run: meson setup builddir/
+
+      - name: Compile Debug Version
+        run: meson compile -C builddir/ -v cDebug tDebug gDebug
+
+      - name: Run Tests
+        run: meson test -C builddir/ -v
+           
+      - name: Generating Coverage Report 
+        run: ninja coverage-html -C builddir/
+        
+      - name: Upload Test Log
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}_Logs
+          path: |
+            ./builddir/meson-logs/**/*
+            ./builddir/cDebug 
+            ./builddir/tDebug 
+            ./builddir/gDebug
+          if-no-files-found: error # optional, default is warn  
+          retention-days: 7 # optional
+          include-hidden-files: false # optional, default is false
+
+  WinBuild:
+    name: Build and Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2022, windows-2019]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: python -m pip install meson==1.6 ninja gcovr 
+        
+      - name: Configure Project
+        run: meson setup builddir/
+
+      - name: Compile Debug Version
+        run: meson compile -C builddir/ -v cDebug tDebug gDebug
+
+      - name: Run Tests
+        run: meson test -C builddir/ -v
+        
+      - name: Upload Test Log
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}_Logs
+          path: |
+            ./builddir/meson-logs/**/*
+            ./builddir/cDebug 
+            ./builddir/tDebug 
+            ./builddir/gDebug
           if-no-files-found: error # optional, default is warn  
           retention-days: 7 # optional
           include-hidden-files: false # optional, default is false
@@ -68,15 +149,10 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: python -m pip install clang-format meson ninja # clang-tidy
-
-      - name: Configure Project
-        run: meson setup builddir/
+        run: python -m pip install clang-format 
 
       - name: Formatting Codebase
         run: clang-format src/**/* --verbose -i
-     # - name: Analyse Codebase
-     #   run: clang-tidy ./src/*/*.* ./src/*.* -p ./builddir/compile_commands.json --export-fixes=tidy-fixes.yml --use-color
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
