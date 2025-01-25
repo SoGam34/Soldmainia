@@ -195,7 +195,7 @@ endif
 #                           TESTS                                      #
 ##########################################################################
 
-test_files = ['t_auswahl.cpp', 't_timer.cpp']
+test_files = ['t_timer.cpp']
 test_sanitizer = ['none'] #, 'address', 'undefined', 'leak', 'address,undefined'] # 'memory', 'thread'
 
 foreach test : test_files

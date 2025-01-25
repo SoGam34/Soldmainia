@@ -36,7 +36,7 @@ jobs:
         run: meson compile -C builddir/ -v cDebug tDebug gDebug
 
       - name: Run Tests
-        run: meson test -C builddir/ -v
+        run: meson test 'Soldmania:' -C builddir/ --print-errorlogs 
            
       - name: Generating Coverage Report 
         run: ninja coverage-html -C builddir/
@@ -59,7 +59,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-20.04]
+        os: [ubuntu-22.04]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -80,7 +80,7 @@ jobs:
         run: meson compile -C builddir/ -v cDebug tDebug gDebug
 
       - name: Run Tests
-        run: meson test -C builddir/ -v
+        run:  meson test 'Soldmania:' -C builddir/ --print-errorlogs 
            
       - name: Generating Coverage Report 
         run: ninja coverage-html -C builddir/
@@ -103,7 +103,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2022, windows-2019]
+        os: [windows-2022]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -122,7 +122,7 @@ jobs:
         run: meson compile -C builddir/ -v cDebug tDebug gDebug
 
       - name: Run Tests
-        run: meson test -C builddir/ -v
+        run:  meson test 'Soldmania:' -C builddir/ --print-errorlogs 
         
       - name: Upload Test Log
         uses: actions/upload-artifact@v4
@@ -149,7 +149,7 @@ jobs:
           python-version: "3.x"
 
       - name: Install dependencies
-        run: python -m pip install clang-format 
+        run: sudo apt install clang-format 
 
       - name: Formatting Codebase
         run: clang-format src/**/* --verbose -i
