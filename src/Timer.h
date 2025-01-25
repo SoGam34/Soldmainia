@@ -12,7 +12,7 @@
  */
 #include <optional>
 #include <vector>
-                                      
+
 /**
  * @brief Eine Klasse die sich um die Zeitverwaltung kummert
  *

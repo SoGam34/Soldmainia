@@ -10,7 +10,6 @@
  * @copyright Copyright (c) 2024
  *
  */
-     
 
 #include "Gebaude/Batilion_Ausbildungszentrum.h"
 #include "Gebaude/Erholungsresort.h"
@@ -61,7 +60,7 @@ class Game {
       void processScoutbuero(int const eingabe);
       void processTraningszentrum(int const eingabe);
       void processErholungsresort(int const eingabe);
-      
+
       bool changedMenu(int const eingabe);
 
       /**

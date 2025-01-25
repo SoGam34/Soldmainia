@@ -1,6 +1,6 @@
 #ifndef BATILION_H_
 #define BATILION_H_
-               
+
 #include "Einheit.h"
 class Battilion : public Einheit {
       int MemberCount{1};
