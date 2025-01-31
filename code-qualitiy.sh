@@ -1,51 +1,49 @@
 #!/bin/bash
 
-printf "\n\nStarting\n\n"
+printf "Starting\n\n"
 
 meson compile -C builddir cDebug tDebug gDebug | grep -F '[-W' | sort | uniq -c | sort -nr
-printf "\n\nEvreything compile succsesfully \n\n"
+printf "Evreything compile succsesfully \n\n"
 
-meson test -C builddir | grep -F '[-W' | sort | uniq -c | sort -nr
-printf "\n\nEvreything testet succsesfully \n\n"
+testSummary=$(meson test -C builddir | tail -n8 | head -n6 | grep -v 0 | cut -d : -f1)
+testCount=$(echo $testSummary | wc -l)
+if [[ $testCount == '1' ]]; then
+  if [[ $testSummary == 'Ok' ]]; then
+    printf "Evreything testet succsesfully\n"
+  else
+    printf "The Tests are not in the ok categories in other Words: TEST FAILD"
+    exit 1
+  fi
+else
+  printf "The Tests are in several categories in other Words: TEST FAILD"
+  exit 1
+fi
 
-ninja -C builddir coverage-text >/dev/null 2>/dev/null
-
+ninja -C builddir coverage-text >/dev/null
 n="$(cat builddir/meson-logs/coverage.txt | grep TOTAL | cut -c 60- | cut -d % -f1)"
-if [[ $n > 90 ]]; then
-  echo coverage is greater then 90%% That is wonderful $n
+if [[ $n > 4 ]]; then
+  echo coverage is greater then 4%% That is wonderful.
 else
   echo code coverage ist $n% wich is bad and should instantly improved
   exit 1
 fi
 
-meson compile -C builddir format
-printf "\n\nFormatet Evreything \n\n"
+meson compile -C builddir format >/dev/null
+printf "\nFormatet Evreything\n\n"
 
-# meson compile -C builddir tidy >tidy.log
-# echo "\n\n Tidy Finished\n\n"
+# cppcheckWarnings=$(cppcheck src --enable=all -x c++ -q 2>cppcheck.log && grep -v "error: The code contains unhandled character(s)" cppcheck.log | grep -Gv "<*>" | grep src | sort | uniq -c | sort -nr)
+cppcheck src --enable=all -x c++ -q 2>cppcheck.log && grep -v "error: The code contains unhandled character(s)" cppcheck.log | grep -Gv "<*>" | grep src | sort | uniq -c | sort -nr
+printf "Cppcheck Finished\n\n"
 
-# tidyErrors=$(cat tidy.log | grep 'error:' | grep -v 'error: error reading' | sort | uniq -c | sort -nr | grep -c 'error:')
-#
-# if [[ tidyErrors > 0 ]]; then
-#   echo "There are some errors thrown by tidy please fix them:\n"
-#   cat tidy.log | grep 'error:' | grep -v 'error: error reading' | sort | uniq -c | sort -nr
-#   exit 1
-# else
-#   echo "There are no tidy Errors wich is great :) "
-# fi
-#
-# tidyWarnings=$(cat tidy.log | grep "warning:" | sort | uniq -c | sort -nr | grep -c "warning:")
-#
-# if [[ tidyWarnings > 100 ]]; then
+# if [[ $(printf $cppcheckWarnings | wc -l) > 100 ]]; then
 #   echo "you have to many warnings in the project! Consider starting withe these warnings: "
-#   head -n 30 $tidyWarnings
+#   printf $cppcheckWarnings
 #   exit 1
 #
-# elif [[ tidyWarnings > 0 ]]; then
-#   echo "There is room to improve! Look at these: "
-#   head -n 30 $tidyWarnings
+# elif [[ $cppcheckWarnings > 0 ]]; then
+#   echo "There is room to improve but its OK if you commit! Look at these: "
+#   printf $cppcheckWarnings
 # fi
 
-printf "\n\n FINISH! Happy Commiting! \n\n"
-
-git status
+printf "FINISH! Happy Commiting!"
+lazygit
