@@ -3,6 +3,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
+#include <stdexcept>
 #include <string>
 
 Data::Data() {
@@ -80,6 +81,10 @@ float Data::getKontostand() const {
 }
 
 void Data::abziehnVonKontostand(float const betrag) {
+      if (betrag < 0) {
+            throw std::invalid_argument(
+                "Man kann keine negativen Betrag vom Kontostand abziehen!");
+      }
       Kontostand -= betrag;
 }
 
