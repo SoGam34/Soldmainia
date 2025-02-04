@@ -170,7 +170,7 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend) {
                   auto* J     = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
                   int starkeJ = J->getMental();
-                  int starkeI = J->getMental();
+                  int starkeI = I->getMental();
 
                   return starkeI < starkeJ;
             };
@@ -186,7 +186,7 @@ void Auswahl::sortiereNachTruppenmoral(bool aufsteigend) {
             auto* J     = getAsEinheit(DatenAuswahl->getMembers().at(j));
 
             int starkeJ = J->getMental();
-            int starkeI = J->getMental();
+            int starkeI = I->getMental();
 
             return starkeI > starkeJ;
       };

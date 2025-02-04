@@ -10,8 +10,7 @@ Battilion::Battilion(int const MemberCount,
               BasisProtaction,
               minExpierienceForLevelUpgrade,
               name),
-      MemberCount(MemberCount),
-      SoldPerMember(SoldPerMember) {}
+      MemberCount(MemberCount) {}
 int Battilion::getMemeberCount() const {
       return MemberCount;
 }

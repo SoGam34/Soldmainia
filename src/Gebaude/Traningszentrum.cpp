@@ -20,9 +20,7 @@ const std::stringstream Traningszentrum::getGebaudeAktivText() const {
       // Der Text der warend des Trainings angezeigt wird
       auto e = getAsEinheit(Daten->getMembers().at(EinheitsVPosition));
       std::stringstream ssText;
-      ssText << "Die Einheit "
-             // << (e.first.has_value() ? e.first->getName()
-             //		       : e.second->getName())
+      ssText << "Die Einheit " << e->getName()
              << "\nwird gerade Trainiert\nDas Training ist\nvorausicht in "
              << VoraussichtlicheZeit << "\nTagen abgeschlossen";
       return ssText;
