@@ -1,6 +1,7 @@
 #include <catch2/catch_message.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
+#include <catch2/generators/catch_generators_all.hpp>
 #include "../src/Timer.h"
 
 TEST_CASE("Testing the Timer Class") {
@@ -11,8 +12,7 @@ TEST_CASE("Testing the Timer Class") {
 
       REQUIRE(t.checkTimerAbgelaufen());
 
-      auto time = GENERATE(4, 2, 44);
-
+      auto time = GENERATE(take(5, random(0, 388)));
       t.neuerTimer(time);
       t.neuerTimerMitID(0, time);
 
