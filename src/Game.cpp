@@ -13,7 +13,7 @@
 Game::Game(View* v, std::shared_ptr<Data> daten)
     : AktuellesMenu(hauptmenu),
       Daten(daten) {
-      // Gebaude
+      // Gebäude
       BAZ              = std::make_unique<Batillion_Ausbildungszentrum>(Daten);
       Scoutbueros      = std::make_unique<Scoutbuero>(Daten);
       Traningzentren   = std::make_unique<Traningszentrum>(Daten);
@@ -29,7 +29,7 @@ Game::Game(View* v, std::shared_ptr<Data> daten)
 
       try {
             log = spdlog::basic_logger_mt("GameLogger",
-                                          "progam-logs/game-log.txt");
+                                          "Program-log/game-log.txt");
       } catch (const spdlog::spdlog_ex& ex) {
             std::cout << "Log init failed: " << ex.what() << std::endl;
             return;
@@ -66,15 +66,15 @@ void Game::processBattilion(int const eingabe) {
                   BAZ->reduziereEinheitsGrosse();
             } break;
             case AUSWAHL_UPGRADE_ZEIT: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   BAZ->beschleunigungDerAufgabenDurchfuehrung();
             } break;
             case AUSWAHL_UPGRADE_SPEZIFISCH: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   BAZ->erhohenDerGrundstarke();
             } break;
             case AUSWAHL_UPGRADE_KOSTEN: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   BAZ->reduzierenDerAusfuhrungsKosten();
             } break;
             default: {
@@ -92,23 +92,23 @@ void Game::processScoutbuero(int const eingabe) {
                   Scoutbueros->beginneAufgabe();  // Suche Starten
             } break;
             case AUSWAHL_UPGRADE_ZEIT: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Scoutbueros->beschleunigungDerAufgabenDurchfuehrung();
             } break;
             case AUSWAHL_UPGRADE_SPEZIFISCH: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Scoutbueros->erhohenDesMoeglichenRanges();
             } break;
             case AUSWAHL_UPGRADE_KOSTEN: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Scoutbueros->reduzierenDerAusfuhrungsKosten();
             } break;
             case 25: {
-                  // TODO(Einheit): Benarichtigung
+                  // TODO(Einheit): Benachrichtigung
                   Scoutbueros->annehmenDerEinheit();  // Annehmen
             } break;
             case 26: {
-                  // TODO(Einheit): Benarichtigung
+                  // TODO(Einheit): Benachrichtigung
                   Scoutbueros->ablehnenDerEinheit();  // Ablehnen
             } break;
             default: {
@@ -123,33 +123,33 @@ void Game::processScoutbuero(int const eingabe) {
 void Game::processTraningszentrum(int const eingabe) {
       switch (eingabe) {
             case AUSWAHL_UPGRADE_ZEIT: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Traningzentren->beschleunigungDerAufgabenDurchfuehrung();
             } break;
             case AUSWAHL_UPGRADE_SPEZIFISCH: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Traningzentren->erhohenDerTraningsWirksamkeit();
             } break;
             case AUSWAHL_UPGRADE_KOSTEN: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Traningzentren->reduzierenDerAusfuhrungsKosten();
             } break;
             case AUSWAHL_AKTION_1: {
                   Traningzentren->langeTrainingsDauer();
                   int ausgewaelteEinheit{
-                      view->dialogAuswahlEinheit("ein langes Traning")};
+                      view->dialogAuswahlEinheit("ein langes Training")};
                   Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
             } break;
             case AUSWAHL_AKTION_3: {
                   Traningzentren->kurzeTraningsDauer();
                   int ausgewaelteEinheit =
-                      view->dialogAuswahlEinheit("ein kurzes Traning");
+                      view->dialogAuswahlEinheit("ein kurzes Training");
                   Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
             } break;
             case AUSWAHL_AKTION_2: {
                   Traningzentren->mittlereTrainingsDauer();
                   int ausgewaelteEinheit =
-                      view->dialogAuswahlEinheit("ein mittellanges Traning");
+                      view->dialogAuswahlEinheit("ein mittellanges Training");
                   Traningzentren->auswahlZuOrdnen(ausgewaelteEinheit);
             } break;
             default: {
@@ -169,15 +169,15 @@ void Game::processErholungsresort(int const eingabe) {
                   Erholungsresorts->auswahlZuOrdnen(ausgewaelteEinheit);
             } break;
             case AUSWAHL_UPGRADE_ZEIT: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Erholungsresorts->beschleunigungDerAufgabenDurchfuehrung();
             } break;
             case AUSWAHL_UPGRADE_SPEZIFISCH: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Erholungsresorts->erhohenDerTraningsWirksamkeit();
             } break;
             case AUSWAHL_UPGRADE_KOSTEN: {
-                  // TODO(Kosten): Benarichtigung
+                  // TODO(Kosten): Benachrichtigung
                   Erholungsresorts->reduzierenDerAusfuhrungsKosten();
             } break;
             default: {
