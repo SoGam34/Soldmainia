@@ -6,3 +6,5 @@ subprojects/nlohmann_json-*/**
 subprojects/packagecache/**
 .cache/**
 .vscode/** 
+*.log 
+*.bak 
